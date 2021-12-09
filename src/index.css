@@ -5,3 +5,15 @@
 .btn-main{
     @apply bg-tertiary hover:bg-tertiary-light text-main hover:text-secondary-light focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-opacity-50 rounded-full py-2 px-3
 }
+
+.dm{
+    @apply dark:bg-gray-800 dark:text-white
+}
+
+.route-active{
+    @apply text-tertiary
+}
+
+::selection{
+    @apply dark:text-tertiary-dark text-red-400
+}

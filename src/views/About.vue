@@ -1,5 +1,5 @@
 <template>
-  <div class="h-screen bg-gray-100 dark:bg-gray-800 dark:text-white text-gray-800">
+  <div class="h-screen bg-gray-100 text-gray-800 dm">
     <div class="max-w-screen-md m-auto pt-9">
       <h1 class="text-blue text-6xl">About RDP</h1>
       <p>
@@ -8,3 +8,9 @@
     </div>
   </div>
 </template>
+
+<script>
+export default {
+  name: 'About'
+}
+</script>
