@@ -1,8 +1,9 @@
 <template>
   <div :class="[darkMode ? 'dark' : '']">
     <Navigation></Navigation>
+    <Loader v-if="loading"></Loader>
     <div id="modals-go-here"></div>
-    <router-view v-slot="{ Component }">
+    <router-view v-slot="{ Component }" :key="$route.href">
       <transition name="fade">
         <component :is="Component" />
       </transition>
@@ -12,20 +13,28 @@
 </template>
 
 <script>
+  import { mapGetters } from 'vuex'
+
   import Footer from './components/Footer.vue'
   import Navigation from './components/Navigation.vue'
-  import { mapGetters } from 'vuex'
+  import Loader from './components/Loader.vue'
 
   export default {
   name: 'App',
   components: {
     Navigation,
-    Footer
+    Footer,
+    Loader
   },
   computed:{
     ...mapGetters([
-      'darkMode'
+      'darkMode',
+      'loading'
     ]),
+  },
+  mounted: function(){
+    //recent search history
+    this.$store.commit('checkRecentSearches');
   }
 }
 </script>

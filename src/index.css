@@ -13,7 +13,3 @@
 .route-active{
     @apply text-tertiary
 }
-
-::selection{
-    @apply dark:text-tertiary-dark text-red-400
-}

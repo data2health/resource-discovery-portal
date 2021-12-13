@@ -1,10 +1,10 @@
 import { createStore } from 'vuex'
-import user from '../store/modules/user'
+import search from '../store/modules/search'
 import { layout } from './modules/layout'
 
 const store = createStore({
     modules: {
-        user,
+        search,
         layout
     },
 })

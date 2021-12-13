@@ -2,7 +2,8 @@
   <!-- hero -->
   <div class="h-screen m-auto dm">
     <div class="bg-grey-100 p-5 text-center max-w-screen-md m-auto">
-      <h1 class="text-secondary-light text-5xl">Resource Discovery Portal</h1>
+      <img v-if="!darkMode" src="../../assets/img/rdp_color.svg" class="m-auto w-1/3">
+      <img v-else src="../../assets/img/rdp_dark.svg" class="m-auto w-1/3">
       <p class="my-5">
         Lorem ipsum dolor, sit amet consectetur adipisicing elit. 
         Cumque voluptates tempore perspiciatis laudantium obcaecati fugiat sunt tempora illo, 
@@ -10,11 +11,11 @@
       </p>
     </div>
     <!-- search -->
-    <div class="bg-gradient-to-r from-main-dark to-secondary-dark p-5 flex justify-center items-center h-1/4">
-      <Loader v-if="loading"></Loader>
+    <div class="bg-gradient-to-r from-main to-secondary p-5 flex justify-center items-center h-1/4">
       <div class="w-1/2">
         <form @submit.prevent="search()" class="w-full flex items-center">
           <input 
+          v-model="query"
           type="text" 
           placeholder="search" 
           class="w-full m-auto py-2 px-4 text-2x text-main 
@@ -24,35 +25,38 @@
             <i class="fas fa-search"></i>
           </button>
         </form>
-        <span class="text-sm block mt-2 text-main-light">
+        <span class="text-sm block mt-2 text-white">
             Eg. COVID-19 Datasets
           </span>
       </div>
     </div>
+    <Resources></Resources>
   </div>
 </template>
 
 <script>
-import Loader from '../components/Loader.vue'
+import { mapGetters } from 'vuex'
+import Resources from '../components/Resources.vue'
 
 export default {
   name: 'Home',
   data: function(){
     return {
-      loading: false
+      query:''
     }
   },
   components: {
-    Loader
+    Resources
   },
   methods:{
     search(){
-      console.log('searching...')
-      this.loading = true;
-      setTimeout(() => {
-        this.loading = false;
-      }, 2000);
+      this.$router.push({ path: '/search', query: { 'q': this.query }});
     }
-  }
+  },
+  computed:{
+      ...mapGetters([
+        'darkMode',
+      ]),
+    },
 }
 </script>
