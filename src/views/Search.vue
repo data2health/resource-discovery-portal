@@ -5,7 +5,6 @@
             <form @submit.prevent="search()" class="w-full flex items-center">
             <input 
             v-model="$route.query.q"
-            @input="onInput"
             type="text" 
             placeholder="search" 
             class="w-full m-auto py-2 px-4 text-2x text-main 
@@ -22,7 +21,7 @@
                 <!-- Filters -->
                 <div class="flex-initial w-32">filter</div>
                 <!-- Results -->
-                <div class="flex-initial w-64 flex-grow mx-3">
+                <div class="flex-initial w-64 flex-grow mx-3 highlight_container">
                     <!-- details -->
                     <div class="mb-3 p-2">
                         <p class="text-sm">{{results.length}} results</p>
@@ -35,13 +34,14 @@
                 <!-- Recent History -->
                 <div class="flex-initial w-1/6">
                     <div class="p-4 text-left rounded bg-gray-400">
-                        <h3 class="font-thin text-coolGray-100">Recent Searches</h3>
+                        <h3 class="font-thin text-coolGray-100 mb-3">Recent Searches</h3>
                         <ul>
                             <template v-for="(item, i) in recentSearches" :key="item + i">
-                                <li class="text-sm">
-                                    <router-link 
+                                <li class="text-xs mb-3">
+                                    <router-link :title="item"
                                     :to="{ path: '/search', query: { 'q': item }}">
-                                       <i class="fas fa-search text-xs"></i> {{item}}
+                                       <i class="fas fa-search text-xs"></i> 
+                                       {{item.length > 25 ? item.substring(0, 25) + '...' : item}}
                                     </router-link>
                                 </li>
                             </template>
@@ -55,12 +55,15 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import Result from '../components/Result.vue'
+import Mark from 'mark.js'
+
+import Result from '../components/ResultWrapper.vue'
 
 export default {
     name: "Search",
     data: function(){
         return {
+            highlighter: null
         }
     },
     components: {
@@ -70,17 +73,17 @@ export default {
         search(){
             console.log('searching')
             this.$store.dispatch('search', {value: this.$route.query.q});
-        },
-        onInput(e) {
-            this.$router.replace({
-                query: {
-                ...this.$route.query,
-                q: e.target.value,
-                }
-            })
+        }
+    },
+    updated: function(){
+        // Highlight matches in results
+        if(this.$route.query.q){
+            this.highlighter.unmark();
+            this.highlighter.mark(this.$route.query.q, {"separateWordSearch": false});
         }
     },
     mounted: function(){
+        this.highlighter = new Mark(document.querySelector(".highlight_container"));
         this.search();
     },
     computed:{
@@ -91,3 +94,10 @@ export default {
     },
 }
 </script>
+
+<style>
+    mark{
+        background-color: none !important;
+        color: red;
+    }
+</style>

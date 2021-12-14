@@ -26,7 +26,7 @@
           </button>
         </form>
         <span class="text-sm block mt-2 text-white">
-            Eg. COVID-19 Datasets
+            Eg. <router-link :to="{ path: '/search', query: { 'q': 'COVID-19' }}">COVID-19</router-link>
           </span>
       </div>
     </div>

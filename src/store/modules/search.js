@@ -19,7 +19,7 @@ export default {
                 commit('setLoading', { value: false});
                 // mock results
                 commit('saveResults', { value: docs});
-            }, 2000);
+            }, 1000);
         }
     },
     mutations: {

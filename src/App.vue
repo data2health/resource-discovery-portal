@@ -1,7 +1,11 @@
 <template>
+  <!-- head html images -->
+  <HeadMeta></HeadMeta>
+  <!-- main content -->
   <div :class="[darkMode ? 'dark' : '']">
     <Navigation></Navigation>
     <Loader v-if="loading"></Loader>
+    <!-- render modal components here -->
     <div id="modals-go-here"></div>
     <router-view v-slot="{ Component }" :key="$route.href">
       <transition name="fade">
@@ -18,13 +22,15 @@
   import Footer from './components/Footer.vue'
   import Navigation from './components/Navigation.vue'
   import Loader from './components/Loader.vue'
+  import HeadMeta from './components/HeadMeta.vue'
 
   export default {
   name: 'App',
   components: {
     Navigation,
     Footer,
-    Loader
+    Loader,
+    HeadMeta
   },
   computed:{
     ...mapGetters([
