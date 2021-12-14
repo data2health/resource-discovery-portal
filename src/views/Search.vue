@@ -33,7 +33,7 @@
                 </div>
                 <!-- Recent History -->
                 <div class="flex-initial w-1/6">
-                    <div class="p-4 text-left rounded bg-gray-400">
+                    <div class="p-4 text-left rounded bg-gray-400 dark:bg-gray-700">
                         <h3 class="font-thin text-coolGray-100 mb-3">Recent Searches</h3>
                         <ul>
                             <template v-for="(item, i) in recentSearches" :key="item + i">

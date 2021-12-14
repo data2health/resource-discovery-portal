@@ -13,3 +13,15 @@
 .route-active{
     @apply text-tertiary
 }
+
+a{
+    color: rgb(54, 116, 231);
+}
+
+a:hover{
+    color: rgb(71, 132, 247);
+}
+
+a{
+    @apply dark:text-blue-300
+}

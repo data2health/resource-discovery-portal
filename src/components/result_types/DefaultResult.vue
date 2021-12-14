@@ -5,9 +5,9 @@
             <h3><i class="fas fa-circle text-sky-500'"></i> {{item._index}}</h3>
         </div>
         <!-- Content Preview-->
-        <div class="bg-white h-auto tracking-wide mb-14 mx-1 rounded-sm relative dark:bg-gray-600 border border-t-gray-300 border-t-2">
+        <div class="bg-white h-auto p-4 tracking-wide mb-4 mx-1 rounded-sm relative dark:bg-gray-600 border border-t-gray-300 border-t-2">
             <h5 class="text-lg font-semibold ml-3 p-1">
-                {{item._source.label}}
+                <router-link :to="{ name: 'ResultDetails', params: {result_id: item._id } }">{{item._source.label}}</router-link>
             </h5>
             <p class="text-md font-regular p-6 pt-2 text-gray-500 dark:text-white">
                 default component
