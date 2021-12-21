@@ -8,7 +8,7 @@
             type="text" 
             placeholder="search" 
             class="w-full m-auto py-2 px-4 text-2x text-main 
-            rounded-full border border-transparent focus:outline-none focus:ring-2 
+            rounded-full border-secondary border-2 focus:outline-none focus:ring-2 
             focus:ring-secondary-light focus:border-transparent dark:bg-gray-300">
             <button type="submit" class="btn-main ml-2">
                 <i class="fas fa-search"></i>
@@ -17,33 +17,60 @@
         </div>
         <div class="container mx-auto px-4">
             <!-- Types -->
-            <div class="flex justify-around items-stretch">
+            <div class="flex justify-around items-start">
                 <!-- Filters -->
-                <div class="flex-initial w-32">filter</div>
+                <div class="rounded-lg p-2 mb-3 shadow bg-gray-100 dark:bg-gray-700 flex-initial w-1/5">
+                    <div class="rounded p-1 text-secondary dark:text-tertiary-light font-light flex justify-start text-sm items-center">
+                        <button @click="open = !open" type="button" class="icon-btn bg-white">
+                            <i class="fas" :class="[open ? 'fa-chevron-down' : 'fa-chevron-right']"></i>
+                        </button> <span class="ml-2">Search <i class="fas fa-plus text-secondary-light"></i></span>
+                    </div>
+                    <div v-if="open">
+                        <FilterList type="checkbox" name="dataSource" :items="['CD2H','Outbreak.info','Data Discovery Engine','DataMed']"></FilterList>
+                        <FilterList type="checkbox" name="dataType" :items="['Dataset','Publication','Video','Repository','Person', 'Clinical Trial']"></FilterList>
+                    </div>
+                </div>
                 <!-- Results -->
                 <div class="flex-initial w-64 flex-grow mx-3 highlight_container">
                     <!-- details -->
-                    <div class="mb-3 p-2">
-                        <p class="text-sm">{{results.length}} results</p>
+                    <div class="mb-3 p-2 dark:text-gray-500 text-gray-400">
+                        <Pagination :items="results" key="top-pagination"></Pagination>
                     </div>
                     <!-- hits -->
                     <template v-for="(result) in results" :key="result._source.label">
                         <Result :item="result"></Result>
                     </template>
+                    <div>
+                        <Pagination :items="results" key="bottom-pagination"></Pagination>
+                    </div>
                 </div>
                 <!-- Recent History -->
-                <div class="flex-initial w-1/6">
-                    <div class="p-4 text-left rounded bg-gray-400 dark:bg-gray-700">
-                        <h3 class="font-thin text-coolGray-100 mb-3">Recent Searches</h3>
+                <div class="flex-initial w-1/5">
+                    <div class="p-4 text-left rounded-lg bg-gray-200 dark:bg-gray-700">
+                        <div class="flex justify-between items-center mb-3">
+                            <p class="font-thin text-gray-500">Recent Searches</p>
+                            <Popper content="Clear All" class="tip" :hover="true" placement="right" arrow>
+                                <button class="icon-btn icon-btn bg-gray-300 text-gray-400 
+                                dark:bg-gray-600 dark:text-gray-500 hover:bg-red-400 dark:hover:bg-red-400 hover:text-white dark:hover:text-white"
+                                @click.prevent="clearRecentSearches()">
+                                    <i class="fas fa-times"></i>
+                                </button>
+                            </Popper>
+                        </div>
                         <ul>
                             <template v-for="(item, i) in recentSearches" :key="item + i">
                                 <li class="text-xs mb-3">
-                                    <router-link :title="item"
-                                    :to="{ path: '/search', query: { 'q': item }}">
-                                       <i class="fas fa-search text-xs"></i> 
-                                       {{item.length > 25 ? item.substring(0, 25) + '...' : item}}
-                                    </router-link>
+                                    <Popper :content="item" class="tip" :hover="true" placement="right" arrow>
+                                        <router-link :title="item" active-class="text-secondary"
+                                        :to="{ path: '/search', query: { 'q': item }}">
+                                        <i class="fas fa-search text-xs"></i> 
+                                        {{item.length > 25 ? item.substring(0, 25) + '...' : item}}
+                                        </router-link>
+                                    </Popper>
                                 </li>
+                            </template>
+                            <template v-if="recentSearches.length == 0">
+                                <li class="text-gray-400">No Recent Searches</li>
                             </template>
                         </ul>
                     </div>
@@ -58,28 +85,36 @@ import { mapGetters } from 'vuex'
 import Mark from 'mark.js'
 
 import Result from '../components/ResultWrapper.vue'
+import FilterList from '../components/FilterList.vue'
+import Pagination from '../components/Pagination.vue'
 
 export default {
     name: "Search",
     data: function(){
         return {
-            highlighter: null
+            highlighter: null,
+            open: false
         }
     },
     components: {
-        Result
+        Result,
+        FilterList,
+        Pagination
     },
     methods:{
         search(){
             console.log('searching')
             this.$store.dispatch('search', {value: this.$route.query.q});
+        },
+        clearRecentSearches() {
+            this.$store.commit('clearRecentSearches');
         }
     },
     updated: function(){
         // Highlight matches in results
         if(this.$route.query.q){
             this.highlighter.unmark();
-            this.highlighter.mark(this.$route.query.q, {"separateWordSearch": false});
+            this.highlighter.mark(this.$route.query.q, {"separateWordSearch": false, "className": "highlight"});
         }
     },
     mounted: function(){

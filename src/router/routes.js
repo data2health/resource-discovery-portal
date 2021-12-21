@@ -48,6 +48,17 @@ export const routes = [
                 }
             }
     },
+    {
+        path: '/privacy',
+        name: 'Privacy',
+        component: () => import('../views/Privacy.vue'),
+        props: true,
+        meta: {
+                sitemap: {
+                    priority:    0.7,
+                }
+            }
+    },
     // {
     //     path: "/:catchAll(.*)",
     //     name: '404',

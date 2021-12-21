@@ -7,8 +7,12 @@
     "serve": "vite preview"
   },
   "dependencies": {
+    "aos": "^3.0.0-beta.6",
     "vue": "^3.2.19",
+    "vue-final-modal": "^3.4.3",
+    "vue-gtag-next": "^1.14.0",
     "vue-router": "^4.0.11",
+    "vue3-popper": "^1.4.1",
     "vuex": "^4.0.2"
   },
   "devDependencies": {

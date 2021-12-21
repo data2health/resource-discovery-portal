@@ -51,6 +51,10 @@ export default {
             if (localStorage.getItem('rdp_recent')) {
                 state.recentSearches = JSON.parse(localStorage.rdp_recent);
             }
+        },
+        clearRecentSearches(state){
+            localStorage.rdp_recent = [];
+            state.recentSearches = [];
         }
     },
     getters: {

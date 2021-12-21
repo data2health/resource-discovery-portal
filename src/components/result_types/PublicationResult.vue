@@ -2,7 +2,7 @@
     <div>
         <!-- Type -->
         <div class=" text-gray-600 p-1 w-1/2 rounded-t-lg text-sm ml-2 bg-gray-200">
-            <h3><i class="fas fa-book text-green-500"></i> {{item._index}}</h3>
+            <h3><i class="fas fa-book text-green-500"></i> Publication</h3>
         </div>
         <!-- Content Preview-->
         <div class="bg-white h-auto p-4 tracking-wide mb-4 mx-1 rounded-sm relative dark:bg-gray-600 border border-t-gray-300 border-t-2">

@@ -2,7 +2,7 @@
     <div class="text-left">
         <!-- Type -->
         <div class=" text-gray-600 p-1 w-1/2 rounded-t-lg text-sm ml-2 bg-gray-200">
-            <h3><i class="fab fa-youtube-square text-red-600"></i> {{item._index}}</h3>
+            <h3><i class="fab fa-youtube-square text-red-600"></i> Video Playlist</h3>
         </div>
         <!-- Content Preview-->
         <div class="bg-white h-auto p-4 tracking-wide mb-4 mx-1 rounded-sm relative dark:bg-gray-600 border border-t-gray-300 border-t-2">

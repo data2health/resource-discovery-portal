@@ -2,7 +2,7 @@
     <div class="text-left">
         <!-- Type -->
         <div class=" text-gray-600 p-1 w-1/2 rounded-t-lg text-sm ml-2 bg-gray-200">
-            <h3><i class="fab fa-youtube text-red-500"></i> {{item._index}}</h3>
+            <h3><i class="fab fa-youtube text-red-500"></i> Video</h3>
         </div>
         <!-- Content Preview-->
         <div class="bg-white h-auto p-4 tracking-wide mb-4 mx-1 rounded-sm relative dark:bg-gray-600 border border-t-gray-300 border-t-2">
@@ -11,11 +11,13 @@
             </h5>
             <p v-if="item && item?._source?.description" class="text-sm">{{item?._source?.description.substring(0, 200) + '...'}}</p>
             <p class="text-sm text-gray-500" v-else>No Description</p>
-            <div class="text-md font-regular p-6 pt-2 text-gray-500 dark:text-white flex justify-between items-center">
+            <div class="text-md font-regular p-6 pt-2 text-gray-500 dark:text-white flex justify-between items-center flex-wrap">
 
                 <div v-if="videoThumbnail && videoPlayer">
                     <div v-if="!videoView">
-                        <img @click="videoView = !videoView" :src="videoThumbnail.url" alt="video thumbnail" class="w-1/3 hover:border hover:border-red-500 hover:cursor-pointer">
+                        <Popper content="Play Video" class="tip" :hover="true" placement="left" arrow>
+                            <img @click="videoView = !videoView" :src="videoThumbnail.url" alt="video thumbnail" class="w-1/3 hover:border hover:border-red-500 hover:cursor-pointer">
+                        </Popper>
                     </div>
                     <div v-else>
                         <div v-html="videoPlayer"></div>

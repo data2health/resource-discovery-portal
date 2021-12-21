@@ -2,6 +2,29 @@
 @tailwind components;
 @tailwind utilities;
 
+/* tooltip */
+
+:root {
+    --popper-theme-background-color: #333333;
+    --popper-theme-background-color-hover: #333333;
+    --popper-theme-text-color: #ffffff;
+    --popper-theme-border-width: 0px;
+    --popper-theme-border-style: solid;
+    --popper-theme-border-radius: 6px;
+    --popper-theme-padding: 5px 10px;
+    --popper-theme-box-shadow: 0 6px 30px -6px rgba(0, 0, 0, 0.25);
+}
+
+.highlight{
+    @apply bg-none text-red-500
+}
+
+.icon-btn{
+    width: 24px;
+    height: 24px;
+    @apply flex items-center justify-center rounded-full
+}
+
 .btn-main{
     @apply bg-tertiary hover:bg-tertiary-light text-main hover:text-secondary-light focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-opacity-50 rounded-full py-2 px-3
 }
@@ -11,7 +34,7 @@
 }
 
 .route-active{
-    @apply text-tertiary
+    @apply text-tertiary-light font-bold dark:text-white
 }
 
 a{
@@ -25,3 +48,5 @@ a:hover{
 a{
     @apply dark:text-blue-300
 }
+
+

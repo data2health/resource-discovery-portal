@@ -4,7 +4,7 @@
             <div class="loader-ring"></div>
             <div class="loader-ring"></div>
             <div class="loader-ring"></div>
-            <div class="loader-text text-main">Loading</div>
+            <div class="loader-text text-tertiary dark:text-light">Loading</div>
       </div>
   </div>
 </template>
@@ -39,9 +39,9 @@ export default {
     }
 
     .loader-ring:nth-child(1){
-        border-left: #F4F56E 2px solid;
+        border-left: #2cceff 2px solid;
         margin-top: 5px;
-        box-shadow: magenta -3px -2px 15px;
+        box-shadow: rgb(52, 56, 255) -3px -2px 15px;
         width: 60px;
         height: 60px;
         -webkit-animation: rotating 1.5s linear infinite;
@@ -53,7 +53,7 @@ export default {
     .loader-ring:nth-child(2){
         border-top: #866AC8 2px solid;
         margin-left: 2px;
-        box-shadow: yellow 2px 2px 20px;
+        box-shadow: #00ccf5 2px 2px 20px;
         width: 70px;
         height: 70px;
         -webkit-animation: rotating 1s linear infinite;

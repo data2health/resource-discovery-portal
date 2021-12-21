@@ -1,6 +1,7 @@
 <template>
   <!-- navbar goes here -->
-  <nav class="bg-main">
+  <nav class="bg-main dark:bg-main-dark bg-no-repeat bg-right" 
+  style="background-image: url('../../public/assets/img/bg_dark.svg')">
     <div class="max-w-6xl mx-auto px-2">
       <div class="flex justify-between">
 
@@ -22,7 +23,7 @@
 
         <!-- secondary nav -->
         <div class="hidden md:flex items-center space-x-1">
-          <button @click="toggleDarkMode()" class="py-2 px-3 rounded-full bg-black dark:bg-white transition duration-500">
+          <button @click="toggleDarkMode()" class="py-2 px-3 icon-btn bg-black dark:bg-white shadow-md">
             <i class="fas" :class="[!darkMode ? 'fa-moon text-indigo-300' : 'fa-sun text-yellow-400']"></i>
           </button>
         </div>
@@ -40,7 +41,7 @@
     </div>
 
     <!-- mobile menu -->
-    <div class="mobile-menu md:hidden bg-indigo-600" :class="menuClass">
+    <div class="mobile-menu md:hidden bg-main-dark" :class="menuClass">
       <router-link to="/about"  @click="toggleMenu()" class="block py-2 px-4 text-sm hover:bg-secondary">About</router-link>
       <router-link to="/search"  @click="toggleMenu()" class="block py-2 px-4 text-sm hover:bg-secondary">Search</router-link>
     </div>
