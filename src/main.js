@@ -5,8 +5,10 @@ import App from './App.vue'
 import Popper from "vue3-popper";
 import { vfmPlugin } from 'vue-final-modal'
 import VModal from './components/VModal.vue'
+import Toaster from "@meforma/vue-toaster";
 import SimpleModal from './components/SimpleModal.vue'
 import Pill from './components/Pill.vue'
+import CopyButton from './components/CopyButton.vue'
 import AOS from 'aos';
 import moment from 'moment';
 // import VueGtag from "vue-gtag-next";
@@ -25,6 +27,7 @@ const app = createApp(App);
 
 app.use(router)
 .use(vfmPlugin)
+.use(Toaster)
 // .use(VueGtag, {
 //     property: {
 //         id: "UA-123456-7"
@@ -36,6 +39,7 @@ app.component("Popper", Popper);
 app.component("Modal", SimpleModal);
 app.component("VModal", VModal);
 app.component("Pill", Pill);
+app.component("CopyButton", CopyButton);
 
 app.config.globalProperties.$filters = {
     readableName(text) {

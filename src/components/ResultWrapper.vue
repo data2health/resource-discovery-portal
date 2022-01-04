@@ -1,6 +1,9 @@
 <template>
     <!-- render customized async result component depending on type -->
-    <template v-if="item._index == 'cd2h-youtube-video'">
+    <template v-if="item._index.includes('outbreak')">
+        <Publication :item="item"></Publication>
+    </template>
+    <template v-else-if="item._index == 'cd2h-youtube-video'">
         <VideoResult :item="item"></VideoResult>
     </template>
     <template v-else-if="item._index == 'cd2h-youtube-playlist'">
@@ -8,9 +11,6 @@
     </template>
     <template v-else-if="item._index == 'cd2h-github-repository'">
         <RepoResult :item="item"></RepoResult>
-    </template>
-    <template v-else-if="item._index == 'outbreak_biorxiv_202110201005_cky5khsd'">
-        <Publication :item="item"></Publication>
     </template>
     <template v-else-if="item._index == 'cd2h-clinical-trials'">
         <ClinicalTrial :item="item"></ClinicalTrial>
@@ -20,6 +20,9 @@
     </template>
     <template v-else-if="item._index == 'cd2h-clic-education'">
         <Educational :item="item"></Educational>
+    </template>
+    <template v-else-if="item._index == 'csbc-pson-computational-tools'">
+        <Tool :item="item"></Tool>
     </template>
     <template v-else>
         <DefaultResult :item="item"></DefaultResult>
@@ -44,7 +47,7 @@ const PlaylistResult = defineAsyncComponent({
 })
 
 const Publication = defineAsyncComponent({
-    loader: () => import('./result_types/PublicationResult.vue'),
+    loader: () => import('./result_types/OutbreakResult.vue'),
     delay: 200,
     errorComponent: DefaultResult
 })
@@ -56,7 +59,7 @@ const RepoResult = defineAsyncComponent({
 })
 
 const ClinicalTrial = defineAsyncComponent({
-    loader: () => import('./result_types/ClinicalTrialResult.vue'),
+    loader: () => import('./result_types/ClinicalTrial.vue'),
     delay: 200,
     errorComponent: DefaultResult
 })
@@ -69,6 +72,12 @@ const Dataset = defineAsyncComponent({
 
 const Educational = defineAsyncComponent({
     loader: () => import('./result_types/EducationalResult.vue'),
+    delay: 200,
+    errorComponent: DefaultResult
+})
+
+const Tool = defineAsyncComponent({
+    loader: () => import('./result_types/CompTool.vue'),
     delay: 200,
     errorComponent: DefaultResult
 })
@@ -87,7 +96,8 @@ export default {
         Publication,
         ClinicalTrial ,
         Dataset,
-        Educational
+        Educational,
+        Tool
     }
 }
 </script>

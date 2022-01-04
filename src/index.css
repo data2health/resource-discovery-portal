@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@200&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -5,14 +7,18 @@
 /* tooltip */
 
 :root {
-    --popper-theme-background-color: #333333;
-    --popper-theme-background-color-hover: #333333;
+    --popper-theme-background-color: #4A3FCA;
+    --popper-theme-background-color-hover: #251F70;
     --popper-theme-text-color: #ffffff;
     --popper-theme-border-width: 0px;
     --popper-theme-border-style: solid;
     --popper-theme-border-radius: 6px;
     --popper-theme-padding: 5px 10px;
     --popper-theme-box-shadow: 0 6px 30px -6px rgba(0, 0, 0, 0.25);
+}
+
+h1,h2,h3,h4,h5,p{
+    font-family: 'Inter', sans-serif;
 }
 
 .inset-center {
@@ -29,6 +35,8 @@
 .icon-btn{
     width: 24px;
     height: 24px;
+    padding: 14px;
+    margin: 3px;
     @apply flex items-center justify-center rounded-full
 }
 

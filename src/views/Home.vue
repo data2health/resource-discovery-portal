@@ -3,8 +3,8 @@
   <div class="h-screen m-auto dm flex justify-center items-center">
     <div class="h-2/3">
       <div class="bg-grey-100 p-5 text-center max-w-screen-md m-auto mb-10">
-        <img v-if="!darkMode" src="../../assets/img/rdp_color.svg" class="m-auto w-1/3">
-        <img v-else src="../../assets/img/rdp_dark.svg" class="m-auto w-1/3">
+        <img v-if="!darkMode" src="../../assets/img/rdp_color.svg" alt="logo" class="m-auto w-1/3">
+        <img v-else src="../../assets/img/rdp_dark.svg" alt="logo" class="m-auto w-1/3">
       </div>
       <!-- search -->
       <div class="w-auto m-auto px-5">

@@ -1,6 +1,8 @@
 <template>
-    <div class="h-screen max-w-screen-md m-auto flex justify-center items-start pt-5">
-        <Result :item="item"></Result>
+    <div class="h-screen pt-5 dark:bg-gray-800 bg-gray-200">
+        <div class="max-w-screen-md m-auto flex justify-center items-start">
+            <Result :item="item"></Result>
+        </div>
     </div>
 </template>
 

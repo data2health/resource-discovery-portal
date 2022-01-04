@@ -23,9 +23,11 @@
 
         <!-- secondary nav -->
         <div class="hidden md:flex items-center space-x-1">
-          <button @click="toggleDarkMode()" class="py-2 px-3 icon-btn bg-black dark:bg-white shadow-md">
-            <i class="fas" :class="[!darkMode ? 'fa-moon text-indigo-300' : 'fa-sun text-yellow-400']"></i>
-          </button>
+          <Popper :content="darkMode ? 'Light Mode' : 'Dark Mode'" class="tip" :hover="true" placement="top">
+            <button @click="toggleDarkMode()" class="py-2 px-3 icon-btn bg-black dark:bg-white shadow-md">
+              <i class="fas" :class="[!darkMode ? 'fa-moon text-indigo-300' : 'fa-sun text-yellow-400']"></i>
+            </button>
+          </Popper>
         </div>
 
         <!-- mobile button goes here -->

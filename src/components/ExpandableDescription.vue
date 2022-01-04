@@ -1,14 +1,15 @@
 <template>
-    <div class="relative rounded-md hover:bg-gray-300/25 p-1 cursor-pointer" 
+    <div class="relative rounded-md hover:bg-gray-300/25 p-1 cursor-pointer text-sm" 
     v-if="text && text.length > 200" 
     @click.prevent="expanded = !expanded">
-        <p>
-            {{!expanded ? text.substring(0, 200) + '...' : text}}
-        </p>
+        <p v-html="!expanded ? text.substring(0, 200) + '...' : text"></p>
     </div>
-    <p v-else>
-        {{text || 'No Description Available'}}
+    <p class="text-gray-400 text-sm" v-else-if="!text">
+        No Description Available
     </p>
+    <template v-else>
+        <p class="text-sm" v-html="text"></p>
+    </template>
 </template>
 
 <script>

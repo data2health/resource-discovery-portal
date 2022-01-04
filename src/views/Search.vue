@@ -20,7 +20,7 @@
             <div class="flex justify-around items-start">
                 <!-- Filters -->
                 <div class="rounded-lg p-2 mb-3 shadow bg-gray-100 dark:bg-gray-700 flex-initial w-1/5">
-                    <div class="rounded p-1 text-secondary dark:text-tertiary-light font-light flex justify-start text-sm items-center">
+                    <div @click="open = !open" class="rounded cursor-pointer p-1 text-secondary dark:text-tertiary-light font-light flex justify-start text-sm items-center">
                         <button @click="open = !open" type="button" class="icon-btn bg-white">
                             <i class="fas" :class="[open ? 'fa-chevron-down' : 'fa-chevron-right']"></i>
                         </button> <span class="ml-2">Search <i class="fas fa-plus text-secondary-light"></i></span>
@@ -44,9 +44,10 @@
                         <Pagination :items="results" key="bottom-pagination"></Pagination>
                     </div>
                 </div>
-                <!-- Recent History -->
+                <!-- Right Column -->
                 <div class="flex-initial w-1/5">
-                    <div class="p-4 text-left rounded-lg bg-gray-200 dark:bg-gray-700">
+                    <!-- Recent History -->
+                    <div class="p-4 text-left rounded-lg bg-gray-200 dark:bg-gray-700 mb-2">
                         <div class="flex justify-between items-center mb-3">
                             <p class="font-thin text-gray-500">Recent Searches</p>
                             <Popper content="Clear All" class="tip" :hover="true" placement="right" arrow>
@@ -74,6 +75,24 @@
                             </template>
                         </ul>
                     </div>
+                    <!-- Sharing-->
+                    <div class="p-4 text-left rounded-lg bg-gray-200 dark:bg-gray-700 mb-2">
+                        <p class="font-thin text-gray-500">Sharing</p>
+                        <div class="flex justify-around items-center p-2">
+                            <!-- share URL -->
+                            <CopyButton copy_msg="Copy URL" copy="COPY TEST"></CopyButton>
+                            <!-- Download -->
+                            <Popper content="Download Results" class="tip" :hover="true" placement="top">
+                                <button class="icon-btn rounded-xl bg-main hover:bg-main-light" 
+                                    @click.prevent="download">
+                                    <i class="fas fa-download text-white"></i>
+                                </button>
+                            </Popper>
+                            <!-- Social -->
+                            <ShareButtons></ShareButtons>
+                        </div>
+                        
+                    </div>
                 </div>
             </div>
         </div>
@@ -87,6 +106,7 @@ import Mark from 'mark.js'
 import Result from '../components/ResultWrapper.vue'
 import FilterList from '../components/FilterList.vue'
 import Pagination from '../components/Pagination.vue'
+import ShareButtons from '../components/ShareButtons.vue'
 
 export default {
     name: "Search",
@@ -99,7 +119,8 @@ export default {
     components: {
         Result,
         FilterList,
-        Pagination
+        Pagination,
+        ShareButtons
     },
     methods:{
         search(){
@@ -108,6 +129,9 @@ export default {
         },
         clearRecentSearches() {
             this.$store.commit('clearRecentSearches');
+        },
+        download(){
+            console.log('download')
         }
     },
     updated: function(){
@@ -126,7 +150,7 @@ export default {
         'results',
         'recentSearches'
       ]),
-    },
+    }
 }
 </script>
 

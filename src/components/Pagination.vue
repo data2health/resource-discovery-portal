@@ -2,7 +2,7 @@
     <div class="flex justify-between items-center flex-wrap">
         <!-- total hits -->
         <div>
-            <p class="font-extralight text-lg">{{numberWithCommas(items.length)}} Results</p>
+            <p class="font-extralight text-xs">{{numberWithCommas(items.length)}} Results</p>
         </div>
         <!-- pages -->
         <div>
@@ -32,7 +32,7 @@
         </div>
         <!-- per page -->
         <div>
-            <label class="font-extralight mr-2" for="perPage">Per Page</label>
+            <label class="font-extralight mr-2 text-xs" for="perPage">Per Page</label>
             <select name="perPage" class="appearance-none accent-pink-500 px-2 py-1 rounded-full">
                 <option value="10">10</option>
                 <option value="25">20</option>
