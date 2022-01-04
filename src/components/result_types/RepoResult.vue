@@ -19,7 +19,7 @@
                         <a :href="item?._source?.raw?.html_url" target="_blank" rel="nonreferrer">{{item?._source?.raw?.name}}</a>
                     </p>
                 </div>
-                <div class="ml-2 p-3 rounded border border-gray-500 text-xs">
+                <div class="ml-2 p-3 rounded border border-gray-200 text-xs">
                     <p class="mb-1"><i class="fab fa-github"></i> {{item?._source?.raw?.owner?.type}}</p>
                     <p class="mb-1"><i class="fas fa-lock"></i> {{item?._source?.raw?.visibility}}</p>
                 </div>

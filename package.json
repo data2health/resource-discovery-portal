@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "aos": "^3.0.0-beta.6",
+    "moment": "^2.29.1",
     "vue": "^3.2.19",
     "vue-final-modal": "^3.4.3",
     "vue-gtag-next": "^1.14.0",

@@ -12,6 +12,15 @@
     <template v-else-if="item._index == 'outbreak_biorxiv_202110201005_cky5khsd'">
         <Publication :item="item"></Publication>
     </template>
+    <template v-else-if="item._index == 'cd2h-clinical-trials'">
+        <ClinicalTrial :item="item"></ClinicalTrial>
+    </template>
+    <template v-else-if="item._index == 'cd2h-datamed'">
+        <Dataset :item="item"></Dataset>
+    </template>
+    <template v-else-if="item._index == 'cd2h-clic-education'">
+        <Educational :item="item"></Educational>
+    </template>
     <template v-else>
         <DefaultResult :item="item"></DefaultResult>
     </template>
@@ -46,6 +55,25 @@ const RepoResult = defineAsyncComponent({
     errorComponent: DefaultResult
 })
 
+const ClinicalTrial = defineAsyncComponent({
+    loader: () => import('./result_types/ClinicalTrialResult.vue'),
+    delay: 200,
+    errorComponent: DefaultResult
+})
+
+const Dataset = defineAsyncComponent({
+    loader: () => import('./result_types/DatasetResult.vue'),
+    delay: 200,
+    errorComponent: DefaultResult
+})
+
+const Educational = defineAsyncComponent({
+    loader: () => import('./result_types/EducationalResult.vue'),
+    delay: 200,
+    errorComponent: DefaultResult
+})
+
+
 export default {
     name: "Result",
     props:{
@@ -56,7 +84,10 @@ export default {
         DefaultResult,
         RepoResult,
         PlaylistResult,
-        Publication
+        Publication,
+        ClinicalTrial ,
+        Dataset,
+        Educational
     }
 }
 </script>

@@ -24,7 +24,9 @@ module.exports = {
                 light: '#4fe2ff',
               }
         },
-        extend: {},
+        extend: {
+          display: ["group-hover"],
+        },
     },
     variants: {
         extend: {},

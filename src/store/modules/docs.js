@@ -1,5 +1,316 @@
 export default [
   {
+    "_index": "cd2h-clic-education",
+    "_type": "_doc",
+    "_id": "1",
+    "_score": 1,
+    "_ignored": [
+        "description.keyword"
+    ],
+    "_source": {
+        "id": 1,
+        "url": "https://clic-ctsa.org/education/ind-and-ide-sponsor-and-investigator-training",
+        "label": "IND and IDE Sponsor and Investigator Training",
+        "description": "This training provides information regarding the sponsor and investigator requirements for an IND or IDE as well as resources to ensure compliance with FDA regulations.  There are two separate training modules that each focus on the requirements for the specific regulatory application that the sponsor or sponsor-investigator holds. Sponsors who hold an IND (for drugs and biologics) can complete the training module entitled “IND Sponsor and Investigator Responsibilities.\" Sponsors who hold an IDE (for medical devices) can complete the training module entitled “IDE Sponsor and Investigator Responsibilities.” Duke University's Office of Regulatory Affairs and Quality created versions of the training modules that are available to academic institutions outside of Duke at no cost. They are available in a format that is compatible with most Learning Management Systems (LMS) to give you the ability to track registration and completion of training. They are also available in an HTML format for web viewing and as PDFs. Please visit our website to learn more and to request the modules.",
+        "objective": "The learning objective of these training modules is to understand the regulatory responsibilities of being a sponsor and/or investigator of an IND or an IDE.",
+        "institution": "Duke University",
+        "method": "Online",
+        "frequency": "On demand",
+        "fee": "No",
+        "competency": [{
+            "competency": "Regulations & Compliance"
+        }],
+        "tag": null,
+        "target": [{
+                "target": "Principal Investigators"
+            },
+            {
+                "target": "Researchers"
+            },
+            {
+                "target": "Clinical Research Professionals"
+            }
+        ],
+        "entity": "education",
+        "_meta": {
+            "competency": {
+                "id": [
+                    1
+                ],
+                "seqnum": [
+                    1
+                ]
+            },
+            "target": {
+                "id": [
+                    1
+                ],
+                "seqnum": [
+                    1,
+                    2,
+                    3
+                ]
+            }
+        }
+    }
+},
+  {
+    "_index": "cd2h-datamed",
+    "_type": "_doc",
+    "_id": "5817a2409e76164e55cbd934",
+    "_score": 1,
+    "_source": {
+      "url": "http://www.uniprot.org/uniprot/B0T7D0",
+      "label": "UBIE_CAUSK",
+      "raw": {
+        "_id": "5817a2409e76164e55cbd934",
+        "_type": "dataset",
+        "_index": "swissprot_103116",
+        "_score": 0.37532616,
+        "_source": {
+          "access": {
+            "landingPage": "http://www.uniprot.org/uniprot/B0T7D0"
+          },
+          "dataset": {
+            "ID": "B0T7D0",
+            "title": "UBIE_CAUSK",
+            "types": [
+              "sequence"
+            ],
+            "privacy": "not applicable",
+            "version": "1",
+            "creators": [
+              "Copeland A.",
+              "Lucas S.",
+              "Lapidus A.",
+              "Barry K.",
+              "Glavina del Rio T.",
+              "Dalin E.",
+              "Tice H.",
+              "Pitluck S.",
+              "Bruce D.",
+              "Goodwin L.",
+              "Thompson L.S.",
+              "Brettin T.",
+              "Detter J.C.",
+              "Han C.",
+              "Schmutz J.",
+              "Larimer F.",
+              "Land M.",
+              "Hauser L.",
+              "Kyrpides N.",
+              "Kim E.",
+              "Stephens C.",
+              "Richardson P."
+            ],
+            "keywords": [
+              "Complete proteome",
+              "Menaquinone biosynthesis",
+              "Methyltransferase",
+              "Reference proteome",
+              "S-adenosyl-L-methionine",
+              "Transferase",
+              "Ubiquinone biosynthesis"
+            ],
+            "refinement": "curated",
+            "aggregation": "instance of dataset",
+            "description": "Ubiquinone/menaquinone biosynthesis C-methyltransferase UbiE S-adenosyl-L-methionine binding S-adenosyl-L-methionine S-adenosyl-L-methionine S-adenosyl-L-methionine",
+            "availability": "available",
+            "dateReleased": "20080408T000000+0000"
+          },
+          "dataItem": {
+            "dataTypes": [
+              "dataset",
+              "datasetDistributions",
+              "dataRepository",
+              "organization",
+              "biologicalEntity",
+              "access",
+              "taxonomicInformation",
+              "primaryPublication"
+            ]
+          },
+          "provenance": {
+            "ingestTime": "20161031T195753+0000",
+            "filePattern": "",
+            "ingestMethod": "WEB",
+            "ingestTarget": "ftp://ftp.uniprot.org/pub/databases/uniprot/current_release/knowledgebase/complete/uniprot_sprot.xml.gz"
+          },
+          "organization": {
+            "ID": "SCR:004727",
+            "name": "European Bioinformatics Institute",
+            "homePage": "http://www.ebi.ac.uk/",
+            "abbreviation": "EMBL-EBI"
+          },
+          "dataRepository": {
+            "ID": "SCR:002380",
+            "name": "UniProt",
+            "homePage": "http://www.uniprot.org/",
+            "abbreviation": "UniProt"
+          },
+          "biologicalEntity": [
+            {
+              "name": "Ubiquinone/menaquinone biosynthesis C-methyltransferase UbiE"
+            }
+          ],
+          "primaryPublication": {
+            "year": "2008-01",
+            "authorsList": [
+              "Copeland A.",
+              "Lucas S.",
+              "Lapidus A.",
+              "Barry K.",
+              "Glavina del Rio T.",
+              "Dalin E.",
+              "Tice H.",
+              "Pitluck S.",
+              "Bruce D.",
+              "Goodwin L.",
+              "Thompson L.S.",
+              "Brettin T.",
+              "Detter J.C.",
+              "Han C.",
+              "Schmutz J.",
+              "Larimer F.",
+              "Land M.",
+              "Hauser L.",
+              "Kyrpides N.",
+              "Kim E.",
+              "Stephens C.",
+              "Richardson P."
+            ]
+          },
+          "datasetDistributions": [
+            {
+              "format": "HTML",
+              "license": "Creative Commons Attribution-NoDerivs License",
+              "storedIn": "UniProt",
+              "accessURL": "http://www.uniprot.org/uniprot/B0T7D0",
+              "qualifier": "not compressed",
+              "accessType": "landing page",
+              "authorization": "none",
+              "authentication": "none"
+            },
+            {
+              "format": "FASTA",
+              "license": "Creative Commons Attribution-NoDerivs License",
+              "storedIn": "UniProt",
+              "accessURL": "http://www.uniprot.org/uniprot/B0T7D0.fasta",
+              "qualifier": "not compressed",
+              "accessType": "download",
+              "authorization": "none",
+              "authentication": "none"
+            }
+          ],
+          "taxonomicInformation": [
+            {
+              "ID": "ncbitax:366602",
+              "name": "C",
+              "strain": ""
+            }
+          ]
+        }
+      },
+      "entity": "dataset",
+      "_meta": {}
+    }
+  },
+  {
+    "_index": "cd2h-clinical-trials",
+    "_type": "_doc",
+    "_id": "1131",
+    "_score": 1,
+    "_source": {
+      "nct_id": "NCT00001131",
+      "label": "Effectiveness of Interleukin-2 (IL-2) Plus Anti-HIV Therapy in HIV-Positive Patients",
+      "official_title": "Procedure for Initiation, Administration, and Discontinuation of Interleukin-2 (IL-2) Therapy in Conjunction With Highly Active Antiretroviral Therapy",
+      "overall_status": "Completed",
+      "study_type": "Interventional",
+      "overall_official": [
+        {
+          "overall_official_name": "Joseph B Margolick",
+          "overall_official_affiliation": null
+        }
+      ],
+      "collaborator": null,
+      "keyword": [
+        {
+          "keyword": "Interleukin-2"
+        },
+        {
+          "keyword": "Drug Therapy, Combination"
+        },
+        {
+          "keyword": "Drug Administration Schedule"
+        },
+        {
+          "keyword": "Viremia"
+        },
+        {
+          "keyword": "T-Lymphocytes, Cytotoxic"
+        },
+        {
+          "keyword": "Anti-HIV Agents"
+        },
+        {
+          "keyword": "Treatment Experienced"
+        }
+      ],
+      "phase": [
+        {
+          "phase": "Not Applicable"
+        }
+      ],
+      "condition": [
+        {
+          "condition": "HIV Infections"
+        }
+      ],
+      "url": "https://clinicaltrials.gov/ct2/show/NCT00001131",
+      "entity": "clinical trial",
+      "_meta": {
+        "overall_official": {
+          "id": [
+            1131
+          ],
+          "seqnum": [
+            1
+          ]
+        },
+        "keyword": {
+          "id": [
+            1131
+          ],
+          "seqnum": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ]
+        },
+        "phase": {
+          "id": [
+            1131
+          ],
+          "seqnum": [
+            1
+          ]
+        },
+        "condition": {
+          "id": [
+            1131
+          ],
+          "seqnum": [
+            1
+          ]
+        }
+      }
+    }
+  },
+  {
     "_index": "cd2h-youtube-video",
     "_type": "_doc",
     "_id": "6BCWRCnI7_s",
@@ -872,315 +1183,5 @@ export default [
       "_meta": {}
     }
   },
-    {
-        "_index": "cd2h-clic-education",
-        "_type": "_doc",
-        "_id": "1",
-        "_score": 1,
-        "_ignored": [
-            "description.keyword"
-        ],
-        "_source": {
-            "id": 1,
-            "url": "https://clic-ctsa.org/education/ind-and-ide-sponsor-and-investigator-training",
-            "label": "IND and IDE Sponsor and Investigator Training",
-            "description": "This training provides information regarding the sponsor and investigator requirements for an IND or IDE as well as resources to ensure compliance with FDA regulations.  There are two separate training modules that each focus on the requirements for the specific regulatory application that the sponsor or sponsor-investigator holds. Sponsors who hold an IND (for drugs and biologics) can complete the training module entitled “IND Sponsor and Investigator Responsibilities.\" Sponsors who hold an IDE (for medical devices) can complete the training module entitled “IDE Sponsor and Investigator Responsibilities.” Duke University's Office of Regulatory Affairs and Quality created versions of the training modules that are available to academic institutions outside of Duke at no cost. They are available in a format that is compatible with most Learning Management Systems (LMS) to give you the ability to track registration and completion of training. They are also available in an HTML format for web viewing and as PDFs. Please visit our website to learn more and to request the modules.",
-            "objective": "The learning objective of these training modules is to understand the regulatory responsibilities of being a sponsor and/or investigator of an IND or an IDE.",
-            "institution": "Duke University",
-            "method": "Online",
-            "frequency": "On demand",
-            "fee": "No",
-            "competency": [{
-                "competency": "Regulations & Compliance"
-            }],
-            "tag": null,
-            "target": [{
-                    "target": "Principal Investigators"
-                },
-                {
-                    "target": "Researchers"
-                },
-                {
-                    "target": "Clinical Research Professionals"
-                }
-            ],
-            "entity": "education",
-            "_meta": {
-                "competency": {
-                    "id": [
-                        1
-                    ],
-                    "seqnum": [
-                        1
-                    ]
-                },
-                "target": {
-                    "id": [
-                        1
-                    ],
-                    "seqnum": [
-                        1,
-                        2,
-                        3
-                    ]
-                }
-            }
-        }
-    },
-    {
-        "_index": "cd2h-clinical-trials",
-        "_type": "_doc",
-        "_id": "1131",
-        "_score": 1,
-        "_source": {
-          "nct_id": "NCT00001131",
-          "label": "Effectiveness of Interleukin-2 (IL-2) Plus Anti-HIV Therapy in HIV-Positive Patients",
-          "official_title": "Procedure for Initiation, Administration, and Discontinuation of Interleukin-2 (IL-2) Therapy in Conjunction With Highly Active Antiretroviral Therapy",
-          "overall_status": "Completed",
-          "study_type": "Interventional",
-          "overall_official": [
-            {
-              "overall_official_name": "Joseph B Margolick",
-              "overall_official_affiliation": null
-            }
-          ],
-          "collaborator": null,
-          "keyword": [
-            {
-              "keyword": "Interleukin-2"
-            },
-            {
-              "keyword": "Drug Therapy, Combination"
-            },
-            {
-              "keyword": "Drug Administration Schedule"
-            },
-            {
-              "keyword": "Viremia"
-            },
-            {
-              "keyword": "T-Lymphocytes, Cytotoxic"
-            },
-            {
-              "keyword": "Anti-HIV Agents"
-            },
-            {
-              "keyword": "Treatment Experienced"
-            }
-          ],
-          "phase": [
-            {
-              "phase": "Not Applicable"
-            }
-          ],
-          "condition": [
-            {
-              "condition": "HIV Infections"
-            }
-          ],
-          "url": "https://clinicaltrials.gov/ct2/show/NCT00001131",
-          "entity": "clinical trial",
-          "_meta": {
-            "overall_official": {
-              "id": [
-                1131
-              ],
-              "seqnum": [
-                1
-              ]
-            },
-            "keyword": {
-              "id": [
-                1131
-              ],
-              "seqnum": [
-                1,
-                2,
-                3,
-                4,
-                5,
-                6,
-                7
-              ]
-            },
-            "phase": {
-              "id": [
-                1131
-              ],
-              "seqnum": [
-                1
-              ]
-            },
-            "condition": {
-              "id": [
-                1131
-              ],
-              "seqnum": [
-                1
-              ]
-            }
-          }
-        }
-      },
-      {
-        "_index": "cd2h-datamed",
-        "_type": "_doc",
-        "_id": "5817a2409e76164e55cbd934",
-        "_score": 1,
-        "_source": {
-          "url": "http://www.uniprot.org/uniprot/B0T7D0",
-          "label": "UBIE_CAUSK",
-          "raw": {
-            "_id": "5817a2409e76164e55cbd934",
-            "_type": "dataset",
-            "_index": "swissprot_103116",
-            "_score": 0.37532616,
-            "_source": {
-              "access": {
-                "landingPage": "http://www.uniprot.org/uniprot/B0T7D0"
-              },
-              "dataset": {
-                "ID": "B0T7D0",
-                "title": "UBIE_CAUSK",
-                "types": [
-                  "sequence"
-                ],
-                "privacy": "not applicable",
-                "version": "1",
-                "creators": [
-                  "Copeland A.",
-                  "Lucas S.",
-                  "Lapidus A.",
-                  "Barry K.",
-                  "Glavina del Rio T.",
-                  "Dalin E.",
-                  "Tice H.",
-                  "Pitluck S.",
-                  "Bruce D.",
-                  "Goodwin L.",
-                  "Thompson L.S.",
-                  "Brettin T.",
-                  "Detter J.C.",
-                  "Han C.",
-                  "Schmutz J.",
-                  "Larimer F.",
-                  "Land M.",
-                  "Hauser L.",
-                  "Kyrpides N.",
-                  "Kim E.",
-                  "Stephens C.",
-                  "Richardson P."
-                ],
-                "keywords": [
-                  "Complete proteome",
-                  "Menaquinone biosynthesis",
-                  "Methyltransferase",
-                  "Reference proteome",
-                  "S-adenosyl-L-methionine",
-                  "Transferase",
-                  "Ubiquinone biosynthesis"
-                ],
-                "refinement": "curated",
-                "aggregation": "instance of dataset",
-                "description": "Ubiquinone/menaquinone biosynthesis C-methyltransferase UbiE S-adenosyl-L-methionine binding S-adenosyl-L-methionine S-adenosyl-L-methionine S-adenosyl-L-methionine",
-                "availability": "available",
-                "dateReleased": "20080408T000000+0000"
-              },
-              "dataItem": {
-                "dataTypes": [
-                  "dataset",
-                  "datasetDistributions",
-                  "dataRepository",
-                  "organization",
-                  "biologicalEntity",
-                  "access",
-                  "taxonomicInformation",
-                  "primaryPublication"
-                ]
-              },
-              "provenance": {
-                "ingestTime": "20161031T195753+0000",
-                "filePattern": "",
-                "ingestMethod": "WEB",
-                "ingestTarget": "ftp://ftp.uniprot.org/pub/databases/uniprot/current_release/knowledgebase/complete/uniprot_sprot.xml.gz"
-              },
-              "organization": {
-                "ID": "SCR:004727",
-                "name": "European Bioinformatics Institute",
-                "homePage": "http://www.ebi.ac.uk/",
-                "abbreviation": "EMBL-EBI"
-              },
-              "dataRepository": {
-                "ID": "SCR:002380",
-                "name": "UniProt",
-                "homePage": "http://www.uniprot.org/",
-                "abbreviation": "UniProt"
-              },
-              "biologicalEntity": [
-                {
-                  "name": "Ubiquinone/menaquinone biosynthesis C-methyltransferase UbiE"
-                }
-              ],
-              "primaryPublication": {
-                "year": "2008-01",
-                "authorsList": [
-                  "Copeland A.",
-                  "Lucas S.",
-                  "Lapidus A.",
-                  "Barry K.",
-                  "Glavina del Rio T.",
-                  "Dalin E.",
-                  "Tice H.",
-                  "Pitluck S.",
-                  "Bruce D.",
-                  "Goodwin L.",
-                  "Thompson L.S.",
-                  "Brettin T.",
-                  "Detter J.C.",
-                  "Han C.",
-                  "Schmutz J.",
-                  "Larimer F.",
-                  "Land M.",
-                  "Hauser L.",
-                  "Kyrpides N.",
-                  "Kim E.",
-                  "Stephens C.",
-                  "Richardson P."
-                ]
-              },
-              "datasetDistributions": [
-                {
-                  "format": "HTML",
-                  "license": "Creative Commons Attribution-NoDerivs License",
-                  "storedIn": "UniProt",
-                  "accessURL": "http://www.uniprot.org/uniprot/B0T7D0",
-                  "qualifier": "not compressed",
-                  "accessType": "landing page",
-                  "authorization": "none",
-                  "authentication": "none"
-                },
-                {
-                  "format": "FASTA",
-                  "license": "Creative Commons Attribution-NoDerivs License",
-                  "storedIn": "UniProt",
-                  "accessURL": "http://www.uniprot.org/uniprot/B0T7D0.fasta",
-                  "qualifier": "not compressed",
-                  "accessType": "download",
-                  "authorization": "none",
-                  "authentication": "none"
-                }
-              ],
-              "taxonomicInformation": [
-                {
-                  "ID": "ncbitax:366602",
-                  "name": "C",
-                  "strain": ""
-                }
-              ]
-            }
-          },
-          "entity": "dataset",
-          "_meta": {}
-        }
-      }
+  
 ]

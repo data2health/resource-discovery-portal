@@ -9,8 +9,7 @@
             <h5 class="text-lg font-semibold">
                 <router-link :to="{ name: 'ResultDetails', params: {result_id: item._id } }">{{item._source.label}}</router-link>
             </h5>
-            <p v-if="item && item?._source?.description" class="text-sm">{{item?._source?.description.substring(0, 200) + '...'}}</p>
-            <p class="text-sm text-gray-500" v-else>No Description</p>
+            <Description :text="item?._source?.description"></Description>
             <div class="text-md font-regular p-6 pt-2 text-gray-500 dark:text-white flex justify-between items-center flex-wrap">
 
                 <div v-if="videoThumbnail && videoPlayer">
@@ -35,15 +34,15 @@
                     <h1>No Video Preview Available</h1>
                 </div>
 
-                <div class="ml-2 p-3 rounded border border-gray-500 text-xs">
-                    <p class="mb-1"><i class="far fa-clock"></i> {{item?._source?.duration}}</p>
-                    <p class="mb-1"><i class="fas fa-thumbs-up"></i> {{item?._source?.like_count}}</p>
-                    <p class="mb-1"><i class="fas fa-eye"></i> {{item?._source?.view_count}}</p>
+                <div class="ml-2 p-3 rounded border border-gray-200 text-xs">
+                    <p class="mb-1"><i class="far fa-clock text-red-500"></i> {{item?._source?.duration}}</p>
+                    <p class="mb-1"><i class="fas fa-thumbs-up text-red-500"></i> {{item?._source?.like_count}}</p>
+                    <p class="mb-1"><i class="fas fa-eye text-red-500"></i> {{item?._source?.view_count}}</p>
                 </div>
             </div>
             <div v-if="item?._source?.tag">
                 <small class="text-xs mr-2 text-gray-400" v-for="(tag, i) in item?._source?.tag" :key="tag + i">
-                    <i class="fas fa-tag"></i> {{tag?.tag}}
+                    <i class="fas fa-tag text-red-500"></i> {{tag?.tag}}
                 </small>
             </div>
         </div>
@@ -51,12 +50,16 @@
 </template>
 
 <script>
+import Description from '../ExpandableDescription.vue'
 
 export default {
     name: "VideoResult",
     props:{
         item: Object,
         videoView: false
+    },
+    components:{
+        Description
     },
     computed:{
         videoThumbnail: function(){

@@ -6,18 +6,75 @@
         </div>
         <!-- Content Preview-->
         <div class="bg-white h-auto p-4 tracking-wide mb-4 mx-1 rounded-sm relative dark:bg-gray-600 border border-t-gray-300 border-t-2">
-            <h5 class="text-lg font-semibold ml-3 p-1">
-                <router-link :to="{ name: 'ResultDetails', params: {result_id: item._id } }">{{item._source.name}}</router-link>
-            </h5>
-            <p v-if="item && item?._source?.abstract" class="text-sm">{{item?._source?.abstract.substring(0, 200) + '...'}}</p>
-            <p class="text-sm text-gray-500" v-else>No Description</p>
+            <div class="flex justify-between flex-wrap">
+                <h5 class="text-lg font-semibold">
+                    <router-link :to="{ name: 'ResultDetails', params: {result_id: item._id } }">{{item._source.name}}</router-link>
+                </h5>
+                <!-- published date -->
+                <p v-if="item && item?._source?.datePublished" class="text-sm">
+                    <i class="fas fa-book text-green-500"></i> {{$filters.formatDate(item?._source?.datePublished)}}
+                </p>
+            </div>
+            <!-- description -->
+            <Description :text="item?._source?.abstract"></Description>
+            <!-- detail box -->
+            <div class="flex justify-around items-center">
+                <!-- type -->
+                <template v-if="item && item?._source?.publicationType">
+                    <!-- pill -->
+                    <Pill color="bg-green-500" v-for="type in item._source.publicationType" :key="type">
+                        <template v-slot:title>Type</template>
+                        <template v-slot:value>{{type}}</template>
+                    </Pill>
+                </template>
+                <!-- DOI -->
+                <template v-if="item && item?._source?.doi" class="text-sm">
+                    <!-- pill -->
+                    <Pill color="bg-green-500">
+                        <template v-slot:title>DOI</template>
+                        <template v-slot:value>{{item?._source?.doi}}</template>
+                    </Pill>
+                </template>
+            </div>
+            <!-- stats box -->
             <div class="text-md font-regular p-6 pt-2 text-gray-500 dark:text-white flex justify-between items-center">
-                <div class="ml-2 p-3 rounded border border-gray-500 text-xs" v-if="authors && authors.length">
-                    <p>Authors:</p>
-                    <template v-if="authors.length < 10">
-                        <p class="mb-1" v-for="author in authors" :key="author"><i class="fas fa-user"></i> {{author}}</p>
+                <div class="ml-2 p-3 rounded border border-gray-200 text-xs">
+                    <!-- curated -->
+                    <template v-if="item?._source?.curatedBy">
+                        <p class="text-green-500">Curated by:</p>
+                        <a v-if="item?._source?.curatedBy?.url" :href="item?._source?.curatedBy?.url" target="_blank" rel="nonreferrer">
+                            {{item?._source?.curatedBy?.name}} ({{$filters.formatDate(item?._source?.curatedBy?.curationDate)}}) <i class="fas fa-external-link-square-alt text-green-500"></i>
+                        </a>
+                        <p v-else>{{item?._source?.curatedBy?.name}} ({{$filters.formatDate(item?._source?.curatedBy?.curationDate)}})</p>
                     </template>
-                    <p v-else class="mb-1"><i class="fas fa-user"></i> {{authors.length}} authors</p>
+                    <!-- authors -->
+                    <template v-if="authors || authorsByInstitution">
+                        <p class="text-green-500 mt-2">Authors:</p>
+                        <!-- if by institution -->
+                        <template v-if="authorsByInstitution">
+                            <p v-for="(authors, institution) in authorsByInstitution" :key="institution" class="mb-2">
+                                <Popper :content="JSON.stringify(authors)" class="tip" :hover="true" placement="right" arrow>
+                                    <span>(<span class="text-green-500">{{authors.length}}</span>) </span>
+                                </Popper>
+                                {{institution}}
+                            </p>
+                        </template>
+                        <!-- else list them-->
+                        <template v-else-if="authors">
+                            <!-- short list -->
+                            <template v-if="authors.length < 11">
+                                <small class="mb-1" v-for="(author, i) in authors" :key="author">
+                                    {{author}} <span v-if="i < authors.length-1">, </span>
+                                </small>
+                            </template>
+                            <!-- long hover -->
+                            <template v-else>
+                                <Popper :content="JSON.stringify(authors)" class="tip" :hover="true" placement="right" arrow>
+                                    <span>(<span class="text-green-500">{{authors.length}}</span>) authors</span>
+                                </Popper>
+                            </template>
+                        </template>
+                    </template>
                 </div>
             </div>
         </div>
@@ -26,15 +83,41 @@
 
 <script>
 
+import Description from '../ExpandableDescription.vue'
+
 export default {
     name: "PublicationResult",
     props:{
         item: Object
     },
+    components:{
+        Description
+    },
     computed:{
         authors: function(){
             if (this.item && this.item?._source?.author) {
                 return this.item?._source?.author.map(item => item.name);
+            }else{
+                return false
+            }
+        },
+        authorsByInstitution: function(){
+            let res = {};
+            if (this.item && this.item?._source?.author) {
+                this.item?._source?.author.forEach(item => {
+                    if( Object.hasOwnProperty.call(item, 'affiliation')){
+                        item.affiliation.forEach(aff => {
+                            if (Object.hasOwnProperty.call(aff, 'name')) {
+                                if (!Object.hasOwnProperty.call(res, aff.name)) {
+                                    res[aff.name] = [item.name];
+                                }else{
+                                    res[aff.name].push(item.name);
+                                }
+                            }
+                        });
+                    }
+                });
+            return Object.keys(res).length ? res : false;
             }else{
                 return false
             }
