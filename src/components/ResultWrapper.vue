@@ -1,7 +1,7 @@
 <template>
     <!-- render customized async result component depending on type -->
     <template v-if="item._index.includes('outbreak')">
-        <Publication :item="item"></Publication>
+        <Outbreak :item="item"></Outbreak>
     </template>
     <template v-else-if="item._index == 'cd2h-youtube-video'">
         <VideoResult :item="item"></VideoResult>
@@ -23,6 +23,9 @@
     </template>
     <template v-else-if="item._index == 'csbc-pson-computational-tools'">
         <Tool :item="item"></Tool>
+    </template>
+    <template v-else-if="item._index == 'cd2h-github-user'">
+        <Person :item="item"></Person>
     </template>
     <template v-else>
         <DefaultResult :item="item"></DefaultResult>
@@ -46,7 +49,7 @@ const PlaylistResult = defineAsyncComponent({
     errorComponent: DefaultResult
 })
 
-const Publication = defineAsyncComponent({
+const Outbreak = defineAsyncComponent({
     loader: () => import('./result_types/OutbreakResult.vue'),
     delay: 200,
     errorComponent: DefaultResult
@@ -82,6 +85,12 @@ const Tool = defineAsyncComponent({
     errorComponent: DefaultResult
 })
 
+const Person = defineAsyncComponent({
+    loader: () => import('./result_types/Person.vue'),
+    delay: 200,
+    errorComponent: DefaultResult
+})
+
 
 export default {
     name: "Result",
@@ -93,11 +102,12 @@ export default {
         DefaultResult,
         RepoResult,
         PlaylistResult,
-        Publication,
+        Outbreak,
         ClinicalTrial ,
         Dataset,
         Educational,
-        Tool
+        Tool,
+        Person
     }
 }
 </script>

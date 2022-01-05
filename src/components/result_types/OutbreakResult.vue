@@ -1,12 +1,7 @@
 <template>
     <div>
         <!-- Type -->
-        <div class=" text-gray-600 p-1 w-1/2 rounded-t-lg text-sm ml-2 bg-gray-200">
-            <h3 class="flex justify-between dark:text-gray-500">
-                <span><i class="fas fa-dot-circle text-sky-700"></i> {{outbreak_type}} </span>
-                <img class="h-5 mr-5" src="../../../assets/img/outbreak.svg" alt="logo" >
-            </h3>
-        </div>
+        <ResultTab :name="result_type" :cls="[theme.icon, theme.text]" :index="item?._index"></ResultTab>
         <!-- Content Preview-->
         <div class="bg-white h-auto p-4 tracking-wide mb-4 mx-1 rounded-sm relative dark:bg-gray-600 border border-t-gray-300 border-t-2">
             <div class="flex justify-between flex-wrap">
@@ -15,7 +10,7 @@
                 </h5>
                 <!-- published date -->
                 <p v-if="item && item?._source?.datePublished" class="text-sm">
-                    <i class="fas fa-book text-sky-700"></i> {{$filters.formatDate(item?._source?.datePublished)}}
+                    <i class="fas fa-book" :class="theme.text"></i> {{$filters.formatDate(item?._source?.datePublished)}}
                 </p>
             </div>
             <!-- description -->
@@ -25,7 +20,7 @@
                 <!-- type -->
                 <template v-if="item && item?._source?.publicationType">
                     <!-- pill -->
-                    <Pill color="bg-sky-700" v-for="type in item._source.publicationType" :key="type">
+                    <Pill :color="theme['bg']" v-for="type in item._source.publicationType" :key="type">
                         <template v-slot:title>Type</template>
                         <template v-slot:value>{{type}}</template>
                     </Pill>
@@ -33,7 +28,7 @@
                 <!-- DOI -->
                 <template v-if="item && item?._source?.doi" class="text-sm">
                     <!-- pill -->
-                    <Pill color="bg-sky-700">
+                    <Pill :color="theme['bg']">
                         <template v-slot:title>DOI</template>
                         <template v-slot:value>{{item?._source?.doi}}</template>
                     </Pill>
@@ -44,20 +39,20 @@
                 <div class="ml-2 p-3 rounded border border-gray-200 text-xs">
                     <!-- curated -->
                     <template v-if="item?._source?.curatedBy">
-                        <p class="text-sky-700">Curated by:</p>
+                        <p :class="theme.text">Curated by:</p>
                         <a v-if="item?._source?.curatedBy?.url" :href="item?._source?.curatedBy?.url" target="_blank" rel="nonreferrer">
-                            {{item?._source?.curatedBy?.name}} ({{$filters.formatDate(item?._source?.curatedBy?.curationDate)}}) <i class="fas fa-external-link-square-alt text-sky-700"></i>
+                            {{item?._source?.curatedBy?.name}} ({{$filters.formatDate(item?._source?.curatedBy?.curationDate)}}) <i class="fas fa-external-link-square-alt" :class="theme.text"></i>
                         </a>
                         <p v-else>{{item?._source?.curatedBy?.name}} ({{$filters.formatDate(item?._source?.curatedBy?.curationDate)}})</p>
                     </template>
                     <!-- authors -->
                     <template v-if="authors || authorsByInstitution">
-                        <p class="text-sky-700 mt-2">Authors:</p>
+                        <p class="mt-2" :class="theme.text">Authors:</p>
                         <!-- if by institution -->
                         <template v-if="authorsByInstitution">
                             <p v-for="(authors, institution) in authorsByInstitution" :key="institution" class="mb-2">
                                 <Popper :content="JSON.stringify(authors)" class="tip" :hover="true" placement="right" arrow>
-                                    <span>(<span class="text-sky-700">{{authors.length}}</span>) </span>
+                                    <span>(<span :class="theme.text">{{authors.length}}</span>) </span>
                                 </Popper>
                                 {{institution}}
                             </p>
@@ -73,7 +68,7 @@
                             <!-- long hover -->
                             <template v-else>
                                 <Popper :content="JSON.stringify(authors)" class="tip" :hover="true" placement="right" arrow>
-                                    <span>(<span class="text-sky-700">{{authors.length}}</span>) authors</span>
+                                    <span>(<span :class="theme.text">{{authors.length}}</span>) authors</span>
                                 </Popper>
                             </template>
                         </template>
@@ -85,16 +80,17 @@
 </template>
 
 <script>
-
+import ResultTab from '../ResultTab.vue'
 import Description from '../ExpandableDescription.vue'
 
 export default {
-    name: "PublicationResult",
+    name: "OutbreakResult",
     props:{
         item: Object
     },
     components:{
-        Description
+        Description,
+        ResultTab
     },
     computed:{
         authors: function(){
@@ -103,6 +99,14 @@ export default {
             }else{
                 return false
             }
+        },
+        result_type: function () {
+            // deeper > shallow
+            return this.item?._source?.entity ? this.item?._source?.entity : 
+            this.item?._source?.['@type'] ? this.item?._source?.['@type'] : 'Tool';
+        },
+        theme: function() {
+            return this.$store.getters.getTheme(this.result_type.charAt(0).toUpperCase() + this.result_type.slice(1));
         },
         authorsByInstitution: function(){
             let res = {};

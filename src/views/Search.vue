@@ -19,7 +19,7 @@
             <!-- Types -->
             <div class="flex justify-around items-start">
                 <!-- Filters -->
-                <div class="rounded-lg p-2 mb-3 shadow bg-gray-100 dark:bg-gray-700 flex-initial w-1/5">
+                <div class="rounded-2xl p-2 mb-3 shadow bg-gray-100 dark:bg-gray-700 flex-initial w-1/5 select-none">
                     <div @click="open = !open" class="rounded cursor-pointer p-1 text-secondary dark:text-tertiary-light font-light flex justify-start text-sm items-center">
                         <button @click="open = !open" type="button" class="icon-btn bg-white">
                             <i class="fas" :class="[open ? 'fa-chevron-down' : 'fa-chevron-right']"></i>
@@ -49,7 +49,7 @@
                     <!-- Recent History -->
                     <div class="p-4 text-left rounded-lg bg-gray-200 dark:bg-gray-700 mb-2">
                         <div class="flex justify-between items-center mb-3">
-                            <p class="font-thin text-gray-500">Recent Searches</p>
+                            <p class="font-thin text-gray-500 text-sm">Recent Searches</p>
                             <Popper content="Clear All" class="tip" :hover="true" placement="right" arrow>
                                 <button class="icon-btn icon-btn bg-gray-300 text-gray-400 
                                 dark:bg-gray-600 dark:text-gray-500 hover:bg-red-400 dark:hover:bg-red-400 hover:text-white dark:hover:text-white"

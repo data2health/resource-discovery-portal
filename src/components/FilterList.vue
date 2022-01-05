@@ -1,18 +1,15 @@
 <template>
-    <div class="rounded-lg p-2 mb-3 shadow bg-gray-100 dark:bg-gray-700" data-aos="fade-in">
-        <div @click="open = !open" class="rounded cursor-pointer p-1 text-gray-600 font-extralight flex justify-start text-xs items-center dark:text-tertiary mb-1">
-            <button @click="open = !open" type="button" class="icon-btn mr-2 bg-white">
-                <i class="fas text-gray-500" :class="[open ? 'fa-chevron-down' : 'fa-chevron-right']"></i>
-            </button> <span>{{ $filters.readableName(name) }} ({{items.length}})</span>
+    <div class="rounded-2xl p-2 mb-3 shadow select-none bg-gray-200/50 dark:bg-gray-700" data-aos="fade-in">
+        <div @click="open = !open" 
+        class="rounded cursor-pointer p-1 text-gray-600
+        font-light flex justify-start text-xs items-center dark:text-tertiary">
+            <span>{{ $filters.readableName(name) }} ({{items.length}})</span>
         </div>
         <div v-if="type == 'checkbox' && open">
             <template v-for="(item) in items" :key="item + name">
-                <div class="font-light flex justify-between items-center mb-1" data-aos="fade-in">
-                    <label class="text-xs dark:text-gray-300" :for="item + name">{{item}}</label>
-                    <input 
-                    :name="item + name" 
-                    type="checkbox" class="accent-green-500 rounded">
-                </div>
+                <button class="rounded-2xl block w-full select-none text-left px-3 py-1 bg-white hover:bg-gray-200 m-1 text-xs text-gray-500" data-aos="fade-in">
+                    {{item}}
+                </button>
             </template>
         </div>
     </div>

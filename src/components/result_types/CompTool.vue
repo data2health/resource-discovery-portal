@@ -1,12 +1,7 @@
 <template>
     <div>
         <!-- Type -->
-        <div class="p-1 w-1/2 rounded-t-lg text-sm ml-2 bg-gray-200">
-            <h3 class="flex justify-between dark:text-gray-500">
-                <span><i class="fas fa-laptop text-indigo-500"></i> Tool</span>
-                <img class="h-5 mr-5" src="../../../assets/img/csbc.svg" alt="logo" >
-            </h3>
-        </div>
+        <ResultTab :name="result_type" :cls="[theme.icon, theme.text]" :index="item?._index"></ResultTab>
         <!-- Content Preview-->
         <div class="bg-white h-auto p-4 tracking-wide mb-4 mx-1 rounded-sm relative dark:bg-gray-600 border border-t-gray-300 border-t-2">
             <h5 class="text-lg font-semibold">
@@ -17,49 +12,49 @@
             <!-- description -->
             <Description :text="description"></Description>
             <div class="text-sm my-1" v-if="source?.operation">
-                <p class="text-indigo-500 mt-2">Operation:</p>
+                <p class="mt-2" :class="theme.text">Operation:</p>
                 <Description :text="source?.operation"></Description>
             </div>
             <!-- detail box -->
             <div class="flex justify-around items-center flex-wrap">
                 <!-- ID -->
                 <template v-if="source?.toolId" class="text-sm">
-                    <Pill color="bg-indigo-500">
+                    <Pill :color="theme['bg']">
                         <template v-slot:title>ID</template>
                         <template v-slot:value>{{source?.toolId}}</template>
                     </Pill>
                 </template>
                 <!-- type -->
                 <template v-if="source?.toolType" class="text-sm">
-                    <Pill color="bg-indigo-500" v-for="type in source?.toolType" :key="type">
+                    <Pill :color="theme['bg']" v-for="type in source?.toolType" :key="type">
                         <template v-slot:title>Type</template>
                         <template v-slot:value>{{type}}</template>
                     </Pill>
                 </template>
                 <!-- language -->
                 <template v-if="source?.language" class="text-sm">
-                    <Pill color="bg-indigo-500" v-for="type in source?.language" :key="type">
+                    <Pill :color="theme['bg']" v-for="type in source?.language" :key="type">
                         <template v-slot:title><i class="fas fa-code"></i></template>
                         <template v-slot:value>{{type}}</template>
                     </Pill>
                 </template>
                 <!-- cost -->
                 <template v-if="source?.cost" class="text-sm">
-                    <Pill color="bg-indigo-500">
+                    <Pill :color="theme['bg']">
                         <template v-slot:title><i class="fas fa-dollar-sign"></i></template>
                         <template v-slot:value>{{source?.cost}}</template>
                     </Pill>
                 </template>
                 <!-- accessibility -->
                 <template v-if="source?.accessibility" class="text-sm">
-                    <Pill color="bg-indigo-500">
+                    <Pill :color="theme['bg']">
                         <template v-slot:title><i class="fas fa-lock"></i></template>
                         <template v-slot:value>{{source?.accessibility}}</template>
                     </Pill>
                 </template>
                 <!-- license-->
                 <template v-if="source?.license" class="text-sm">
-                    <Pill color="bg-indigo-500">
+                    <Pill :color="theme['bg']">
                         <template v-slot:title><i class="fas fa-certificate"></i></template>
                         <template v-slot:value>{{source?.license}}</template>
                     </Pill>
@@ -68,7 +63,7 @@
             <div class="flex justify-items-stretch flex-nowrap justify-center text-xs">
                 <!-- input -->
                 <Popper content="Input" class="tip" :hover="true" placement="top">
-                <div class="flex justify-center items-center p-2 rounded-l-2xl bg-indigo-500/50">
+                <div class="flex justify-center items-center p-2 rounded-l-2xl">
                     <div class="flex flex-col justify-items-stretch">
                         <p v-if="source?.inputFormat" class="bg-gray-300 p-2 rounded-t-2xl dark:bg-gray-700">
                             <span class="rounded-md text-gray-500 mr-1" v-for="item in source?.inputFormat" :key="item">
@@ -77,7 +72,7 @@
                         </p>
                         <p class="bg-gray-100 p-2 rounded-b-2xl dark:bg-gray-500">
                                 <template v-if="source?.inputData">
-                                <span class="rounded-md text-indigo-500 mr-1 dark:text-white" v-for="item in source?.inputData" :key="item">
+                                <span class="rounded-md mr-1 dark:text-white" :class="theme.text" v-for="item in source?.inputData" :key="item">
                                     <i class="fas fa-circle"></i> {{item}}
                                 </span>
                             </template>
@@ -86,12 +81,12 @@
                 </div>
                 </Popper>
                 <!-- arrow -->
-                <div class="flex justify-center items-center bg-gray-300 px-3 dark:bg-gray-500">
-                    <i class="fas fa-chevron-right text-indigo-500 fa-2x"></i>
+                <div class="flex justify-center items-center px-3">
+                    <i class="fas fa-chevron-right fa-2x" :class="theme.text"></i>
                 </div>
                 <!-- output -->
                 <Popper content="Output" class="tip" :hover="true" placement="top">
-                <div class="flex justify-center items-center p-2 rounded-r-2xl bg-indigo-500/75">
+                <div class="flex justify-center items-center p-2 rounded-r-2xl">
                     <div class="flex flex-col justify-items-stretch">
                         <p v-if="source?.outputFormat" class="bg-gray-300 p-2 rounded-t-2xl dark:bg-gray-700">
                             <span class="rounded-md text-gray-500 mr-1" v-for="item in source?.outputFormat" :key="item">
@@ -100,7 +95,7 @@
                         </p>
                         <p class="bg-gray-100 p-2 rounded-b-2xl dark:bg-gray-500">
                                 <template v-if="source?.outputData">
-                                <span class="rounded-md text-indigo-500 mr-1 dark:text-white" v-for="item in source?.outputData" :key="item">
+                                <span class="rounded-md mr-1 dark:text-white" :class="theme.text" v-for="item in source?.outputData" :key="item">
                                     <i class="fas fa-circle"></i> {{item}}
                                 </span>
                             </template>
@@ -114,25 +109,25 @@
                 <div class="ml-2 p-3 rounded border border-gray-200 text-xs">
                     <!-- url -->
                     <p v-if="source?.homepage" class="mb-1">
-                        <a :href="source?.homepage" target="_blank" rel="nonreferrer">Source <i class="fas fa-external-link-square-alt text-indigo-500"></i></a>
+                        <a :href="source?.homepage" target="_blank" rel="nonreferrer">Source <i class="fas fa-external-link-square-alt" :class="theme.text"></i></a>
                     </p>
                     <!-- url -->
                     <p v-if="source?.downloadUrl" class="mb-1">
-                        <a :href="source?.downloadUrl" target="_blank" rel="nonreferrer">Download <i class="fas fa-download text-indigo-500"></i></a>
+                        <a :href="source?.downloadUrl" target="_blank" rel="nonreferrer">Download <i class="fas fa-download" :class="theme.text"></i></a>
                     </p>
                 </div>
                 <!-- funding -->
                 <div class="ml-2 p-3 rounded border border-gray-200 text-xs">
                     <!-- consortium -->
                     <template v-if="source?.consortium" class="mb-1">
-                        <p class="text-indigo-500">Consortiums:</p>
+                        <p :class="theme.text">Consortiums:</p>
                         <p v-for="item in source?.consortium" :key="item">
                             {{item}}
                         </p>
                     </template>
                     <!-- grants -->
                     <template v-if="source?.grantName" class="mb-1">
-                        <p class="text-indigo-500">Grants:</p>
+                        <p :class="theme.text">Grants:</p>
                         <p v-for="item in source?.grantName" :key="item">
                             {{item}}
                         </p>
@@ -142,7 +137,7 @@
             <!-- keywords -->
             <div v-if="keywords">
                 <small class="text-xs mr-2 text-gray-400" v-for="(tag, i) in keywords" :key="tag + i">
-                    <i class="fas fa-tag text-indigo-500"></i> {{tag}}
+                    <i class="fas fa-tag" :class="theme.text"></i> {{tag}}
                 </small>
             </div>
         </div>
@@ -151,6 +146,7 @@
 
 <script>
 import Description from '../ExpandableDescription.vue'
+import ResultTab from '../ResultTab.vue'
 
 export default {
     name: "Tool",
@@ -161,7 +157,8 @@ export default {
         }
     },
     components:{
-        Description
+        Description,
+        ResultTab
     },
     props:{
         item: Object,
@@ -170,6 +167,14 @@ export default {
         // root level of data, for readability
         source: function () {
             return this.item?._source?.tool ? this.item?._source?.tool : this.item
+        },
+        result_type: function () {
+            // deeper > shallow
+            return this.item?._source?.entity ? this.item?._source?.entity : 
+            this.item?._source?.['@type'] ? this.item?._source?.['@type'] : 'Tool';
+        },
+        theme: function() {
+            return this.$store.getters.getTheme(this.result_type.charAt(0).toUpperCase() + this.result_type.slice(1));
         },
         keywords: function () {
             let res = [];
