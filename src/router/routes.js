@@ -38,10 +38,9 @@ export const routes = [
         }
     },
     {
-        path: '/view/:result_id?',
+        path: '/view',
         name: 'ResultDetails',
         component: () => import('../views/ResultDetails.vue'),
-        props: true,
         meta: {
                 sitemap: {
                     priority:    0.7,

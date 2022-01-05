@@ -6,35 +6,43 @@
         <div class="bg-white h-auto p-4 tracking-wide mb-4 mx-1 rounded-sm relative dark:bg-gray-600 border border-t-gray-300 border-t-2">
             <div class="flex justify-between flex-wrap">
                 <h5 class="text-lg font-semibold">
-                    <router-link :to="{ name: 'ResultDetails', params: {result_id: item._id } }">
+                    <router-link :to="{ name: 'ResultDetails', query: {'resource': item._id} }">
                         {{source?.dataset?.title }} <span v-if="source?.dataset?.version" class="text-gray-400 font-extralight">V.{{source?.dataset?.version}}</span>
                     </router-link>
                 </h5>
                 <!-- published date -->
-                <p v-if="source && source?.dataset?.dateReleased" class="text-sm">
+                <p v-if="source?.dataset?.dateReleased" class="text-sm">
                     <i class="fas fa-book" :class="theme.text"></i> {{$filters.formatDate(source?.dataset?.dateReleased)}}
                 </p>
             </div>
+            <!-- Full View Headers -->
+            <div v-if="fullView" :class="theme['text']" class="text-2xl p-3 border-b-2 border-gray-200 mb-3">
+                <h1 class="font-light">ABOUT</h1>
+            </div>
             <!-- description -->
             <Description :text="source?.dataset?.description"></Description>
+            <!-- Full View Headers -->
+            <div v-if="fullView" :class="theme['text']" class="text-2xl p-3 border-b-2 border-gray-200 mb-3">
+                <h1 class="font-light">DETAILS</h1>
+            </div>
             <!-- detail box -->
             <div class="flex justify-around items-center">
                 <!-- ID -->
-                <template v-if="source && source?.dataset?.ID" class="text-sm">
+                <template v-if="source?.dataset?.ID" class="text-sm">
                     <Pill :color="theme['bg']">
                         <template v-slot:title>ID</template> 
                         <template v-slot:value>{{source?.dataset?.ID}}</template>
                     </Pill>
                 </template>
                 <!-- status -->
-                <template v-if="source && source?.dataset?.privacy" class="text-sm">
+                <template v-if="source?.dataset?.privacy" class="text-sm">
                     <Pill :color="theme['bg']">
                         <template v-slot:title>Privacy</template> 
                         <template v-slot:value>{{source?.dataset?.privacy}}</template>
                     </Pill>
                 </template>
                 <!-- type -->
-                <template v-if="source && source?.dataset?.types">
+                <template v-if="source?.dataset?.types">
                     <Pill :color="theme['bg']" v-for="type in source?.dataset?.types" :key="type">
                         <template v-slot:title>Type</template>
                         <template v-slot:value>{{type}}</template>
@@ -83,7 +91,8 @@ import ResultTab from '../ResultTab.vue'
 export default {
     name: "DatasetResult",
     props:{
-        item: Object
+        item: Object,
+        fullView: Boolean
     },
     components:{
         Description,

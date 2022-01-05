@@ -1,5 +1,64 @@
 export default [
   {
+    "_index": "cd2h-diamond-training-material",
+    "_type": "_doc",
+    "_id": "1",
+    "_score": 1,
+    "_ignored": [
+      "abstract.keyword"
+    ],
+    "_source": {
+      "id": 1,
+      "label": "Responsible Conduct of Research for K Awardees",
+      "ctsa_hub_admin": "yes",
+      "abstract": "This training program is designed to help meet the responsible conduct of research (RCR) training requirements for NIH K awardees. Through this multi-week course participants gain 8 hours of face to face faculty-led RCR training, practice recognizing and addressing RCR issues, gain expert consultation on ethics and integrity issues, and experience presenting to others how to address RCR issues. This course is designed to meet the requirements of the NIH K-23, or any Federal or non-Federal career development grant",
+      "keywords": "Responsible conduct of research, K award",
+      "public": "yes",
+      "cost_to_access": "no",
+      "subject_area": "Ethical and Participant Safety Considerations; Leadership and Professionalism",
+      "learning_objectives": "1. Define ethics and integrity issues in clinical research 2. Recognize RCR issues 3. Develop strategies to address RCR issues 4. Develop process to teach others how to recognize and address RCR issues",
+      "delivery_method": "In-person",
+      "target_learners": "Post-doctoral scholars",
+      "learning_level": "Advanced",
+      "associated_assessment": "yes",
+      "remote_link": "http://inventions.umich.edu/technologies/6753_responsible-conduct-of-research-for-k-awardees-rcr4k-seminar-series",
+      "training_material_author": [
+        {
+          "author": "The University Of Michigan"
+        }
+      ],
+      "training_material_competency": [
+        {
+          "domain": "Ethics and Safety"
+        },
+        {
+          "domain": "Leadership and Professionalism"
+        }
+      ],
+      "url": "https://diamondportal.org/trainings/1",
+      "entity": "education",
+      "_meta": {
+        "training_material_author": {
+          "id": [
+            1
+          ],
+          "seqnum": [
+            1
+          ]
+        },
+        "training_material_competency": {
+          "id": [
+            1
+          ],
+          "domain": [
+            "Ethics and Safety",
+            "Leadership and Professionalism"
+          ]
+        }
+      }
+    }
+  },
+  {
     "_index": "cd2h-nih-foa",
     "_type": "_doc",
     "_id": "30654",
@@ -1420,65 +1479,6 @@ export default [
       },
       "entity": "dataset",
       "_meta": {}
-    }
-  },
-  {
-    "_index": "cd2h-diamond-training-material",
-    "_type": "_doc",
-    "_id": "1",
-    "_score": 1,
-    "_ignored": [
-      "abstract.keyword"
-    ],
-    "_source": {
-      "id": 1,
-      "label": "Responsible Conduct of Research for K Awardees",
-      "ctsa_hub_admin": "yes",
-      "abstract": "This training program is designed to help meet the responsible conduct of research (RCR) training requirements for NIH K awardees. Through this multi-week course participants gain 8 hours of face to face faculty-led RCR training, practice recognizing and addressing RCR issues, gain expert consultation on ethics and integrity issues, and experience presenting to others how to address RCR issues. This course is designed to meet the requirements of the NIH K-23, or any Federal or non-Federal career development grant",
-      "keywords": "Responsible conduct of research, K award",
-      "public": "yes",
-      "cost_to_access": "no",
-      "subject_area": "Ethical and Participant Safety Considerations; Leadership and Professionalism",
-      "learning_objectives": "1. Define ethics and integrity issues in clinical research 2. Recognize RCR issues 3. Develop strategies to address RCR issues 4. Develop process to teach others how to recognize and address RCR issues",
-      "delivery_method": "In-person",
-      "target_learners": "Post-doctoral scholars",
-      "learning_level": "Advanced",
-      "associated_assessment": "yes",
-      "remote_link": "http://inventions.umich.edu/technologies/6753_responsible-conduct-of-research-for-k-awardees-rcr4k-seminar-series",
-      "training_material_author": [
-        {
-          "author": "The University Of Michigan"
-        }
-      ],
-      "training_material_competency": [
-        {
-          "domain": "Ethics and Safety"
-        },
-        {
-          "domain": "Leadership and Professionalism"
-        }
-      ],
-      "url": "https://diamondportal.org/trainings/1",
-      "entity": "education",
-      "_meta": {
-        "training_material_author": {
-          "id": [
-            1
-          ],
-          "seqnum": [
-            1
-          ]
-        },
-        "training_material_competency": {
-          "id": [
-            1
-          ],
-          "domain": [
-            "Ethics and Safety",
-            "Leadership and Professionalism"
-          ]
-        }
-      }
     }
   },
   {

@@ -5,9 +5,9 @@
         <!-- Content Preview-->
         <div class="bg-white h-auto p-4 tracking-wide mb-4 mx-1 rounded-sm relative dark:bg-gray-600 border border-t-gray-300 border-t-2">
             <h5 class="text-lg font-semibold">
-                <router-link :to="{ name: 'ResultDetails', params: {result_id: item?._id } }">{{title}}</router-link>
+                <router-link :to="{ name: 'ResultDetails', query: {'resource': item._id} }">{{title}}</router-link>
             </h5>
-            <div class="flex justify-between">
+            <div class="flex justify-between p-2 dark:text-gray-200">
                 <!-- published date -->
                 <p v-if="source?.published" class="text-sm">
                     <i class="fas fa-book" :class="theme.text"></i> {{$filters.formatDate(source?.published)}}
@@ -17,13 +17,16 @@
                     <i class="fas fa-clock" :class="theme.text"></i> {{$filters.formatDate(source?.updated)}}
                 </p>
             </div>
+            <!-- Full View Headers -->
+            <div v-if="fullView" :class="theme['text']" class="text-2xl p-3 border-b-2 border-gray-200 mb-3">
+                <h1 class="font-light">ABOUT</h1>
+            </div>
             <!-- description -->
             <Description :text="description"></Description>
-            <!-- only for Funding if full view -->
-            <!-- <div class="text-sm my-1" v-if="source?.content?.html">
-                <p class="mt-2" :class="theme.text">Additional Information:</p>
-                <Description :text="source?.content?.html"></Description>
-            </div> -->
+            <!-- Full View Headers -->
+            <div v-if="fullView" :class="theme['text']" class="text-2xl p-3 border-b-2 border-gray-200 mb-3">
+                <h1 class="font-light">DETAILS</h1>
+            </div>
             <!-- detail box -->
             <div class="flex justify-around items-center">
                 <!-- ID -->
@@ -41,7 +44,11 @@
                     </Pill>
                 </template>
             </div>
-             <!-- stats box -->
+            <!-- Full View Headers -->
+            <div v-if="fullView" :class="theme['text']" class="text-2xl p-3 border-b-2 border-gray-200 mb-3">
+                <h1 class="font-light">MORE INFO</h1>
+            </div>
+            <!-- stats box -->
             <div v-if="showDetails || source?.url" class="text-md font-regular p-6 pt-2 text-gray-500 dark:text-white flex justify-between items-center">
                 <div class="ml-2 p-3 rounded border border-gray-200 text-xs">
                     <!-- url -->
@@ -69,6 +76,10 @@
                     <i class="fas fa-tag" :class="theme.text"></i> {{tag}}
                 </small>
             </div>
+            <!-- only for Funding if full view -->
+            <template v-if="source?.content?.html && fullView">
+                <div class="dark:text-gray-300" v-html="source?.content?.html"></div>
+            </template>
         </div>
     </div>
 </template>
@@ -91,9 +102,10 @@ export default {
     },
     props:{
         item: Object,
+        fullView: Boolean
     },
     computed:{
-        // root level of data, for readability
+        //root level of data, for readability
         source: function () {
             // deeper > shallow
             return this.item?._source?.raw?.attributes ? this.item?._source?.raw?.attributes : 

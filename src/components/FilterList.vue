@@ -1,5 +1,5 @@
 <template>
-    <div class="rounded-2xl p-2 mb-3 shadow select-none bg-gray-200/50 dark:bg-gray-700" data-aos="fade-in">
+    <div class="rounded-2xl p-2 mb-3 shadow select-none bg-gray-200/50 dark:bg-gray-700 hover:bg-gray-300/50" data-aos="fade-in">
         <div @click="open = !open" 
         class="rounded cursor-pointer p-1 text-gray-600
         font-light flex justify-start text-xs items-center dark:text-tertiary">

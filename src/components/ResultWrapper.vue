@@ -1,35 +1,40 @@
 <template>
-    <!-- render customized async result component depending on type -->
-    <template v-if="item._index.includes('outbreak')">
-        <Outbreak :item="item"></Outbreak>
-    </template>
-    <template v-else-if="item._index == 'cd2h-youtube-video'">
-        <VideoResult :item="item"></VideoResult>
-    </template>
-    <template v-else-if="item._index == 'cd2h-youtube-playlist'">
-        <PlaylistResult :item="item"></PlaylistResult>
-    </template>
-    <template v-else-if="item._index == 'cd2h-github-repository'">
-        <RepoResult :item="item"></RepoResult>
-    </template>
-    <template v-else-if="item._index == 'cd2h-clinical-trials'">
-        <ClinicalTrial :item="item"></ClinicalTrial>
-    </template>
-    <template v-else-if="item._index == 'cd2h-datamed'">
-        <Dataset :item="item"></Dataset>
-    </template>
-    <template v-else-if="item._index == 'cd2h-clic-education'">
-        <Educational :item="item"></Educational>
-    </template>
-    <template v-else-if="item._index == 'csbc-pson-computational-tools'">
-        <Tool :item="item"></Tool>
-    </template>
-    <template v-else-if="item._index == 'cd2h-github-user'">
-        <Person :item="item"></Person>
-    </template>
-    <template v-else>
-        <DefaultResult :item="item"></DefaultResult>
-    </template>
+    <div :key="uniqueID" class="min-w-full">
+        <!-- render customized async result component depending on type -->
+        <template v-if="item._index.includes('outbreak')">
+            <Outbreak :item="item" :fullView="fullView"></Outbreak>
+        </template>
+        <template v-else-if="item._index == 'cd2h-youtube-video'">
+            <VideoResult :item="item" :fullView="fullView"></VideoResult>
+        </template>
+        <template v-else-if="item._index == 'cd2h-youtube-playlist'">
+            <PlaylistResult :item="item" :fullView="fullView"></PlaylistResult>
+        </template>
+        <template v-else-if="item._index == 'cd2h-github-repository'">
+            <RepoResult :item="item" :fullView="fullView"></RepoResult>
+        </template>
+        <template v-else-if="item._index == 'cd2h-clinical-trials'">
+            <ClinicalTrial :item="item" :fullView="fullView"></ClinicalTrial>
+        </template>
+        <template v-else-if="item._index == 'cd2h-datamed'">
+            <Dataset :item="item" :fullView="fullView"></Dataset>
+        </template>
+        <template v-else-if="item._index == 'cd2h-clic-education'">
+            <Educational :item="item" :fullView="fullView"></Educational>
+        </template>
+        <template v-else-if="item._index == 'cd2h-diamond-training-material'">
+            <Educational :item="item" :fullView="fullView"></Educational>
+        </template>
+        <template v-else-if="item._index == 'csbc-pson-computational-tools'">
+            <Tool :item="item" :fullView="fullView"></Tool>
+        </template>
+        <template v-else-if="item._index == 'cd2h-github-user'">
+            <Person :item="item" :fullView="fullView"></Person>
+        </template>
+        <template v-else>
+            <DefaultResult :item="item" :fullView="fullView"></DefaultResult>
+        </template>
+    </div>
 </template>
 
 <script>
@@ -94,6 +99,11 @@ const Person = defineAsyncComponent({
 
 export default {
     name: "Result",
+    data: function () {
+        return {
+            uniqueID: Math.floor(Math.random()*90000) + 10000
+        }
+    },
     props:{
         item: Object
     },
@@ -108,6 +118,12 @@ export default {
         Educational,
         Tool,
         Person
+    },
+    computed:{
+        fullView: function () {
+            // deeper > shallow
+            return this.$route.name == 'ResultDetails' ? true : false;
+        }
     }
 }
 </script>

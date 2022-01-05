@@ -5,15 +5,23 @@
         <!-- Content Preview-->
         <div class="bg-white h-auto p-4 tracking-wide mb-4 mx-1 rounded-sm relative dark:bg-gray-600 border border-t-gray-300 border-t-2">
             <h5 class="text-lg font-semibold">
-                <router-link :to="{ name: 'ResultDetails', params: {result_id: item?._id } }">
+                <router-link :to="{ name: 'ResultDetails', query: {'resource': item._id} }">
                     {{title}} <span v-if="source?.version" class="text-gray-400 font-extralight">V.{{source?.version}}</span>
                 </router-link>
             </h5>
+            <!-- Full View Headers -->
+            <div v-if="fullView" :class="theme['text']" class="text-2xl p-3 border-b-2 border-gray-200 mb-3">
+                <h1 class="font-light">ABOUT</h1>
+            </div>
             <!-- description -->
             <Description :text="description"></Description>
             <div class="text-sm my-1" v-if="source?.operation">
                 <p class="mt-2" :class="theme.text">Operation:</p>
                 <Description :text="source?.operation"></Description>
+            </div>
+            <!-- Full View Headers -->
+            <div v-if="fullView" :class="theme['text']" class="text-2xl p-3 border-b-2 border-gray-200 mb-3">
+                <h1 class="font-light">DETAILS</h1>
             </div>
             <!-- detail box -->
             <div class="flex justify-around items-center flex-wrap">
@@ -162,6 +170,7 @@ export default {
     },
     props:{
         item: Object,
+        fullView: Boolean
     },
     computed:{
         // root level of data, for readability

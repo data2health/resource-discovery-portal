@@ -5,9 +5,17 @@
         <!-- Content Preview-->
         <div class="bg-white h-auto p-4 tracking-wide mb-4 mx-1 rounded-sm relative dark:bg-gray-600 border border-t-gray-300 border-t-2">
             <h5 class="text-lg font-semibold">
-                <router-link :to="{ name: 'ResultDetails', params: {result_id: item._id } }">{{item._source.label}}</router-link>
+                <router-link :to="{ name: 'ResultDetails', query: {'resource': item._id} }">{{item._source.label}}</router-link>
             </h5>
+            <!-- Full View Headers -->
+            <div v-if="fullView" :class="theme['text']" class="text-2xl p-3 border-b-2 border-gray-200 mb-3">
+                <h1 class="font-light">ABOUT</h1>
+            </div>
             <Description :text="item?._source?.description"></Description>
+            <!-- Full View Headers -->
+            <div v-if="fullView" :class="theme['text']" class="text-2xl p-3 border-b-2 border-gray-200 mb-3">
+                <h1 class="font-light">DETAILS</h1>
+            </div>
             <div class="text-md font-regular p-6 pt-2 text-gray-500 dark:text-white flex justify-between items-center flex-wrap">
 
                 <div v-if="videoThumbnail && videoPlayer">
@@ -53,9 +61,17 @@ import ResultTab from '../ResultTab.vue'
 
 export default {
     name: "VideoResult",
+    data: function() {
+        return {
+            videoView: false,
+        }
+    },
+    mounted: function () {
+        this.videoView = this.fullView ? true : false;
+    },
     props:{
         item: Object,
-        videoView: false
+        fullView: Boolean
     },
     components:{
         Description,

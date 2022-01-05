@@ -1,5 +1,5 @@
 <template>
-    <div class="relative rounded-md hover:bg-gray-300/25 p-1 cursor-pointer text-sm" 
+    <div class="relative rounded-md hover:bg-gray-300/25 p-1 cursor-pointer text-sm dark:text-gray-300" 
     v-if="text && text.length > 200" 
     @click.prevent="expanded = !expanded">
         <p v-html="!expanded ? text.substring(0, 200) + '...' : text"></p>
@@ -8,7 +8,7 @@
         No Description Available
     </p>
     <template v-else>
-        <p class="text-sm" v-html="text"></p>
+        <p class="text-sm dark:text-gray-300" v-html="text"></p>
     </template>
 </template>
 

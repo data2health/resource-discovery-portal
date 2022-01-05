@@ -19,7 +19,7 @@
             <!-- Types -->
             <div class="flex justify-around items-start">
                 <!-- Filters -->
-                <div class="rounded-2xl p-2 mb-3 shadow bg-gray-100 dark:bg-gray-700 flex-initial w-1/5 select-none">
+                <div class="rounded-2xl p-2 mb-3 shadow bg-gray-100 dark:bg-gray-700 flex-initial w-1/5 select-none hover:bg-gray-200">
                     <div @click="open = !open" class="rounded cursor-pointer p-1 text-secondary dark:text-tertiary-light font-light flex justify-start text-sm items-center">
                         <button @click="open = !open" type="button" class="icon-btn bg-white">
                             <i class="fas" :class="[open ? 'fa-chevron-down' : 'fa-chevron-right']"></i>

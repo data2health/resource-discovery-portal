@@ -5,45 +5,86 @@
         <!-- Content Preview-->
         <div class="bg-white h-auto p-4 tracking-wmethode mb-4 mx-1 rounded-sm relative dark:bg-gray-600 border border-t-gray-300 border-t-2">
             <div class="flex justify-between flex-wrap">
-                <h5 class="text-lg font-semibold">
-                    <router-link :to="{ name: 'ResultDetails', params: {result_method: item._method } }">
+                <h2 class="text-lg font-semibold">
+                    <router-link :to="{ name: 'ResultDetails', query: {'resource': item._id} }">
                         {{source?.label }} <span v-if="source?.version" class="text-gray-400 font-extralight">V.{{source?.version}}</span>
                     </router-link>
-                </h5>
+                </h2>
                 <!-- published date -->
-                <p v-if="source && source?.dateReleased" class="text-sm">
+                <p v-if="source?.dateReleased" class="text-sm">
                     <i class="fas fa-book" :class="theme.text"></i> {{$filters.formatDate(source?.dateReleased)}}
                 </p>
             </div>
+            <!-- Full View Headers -->
+            <div v-if="fullView" :class="theme['text']" class="text-2xl p-3 border-b-2 border-gray-200 mb-3">
+                <h1 class="font-light">ABOUT</h1>
+            </div>
             <!-- description -->
-            <Description :text="source?.description"></Description>
+            <Description :text="description"></Description>
+            <div class="text-sm my-1" v-if="source?.subject_area">
+                <h3 class="mt-2" :class="theme.text">Subject:</h3>
+                <Description :text="source?.subject_area"></Description>
+            </div>
             <div class="text-sm my-1" v-if="source?.objective">
-                <p class="mt-2" :class="theme.text">Objective:</p>
+                <h3 class="mt-2" :class="theme.text">Objective:</h3>
                 <Description :text="source?.objective"></Description>
+            </div>
+            <div class="text-sm my-1" v-if="source?.learning_objectives">
+                <h3 class="mt-2" :class="theme.text">Learning Objectives:</h3>
+                <Description :text="source?.learning_objectives"></Description>
+            </div>
+            <!-- Full View Headers -->
+            <div v-if="fullView" :class="theme['text']" class="text-2xl p-3 border-b-2 border-gray-200 mb-3">
+                <h1 class="font-light">DETAILS</h1>
             </div>
             <!-- detail box -->
             <div class="flex justify-around items-center">
                 <!-- method -->
-                <template v-if="source && source?.method" class="text-sm">
+                <template v-if="source?.method || source?.delivery_method" class="text-sm">
                     <Pill :color="theme['bg']">
                         <template v-slot:title>Method</template> 
-                        <template v-slot:value>{{source?.method}}</template>
+                        <template v-slot:value>{{source?.method || source?.delivery_method}}</template>
                     </Pill>
                 </template>
                 <!-- status -->
-                <template v-if="source && source?.frequency" class="text-sm">
+                <template v-if="source?.frequency" class="text-sm">
                     <Pill :color="theme['bg']">
                         <template v-slot:title>Frequency</template> 
                         <template v-slot:value>{{source?.frequency}}</template>
                     </Pill>
                 </template>
                 <!-- type -->
-                <template v-if="source && source?.types">
+                <template v-if="source?.types">
                     <Pill :color="theme['bg']" v-for="type in source?.types" :key="type">
                         <template v-slot:title>Type</template>
                         <template v-slot:value>{{type}}</template>
                     </Pill>
                 </template>
+                <!-- cost -->
+                <template v-if="source?.cost_to_access" class="text-sm">
+                    <Pill :color="theme['bg']">
+                        <template v-slot:title>Cost</template> 
+                        <template v-slot:value>{{source?.cost_to_access}}</template>
+                    </Pill>
+                </template>
+                <!-- public -->
+                <template v-if="source?.public" class="text-sm">
+                    <Pill :color="theme['bg']">
+                        <template v-slot:title>Public</template> 
+                        <template v-slot:value>{{source?.public}}</template>
+                    </Pill>
+                </template>
+                <!-- public -->
+                <template v-if="source?.learning_level" class="text-sm">
+                    <Pill :color="theme['bg']">
+                        <template v-slot:title>Level</template> 
+                        <template v-slot:value>{{source?.learning_level}}</template>
+                    </Pill>
+                </template>
+            </div>
+            <!-- Full View Headers -->
+            <div v-if="fullView" :class="theme['text']" class="text-2xl p-3 border-b-2 border-gray-200 mb-3">
+                <h1 class="font-light">MORE INFO</h1>
             </div>
             <!-- stats box -->
             <div class="text-md font-regular p-6 pt-2 text-gray-500 dark:text-white flex justify-between items-center">
@@ -74,12 +115,21 @@
                         <p>{{source?.institution}}</p>
                     </template>
                 </div>
+                <!-- right box -->
+                <div class="ml-2 p-3 rounded border border-gray-200 text-xs">
+                    <p class="mb-1" v-if="source?.target_learners"><i class="fas fa-bullseye" :class="theme.text"></i> {{source?.target_learners}}</p>
+                </div>
             </div>
-            <div v-if="source?.keywords">
-                <small class="text-xs mr-2 text-gray-400" v-for="(tag, i) in source?.keywords" :key="tag + i">
+            <div v-if="keywords">
+                <small class="text-xs mr-2 text-gray-400" v-for="(tag, i) in keywords" :key="tag + i">
                     <i class="fas fa-tag" :class="theme.text"></i> {{tag}}
                 </small>
             </div>
+            <template v-if="fullView">
+                <template v-for="(item, field) in source" :key="field">
+                    <FieldBox :content="item" :name="field" :isChild="false" :theme="theme"></FieldBox>
+                </template>
+            </template>
         </div>
     </div>
 </template>
@@ -87,15 +137,18 @@
 <script>
 import ResultTab from '../ResultTab.vue'
 import Description from '../ExpandableDescription.vue'
+import FieldBox from '../FieldBox.vue'
 
 export default {
     name: "EducationalResult",
     props:{
-        item: Object
+        item: Object,
+        fullView: Boolean
     },
     components:{
         Description,
-        ResultTab
+        ResultTab,
+        FieldBox
     },
     computed:{
         // root level of data, for readability
@@ -120,6 +173,39 @@ export default {
             }else{
                 return false
             }
+        },
+        description: function (){
+            return this.item?._source?.description ? this.item?._source?.description :
+            this.item?._source?.abstract ? this.item?._source?.abstract :
+            this.source?.description ? this.source?.description :
+            this.source?.abstract ? this.source?.abstract :
+            this.source?.purpose ? this.source?.purpose : '';
+        },
+        keywords: function () {
+            let res = [];
+            //find field with keywords
+            let keywords = this.source?.topic ? this.source?.topic : this.source?.keywords ?
+            this.source?.keywords : this.source?.tag ? this.source?.tag : false;
+            //parse keywords
+            if (keywords) {
+                if (Array.isArray(keywords)) {
+                    //check if values are objs
+                    keywords.forEach((item) => {
+                        if (typeof item == 'string') {
+                            res.push(item);
+                        }else{
+                            Object.values(item).forEach(val => res.push(val));
+                        }
+                    });
+                    return res;
+                }else{
+                    //string
+                    return keywords.split(',');
+                }
+            }else {
+                return false
+            }
+            
         },
     }
 }

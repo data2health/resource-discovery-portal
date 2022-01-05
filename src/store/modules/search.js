@@ -49,7 +49,7 @@ export default {
                 'icon': 'fab fa-youtube-square'
             },
             'Video clip' : {
-                'text': 'text-red-600',
+                'text': 'text-red-600 dark:text-red-400',
                 'bg': 'bg-red-600',
                 'icon': 'fab fa-youtube-square'
             },
@@ -69,8 +69,8 @@ export default {
                 'icon': 'fas fa-user'
             },
             'Funding opportunity' : {
-                'text': 'text-emerald-700',
-                'bg': 'bg-emerald-700',
+                'text': 'text-emerald-700 dark:text-emerald-500',
+                'bg': 'bg-emerald-700 dark:bg-emerald-500',
                 'icon': 'fas fa-money-check-alt'
             },
             'Funding Opportunity' : {

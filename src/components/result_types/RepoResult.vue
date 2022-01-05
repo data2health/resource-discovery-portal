@@ -5,11 +5,20 @@
         <!-- Content Preview-->
         <div class="bg-white h-auto p-4 tracking-wide mb-4 mx-1 rounded-sm relative dark:bg-gray-600 border border-t-gray-300 border-t-2">
             <h5 class="text-lg font-semibold">
-                <router-link :to="{ name: 'ResultDetails', params: {result_id: item._id } }">{{item._source.label}}</router-link>
+                <router-link :to="{ name: 'ResultDetails', query: {'resource': item._id} }">{{item._source.label}}</router-link>
             </h5>
+            <!-- Full View Headers -->
+            <div v-if="fullView" :class="theme['text']" class="text-2xl p-3 border-b-2 border-gray-200 mb-3">
+                <h1 class="font-light">ABOUT</h1>
+            </div>
+            <Description :text="item?._source?.raw?.owner?.description"></Description>
+            <!-- Full View Headers -->
+            <div v-if="fullView" :class="theme['text']" class="text-2xl p-3 border-b-2 border-gray-200 mb-3">
+                <h1 class="font-light">DETAILS</h1>
+            </div>
             <div class="text-md font-regular p-6 pt-2 text-gray-500 dark:text-white flex items-center justify-between">
                 <div class="text-center">
-                    <img v-if="item && item._source.raw.owner.avatar_url" 
+                    <img v-if="item?._source?.raw?.owner?.avatar_url" 
                     :src="item._source.raw.owner.avatar_url" 
                     alt="github avatar" 
                     class="rounded-md w-10 border border-gray-500 m-auto bg-white">
@@ -28,14 +37,17 @@
 
 <script>
 import ResultTab from '../ResultTab.vue'
+import Description from '../ExpandableDescription.vue'
 
 export default {
     name: "RepoResult",
     props:{
-        item: Object
+        item: Object,
+        fullView: Boolean
     },
     components:{
-        ResultTab
+        ResultTab,
+        Description
     },
     computed:{
         result_type: function () {

@@ -5,8 +5,12 @@
         <!-- Content Preview-->
         <div class="bg-white h-auto p-4 tracking-wide mb-4 mx-1 rounded-sm relative dark:bg-gray-600 border border-t-gray-300 border-t-2">
             <h5 class="text-lg font-semibold">
-                <router-link :to="{ name: 'ResultDetails', params: {result_id: item._id } }">{{source?.name}}</router-link>
+                <router-link :to="{ name: 'ResultDetails', query: {'resource': item._id} }">{{source?.name}}</router-link>
             </h5>
+            <!-- Full View Headers -->
+            <div v-if="fullView" :class="theme['text']" class="text-2xl p-3 border-b-2 border-gray-200 mb-3">
+                <h1 class="font-light">ABOUT</h1>
+            </div>
             <!-- description -->
             <Description :text="source?.bio"></Description>
             <div class="flex justify-between">
@@ -18,6 +22,10 @@
                 <p v-if="source?.updated_at" class="text-sm">
                     <i class="fas fa-clock" :class="theme.text"></i> {{$filters.formatDate(source?.updated_at)}}
                 </p>
+            </div>
+            <!-- Full View Headers -->
+            <div v-if="fullView" :class="theme['text']" class="text-2xl p-3 border-b-2 border-gray-200 mb-3">
+                <h1 class="font-light">DETAILS</h1>
             </div>
             <!-- detail box -->
             <div class="flex justify-around items-center flex-wrap">
@@ -43,7 +51,7 @@
                     alt="github avatar" 
                     class="rounded-md w-1/4 border border-gray-500 m-auto bg-white">
                     <p class="text-center" v-if="source?.url">
-                        <a :href="source?.url" target="_blank" rel="nonreferrer">{{source?.name}}</a>
+                        <a :href="source?.url" target="_blank" rel="nonreferrer">{{source?.name}} <i class="fas fa-external-link-square-alt" :class="theme.text"></i></a>
                     </p>
                 </div>
                 <div class="ml-2 p-3 rounded border border-gray-200 text-xs">
@@ -65,7 +73,8 @@ import Description from '../ExpandableDescription.vue'
 export default {
     name: "Person",
     props:{
-        item: Object
+        item: Object,
+        fullView: Boolean
     },
     components:{
         ResultTab,
