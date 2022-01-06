@@ -1,6 +1,8 @@
 <template>
     <div class="dark:bg-gray-800 dark:text-white bg-gray-100">
-        <div class="container mx-auto w-1/2 py-6">
+        <!-- Types -->
+        <TypeFilter></TypeFilter>
+        <div class="container mx-auto w-1/2 py-2">
             <!-- Search Bar -->
             <form @submit.prevent="search()" class="w-full flex items-center">
             <input 
@@ -16,7 +18,7 @@
             </form>
         </div>
         <div class="container mx-auto px-4">
-            <!-- Types -->
+            <!-- main container -->
             <div class="flex justify-around items-start">
                 <!-- Filters -->
                 <div class="rounded-2xl p-2 mb-3 shadow bg-gray-100 dark:bg-gray-700 flex-initial w-1/5 select-none hover:bg-gray-200">
@@ -83,7 +85,7 @@
                             <CopyButton copy_msg="Copy URL" copy="COPY TEST"></CopyButton>
                             <!-- Download -->
                             <Popper content="Download Results" class="tip" :hover="true" placement="top">
-                                <button class="icon-btn rounded-xl bg-main hover:bg-main-light" 
+                                <button class="icon-btn rounded-xl bg-main hover:bg-main-light dark:bg-secondary-light dark:hover:bg-secondary" 
                                     @click.prevent="download">
                                     <i class="fas fa-download text-white"></i>
                                 </button>
@@ -107,6 +109,7 @@ import Result from '../components/ResultWrapper.vue'
 import FilterList from '../components/FilterList.vue'
 import Pagination from '../components/Pagination.vue'
 import ShareButtons from '../components/ShareButtons.vue'
+import TypeFilter from '../components/TypeFilter.vue'
 
 export default {
     name: "Search",
@@ -120,7 +123,8 @@ export default {
         Result,
         FilterList,
         Pagination,
-        ShareButtons
+        ShareButtons,
+        TypeFilter
     },
     methods:{
         search(){
@@ -153,10 +157,3 @@ export default {
     }
 }
 </script>
-
-<style>
-    mark{
-        background-color: none !important;
-        color: red;
-    }
-</style>

@@ -6,7 +6,29 @@ export default {
         results: [],
         recentSearches: [],
         maxRecentHistory: 5,
-        resourceTypes: ['Dataset', 'People', 'ClinicalTrial', 'Publication', 'Tool'],
+        resourceTypes: {
+            'ALL': {
+                'active' : false
+            },
+            'Dataset': {
+                'active' : false
+            },
+            'Education': {
+                'active' : false
+            },
+            'Tool': {
+                'active' : false
+            },
+            'Publication': {
+                'active' : false
+            },
+            'Video': {
+                'active' : false
+            },
+            'Person': {
+                'active' : false
+            },
+        },
         resultTheme:{
             'Dataset' : {
                 'text': 'text-orange-400',
@@ -105,6 +127,23 @@ export default {
         },
         saveResults(state, payload){
             state.results = payload.value;
+        },
+        activateTypeFilter(state, payload){
+            if (payload.value == 'ALL') {
+                for (const type in state.resourceTypes) {
+                    if (type !== 'All') {
+                        state.resourceTypes[type].active = false;
+                    }
+                }
+                state.resourceTypes['ALL'].active = !state.resourceTypes['ALL'].active;
+            }else{
+                state.resourceTypes['ALL'].active = false;
+                Object.keys(state.resourceTypes).forEach((type) => {
+                    if (type == payload.value) {
+                        state.resourceTypes[type].active = !state.resourceTypes[type].active;
+                    }
+                });
+            }
         },
         addRecent(state, payload){
             if (state.recentSearches.length < state.maxRecentHistory) {

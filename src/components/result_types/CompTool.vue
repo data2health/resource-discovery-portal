@@ -70,7 +70,7 @@
             </div>
             <div class="flex justify-items-stretch flex-nowrap justify-center text-xs">
                 <!-- input -->
-                <Popper content="Input" class="tip" :hover="true" placement="top">
+                <Popper content="Input" class="tip" :hover="true" placement="left" arrow>
                 <div class="flex justify-center items-center p-2 rounded-l-2xl">
                     <div class="flex flex-col justify-items-stretch">
                         <p v-if="source?.inputFormat" class="bg-gray-300 p-2 rounded-t-2xl dark:bg-gray-700">
@@ -93,7 +93,7 @@
                     <i class="fas fa-chevron-right fa-2x" :class="theme.text"></i>
                 </div>
                 <!-- output -->
-                <Popper content="Output" class="tip" :hover="true" placement="top">
+                <Popper content="Output" class="tip" :hover="true" placement="right" arrow>
                 <div class="flex justify-center items-center p-2 rounded-r-2xl">
                     <div class="flex flex-col justify-items-stretch">
                         <p v-if="source?.outputFormat" class="bg-gray-300 p-2 rounded-t-2xl dark:bg-gray-700">

@@ -49,7 +49,7 @@
                     <img v-if="source?.avatar_url" 
                     :src="source?.avatar_url" 
                     alt="github avatar" 
-                    class="rounded-md w-1/4 border border-gray-500 m-auto bg-white">
+                    class="rounded-md w-1/3 border-8 border-white hover:border-gray-100 m-auto bg-white shadow-lg">
                     <p class="text-center" v-if="source?.url">
                         <a :href="source?.url" target="_blank" rel="nonreferrer">{{source?.name}} <i class="fas fa-external-link-square-alt" :class="theme.text"></i></a>
                     </p>

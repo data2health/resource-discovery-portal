@@ -21,7 +21,7 @@
                     <img v-if="item?._source?.raw?.owner?.avatar_url" 
                     :src="item._source.raw.owner.avatar_url" 
                     alt="github avatar" 
-                    class="rounded-md w-10 border border-gray-500 m-auto bg-white">
+                    class="rounded-md w-1/4 shadow-lg border-8 border-white hover:border-gray-100 m-auto bg-white">
                     <p class="text-center">
                         <a :href="item?._source?.raw?.html_url" target="_blank" rel="nonreferrer">{{item?._source?.raw?.name}}</a>
                     </p>
