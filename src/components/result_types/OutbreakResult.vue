@@ -1,7 +1,7 @@
 <template>
     <div>
         <!-- Type -->
-        <ResultTab :name="result_type" :cls="[theme.icon, theme.text]" :index="item?._index"></ResultTab>
+        <ResultTab :name="result_type" :cls="[theme.icon, theme.text]" ></ResultTab>
         <!-- Content Preview-->
         <div class="bg-white h-auto p-4 tracking-wide mb-4 mx-1 rounded-sm relative dark:bg-gray-600 border border-t-gray-300 border-t-2">
             <div class="flex justify-between flex-wrap">
@@ -24,7 +24,7 @@
                 <h1 class="font-light">DETAILS</h1>
             </div>
             <!-- detail box -->
-            <div class="flex justify-around items-center">
+            <div class="flex justify-start items-center">
                 <!-- type -->
                 <template v-if="item && item?._source?.publicationType">
                     <!-- pill -->

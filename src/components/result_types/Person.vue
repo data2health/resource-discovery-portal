@@ -1,7 +1,7 @@
 <template>
     <div class="text-left">
         <!-- Type -->
-        <ResultTab :name="result_type" :cls="[theme.icon, theme.text]" :index="item?._index"></ResultTab>
+        <ResultTab :name="result_type" :cls="[theme.icon, theme.text]" ></ResultTab>
         <!-- Content Preview-->
         <div class="bg-white h-auto p-4 tracking-wide mb-4 mx-1 rounded-sm relative dark:bg-gray-600 border border-t-gray-300 border-t-2">
             <h5 class="text-lg font-semibold">
@@ -28,7 +28,7 @@
                 <h1 class="font-light">DETAILS</h1>
             </div>
             <!-- detail box -->
-            <div class="flex justify-around items-center flex-wrap">
+            <div class="flex justify-start items-center flex-wrap">
                 <!-- type -->
                 <template v-if="source?.type" class="text-sm">
                     <Pill :color="theme['bg']">
@@ -44,17 +44,17 @@
                     </Pill>
                 </template>
             </div>
-            <div class="text-md font-regular p-6 pt-2 text-gray-500 dark:text-white flex items-center justify-start">
+            <div class="text-md font-regular p-6 pt-2 text-gray-500 bg-gray-100/50 dark:bg-gray-500 dark:text-white flex items-center justify-start rounded-xl shadow-xl my-4 w-3/4 m-auto">
                 <div class="text-center">
                     <img v-if="source?.avatar_url" 
                     :src="source?.avatar_url" 
                     alt="github avatar" 
-                    class="rounded-md w-1/3 border-8 border-white hover:border-gray-100 m-auto bg-white shadow-lg">
-                    <p class="text-center" v-if="source?.url">
-                        <a :href="source?.url" target="_blank" rel="nonreferrer">{{source?.name}} <i class="fas fa-external-link-square-alt" :class="theme.text"></i></a>
+                    class="rounded-full w-1/2 border-8 border-gray-100 dark:border-gray-600 m-auto bg-white">
+                    <p class="text-center" v-if="source?.html_url">
+                        <a :href="source?.html_url" target="_blank" rel="nonreferrer">{{source?.name}} <i class="fas fa-external-link-square-alt" :class="theme.text"></i></a>
                     </p>
                 </div>
-                <div class="ml-2 p-3 rounded border border-gray-200 text-xs">
+                <div class="ml-1 p-3 rounded border border-gray-100 text-xs">
                     <p v-if="source?.login" class="mb-1"><i class="fab fa-github" :class="theme.text"></i> {{source?.login}}</p>
                     <p v-if="source?.twitter_username" class="mb-1"><i class="fab fa-twitter" :class="theme.text"></i> {{source?.twitter_username}}</p>
                     <p v-if="source?.followers"><i class="fas fa-bell" :class="theme.text"></i> {{source?.followers}}</p>

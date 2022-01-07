@@ -1,9 +1,10 @@
 <template>
     <div>
         <!-- Type -->
-        <ResultTab :name="result_type" :cls="[theme.icon, theme.text]" :index="item?._index"></ResultTab>
+        <ResultTab :name="result_type" :cls="[theme.icon, theme.text]" ></ResultTab>
         <!-- Content Preview-->
         <div class="bg-white h-auto p-4 tracking-wmethode mb-4 mx-1 rounded-sm relative dark:bg-gray-600 border border-t-gray-300 border-t-2">
+            <!-- SHRUNK VIEW -->
             <div class="flex justify-between flex-wrap">
                 <h2 class="text-lg font-semibold">
                     <router-link :to="{ name: 'ResultDetails', query: {'resource': item._id} }">
@@ -21,24 +22,26 @@
             </div>
             <!-- description -->
             <Description :text="description"></Description>
-            <div class="text-sm my-1" v-if="source?.subject_area">
-                <h3 class="mt-2" :class="theme.text">Subject:</h3>
-                <Description :text="source?.subject_area"></Description>
-            </div>
-            <div class="text-sm my-1" v-if="source?.objective">
-                <h3 class="mt-2" :class="theme.text">Objective:</h3>
-                <Description :text="source?.objective"></Description>
-            </div>
-            <div class="text-sm my-1" v-if="source?.learning_objectives">
-                <h3 class="mt-2" :class="theme.text">Learning Objectives:</h3>
-                <Description :text="source?.learning_objectives"></Description>
-            </div>
+            <template v-if="expandedView || fullView" data-aos="fade-in">
+                <div class="text-sm my-1" v-if="source?.subject_area">
+                    <h3 class="mt-2" :class="theme.text">Subject:</h3>
+                    <Description :text="source?.subject_area"></Description>
+                </div>
+                <div class="text-sm my-1" v-if="source?.objective">
+                    <h3 class="mt-2" :class="theme.text">Objective:</h3>
+                    <Description :text="source?.objective"></Description>
+                </div>
+                <div class="text-sm my-1" v-if="source?.learning_objectives">
+                    <h3 class="mt-2" :class="theme.text">Learning Objectives:</h3>
+                    <Description :text="source?.learning_objectives"></Description>
+                </div>
+            </template>
             <!-- Full View Headers -->
             <div v-if="fullView" :class="theme['text']" class="text-2xl p-3 border-b-2 border-gray-200 mb-3">
                 <h1 class="font-light">DETAILS</h1>
             </div>
             <!-- detail box -->
-            <div class="flex justify-around items-center">
+            <div class="flex justify-start items-center">
                 <!-- method -->
                 <template v-if="source?.method || source?.delivery_method" class="text-sm">
                     <Pill :color="theme['bg']">
@@ -82,52 +85,54 @@
                     </Pill>
                 </template>
             </div>
-            <!-- Full View Headers -->
-            <div v-if="fullView" :class="theme['text']" class="text-2xl p-3 border-b-2 border-gray-200 mb-3">
-                <h1 class="font-light">MORE INFO</h1>
-            </div>
-            <!-- stats box -->
-            <div class="text-md font-regular p-6 pt-2 text-gray-500 dark:text-white flex justify-between items-center">
-                <div class="ml-2 p-3 rounded border border-gray-200 text-xs">
-                    <!-- url -->
-                    <p v-if="source?.url">
-                        <a :href="source?.url" target="_blank" rel="nonreferrer">Source <i class="fas fa-external-link-square-alt" :class="theme.text"></i></a>
-                    </p>
-                    <!-- people -->
-                    <template v-if="people">
-                        <p class="mt-2" :class="theme.text">Creators:</p>
-                        <!-- short list -->
-                        <template v-if="people.length < 11">
-                            <small class="mb-1" v-for="(official, i) in people" :key="official">
-                                {{official}} <span v-if="i < people.length-1">, </span>
-                            </small>
-                        </template>
-                        <!-- long hover -->
-                        <template v-else>
-                            <Popper :content="JSON.stringify(people)" class="tip" :hover="true" placement="right" arrow>
-                                <span>(<span :class="theme.text">{{people.length}}</span>) creators</span>
-                            </Popper>
-                        </template>
-                    </template>
-                    <!-- people -->
-                    <template v-if="source?.institution">
-                        <p class="mt-2" :class="theme.text">Institution:</p>
-                        <p>{{source?.institution}}</p>
-                    </template>
+            <template v-if="expandedView || fullView" data-aos="fade-in">
+                <!-- Full View Headers -->
+                <div v-if="fullView" :class="theme['text']" class="text-2xl p-3 border-b-2 border-gray-200 mb-3">
+                    <h1 class="font-light">MORE INFO</h1>
                 </div>
-                <!-- right box -->
-                <div class="ml-2 p-3 rounded border border-gray-200 text-xs">
-                    <p class="mb-1" v-if="source?.target_learners"><i class="fas fa-bullseye" :class="theme.text"></i> {{source?.target_learners}}</p>
+                <!-- stats box -->
+                <div class="text-md font-regular p-6 pt-2 text-gray-500 dark:text-white flex justify-between items-center">
+                    <div class="ml-2 p-3 rounded border border-gray-200 text-xs">
+                        <!-- url -->
+                        <p v-if="source?.url">
+                            <a :href="source?.url" target="_blank" rel="nonreferrer">Source <i class="fas fa-external-link-square-alt" :class="theme.text"></i></a>
+                        </p>
+                        <!-- people -->
+                        <template v-if="people">
+                            <p class="mt-2" :class="theme.text">Creators:</p>
+                            <!-- short list -->
+                            <template v-if="people.length < 11">
+                                <small class="mb-1" v-for="(official, i) in people" :key="official">
+                                    {{official}} <span v-if="i < people.length-1">, </span>
+                                </small>
+                            </template>
+                            <!-- long hover -->
+                            <template v-else>
+                                <Popper :content="JSON.stringify(people)" class="tip" :hover="true" placement="right" arrow>
+                                    <span>(<span :class="theme.text">{{people.length}}</span>) creators</span>
+                                </Popper>
+                            </template>
+                        </template>
+                        <!-- people -->
+                        <template v-if="source?.institution">
+                            <p class="mt-2" :class="theme.text">Institution:</p>
+                            <p>{{source?.institution}}</p>
+                        </template>
+                    </div>
+                    <!-- right box -->
+                    <div class="ml-2 p-3 rounded border border-gray-200 text-xs">
+                        <p class="mb-1" v-if="source?.target_learners"><i class="fas fa-bullseye" :class="theme.text"></i> {{source?.target_learners}}</p>
+                    </div>
                 </div>
-            </div>
-            <div v-if="keywords">
-                <small class="text-xs mr-2 text-gray-400" v-for="(tag, i) in keywords" :key="tag + i">
-                    <i class="fas fa-tag" :class="theme.text"></i> {{tag}}
-                </small>
-            </div>
-            <template v-if="fullView">
-                <template v-for="(item, field) in source" :key="field">
-                    <FieldBox :content="item" :name="field" :isChild="false" :theme="theme"></FieldBox>
+                <div v-if="keywords">
+                    <small class="text-xs mr-2 text-gray-400" v-for="(tag, i) in keywords" :key="tag + i">
+                        <i class="fas fa-tag" :class="theme.text"></i> {{tag}}
+                    </small>
+                </div>
+                <template v-if="fullView">
+                    <template v-for="(item, field) in source" :key="field">
+                        <FieldBox :content="item" :name="field" :isChild="false" :theme="theme"></FieldBox>
+                    </template>
                 </template>
             </template>
         </div>
@@ -135,6 +140,8 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 import ResultTab from '../ResultTab.vue'
 import Description from '../ExpandableDescription.vue'
 import FieldBox from '../FieldBox.vue'
@@ -151,6 +158,9 @@ export default {
         FieldBox
     },
     computed:{
+        ...mapGetters([
+            'expandedView'
+        ]),
         // root level of data, for readability
         source: function () {
             if (this.item?._source) {

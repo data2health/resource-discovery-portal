@@ -4,6 +4,7 @@ export default {
     state: () => ({
         loading: false,
         results: [],
+        expandedView: false,
         recentSearches: [],
         maxRecentHistory: 5,
         resourceTypes: {
@@ -81,7 +82,7 @@ export default {
                 'icon': 'fas fa-laptop'
             },
             'Repository' : {
-                'text': 'text-blue-600',
+                'text': 'text-blue-600 dark:text-blue-300',
                 'bg': 'bg-blue-600',
                 'icon': 'fab fa-github'
             },
@@ -171,6 +172,9 @@ export default {
         clearRecentSearches(state){
             localStorage.rdp_recent = [];
             state.recentSearches = [];
+        },
+        toggleExpandedView(state){
+            state.expandedView = !state.expandedView;
         }
     },
     getters: {
@@ -188,6 +192,9 @@ export default {
         },
         getTheme: (state) => (name) => {
             return state.resultTheme?.[name] ? state.resultTheme?.[name] : state.default;
+        },
+        expandedView: (state) => {
+            return state.expandedView;
         },
     },
 }

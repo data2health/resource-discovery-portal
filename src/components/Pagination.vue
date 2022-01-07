@@ -33,7 +33,7 @@
         <!-- per page -->
         <div>
             <label class="font-extralight mr-2 text-xs" for="perPage">Per Page</label>
-            <select name="perPage" class="appearance-none accent-pink-500 px-2 py-1 rounded-full">
+            <select name="perPage" class="appearance-none accent-pink-500 px-2 py-1 rounded-full dark:bg-gray-400">
                 <option value="10">10</option>
                 <option value="25">20</option>
                 <option value="50">50</option>

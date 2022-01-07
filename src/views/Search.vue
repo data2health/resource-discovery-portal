@@ -20,16 +20,21 @@
         <div class="container mx-auto px-4">
             <!-- main container -->
             <div class="flex justify-around items-start">
-                <!-- Filters -->
-                <div class="rounded-2xl p-2 mb-3 shadow bg-gray-100 dark:bg-gray-700 flex-initial w-1/5 select-none hover:bg-gray-200">
-                    <div @click="open = !open" class="rounded cursor-pointer p-1 text-secondary dark:text-tertiary-light font-light flex justify-start text-sm items-center">
-                        <button @click="open = !open" type="button" class="icon-btn bg-white">
-                            <i class="fas" :class="[open ? 'fa-chevron-down' : 'fa-chevron-right']"></i>
-                        </button> <span class="ml-2">Search <i class="fas fa-plus text-secondary-light"></i></span>
-                    </div>
-                    <div v-if="open">
-                        <FilterList type="checkbox" name="dataSource" :items="['CD2H','Outbreak.info','Data Discovery Engine','DataMed']"></FilterList>
-                        <FilterList type="checkbox" name="dataType" :items="['Dataset','Publication','Video','Repository','Person', 'Clinical Trial']"></FilterList>
+                <!-- Left columns -->
+                <div class="p-1 flex-initial w-1/5 ">
+                    <!-- Preferences -->
+                    <Preferences></Preferences>
+                    <!-- Filters -->
+                    <div class="rounded-2xl p-2 mb-3 shadow bg-gray-100 dark:bg-gray-700 select-none hover:bg-gray-200">
+                        <div @click="open = !open" class="rounded cursor-pointer text-gray-500 p-1 font-light flex justify-start text-sm items-center">
+                            <button @click="open = !open" type="button" class="icon-btn bg-white dark:bg-gray-500">
+                                <i class="fas text-secondary dark:text-tertiary-light" :class="[open ? 'fa-chevron-down' : 'fa-chevron-right']"></i>
+                            </button> <span class="ml-2">Search <i class="fas fa-plus"></i></span>
+                        </div>
+                        <div v-if="open">
+                            <FilterList type="checkbox" name="dataSource" :items="['CD2H','Outbreak.info','Data Discovery Engine','DataMed']"></FilterList>
+                            <FilterList type="checkbox" name="dataType" :items="['Dataset','Publication','Video','Repository','Person', 'Clinical Trial']"></FilterList>
+                        </div>
                     </div>
                 </div>
                 <!-- Results -->
@@ -110,6 +115,7 @@ import FilterList from '../components/FilterList.vue'
 import Pagination from '../components/Pagination.vue'
 import ShareButtons from '../components/ShareButtons.vue'
 import TypeFilter from '../components/TypeFilter.vue'
+import Preferences from '../components/Preferences.vue'
 
 export default {
     name: "Search",
@@ -124,7 +130,8 @@ export default {
         FilterList,
         Pagination,
         ShareButtons,
-        TypeFilter
+        TypeFilter,
+        Preferences
     },
     methods:{
         search(){
@@ -150,10 +157,10 @@ export default {
         this.search();
     },
     computed:{
-      ...mapGetters([
-        'results',
-        'recentSearches'
-      ]),
+        ...mapGetters([
+            'results',
+            'recentSearches'
+        ]),
     }
 }
 </script>

@@ -1,9 +1,10 @@
 <template>
     <div :key="uniqueID">
         <!-- Type -->
-        <ResultTab :name="result_type" :cls="[theme.icon, theme.text]" :index="item?._index"></ResultTab>
+        <ResultTab :name="result_type" :cls="[theme.icon, theme.text]" ></ResultTab>
         <!-- Content Preview-->
         <div class="bg-white h-auto p-4 tracking-wide mb-4 mx-1 rounded-sm relative dark:bg-gray-600 border border-t-gray-300 border-t-2">
+            <!-- SHRUNK VIEW -->
             <h5 class="text-lg font-semibold">
                 <router-link :to="{ name: 'ResultDetails', query: {'resource': item._id} }">{{title}}</router-link>
             </h5>
@@ -28,7 +29,7 @@
                 <h1 class="font-light">DETAILS</h1>
             </div>
             <!-- detail box -->
-            <div class="flex justify-around items-center">
+            <div class="flex justify-start items-center">
                 <!-- ID -->
                 <template v-if="source?.id" class="text-sm">
                     <Pill :color="theme['bg']">
@@ -44,47 +45,52 @@
                     </Pill>
                 </template>
             </div>
-            <!-- Full View Headers -->
-            <div v-if="fullView" :class="theme['text']" class="text-2xl p-3 border-b-2 border-gray-200 mb-3">
-                <h1 class="font-light">MORE INFO</h1>
-            </div>
-            <!-- stats box -->
-            <div v-if="showDetails || source?.url" class="text-md font-regular p-6 pt-2 text-gray-500 dark:text-white flex justify-between items-center">
-                <div class="ml-2 p-3 rounded border border-gray-200 text-xs">
-                    <!-- url -->
-                    <p v-if="source?.url">
-                        <a :href="source?.url" target="_blank" rel="nonreferrer">Source <i class="fas fa-external-link-square-alt" :class="theme.text"></i></a>
-                    </p>
-                    <!-- curated -->
-                    <template v-if="item?._source?.curatedBy">
-                        <p :class="theme.text">Curated by:</p>
-                        <a v-if="item?._source?.curatedBy?.url" :href="item?._source?.curatedBy?.url" target="_blank" rel="nonreferrer">
-                            {{item?._source?.curatedBy?.name}} ({{$filters.formatDate(item?._source?.curatedBy?.curationDate)}}) <i class="fas fa-external-link-square-alt" :class="theme.text"></i>
-                        </a>
-                        <p v-else>{{item?._source?.curatedBy?.name}} ({{$filters.formatDate(item?._source?.curatedBy?.curationDate)}})</p>
-                    </template>
+            <!-- EXPANDED VIEW -->
+            <template v-if="expandedView || fullView" data-aos="fade-in">
+                <!-- Full View Headers -->
+                <div v-if="fullView" :class="theme['text']" class="text-2xl p-3 border-b-2 border-gray-200 mb-3">
+                    <h1 class="font-light">MORE INFO</h1>
                 </div>
-                <div class="text-md font-regular p-6 pt-2 text-gray-500 dark:text-white flex items-center justify-start">
+                <!-- stats box -->
+                <div v-if="showDetails || source?.url" class="text-md font-regular p-6 pt-2 text-gray-500 dark:text-white flex justify-between items-center">
                     <div class="ml-2 p-3 rounded border border-gray-200 text-xs">
-                        <p v-if="source?.primary_ic" class="mb-1"><i class="fas fa-building" :class="theme.text"></i> {{source?.primary_ic}}</p>
+                        <!-- url -->
+                        <p v-if="source?.url">
+                            <a :href="source?.url" target="_blank" rel="nonreferrer">Source <i class="fas fa-external-link-square-alt" :class="theme.text"></i></a>
+                        </p>
+                        <!-- curated -->
+                        <template v-if="item?._source?.curatedBy">
+                            <p :class="theme.text">Curated by:</p>
+                            <a v-if="item?._source?.curatedBy?.url" :href="item?._source?.curatedBy?.url" target="_blank" rel="nonreferrer">
+                                {{item?._source?.curatedBy?.name}} ({{$filters.formatDate(item?._source?.curatedBy?.curationDate)}}) <i class="fas fa-external-link-square-alt" :class="theme.text"></i>
+                            </a>
+                            <p v-else>{{item?._source?.curatedBy?.name}} ({{$filters.formatDate(item?._source?.curatedBy?.curationDate)}})</p>
+                        </template>
+                    </div>
+                    <div class="text-md font-regular p-6 pt-2 text-gray-500 dark:text-white flex items-center justify-start">
+                        <div class="ml-2 p-3 rounded border border-gray-200 text-xs">
+                            <p v-if="source?.primary_ic" class="mb-1"><i class="fas fa-building" :class="theme.text"></i> {{source?.primary_ic}}</p>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <!-- keywords -->
-            <div v-if="keywords">
-                <small class="text-xs mr-2 text-gray-400" v-for="(tag, i) in keywords" :key="tag + i">
-                    <i class="fas fa-tag" :class="theme.text"></i> {{tag}}
-                </small>
-            </div>
-            <!-- only for Funding if full view -->
-            <template v-if="source?.content?.html && fullView">
-                <div class="dark:text-gray-300" v-html="source?.content?.html"></div>
+                <!-- keywords -->
+                <div v-if="keywords">
+                    <small class="text-xs mr-2 text-gray-400" v-for="(tag, i) in keywords" :key="tag + i">
+                        <i class="fas fa-tag" :class="theme.text"></i> {{tag}}
+                    </small>
+                </div>
+                <!-- only for Funding if full view -->
+                <template v-if="source?.content?.html && fullView">
+                    <div class="dark:text-gray-300" v-html="source?.content?.html"></div>
+                </template>
             </template>
         </div>
     </div>
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 import Description from '../ExpandableDescription.vue'
 import ResultTab from '../ResultTab.vue'
 
@@ -105,6 +111,9 @@ export default {
         fullView: Boolean
     },
     computed:{
+        ...mapGetters([
+            'expandedView'
+        ]),
         //root level of data, for readability
         source: function () {
             // deeper > shallow

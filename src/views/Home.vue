@@ -1,13 +1,14 @@
 <template>
   <!-- hero -->
-  <div class="h-screen m-auto dm flex justify-center items-center">
-    <div class="h-2/3">
-      <div class="bg-grey-100 p-5 text-center max-w-screen-md m-auto mb-10">
-        <img v-if="!darkMode" src="../../assets/img/rdp_color.svg" alt="logo" class="m-auto w-1/3">
-        <img v-else src="../../assets/img/rdp_dark.svg" alt="logo" class="m-auto w-1/3">
-      </div>
-      <!-- search -->
-      <div class="w-auto m-auto px-5">
+  <div class="dm">
+    <div class="min-h-screen m-auto flex items-center justify-center">
+      <div>
+        <div class="bg-grey-100 p-5 text-center max-w-screen-md m-auto mb-10">
+          <img v-if="!darkMode" src="../../assets/img/rdp_color.svg" alt="logo" class="m-auto w-1/3">
+          <img v-else src="../../assets/img/rdp_dark.svg" alt="logo" class="m-auto w-1/3">
+        </div>
+        <!-- search -->
+        <div class="w-2/3 m-auto px-5">
           <form @submit.prevent="search()" class="w-full flex items-center">
             <input 
             v-model="query"
@@ -24,7 +25,120 @@
             Eg. <router-link :to="{ path: '/search', query: { 'q': 'COVID-19' }}">COVID-19</router-link>
           </span>
         </div>
-      <Resources></Resources>
+        <Resources></Resources>
+      </div>
+    </div>
+    <div>
+      <!-- SECTIONS -->
+      <div class="mx-auto">
+          <!-- section -->
+          <section class="flex space-x-10 items-start min-h-[50vh] bg-main text-white">
+            <div class="w-2/6 sticky top-10 py-10 px-20">
+              <h2 class="text-5xl font-bold">
+                What is the CD2H Resource Discovery Portal?
+              </h2>
+            </div>
+            <div class="w-4/6 leading-snug space-y-5 p-20 text-3xl">
+              <div class="h-80 w-80 bg-gray-400 m-auto"></div>
+              <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Esse minus et expedita ea voluptatibus sit, vero autem beatae recusandae sequi consequatur mollitia quas earum animi suscipit obcaecati laudantium, voluptas quibusdam!</p>
+              <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Esse minus et expedita ea voluptatibus sit, vero autem beatae recusandae sequi consequatur mollitia quas earum animi suscipit obcaecati laudantium, voluptas quibusdam!</p>
+              <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Esse minus et expedita ea voluptatibus sit, vero autem beatae recusandae sequi consequatur mollitia quas earum animi suscipit obcaecati laudantium, voluptas quibusdam!</p>
+            </div>
+          </section>
+          <!-- section -->
+          <section class="flex space-x-10 items-start min-h-[50vh]">
+            <div class="w-2/6 sticky top-10 py-10 px-20">
+              <h2 class="text-5xl font-bold">
+                One unified location to search for...
+              </h2>
+            </div>
+            <div class="flex justify-center items-stretch flex-wrap w-full p-10">
+                <SmallCard 
+                title="Datasets"
+                icon="fas fa-database" 
+                :items="['A Nuclease DNA complex', 'Hair follicle and skin molecular signatures', 'Altering cancer transcriptomes using epigenomic inhibitors']"></SmallCard>
+                <SmallCard 
+                title="Researcher Profiles"
+                icon="fas fa-user" 
+                :items="['Michelle James', 'Cody Thompson', 'Joel Smith']"></SmallCard>
+                <SmallCard 
+                title="Computational Tools"
+                icon="fas fa-laptop" 
+                :items="['Omics Integrator', 'Data Driven Ontology', 'ImmClassifier']"></SmallCard>
+                <SmallCard 
+                title="Research Study Instruments"
+                icon="fas fa-microscope" 
+                :items="['Hamilton Anxiety Scale (HAM-A)','Multidimensional Fatigue Inventory ', 'Self Care Of Heart Failure Index V 6.2']"></SmallCard>
+                <SmallCard 
+                title="Articles"
+                icon="fas fa-book-open" 
+                :items="['Human antiviral B cell responses: Emerging lessons from hepatitis B and COVID-19', 'Lung Ultrasound in Patients With Dyspnea From Infective Lung Disease']"></SmallCard>
+                <SmallCard 
+                title="Clinical Trials"
+                icon="fas fa-flask" 
+                :items="['Pilot Evaluation of a New Galyfilcon A Lens Prototype and Enfilcon A Lens', 'A Phase I Clinical Study of a GamLPV, a Live Intranasal Bordetella Pertussis Vaccine']"></SmallCard>
+                <SmallCard 
+                title="Grants"
+                icon="fas fa-scroll" 
+                :items="['Omics Integrator', 'Data Driven Ontology', 'ImmClassifier']"></SmallCard>
+                <SmallCard 
+                title="Videos"
+                icon="fab fa-youtube" 
+                :items="['How a Drug Becomes a Drug', 'Curing a Child, Preserving a Childhood', 'Watch a moth drive a robot car']"></SmallCard>
+                <SmallCard 
+                title="Training Opportunities"
+                icon="fas fa-chalkboard" 
+                :items="['An Overview of Survey Design','Developing and Writing Research Questions, Aims & Hypotheses','Managing Communication and Conflict']"></SmallCard>
+                <div class="w-full p-10 text-center">
+                  <router-link to="/search" class="btn-main !text-main font-bold">
+                    Search By Resource
+                  </router-link>
+                </div>
+              </div>
+          </section>
+          <!-- section -->
+          <section class="flex space-x-10 items-start min-h-[50vh] bg-main text-white bg-no-repeat bg-right-bottom" 
+          style="background-image: url('../../public/assets/img/bg_dark.svg')">
+            <div class="w-2/6 sticky top-10 py-10 px-20">
+              <h2 class="text-5xl font-bold">
+                How is this platform being used?
+              </h2>
+            </div>
+            <div class="w-4/6 leading-snug space-y-5 p-20 text-3xl">
+              <p class="font-serif italic text-center text-gray-200">“I want to stay up to date on PCR testing techniques” <i class="fas fa-comment"></i></p>
+              <div class="flex items-stretch justify-center p-2 w-2/3">
+                <div class="flex flex-row flex-wrap p-3 space-y-3 items-stretch">
+                  <div class="flex justify-evenly items-center space-x-7 text-sm py-3 px-10 rounded-full bg-black/50">
+                    <p>Discover researchers with relevant experience</p>
+                    <i class="fas fa-arrow-right my-3 text-tertiary-light fa-2x"></i>
+                    <p class="font-bold">Researcher- Maneesh Pingle, Assistant Professor of Microbiology and Immunology (Courtesy), Weill Cornell Medical College</p>
+                  </div>
+                  <div class="flex justify-evenly items-center space-x-7 text-sm py-3 px-10 rounded-full bg-black/50">
+                    <p>Browse literature for new publications</p>
+                    <i class="fas fa-arrow-right my-3 text-tertiary-light fa-2x"></i>
+                    <p class="font-bold">Article - Comparison of Digital PCR and Quantitative PCR with Various SARS-CoV-2 Primer-Probe Sets.</p>
+                  </div>
+                  <div class="flex justify-evenly items-center space-x-7 text-sm py-3 px-10 rounded-full bg-black/50">
+                    <p>Search for a protocol</p>
+                    <i class="fas fa-arrow-right my-3 text-tertiary-light fa-2x"></i>
+                    <p class="font-bold">Protocol - Detection of Sars-Cov2 Using Droplet Digital PCR</p>
+                  </div>
+                  <div class="flex justify-evenly items-center space-x-7 text-sm py-3 px-10 rounded-full bg-black/50">
+                    <p>Find informative Youtube videos</p>
+                    <i class="fas fa-arrow-right my-3 text-tertiary-light fa-2x"></i>
+                    <p class="font-bold">Video - PCR Essentials</p>
+                  </div>
+                </div>
+                <div class="p-3 text-center w-1/3 flex items-center justify-center">
+                  <router-link to="/search" class="btn-main !text-main font-bold text-sm">
+                    Try&nbsp;This&nbsp;Search
+                  </router-link>
+                </div>
+              </div>
+            </div>
+          </section>
+
+        </div>
     </div>
     <!-- cookie consent -->
     <Modal v-if="cookiesWarning">
@@ -47,6 +161,7 @@
 <script>
 import { mapGetters } from 'vuex'
 import Resources from '../components/Resources.vue'
+import SmallCard from '../components/SmallCard.vue'
 
 export default {
   name: 'Home',
@@ -57,7 +172,8 @@ export default {
     }
   },
   components: {
-    Resources
+    Resources,
+    SmallCard
   },
   methods:{
     search(){

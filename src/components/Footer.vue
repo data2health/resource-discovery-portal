@@ -1,6 +1,6 @@
 <template>
-  <div class="w-screen bg-gray-800 dark:bg-gray-700 dark:text-gray-200 text-gray-600">
-    <div class="max-w-screen-md m-auto py-8 px-2">
+  <div class="w-screen bg-gray-800 dark:bg-gray-700 dark:text-gray-200 text-gray-400">
+    <div class="max-w-screen-xl m-auto py-8 px-2">
       <div class="grid grid-cols-2 gap-5 my-5">
         <div>
           <ul class="text-sm">
@@ -16,14 +16,19 @@
           </ul>
         </div>
         <div class="text-center">
-          <img src="../../assets/img/rdp_white.svg" class="w-1/4 mb-5 m-auto">
-          <img src="../../assets/img/cd2h_white.png" class="w-1/2 mb-5 m-auto">
           <p class="text-sm">
-            <a href="#" class="mr-3" rel="nonreferrer" target="_blank"><i class="fab fa-twitter fa-2x"></i></a>
-            <a href="mailto:cd2h@ohsu.edu" class="mr-3" rel="nonreferrer" target="_blank"><i class="fas fa-envelope fa-2x"></i></a>
-            <a href="#" class="mr-3" rel="nonreferrer" target="_blank"><i class="fab fa-github fa-2x"></i></a>
+            <a href="#" class="mr-3" rel="nonreferrer" target="_blank"><i class="fab fa-twitter fa-2x text-main-light"></i></a>
+            <a href="mailto:cd2h@ohsu.edu" class="mr-3" rel="nonreferrer" target="_blank"><i class="fas fa-envelope fa-2x text-main-light"></i></a>
+            <a href="#" class="mr-3" rel="nonreferrer" target="_blank"><i class="fab fa-github fa-2x text-main-light"></i></a>
           </p>
         </div>
+    </div>
+    <div class="flex justify-center items-center flex-wrap w-full">
+          <img src="../../assets/img/rdp_white.svg" class="h-10 m-5">
+          <img src="../../assets/img/cd2h_white.png" class="h-10 m-5">
+          <img src="../../assets/img/scripps.png" class="h-10 m-5">
+          <img src="../../assets/img/uiowa.png" class="h-20 m-5">
+          <img src="../../assets/img/sage.svg" class="h-10 m-5">
     </div>
     <div>
       <p class="text-xs text-center">
