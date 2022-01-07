@@ -4,8 +4,8 @@
     <div class="min-h-screen m-auto flex items-center justify-center">
       <div>
         <div class="bg-grey-100 p-5 text-center max-w-screen-md m-auto mb-10">
-          <img v-if="!darkMode" src="../../assets/img/rdp_color.svg" alt="logo" class="m-auto w-1/3">
-          <img v-else src="../../assets/img/rdp_dark.svg" alt="logo" class="m-auto w-1/3">
+          <img v-if="!darkMode" src="/assets/img/rdp_color.svg" alt="logo" class="m-auto w-1/3">
+          <img v-else src="/assets/img/rdp_dark.svg" alt="logo" class="m-auto w-1/3">
         </div>
         <!-- search -->
         <div class="w-2/3 m-auto px-5">
@@ -98,7 +98,7 @@
           </section>
           <!-- section -->
           <section class="flex space-x-10 items-start min-h-[50vh] bg-main text-white bg-no-repeat bg-right-bottom" 
-          style="background-image: url('../../public/assets/img/bg_dark.svg')">
+          style="background-image: url('/assets/img/bg_dark.svg')">
             <div class="w-2/6 sticky top-10 py-10 px-20">
               <h2 class="text-5xl font-bold">
                 How is this platform being used?

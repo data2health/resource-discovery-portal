@@ -19,9 +19,9 @@
 </template>
 
 <script>
-import apple from '../../public/assets/img/apple-touch-icon.png'
-import safari from '../../public/assets/img/safari-pinned-tab.svg'
-import featured from '../../public/assets/img/rdp_featured.jpg'
+import apple from '/assets/img/apple-touch-icon.png'
+import safari from '/assets/img/safari-pinned-tab.svg'
+import featured from '/assets/img/rdp_featured.jpg'
 
 export default {
     name: 'HeadMeta',

@@ -1,7 +1,7 @@
 <template>
   <!-- navbar goes here -->
   <nav class="bg-main dark:bg-main-dark bg-no-repeat bg-right" 
-  style="background-image: url('../../public/assets/img/bg_dark.svg')">
+  style="background-image: url('/assets/img/bg_dark.svg')">
     <div class="max-w-6xl mx-auto px-2">
       <div class="flex justify-between">
 
