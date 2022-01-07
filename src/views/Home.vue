@@ -1,7 +1,8 @@
 <template>
   <!-- hero -->
   <div class="dm">
-    <div class="min-h-screen m-auto flex items-center justify-center">
+    <div class="min-h-screen m-auto flex items-center justify-center bg-no-repeat bg-center flex-wrap md:flex-nowrap" 
+          style="background-image:url('/assets/img/hero.svg')">
       <div>
         <div class="bg-grey-100 p-5 text-center max-w-screen-md m-auto mb-10">
           <img v-if="!darkMode" src="/assets/img/rdp_color.svg" alt="logo" class="m-auto w-1/3">
@@ -16,7 +17,7 @@
             placeholder="search" 
             class="w-full m-auto py-2 px-4 text-2x text-main
             rounded-full border-secondary border-2 focus:outline-none focus:ring-2 
-            focus:ring-secondary-light focus:border-transparent dark:bg-gray-300 caret-pink-500">
+            focus:ring-secondary-light focus:border-transparent dark:bg-gray-300 caret-pink-500 shadow-xl">
             <button type="submit" class="btn-main ml-2">
               <i class="fas fa-search"></i>
             </button>
