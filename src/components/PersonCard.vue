@@ -2,7 +2,8 @@
     <div class="w-64">
         <div class="text-lg font-normal">
             <div class="flex justify-center items-center p-1 z-20 w-full">
-                <img data-aos="zoom-out-down" class="rounded-full dark:border-gray-700 border-8 w-24 m-auto border-gray-100" :src="person.picture" :alt="person.name">
+                <img data-aos="zoom-out-down" class="rounded-full dark:border-gray-700 border-8 w-24 m-auto border-gray-100"
+                 :src="person.picture || '/assets/img/default.jpeg'" :alt="person.name">
             </div>
             <div class="dark:bg-gray-700 bg-gray-100 p-2 space-y-4 z-12 w-full rounded-2xl shadow-lg text-gray-500 dark:text-gray-200">
                 <h1 class="text-center pt-4">{{person.name}}</h1>

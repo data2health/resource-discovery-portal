@@ -12,6 +12,14 @@ export const about= {
                     
                 },
                 {
+                    'name': 'Ginger Tsueng',
+                    'picture': '',
+                    'social': {
+                        'github': 'https://github.com/marcodarko',
+                    },
+                    
+                },
+                {
                     'name': 'Marco A. Cano',
                     'picture': 'https://avatars.githubusercontent.com/u/23092057?v=4',
                     'social': {
@@ -21,7 +29,7 @@ export const about= {
                 },
                 {
                     'name': 'Nichollette Acosta',
-                    'picture': 'https://wulab.io/static/img/nicholla.jpg',
+                    'picture': '/assets/img/default.jpeg',
                     'social': {
                         'github': 'https://github.com/newgene',
                     },
@@ -31,7 +39,7 @@ export const about= {
             'Sage': [
                 {
                     'name': 'James Edy, PI',
-                    'picture': 'https://www.gravatar.com/avatar/108605daee6b3c24d02db9753637a66b.png?s=128',
+                    'picture': '',
                     'social': {
                         'github': 'https://github.com/newgene',
                     },
@@ -39,7 +47,7 @@ export const about= {
                 },
                 {
                     'name': 'Thomas Schaffter',
-                    'picture': 'https://avatars.githubusercontent.com/u/23092057?v=4',
+                    'picture': '',
                     'social': {
                         'github': 'https://github.com/marcodarko',
                     },
@@ -47,7 +55,7 @@ export const about= {
                 },
                 {
                     'name': 'Jiaxin Zheng',
-                    'picture': 'https://wulab.io/static/img/nicholla.jpg',
+                    'picture': '',
                     'social': {
                         'github': 'https://github.com/newgene',
                     },
@@ -57,7 +65,7 @@ export const about= {
             'University of Iowa': [
                 {
                     'name': 'Dave Eichmann, PI',
-                    'picture': 'https://www.gravatar.com/avatar/108605daee6b3c24d02db9753637a66b.png?s=128',
+                    'picture': '',
                     'social': {
                         'github': 'https://github.com/newgene',
                     },
@@ -65,7 +73,7 @@ export const about= {
                 },
                 {
                     'name': 'Elizabeth Zak',
-                    'picture': 'https://avatars.githubusercontent.com/u/23092057?v=4',
+                    'picture': '',
                     'social': {
                         'github': 'https://github.com/marcodarko',
                     },
@@ -73,7 +81,7 @@ export const about= {
                 },
                 {
                     'name': 'Arman Mikaili',
-                    'picture': 'https://wulab.io/static/img/nicholla.jpg',
+                    'picture': '',
                     'social': {
                         'github': 'https://github.com/newgene',
                     },
@@ -81,7 +89,7 @@ export const about= {
                 },
                 {
                     'name': 'Alexis Graves',
-                    'picture': 'https://wulab.io/static/img/nicholla.jpg',
+                    'picture': '',
                     'social': {
                         'github': 'https://github.com/newgene',
                     },
@@ -89,7 +97,7 @@ export const about= {
                 },
                 {
                     'name': 'Will Cooper',
-                    'picture': 'https://wulab.io/static/img/nicholla.jpg',
+                    'picture': '',
                     'social': {
                         'github': 'https://github.com/newgene',
                     },

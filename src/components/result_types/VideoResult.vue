@@ -39,23 +39,28 @@
                 <div v-else>
                     <h1>No Video Preview Available</h1>
                 </div>
-
-                <div class="ml-2 p-3 rounded border border-gray-200 text-xs">
-                    <p class="mb-1"><i class="far fa-clock" :class="theme.text"></i> {{item?._source?.duration}}</p>
-                    <p class="mb-1"><i class="fas fa-thumbs-up" :class="theme.text"></i> {{item?._source?.like_count}}</p>
-                    <p class="mb-1"><i class="fas fa-eye" :class="theme.text"></i> {{item?._source?.view_count}}</p>
+                <template v-if="expandedView || fullView" data-aos="fade-in">
+                    <div class="ml-2 p-3 rounded border border-gray-200 text-xs">
+                        <p class="mb-1"><i class="far fa-clock" :class="theme.text"></i> {{item?._source?.duration}}</p>
+                        <p class="mb-1"><i class="fas fa-thumbs-up" :class="theme.text"></i> {{item?._source?.like_count}}</p>
+                        <p class="mb-1"><i class="fas fa-eye" :class="theme.text"></i> {{item?._source?.view_count}}</p>
+                    </div>
+                </template>
+            </div>
+            <template v-if="expandedView || fullView" data-aos="fade-in">
+                <div v-if="item?._source?.tag">
+                    <small class="text-xs mr-2 text-gray-400" v-for="(tag, i) in item?._source?.tag" :key="tag + i">
+                        <i class="fas fa-tag" :class="theme.text"></i> {{tag?.tag}}
+                    </small>
                 </div>
-            </div>
-            <div v-if="item?._source?.tag">
-                <small class="text-xs mr-2 text-gray-400" v-for="(tag, i) in item?._source?.tag" :key="tag + i">
-                    <i class="fas fa-tag" :class="theme.text"></i> {{tag?.tag}}
-                </small>
-            </div>
+            </template>
         </div>
     </div>
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 import Description from '../ExpandableDescription.vue'
 import ResultTab from '../ResultTab.vue'
 
@@ -78,6 +83,9 @@ export default {
         ResultTab
     },
     computed:{
+        ...mapGetters([
+            'expandedView'
+        ]),
         result_type: function () {
             // deeper > shallow
             return this.item?._source?.entity ? this.item?._source?.entity : 

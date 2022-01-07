@@ -15,10 +15,12 @@
             </div>
             <!-- description -->
             <Description :text="description"></Description>
-            <div class="text-sm my-1" v-if="source?.operation">
-                <p class="mt-2" :class="theme.text">Operation:</p>
-                <Description :text="source?.operation"></Description>
-            </div>
+            <template v-if="expandedView || fullView" data-aos="fade-in">
+                <div class="text-sm my-1" v-if="source?.operation">
+                    <p class="mt-2" :class="theme.text">Operation:</p>
+                    <Description :text="source?.operation"></Description>
+                </div>
+            </template>
             <!-- Full View Headers -->
             <div v-if="fullView" :class="theme['text']" class="text-2xl p-3 border-b-2 border-gray-200 mb-3">
                 <h1 class="font-light">DETAILS</h1>
@@ -68,91 +70,99 @@
                     </Pill>
                 </template>
             </div>
-            <div class="flex justify-items-stretch flex-nowrap justify-center text-xs">
-                <!-- input -->
-                <Popper content="Input" class="tip" :hover="true" placement="left" arrow>
-                <div class="flex justify-center items-center p-2 rounded-l-2xl">
-                    <div class="flex flex-col justify-items-stretch">
-                        <p v-if="source?.inputFormat" class="bg-gray-300 p-2 rounded-t-2xl dark:bg-gray-700">
-                            <span class="rounded-md text-gray-500 mr-1" v-for="item in source?.inputFormat" :key="item">
-                                <i class="fas fa-file"></i> {{item}}
-                            </span>
-                        </p>
-                        <p class="bg-gray-100 p-2 rounded-b-2xl dark:bg-gray-500">
-                                <template v-if="source?.inputData">
-                                <span class="rounded-md mr-1 dark:text-white" :class="theme.text" v-for="item in source?.inputData" :key="item">
-                                    <i class="fas fa-circle"></i> {{item}}
+
+            <template v-if="expandedView || fullView" data-aos="fade-in">
+                <div class="flex justify-items-stretch flex-nowrap justify-center text-xs">
+                    <!-- input -->
+                    <Popper content="Input" class="tip" :hover="true" placement="left" arrow>
+                    <div class="flex justify-center items-center p-2 rounded-l-2xl">
+                        <div class="flex flex-col justify-items-stretch">
+                            <p v-if="source?.inputFormat" class="bg-gray-300 p-2 rounded-t-2xl dark:bg-gray-700">
+                                <span class="rounded-md text-gray-500 mr-1" v-for="item in source?.inputFormat" :key="item">
+                                    <i class="fas fa-file"></i> {{item}}
                                 </span>
-                            </template>
+                            </p>
+                            <p class="bg-gray-100 p-2 rounded-b-2xl dark:bg-gray-500">
+                                    <template v-if="source?.inputData">
+                                    <span class="rounded-md mr-1 dark:text-white" :class="theme.text" v-for="item in source?.inputData" :key="item">
+                                        <i class="fas fa-circle"></i> {{item}}
+                                    </span>
+                                </template>
+                            </p>
+                        </div>
+                    </div>
+                    </Popper>
+                    <!-- arrow -->
+                    <div class="flex justify-center items-center px-3">
+                        <i class="fas fa-chevron-right fa-2x" :class="theme.text"></i>
+                    </div>
+                    <!-- output -->
+                    <Popper content="Output" class="tip" :hover="true" placement="right" arrow>
+                    <div class="flex justify-center items-center p-2 rounded-r-2xl">
+                        <div class="flex flex-col justify-items-stretch">
+                            <p v-if="source?.outputFormat" class="bg-gray-300 p-2 rounded-t-2xl dark:bg-gray-700">
+                                <span class="rounded-md text-gray-500 mr-1" v-for="item in source?.outputFormat" :key="item">
+                                    <i class="fas fa-file"></i> {{item}}
+                                </span>
+                            </p>
+                            <p class="bg-gray-100 p-2 rounded-b-2xl dark:bg-gray-500">
+                                    <template v-if="source?.outputData">
+                                    <span class="rounded-md mr-1 dark:text-white" :class="theme.text" v-for="item in source?.outputData" :key="item">
+                                        <i class="fas fa-circle"></i> {{item}}
+                                    </span>
+                                </template>
+                            </p>
+                        </div>
+                    </div>
+                    </Popper>
+                </div>
+            </template>
+            
+            <template v-if="expandedView || fullView" data-aos="fade-in">
+                <!-- stats box -->
+                <div v-if="showDetails || source?.homepage" class="text-md font-regular p-6 pt-2 text-gray-500 dark:text-white flex justify-around items-center">
+                    <div class="ml-2 p-3 rounded border border-gray-200 text-xs">
+                        <!-- url -->
+                        <p v-if="source?.homepage" class="mb-1">
+                            <a :href="source?.homepage" target="_blank" rel="nonreferrer">Source <i class="fas fa-external-link-square-alt" :class="theme.text"></i></a>
+                        </p>
+                        <!-- url -->
+                        <p v-if="source?.downloadUrl" class="mb-1">
+                            <a :href="source?.downloadUrl" target="_blank" rel="nonreferrer">Download <i class="fas fa-download" :class="theme.text"></i></a>
                         </p>
                     </div>
-                </div>
-                </Popper>
-                <!-- arrow -->
-                <div class="flex justify-center items-center px-3">
-                    <i class="fas fa-chevron-right fa-2x" :class="theme.text"></i>
-                </div>
-                <!-- output -->
-                <Popper content="Output" class="tip" :hover="true" placement="right" arrow>
-                <div class="flex justify-center items-center p-2 rounded-r-2xl">
-                    <div class="flex flex-col justify-items-stretch">
-                        <p v-if="source?.outputFormat" class="bg-gray-300 p-2 rounded-t-2xl dark:bg-gray-700">
-                            <span class="rounded-md text-gray-500 mr-1" v-for="item in source?.outputFormat" :key="item">
-                                <i class="fas fa-file"></i> {{item}}
-                            </span>
-                        </p>
-                        <p class="bg-gray-100 p-2 rounded-b-2xl dark:bg-gray-500">
-                                <template v-if="source?.outputData">
-                                <span class="rounded-md mr-1 dark:text-white" :class="theme.text" v-for="item in source?.outputData" :key="item">
-                                    <i class="fas fa-circle"></i> {{item}}
-                                </span>
-                            </template>
-                        </p>
+                    <!-- funding -->
+                    <div class="ml-2 p-3 rounded border border-gray-200 text-xs">
+                        <!-- consortium -->
+                        <template v-if="source?.consortium" class="mb-1">
+                            <p :class="theme.text">Consortiums:</p>
+                            <p v-for="item in source?.consortium" :key="item">
+                                {{item}}
+                            </p>
+                        </template>
+                        <!-- grants -->
+                        <template v-if="source?.grantName" class="mb-1">
+                            <p :class="theme.text">Grants:</p>
+                            <p v-for="item in source?.grantName" :key="item">
+                                {{item}}
+                            </p>
+                        </template>
                     </div>
                 </div>
-                </Popper>
-            </div>
-            <!-- stats box -->
-            <div v-if="showDetails || source?.homepage" class="text-md font-regular p-6 pt-2 text-gray-500 dark:text-white flex justify-around items-center">
-                <div class="ml-2 p-3 rounded border border-gray-200 text-xs">
-                    <!-- url -->
-                    <p v-if="source?.homepage" class="mb-1">
-                        <a :href="source?.homepage" target="_blank" rel="nonreferrer">Source <i class="fas fa-external-link-square-alt" :class="theme.text"></i></a>
-                    </p>
-                    <!-- url -->
-                    <p v-if="source?.downloadUrl" class="mb-1">
-                        <a :href="source?.downloadUrl" target="_blank" rel="nonreferrer">Download <i class="fas fa-download" :class="theme.text"></i></a>
-                    </p>
+                <!-- keywords -->
+                <div v-if="keywords">
+                    <small class="text-xs mr-2 text-gray-400" v-for="(tag, i) in keywords" :key="tag + i">
+                        <i class="fas fa-tag" :class="theme.text"></i> {{tag}}
+                    </small>
                 </div>
-                <!-- funding -->
-                <div class="ml-2 p-3 rounded border border-gray-200 text-xs">
-                    <!-- consortium -->
-                    <template v-if="source?.consortium" class="mb-1">
-                        <p :class="theme.text">Consortiums:</p>
-                        <p v-for="item in source?.consortium" :key="item">
-                            {{item}}
-                        </p>
-                    </template>
-                    <!-- grants -->
-                    <template v-if="source?.grantName" class="mb-1">
-                        <p :class="theme.text">Grants:</p>
-                        <p v-for="item in source?.grantName" :key="item">
-                            {{item}}
-                        </p>
-                    </template>
-                </div>
-            </div>
-            <!-- keywords -->
-            <div v-if="keywords">
-                <small class="text-xs mr-2 text-gray-400" v-for="(tag, i) in keywords" :key="tag + i">
-                    <i class="fas fa-tag" :class="theme.text"></i> {{tag}}
-                </small>
-            </div>
+            </template>
         </div>
     </div>
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 import Description from '../ExpandableDescription.vue'
 import ResultTab from '../ResultTab.vue'
 
@@ -173,6 +183,9 @@ export default {
         fullView: Boolean
     },
     computed:{
+        ...mapGetters([
+            'expandedView'
+        ]),
         // root level of data, for readability
         source: function () {
             return this.item?._source?.tool ? this.item?._source?.tool : this.item

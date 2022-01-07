@@ -6,8 +6,12 @@ const router = createRouter({
   history: createWebHistory(),
   routes,
   linkActiveClass: "route-active",
-  scrollBehavior() {
-    return { x: 0, y: 0 };
+  scrollBehavior(to) {
+    if (to.hash) {
+        return { selector: to.hash }
+    }else{
+      return { x: 0, y: 0 , behavior: 'smooth'};
+    }
   },
 })
 

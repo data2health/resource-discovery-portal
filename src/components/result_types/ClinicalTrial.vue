@@ -51,41 +51,45 @@
                     </Pill>
                 </template>
             </div>
-            <!-- stats box -->
-            <div class="text-md font-regular p-6 pt-2 text-gray-500 dark:text-white flex justify-between items-center">
-                <div class="ml-2 p-3 rounded border border-gray-200 text-xs">
-                    <!-- url -->
-                    <p v-if="source.url">
-                        <a :href="source.url" target="_blank" rel="nonreferrer">Source <i class="fas fa-external-link-square-alt" :class="theme.text"></i></a>
-                    </p>
-                    <!-- overall_officials -->
-                    <template v-if="overall_officials">
-                        <p class="mt-2" :class="theme.text">Officials:</p>
-                        <!-- short list -->
-                        <template v-if="overall_officials.length < 11">
-                            <small class="mb-1" v-for="(official, i) in overall_officials" :key="official">
-                                {{official}} <span v-if="i < overall_officials.length-1">, </span>
-                            </small>
+            <template v-if="expandedView || fullView" data-aos="fade-in">
+                <!-- stats box -->
+                <div class="text-md font-regular p-6 pt-2 text-gray-500 dark:text-white flex justify-between items-center">
+                    <div class="ml-2 p-3 rounded border border-gray-200 text-xs">
+                        <!-- url -->
+                        <p v-if="source.url">
+                            <a :href="source.url" target="_blank" rel="nonreferrer">Source <i class="fas fa-external-link-square-alt" :class="theme.text"></i></a>
+                        </p>
+                        <!-- overall_officials -->
+                        <template v-if="overall_officials">
+                            <p class="mt-2" :class="theme.text">Officials:</p>
+                            <!-- short list -->
+                            <template v-if="overall_officials.length < 11">
+                                <small class="mb-1" v-for="(official, i) in overall_officials" :key="official">
+                                    {{official}} <span v-if="i < overall_officials.length-1">, </span>
+                                </small>
+                            </template>
+                            <!-- long hover -->
+                            <template v-else>
+                                <Popper :content="JSON.stringify(overall_officials)" class="tip" :hover="true" placement="right" arrow>
+                                    <span>(<span :class="theme.text">{{overall_officials.length}}</span>) overall_officials</span>
+                                </Popper>
+                            </template>
                         </template>
-                        <!-- long hover -->
-                        <template v-else>
-                            <Popper :content="JSON.stringify(overall_officials)" class="tip" :hover="true" placement="right" arrow>
-                                <span>(<span :class="theme.text">{{overall_officials.length}}</span>) overall_officials</span>
-                            </Popper>
-                        </template>
-                    </template>
+                    </div>
                 </div>
-            </div>
-            <div v-if="source.keyword">
-                <small class="text-xs mr-2 text-gray-400" v-for="(tag, i) in source.keyword" :key="tag + i">
-                    <i class="fas fa-tag" :class="theme.text"></i> {{tag?.keyword}}
-                </small>
-            </div>
+                <div v-if="source.keyword">
+                    <small class="text-xs mr-2 text-gray-400" v-for="(tag, i) in source.keyword" :key="tag + i">
+                        <i class="fas fa-tag" :class="theme.text"></i> {{tag?.keyword}}
+                    </small>
+                </div>
+            </template>
         </div>
     </div>
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 import ResultTab from '../ResultTab.vue'
 import Description from '../ExpandableDescription.vue'
 
@@ -100,6 +104,9 @@ export default {
         ResultTab
     },
     computed:{
+        ...mapGetters([
+            'expandedView'
+        ]),
         // root level of data, for readability
         source: function () {
             // deeper > shallow

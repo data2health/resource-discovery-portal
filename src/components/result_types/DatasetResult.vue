@@ -49,41 +49,44 @@
                     </Pill>
                 </template>
             </div>
-            <!-- stats box -->
-            <div class="text-md font-regular p-6 pt-2 text-gray-500 dark:text-white flex justify-between items-center">
-                <div class="ml-2 p-3 rounded border border-gray-200 text-xs">
-                    <!-- url -->
-                    <p v-if="source?.dataset?.url">
-                        <a :href="source?.dataset?.url" target="_blank" rel="nonreferrer">Source <i class="fas fa-external-link-square-alt" :class="theme.text"></i></a>
-                    </p>
-                    <!-- people -->
-                    <template v-if="people">
-                        <p class="mt-2" :class="theme.text">Creators:</p>
-                        <!-- short list -->
-                        <template v-if="people.length < 11">
-                            <small class="mb-1" v-for="(official, i) in people" :key="official">
-                                {{official}} <span v-if="i < people.length-1">, </span>
-                            </small>
+            <template v-if="expandedView || fullView" data-aos="fade-in">
+                <!-- stats box -->
+                <div class="text-md font-regular p-6 pt-2 text-gray-500 dark:text-white flex justify-between items-center">
+                    <div class="ml-2 p-3 rounded border border-gray-200 text-xs">
+                        <!-- url -->
+                        <p v-if="source?.dataset?.url">
+                            <a :href="source?.dataset?.url" target="_blank" rel="nonreferrer">Source <i class="fas fa-external-link-square-alt" :class="theme.text"></i></a>
+                        </p>
+                        <!-- people -->
+                        <template v-if="people">
+                            <p class="mt-2" :class="theme.text">Creators:</p>
+                            <!-- short list -->
+                            <template v-if="people.length < 11">
+                                <small class="mb-1" v-for="(official, i) in people" :key="official">
+                                    {{official}} <span v-if="i < people.length-1">, </span>
+                                </small>
+                            </template>
+                            <!-- long hover -->
+                            <template v-else>
+                                <Popper :content="JSON.stringify(people)" class="tip" :hover="true" placement="right" arrow>
+                                    <span>(<span :class="theme.text">{{people.length}}</span>) creators</span>
+                                </Popper>
+                            </template>
                         </template>
-                        <!-- long hover -->
-                        <template v-else>
-                            <Popper :content="JSON.stringify(people)" class="tip" :hover="true" placement="right" arrow>
-                                <span>(<span :class="theme.text">{{people.length}}</span>) creators</span>
-                            </Popper>
-                        </template>
-                    </template>
+                    </div>
                 </div>
-            </div>
-            <div v-if="source?.dataset?.keywords">
-                <small class="text-xs mr-2 text-gray-400" v-for="(tag, i) in source?.dataset?.keywords" :key="tag + i">
-                    <i class="fas fa-tag" :class="theme.text"></i> {{tag}}
-                </small>
-            </div>
+                <div v-if="source?.dataset?.keywords">
+                    <small class="text-xs mr-2 text-gray-400" v-for="(tag, i) in source?.dataset?.keywords" :key="tag + i">
+                        <i class="fas fa-tag" :class="theme.text"></i> {{tag}}
+                    </small>
+                </div>
+            </template>
         </div>
     </div>
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 
 import Description from '../ExpandableDescription.vue'
 import ResultTab from '../ResultTab.vue'
@@ -99,6 +102,9 @@ export default {
         ResultTab
     },
     computed:{
+        ...mapGetters([
+            'expandedView'
+        ]),
         // root level of data, for readability
         source: function () {
             if (this.item?._source?.raw?._source) {

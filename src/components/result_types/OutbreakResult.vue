@@ -42,52 +42,57 @@
                     </Pill>
                 </template>
             </div>
-            <!-- stats box -->
-            <div class="text-md font-regular p-6 pt-2 text-gray-500 dark:text-white flex justify-between items-center">
-                <div class="ml-2 p-3 rounded border border-gray-200 text-xs">
-                    <!-- curated -->
-                    <template v-if="item?._source?.curatedBy">
-                        <p :class="theme.text">Curated by:</p>
-                        <a v-if="item?._source?.curatedBy?.url" :href="item?._source?.curatedBy?.url" target="_blank" rel="nonreferrer">
-                            {{item?._source?.curatedBy?.name}} ({{$filters.formatDate(item?._source?.curatedBy?.curationDate)}}) <i class="fas fa-external-link-square-alt" :class="theme.text"></i>
-                        </a>
-                        <p v-else>{{item?._source?.curatedBy?.name}} ({{$filters.formatDate(item?._source?.curatedBy?.curationDate)}})</p>
-                    </template>
-                    <!-- authors -->
-                    <template v-if="authors || authorsByInstitution">
-                        <p class="mt-2" :class="theme.text">Authors:</p>
-                        <!-- if by institution -->
-                        <template v-if="authorsByInstitution">
-                            <p v-for="(authors, institution) in authorsByInstitution" :key="institution" class="mb-2">
-                                <Popper :content="JSON.stringify(authors)" class="tip" :hover="true" placement="right" arrow>
-                                    <span>(<span :class="theme.text">{{authors.length}}</span>) </span>
-                                </Popper>
-                                {{institution}}
-                            </p>
+            <template v-if="expandedView || fullView" data-aos="fade-in">
+                <!-- stats box -->
+                <div class="text-md font-regular p-6 pt-2 text-gray-500 dark:text-white flex justify-between items-center">
+                    <div class="ml-2 p-3 rounded border border-gray-200 text-xs">
+                        <!-- curated -->
+                        <template v-if="item?._source?.curatedBy">
+                            <p :class="theme.text">Curated by:</p>
+                            <a v-if="item?._source?.curatedBy?.url" :href="item?._source?.curatedBy?.url" target="_blank" rel="nonreferrer">
+                                {{item?._source?.curatedBy?.name}} ({{$filters.formatDate(item?._source?.curatedBy?.curationDate)}}) <i class="fas fa-external-link-square-alt" :class="theme.text"></i>
+                            </a>
+                            <p v-else>{{item?._source?.curatedBy?.name}} ({{$filters.formatDate(item?._source?.curatedBy?.curationDate)}})</p>
                         </template>
-                        <!-- else list them-->
-                        <template v-else-if="authors">
-                            <!-- short list -->
-                            <template v-if="authors.length < 11">
-                                <small class="mb-1" v-for="(author, i) in authors" :key="author">
-                                    {{author}} <span v-if="i < authors.length-1">, </span>
-                                </small>
+                        <!-- authors -->
+                        <template v-if="authors || authorsByInstitution">
+                            <p class="mt-2" :class="theme.text">Authors:</p>
+                            <!-- if by institution -->
+                            <template v-if="authorsByInstitution">
+                                <p v-for="(authors, institution) in authorsByInstitution" :key="institution" class="mb-2">
+                                    <Popper :content="JSON.stringify(authors)" class="tip" :hover="true" placement="right" arrow>
+                                        <span>(<span :class="theme.text">{{authors.length}}</span>) </span>
+                                    </Popper>
+                                    {{institution}}
+                                </p>
                             </template>
-                            <!-- long hover -->
-                            <template v-else>
-                                <Popper :content="JSON.stringify(authors)" class="tip" :hover="true" placement="right" arrow>
-                                    <span>(<span :class="theme.text">{{authors.length}}</span>) authors</span>
-                                </Popper>
+                            <!-- else list them-->
+                            <template v-else-if="authors">
+                                <!-- short list -->
+                                <template v-if="authors.length < 11">
+                                    <small class="mb-1" v-for="(author, i) in authors" :key="author">
+                                        {{author}} <span v-if="i < authors.length-1">, </span>
+                                    </small>
+                                </template>
+                                <!-- long hover -->
+                                <template v-else>
+                                    <Popper :content="JSON.stringify(authors)" class="tip" :hover="true" placement="right" arrow>
+                                        <span>(<span :class="theme.text">{{authors.length}}</span>) authors</span>
+                                    </Popper>
+                                </template>
                             </template>
                         </template>
-                    </template>
+                    </div>
                 </div>
-            </div>
+            </template>
+            
         </div>
     </div>
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 import ResultTab from '../ResultTab.vue'
 import Description from '../ExpandableDescription.vue'
 
@@ -102,6 +107,9 @@ export default {
         ResultTab
     },
     computed:{
+        ...mapGetters([
+            'expandedView'
+        ]),
         authors: function(){
             if (this.item && this.item?._source?.author) {
                 return this.item?._source?.author.map(item => item.name);

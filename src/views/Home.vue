@@ -16,7 +16,7 @@
             placeholder="search" 
             class="w-full m-auto py-2 px-4 text-2x text-main
             rounded-full border-secondary border-2 focus:outline-none focus:ring-2 
-            focus:ring-secondary-light focus:border-transparent dark:bg-gray-300">
+            focus:ring-secondary-light focus:border-transparent dark:bg-gray-300 caret-pink-500">
             <button type="submit" class="btn-main ml-2">
               <i class="fas fa-search"></i>
             </button>

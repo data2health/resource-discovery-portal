@@ -13,7 +13,7 @@
             </div>
             <!-- description -->
             <Description :text="source?.bio"></Description>
-            <div class="flex justify-between">
+            <div v-if="expandedView || fullView"  class="flex justify-between">
                 <!-- published date -->
                 <p v-if="source?.created_at" class="text-sm">
                     <i class="fas fa-book" :class="theme.text"></i> {{$filters.formatDate(source?.created_at)}}
@@ -44,29 +44,33 @@
                     </Pill>
                 </template>
             </div>
-            <div class="text-md font-regular p-6 pt-2 text-gray-500 bg-gray-100/50 dark:bg-gray-500 dark:text-white flex items-center justify-start rounded-xl shadow-xl my-4 w-3/4 m-auto">
-                <div class="text-center">
-                    <img v-if="source?.avatar_url" 
-                    :src="source?.avatar_url" 
-                    alt="github avatar" 
-                    class="rounded-full w-1/2 border-8 border-gray-100 dark:border-gray-600 m-auto bg-white">
-                    <p class="text-center" v-if="source?.html_url">
-                        <a :href="source?.html_url" target="_blank" rel="nonreferrer">{{source?.name}} <i class="fas fa-external-link-square-alt" :class="theme.text"></i></a>
-                    </p>
+            <template v-if="expandedView || fullView" data-aos="fade-in">
+                <div class="text-md font-regular p-6 pt-2 text-gray-500 bg-gray-100/50 dark:bg-gray-500 dark:text-white flex items-center justify-start rounded-xl shadow-xl my-4 w-3/4 m-auto">
+                    <div class="text-center">
+                        <img v-if="source?.avatar_url" 
+                        :src="source?.avatar_url" 
+                        alt="github avatar" 
+                        class="rounded-full w-1/2 border-8 border-gray-100 dark:border-gray-600 m-auto bg-white">
+                        <p class="text-center" v-if="source?.html_url">
+                            <a :href="source?.html_url" target="_blank" rel="nonreferrer">{{source?.name}} <i class="fas fa-external-link-square-alt" :class="theme.text"></i></a>
+                        </p>
+                    </div>
+                    <div class="ml-1 p-3 rounded border border-gray-100 text-xs">
+                        <p v-if="source?.login" class="mb-1"><i class="fab fa-github" :class="theme.text"></i> {{source?.login}}</p>
+                        <p v-if="source?.twitter_username" class="mb-1"><i class="fab fa-twitter" :class="theme.text"></i> {{source?.twitter_username}}</p>
+                        <p v-if="source?.followers"><i class="fas fa-bell" :class="theme.text"></i> {{source?.followers}}</p>
+                        <p v-if="source?.company" class="mb-1"><i class="fas fa-building" :class="theme.text"></i> {{source?.company}}</p>
+                        <p v-if="source?.visibility" class="mb-1"><i class="fas fa-lock" :class="theme.text"></i> {{source?.visibility}}</p>
+                    </div>
                 </div>
-                <div class="ml-1 p-3 rounded border border-gray-100 text-xs">
-                    <p v-if="source?.login" class="mb-1"><i class="fab fa-github" :class="theme.text"></i> {{source?.login}}</p>
-                    <p v-if="source?.twitter_username" class="mb-1"><i class="fab fa-twitter" :class="theme.text"></i> {{source?.twitter_username}}</p>
-                    <p v-if="source?.followers"><i class="fas fa-bell" :class="theme.text"></i> {{source?.followers}}</p>
-                    <p v-if="source?.company" class="mb-1"><i class="fas fa-building" :class="theme.text"></i> {{source?.company}}</p>
-                    <p v-if="source?.visibility" class="mb-1"><i class="fas fa-lock" :class="theme.text"></i> {{source?.visibility}}</p>
-                </div>
-            </div>
+            </template>
         </div>
     </div>
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 import ResultTab from '../ResultTab.vue'
 import Description from '../ExpandableDescription.vue'
 
@@ -81,6 +85,9 @@ export default {
         Description
     },
     computed:{
+        ...mapGetters([
+            'expandedView'
+        ]),
         // root level of data, for readability
         source: function () {
             // deeper > shallow

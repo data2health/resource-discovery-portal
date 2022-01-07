@@ -1,16 +1,27 @@
 <template>
-  <div class="dm py-10 text-gray-700 dark:text-gray-400">
+  <div class="dm py-10 text-gray-700 dark:text-gray-400 flex justify-items-stretch" id="scrollArea">
+    <div class="relative hidden md:block">
+      <div class="p-2 sticky top-10">
+      <ul class="text-sm space-y-2">
+        <template v-for="a in anchors" :key="a.anchor">
+          <li>
+            <a :class="{'font-bold text-main' : a.visible}" :href="a.anchor">{{a.name}}</a>
+          </li>
+        </template>
+      </ul>
+    </div>
+    </div>
     <div class="min-h-screen max-w-screen-lg m-auto space-y-28">
 
-      <section class="space-y-10 mb-4 p-3">
-        <h1 class="text-6xl mb-6 text-main dark:text-secondary-light">About the Resource Discovery Portal <i class="fas fa-plus text-secondary-light"></i> CD2H</h1>
+      <section class="space-y-10 mb-4 p-3" id="intro">
+        <h1 class="text-2xl md:text-6xl mb-6 text-main dark:text-secondary-light">About the Resource Discovery Portal <i class="fas fa-plus text-secondary-light"></i> CD2H</h1>
         <p>
           The CTSA National Center for Data to Health (CD2H) accelerates advancements in informatics by utilizing findable, accessible, interoperable, and reusable (FAIR) principles to promote collaboration across the Clinical and Translational Science Awards (CTSA) Program community.
         </p>
       </section>
 
-      <section class="space-y-10 mb-4 p-3">
-        <h1 class="text-6xl mb-6 text-main dark:text-secondary-light">What we provide</h1>
+      <section class="space-y-10 mb-4 p-3" id="provide">
+        <h1 class="text-2xl md:text-6xl mb-6 text-main dark:text-secondary-light">What we provide</h1>
         <ul>
           <li>
             <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit.</p>
@@ -24,13 +35,13 @@
         </ul>
       </section>
 
-      <section class="space-y-10 mb-4 p-3">
-        <h1 class="text-6xl mb-6 text-main dark:text-secondary-light">Our Data</h1>
+      <section class="space-y-10 mb-4 p-3" id="data">
+        <h1 class="text-2xl md:text-6xl mb-6 text-main dark:text-secondary-light">Our Data</h1>
         <img class="w-3/4 m-auto" src="/assets/img/sources.jpg" alt="Our Data">
       </section>
 
-      <section class="space-y-10 mb-4 p-3">
-        <h1 class="text-6xl mb-6 text-main dark:text-secondary-light">The Project</h1>
+      <section class="space-y-10 mb-4 p-3" id="project">
+        <h1 class="text-2xl md:text-6xl mb-6 text-main dark:text-secondary-light">The Project</h1>
         <h2 class="text-3xl">
           History
         </h2>
@@ -45,8 +56,8 @@
         </p>
       </section>
 
-      <section class="mb-4 p-3 w-full">
-        <h1 class="text-6xl mb-6 text-main dark:text-secondary-light">The Team</h1>
+      <section class="mb-4 p-3 w-full" id="team">
+        <h1 class="text-2xl md:text-6xl mb-6 text-main dark:text-secondary-light">The Team</h1>
         <div class="text-center font-light text-2xl">
           <template v-for="(members, organization) in team" :key="organization">
             <div class="flex justify-center p-10">
@@ -73,6 +84,37 @@ import PersonCard from '../components/PersonCard.vue'
 
 export default {
   name: 'About',
+  data: function(){
+    return {
+      anchors:[
+        {
+          'anchor': '#intro',
+          'name': 'About RDP',
+          'visible': false
+        },
+        {
+          'anchor': '#provide',
+          'name': 'What we provide',
+          'visible': false
+        },
+        {
+          'anchor': '#data',
+          'name': 'Our data',
+          'visible': false
+        },
+        {
+          'anchor': '#project',
+          'name': 'About this project',
+          'visible': false
+        },
+        {
+          'anchor': '#team',
+          'name': 'Our team',
+          'visible': false
+        },
+      ]
+    }
+  },
   computed:{
         ...mapGetters([
             'team'
@@ -80,6 +122,6 @@ export default {
   },
   components:{
     PersonCard
-  }
+  },
 }
 </script>
