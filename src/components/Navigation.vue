@@ -9,7 +9,7 @@
           <!-- logo -->
           <div>
             <router-link to="/" class="flex items-center py-1 px-2 text-indigo-200 hover:text-tertiary">
-              <img src="../../assets/img/rdp_text.svg" class="h-24 w-24 mr-2">
+              <img src="/assets/img/rdp_text.svg" class="h-24 w-24 mr-2">
               <span class="font-bold">Resource Discovery Portal</span>
             </router-link>
           </div>
