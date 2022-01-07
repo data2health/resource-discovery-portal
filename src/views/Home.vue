@@ -32,27 +32,27 @@
       <!-- SECTIONS -->
       <div class="mx-auto">
           <!-- section -->
-          <section class="flex space-x-10 items-start min-h-[50vh] bg-main text-white">
-            <div class="w-2/6 sticky top-10 py-10 px-20">
-              <h2 class="text-5xl font-bold">
+          <section class="flex  items-start min-h-[50vh] bg-main text-white flex-wrap md:flex-nowrap">
+            <div class="w-full md:w-2/6 md:sticky top-10 py-10 px-20">
+              <h2 class="text-2xl md:text-5xl font-bold ">
                 What is the CD2H Resource Discovery Portal?
               </h2>
             </div>
-            <div class="w-4/6 leading-snug space-y-5 p-20 text-3xl">
-              <div class="h-80 w-80 bg-gray-400 m-auto"></div>
+            <div class="w-full md:w-4/6 leading-snug space-y-5 p-4 md:p-20 md:text-3xl text-md m-0">
+              <div class="h-1/3 w-1/3 bg-gray-400 m-auto"></div>
               <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Esse minus et expedita ea voluptatibus sit, vero autem beatae recusandae sequi consequatur mollitia quas earum animi suscipit obcaecati laudantium, voluptas quibusdam!</p>
               <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Esse minus et expedita ea voluptatibus sit, vero autem beatae recusandae sequi consequatur mollitia quas earum animi suscipit obcaecati laudantium, voluptas quibusdam!</p>
               <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Esse minus et expedita ea voluptatibus sit, vero autem beatae recusandae sequi consequatur mollitia quas earum animi suscipit obcaecati laudantium, voluptas quibusdam!</p>
             </div>
           </section>
           <!-- section -->
-          <section class="flex space-x-10 items-start min-h-[50vh]">
-            <div class="w-2/6 sticky top-10 py-10 px-20">
-              <h2 class="text-5xl font-bold">
+          <section class="flex  items-start min-h-[50vh] flex-wrap md:flex-nowrap">
+            <div class="w-full md:w-2/6 md:sticky top-10 py-10 px-20">
+              <h2 class="text-2xl md:text-5xl font-bold">
                 One unified location to search for...
               </h2>
             </div>
-            <div class="flex justify-center items-stretch flex-wrap w-full p-10">
+            <div class="flex justify-center items-stretch flex-wrap w-full p-4 md:p-20">
                 <SmallCard 
                 title="Datasets"
                 icon="fas fa-database" 
@@ -97,39 +97,35 @@
               </div>
           </section>
           <!-- section -->
-          <section class="flex space-x-10 items-start min-h-[50vh] bg-main text-white bg-no-repeat bg-right-bottom" 
+          <section class="flex items-start min-h-[50vh] bg-main text-white bg-no-repeat bg-right-bottom flex-wrap md:flex-nowrap" 
           style="background-image: url('/assets/img/bg_dark.svg')">
-            <div class="w-2/6 sticky top-10 py-10 px-20">
-              <h2 class="text-5xl font-bold">
+            <div class="w-full md:w-2/6 md:sticky top-10 py-10 px-20">
+              <h2 class="text-2xl md:text-5xl font-bold">
                 How is this platform being used?
               </h2>
             </div>
-            <div class="w-4/6 leading-snug space-y-5 p-20 text-3xl">
+            <div class="w-full md:w-4/6 leading-snug space-y-5 p-4 text-md md:text-3xl md:p-20">
               <p class="font-serif italic text-center text-gray-200">“I want to stay up to date on PCR testing techniques” <i class="fas fa-comment"></i></p>
-              <div class="flex items-stretch justify-center p-2 w-2/3">
+              <div class="flex items-stretch justify-center p-2 w-full md:w-2/3 flex-wrap">
                 <div class="flex flex-row flex-wrap p-3 space-y-3 items-stretch">
-                  <div class="flex justify-evenly items-center space-x-7 text-sm py-3 px-10 rounded-full bg-black/50">
+                  <div class="flex justify-evenly items-center space-x-7 text-sm py-3 px-10 md:rounded-full bg-black/50 rounded-md flex-wrap">
                     <p>Discover researchers with relevant experience</p>
-                    <i class="fas fa-arrow-right my-3 text-tertiary-light fa-2x"></i>
-                    <p class="font-bold">Researcher- Maneesh Pingle, Assistant Professor of Microbiology and Immunology (Courtesy), Weill Cornell Medical College</p>
+                    <p class="font-bold text-tertiary-light">Researcher- Maneesh Pingle, Assistant Professor of Microbiology and Immunology (Courtesy), Weill Cornell Medical College</p>
                   </div>
-                  <div class="flex justify-evenly items-center space-x-7 text-sm py-3 px-10 rounded-full bg-black/50">
+                  <div class="flex justify-evenly items-center space-x-7 text-sm py-3 px-10 md:rounded-full bg-black/50 flex-wrap rounded-md">
                     <p>Browse literature for new publications</p>
-                    <i class="fas fa-arrow-right my-3 text-tertiary-light fa-2x"></i>
-                    <p class="font-bold">Article - Comparison of Digital PCR and Quantitative PCR with Various SARS-CoV-2 Primer-Probe Sets.</p>
+                    <p class="font-bold text-tertiary-light">Article - Comparison of Digital PCR and Quantitative PCR with Various SARS-CoV-2 Primer-Probe Sets.</p>
                   </div>
-                  <div class="flex justify-evenly items-center space-x-7 text-sm py-3 px-10 rounded-full bg-black/50">
+                  <div class="flex justify-evenly items-center space-x-7 text-sm py-3 px-10 md:rounded-full bg-black/50 flex-wrap rounded-md">
                     <p>Search for a protocol</p>
-                    <i class="fas fa-arrow-right my-3 text-tertiary-light fa-2x"></i>
-                    <p class="font-bold">Protocol - Detection of Sars-Cov2 Using Droplet Digital PCR</p>
+                    <p class="font-bold text-tertiary-light">Protocol - Detection of Sars-Cov2 Using Droplet Digital PCR</p>
                   </div>
-                  <div class="flex justify-evenly items-center space-x-7 text-sm py-3 px-10 rounded-full bg-black/50">
+                  <div class="flex justify-evenly items-center space-x-7 text-sm py-3 px-10 md:rounded-full bg-black/50 flex-wrap rounded-md">
                     <p>Find informative Youtube videos</p>
-                    <i class="fas fa-arrow-right my-3 text-tertiary-light fa-2x"></i>
-                    <p class="font-bold">Video - PCR Essentials</p>
+                    <p class="font-bold text-tertiary-light">Video - PCR Essentials</p>
                   </div>
                 </div>
-                <div class="p-3 text-center w-1/3 flex items-center justify-center">
+                <div class="p-3 text-center w-full md:w-1/3 flex items-center justify-center">
                   <router-link to="/search" class="btn-main !text-main font-bold text-sm">
                     Try&nbsp;This&nbsp;Search
                   </router-link>

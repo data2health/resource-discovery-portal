@@ -1,6 +1,6 @@
 <template>
     <!-- card -->
-    <div class="shadow-md rounded-xl m-2 w-1/4 dark:bg-gray-700">
+    <div class="shadow-md rounded-xl m-2 dark:bg-gray-700 w-64">
         <div class="p-4 text-center space-y-3">
         <h1 class="font-bold text-lg text-gray-700 dark:text-gray-400">{{title}}</h1>
         <i class="fa-3x text-secondary-light" :class="icon"></i>

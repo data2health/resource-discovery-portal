@@ -2,7 +2,7 @@
   <div class="w-screen bg-gray-800 dark:bg-gray-700 dark:text-gray-200 text-gray-400">
     <div class="max-w-screen-xl m-auto py-8 px-2">
       <div class="grid grid-cols-2 gap-5 my-5">
-        <div>
+        <div class="flex justify-center">
           <ul class="text-sm">
             <li class="mb-5">
               <router-link to="/" >Home</router-link>
@@ -26,9 +26,9 @@
     <div class="flex justify-center items-center flex-wrap w-full">
           <img src="/assets/img/rdp_white.svg" class="h-10 m-5">
           <img src="/assets/img/cd2h_white.png" class="h-10 m-5">
-          <img src="/assets/img/scripps.png" class="h-10 m-5">
+          <img src="/assets/img/scripps_white.png" class="h-10 m-5">
           <img src="/assets/img/uiowa.png" class="h-20 m-5">
-          <img src="/assets/img/sage.svg" class="h-10 m-5">
+          <img src="/assets/img/sage_white.svg" class="h-10 m-5">
     </div>
     <div>
       <p class="text-xs text-center">
