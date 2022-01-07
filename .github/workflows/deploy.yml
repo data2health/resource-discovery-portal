@@ -1,4 +1,4 @@
-name: Deploy Outbreak.info Webapp to S3
+name: Deploy CD2H-RDP Webapp to S3
 
 on:
   push:
