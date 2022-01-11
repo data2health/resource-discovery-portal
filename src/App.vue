@@ -4,7 +4,7 @@
   <!-- main content -->
   <div :class="[darkMode ? 'dark' : '']">
     <Navigation></Navigation>
-    <Loader v-if="loading"></Loader>
+    <RDPLoader v-if="loading"></RDPLoader>
     <!-- render modal components here -->
     <div id="modals-go-here"></div>
     <router-view v-slot="{ Component }" :key="$route.href">
@@ -21,7 +21,7 @@
 
   import Footer from './components/Footer.vue'
   import Navigation from './components/Navigation.vue'
-  import Loader from './components/Loader.vue'
+  import RDPLoader from './components/RDPLoader.vue'
   import HeadMeta from './components/HeadMeta.vue'
 
   export default {
@@ -29,7 +29,7 @@
   components: {
     Navigation,
     Footer,
-    Loader,
+    RDPLoader,
     HeadMeta
   },
   computed:{

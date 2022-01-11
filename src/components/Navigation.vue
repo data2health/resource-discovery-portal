@@ -8,7 +8,7 @@
           <!-- logo -->
           <div>
             <router-link to="/" class="flex items-center py-1 px-2 text-indigo-200 hover:text-tertiary">
-              <img src="/assets/img/rdp_text.svg" class="h-24 w-24 mr-2">
+              <img src="/assets/img/rdp_text.svg" class="h-24 w-24 mr-5">
               <span class="font-bold">Resource Discovery Portal</span>
             </router-link>
           </div>
@@ -23,8 +23,8 @@
         <!-- secondary nav -->
         <div class="hidden md:flex items-center space-x-1">
           <Popper :content="darkMode ? 'Light Mode' : 'Dark Mode'" class="tip" :hover="true" placement="top">
-            <button @click="toggleDarkMode()" class="py-2 px-3 icon-btn bg-black dark:bg-white shadow-md">
-              <i class="fas" :class="[!darkMode ? 'fa-moon text-indigo-300' : 'fa-sun text-yellow-400']"></i>
+            <button @click="toggleDarkMode()" class="py-2 px-3 icon-btn bg-black dark:bg-white shadow-md transition-all duration-300">
+              <i class="fas transition-all duration-300" :class="[!darkMode ? 'fa-moon text-indigo-300' : 'fa-sun text-yellow-400']"></i>
             </button>
           </Popper>
         </div>
