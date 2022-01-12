@@ -22,8 +22,10 @@
 
         <!-- secondary nav -->
         <div class="hidden md:flex items-center space-x-1">
-          <Popper :content="darkMode ? 'Light Mode' : 'Dark Mode'" class="tip" :hover="true" placement="top">
-            <button @click="toggleDarkMode()" class="py-2 px-3 icon-btn bg-black dark:bg-white shadow-lg shadow-cyan-500/50 transition-all duration-300">
+          <Popper :content="darkMode ? 'Light Mode' : 'Dark Mode'" class="tip" :hover="true" placement="left">
+            <button @click="toggleDarkMode()" 
+            :class="[darkMode ? 'dm-btn-light' : 'dm-btn-dark']"
+            class="py-2 px-3 icon-btn bg-black dark:bg-white transition-all duration-300">
               <i class="fas transition-all duration-300" :class="[!darkMode ? 'fa-moon text-indigo-300' : 'fa-sun text-yellow-400']"></i>
             </button>
           </Popper>
