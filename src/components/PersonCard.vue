@@ -1,5 +1,5 @@
 <template>
-    <div class="w-64">
+    <div class="w-64 m-2">
         <div class="text-lg font-normal">
             <div class="flex justify-center items-center p-1 z-20 w-full">
                 <img data-aos="zoom-out-down" class="rounded-full dark:border-gray-700 border-8 w-24 m-auto border-gray-100"
@@ -13,10 +13,20 @@
                     class="icon-btn rounded-xl bg-main hover:bg-main-light dark:bg-secondary-light dark:hover:bg-secondary">
                         <i class="fab fa-twitter text-white"></i>
                     </a>
-                    <a v-else-if="person.social?.github" 
+                    <a v-if="person.social?.linkedin" 
+                    :href="person.social?.linkedin" target="_blank" rel="nonreferrer" 
+                    class="icon-btn rounded-xl bg-main hover:bg-main-light dark:bg-secondary-light dark:hover:bg-secondary">
+                        <i class="fab fa-linkedin text-white"></i>
+                    </a>
+                    <a v-if="person.social?.github" 
                     :href="person.social?.github" target="_blank" rel="nonreferrer" 
                     class="icon-btn rounded-xl bg-main hover:bg-main-light dark:bg-secondary-light dark:hover:bg-secondary">
                         <i class="fab fa-github-alt text-white"></i>
+                    </a>
+                    <a v-if="person.social?.website" 
+                    :href="person.social?.website" target="_blank" rel="nonreferrer" 
+                    class="icon-btn rounded-xl bg-main hover:bg-main-light dark:bg-secondary-light dark:hover:bg-secondary">
+                        <i class="fas fa-home text-white"></i>
                     </a>
                 </div>
             </div>

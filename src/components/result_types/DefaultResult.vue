@@ -29,7 +29,7 @@
                 <h1 class="font-light">DETAILS</h1>
             </div>
             <!-- detail box -->
-            <div class="flex justify-start items-center">
+            <div class="flex justify-start items-center flex-wrap">
                 <!-- ID -->
                 <template v-if="source?.id" class="text-sm">
                     <Pill :color="theme['bg']">

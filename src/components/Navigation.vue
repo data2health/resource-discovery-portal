@@ -60,7 +60,7 @@ export default {
     data: function(){
       return {
         showMenu: false,
-        menuClass: ''
+        menuClass: 'hidden'
       }
     },
     components: {

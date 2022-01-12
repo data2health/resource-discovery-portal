@@ -8,7 +8,7 @@
         <div v-if="type == 'checkbox' && open">
             <template v-for="(item) in items" :key="item + name">
                 <button class="rounded-2xl block w-full select-none text-left px-3 py-1 bg-white hover:bg-gray-200 m-1 text-xs text-gray-500" data-aos="fade-in">
-                    {{item}}
+                    <i :class="[item?.active ? 'fas fa-circle' : 'far fa-circle']"></i> {{item}}
                 </button>
             </template>
         </div>

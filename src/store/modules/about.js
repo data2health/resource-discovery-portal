@@ -5,32 +5,36 @@ export const about= {
             'Scripps Research': [
                 {
                     'name': 'Chunlei Wu, PI',
-                    'picture': 'https://www.gravatar.com/avatar/108605daee6b3c24d02db9753637a66b.png?s=128',
+                    'picture': '/assets/img/team/chunlei.jpeg',
                     'social': {
+                        'linkedin': 'https://www.linkedin.com/in/chunleiwu',
                         'github': 'https://github.com/newgene',
                     },
                     
                 },
                 {
                     'name': 'Ginger Tsueng',
-                    'picture': '',
+                    'picture': '/assets/img/team/ginger.jpeg',
                     'social': {
+                        'linkedin': 'https://www.linkedin.com/in/ginger-tsueng-36884348',
                         'github': 'https://github.com/marcodarko',
                     },
                     
                 },
                 {
                     'name': 'Marco A. Cano',
-                    'picture': 'https://avatars.githubusercontent.com/u/23092057?v=4',
+                    'picture': '/assets/img/team/marco.jpeg',
                     'social': {
+                        'linkedin': 'https://www.linkedin.com/in/',
                         'github': 'https://github.com/marcodarko',
                     },
                     
                 },
                 {
                     'name': 'Nichollette Acosta',
-                    'picture': '/assets/img/default.jpeg',
+                    'picture': '/assets/img/team/nicholette.jpeg',
                     'social': {
+                        'linkedin': 'https://www.linkedin.com/in/nichollette-acosta/',
                         'github': 'https://github.com/newgene',
                     },
                     
@@ -39,24 +43,27 @@ export const about= {
             'Sage': [
                 {
                     'name': 'James Edy, PI',
-                    'picture': '',
+                    'picture': '/assets/img/team/james.jpeg',
                     'social': {
+                        'linkedin': 'https://www.linkedin.com/in/jamesaeddy/',
                         'github': 'https://github.com/newgene',
                     },
                     
                 },
                 {
                     'name': 'Thomas Schaffter',
-                    'picture': '',
+                    'picture': '/assets/img/team/thomas.jpeg',
                     'social': {
+                        'linkedin': 'https://www.linkedin.com/in/tschaffter/',
                         'github': 'https://github.com/marcodarko',
                     },
                     
                 },
                 {
                     'name': 'Jiaxin Zheng',
-                    'picture': '',
+                    'picture': '/assets/img/team/jiaxin.jpeg',
                     'social': {
+                        'linkedin': 'https://www.linkedin.com/in/jiaxin-zheng-18922a54/',
                         'github': 'https://github.com/newgene',
                     },
                     
@@ -65,23 +72,25 @@ export const about= {
             'University of Iowa': [
                 {
                     'name': 'Dave Eichmann, PI',
-                    'picture': '',
+                    'picture': '/assets/img/team/dave.jpeg',
                     'social': {
                         'github': 'https://github.com/newgene',
+                        'linkedin': 'https://www.linkedin.com/in/davideichmann/'
                     },
                     
                 },
                 {
                     'name': 'Elizabeth Zak',
-                    'picture': '',
+                    'picture': '/assets/img/team/elizabeth.jpeg',
                     'social': {
                         'github': 'https://github.com/marcodarko',
+                        'linkedin': 'https://www.linkedin.com/in/elizabeth-zak-m-s-486a30ab/'
                     },
                     
                 },
                 {
                     'name': 'Arman Mikaili',
-                    'picture': '',
+                    'picture': '/assets/img/team/arman.jpeg',
                     'social': {
                         'github': 'https://github.com/newgene',
                     },
@@ -89,17 +98,19 @@ export const about= {
                 },
                 {
                     'name': 'Alexis Graves',
-                    'picture': '',
+                    'picture': '/assets/img/team/alexis.png',
                     'social': {
                         'github': 'https://github.com/newgene',
+                        'website': 'https://myweb.uiowa.edu/grves/'
                     },
                     
                 },
                 {
                     'name': 'Will Cooper',
-                    'picture': '',
+                    'picture': '/assets/img/team/will.jpeg',
                     'social': {
                         'github': 'https://github.com/newgene',
+                        'linkedin': 'https://www.linkedin.com/in/william-cooper-8b55861b9/'
                     },
                     
                 },

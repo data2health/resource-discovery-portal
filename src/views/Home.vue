@@ -49,7 +49,7 @@
           <!-- section -->
           <section class="flex  items-start min-h-[50vh] flex-wrap md:flex-nowrap">
             <div class="w-full md:w-2/6 md:sticky top-10 py-10 px-20">
-              <h2 class="text-2xl md:text-5xl font-bold">
+              <h2 class="text-2xl md:text-5xl font-bold text-main dark:text-secondary-light">
                 One unified location to search for...
               </h2>
             </div>

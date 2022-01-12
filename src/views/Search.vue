@@ -2,7 +2,7 @@
     <div class="dark:bg-gray-800 dark:text-white bg-gray-100">
         <!-- Types -->
         <TypeFilter></TypeFilter>
-        <div class="container mx-auto w-1/2 py-2">
+        <div class="container mx-auto w-full md:w-1/2 py-2 px-4 md:px-1">
             <!-- Search Bar -->
             <form @submit.prevent="search()" class="w-full flex items-center">
             <input 
@@ -19,17 +19,17 @@
         </div>
         <div class="container mx-auto px-4">
             <!-- main container -->
-            <div class="flex justify-around items-start">
+            <div class="flex justify-around items-start flex-wrap">
                 <!-- Left columns -->
-                <div class="p-1 flex-initial w-1/5 ">
+                <div class="p-1 flex-initial md:w-1/5 w-full">
                     <!-- Preferences -->
                     <Preferences></Preferences>
                     <!-- Filters -->
                     <div class="rounded-2xl p-2 mb-3 shadow bg-gray-100 dark:bg-gray-700 select-none hover:bg-gray-200">
                         <div @click="open = !open" class="rounded cursor-pointer text-gray-500 p-1 font-light flex justify-start text-sm items-center">
                             <button @click="open = !open" type="button" class="icon-btn bg-white dark:bg-gray-500">
-                                <i class="fas text-secondary dark:text-tertiary-light" :class="[open ? 'fa-chevron-down' : 'fa-chevron-right']"></i>
-                            </button> <span class="ml-2">Search <i class="fas fa-plus"></i></span>
+                                <i class="fas text-secondary dark:text-tertiary-light" :class="[open ? 'fa-minus' : 'fa-plus']"></i>
+                            </button> <span class="ml-2">Advanced Search</span>
                         </div>
                         <div v-if="open">
                             <FilterList type="checkbox" name="dataSource" :items="['CD2H','Outbreak.info','Data Discovery Engine','DataMed']"></FilterList>
@@ -38,7 +38,7 @@
                     </div>
                 </div>
                 <!-- Results -->
-                <div class="flex-initial w-64 flex-grow mx-3 highlight_container">
+                <div class="flex-initial w-64 flex-grow mx-3 highlight_container min-h-[75vh]">
                     <!-- details -->
                     <div class="mb-3 p-2 dark:text-gray-500 text-gray-400">
                         <Pagination :items="results" key="top-pagination"></Pagination>
@@ -52,7 +52,7 @@
                     </div>
                 </div>
                 <!-- Right Column -->
-                <div class="flex-initial w-1/5">
+                <div class="flex-initial w-full md:w-1/5">
                     <!-- Recent History -->
                     <div class="p-4 text-left rounded-lg bg-gray-200 dark:bg-gray-700 mb-2">
                         <div class="flex justify-between items-center mb-3">
