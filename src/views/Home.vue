@@ -1,23 +1,24 @@
 <template>
   <!-- hero -->
   <div class="dm">
-    <div class="min-h-screen m-auto flex items-center justify-center bg-no-repeat bg-center flex-wrap md:flex-nowrap" 
+    <div class="min-h-[60vh] m-auto flex items-center justify-center bg-no-repeat bg-center flex-wrap md:flex-nowrap" 
           style="background-image:url('/assets/img/hero.svg')">
-      <div>
-        <div class="bg-grey-100 p-5 text-center max-w-screen-md m-auto mb-10">
+      <div class="w-2/3">
+        <!-- <div class="bg-grey-100 p-5 text-center max-w-screen-md m-auto mb-10">
           <img v-if="!darkMode" src="/assets/img/rdp_color.svg" alt="logo" class="m-auto w-1/3">
           <img v-else src="/assets/img/rdp_dark.svg" alt="logo" class="m-auto w-1/3">
-        </div>
+        </div> -->
         <!-- search -->
-        <div class="w-2/3 m-auto px-5">
+        <div class="w-2/3 m-auto px-5 space-y-5">
+          <h1 class="text-xl text-center">Start your search here</h1>
           <form @submit.prevent="search()" class="w-full flex items-center">
             <input 
             v-model="query"
             type="text" 
             placeholder="search" 
             class="w-full m-auto py-2 px-4 text-2x text-main
-            rounded-full border-secondary border-2 focus:outline-none focus:ring-2 
-            focus:ring-secondary-light focus:border-transparent dark:bg-gray-300 caret-pink-500 shadow-xl">
+            rounded-full border-secondary dark:border-tertiary border-2 focus:outline-none focus:ring-2 
+            focus:ring-secondary-light dark:focus:ring-tertiary-light focus:border-transparent dark:bg-gray-300 caret-pink-500 shadow-xl">
             <button type="submit" class="btn-main ml-2">
               <i class="fas fa-search"></i>
             </button>
@@ -25,8 +26,11 @@
           <span class="text-sm block mt-2 text-gray-400">
             Eg. <router-link :to="{ path: '/search', query: { 'q': 'COVID-19' }}">COVID-19</router-link>
           </span>
+          <h1 class="text-xl text-center">Or explore our resources by type</h1>
+          <p class="text-center">
+            <router-link class="btn-main m-auto" to="/search">Resource Types</router-link>
+          </p>
         </div>
-        <Resources></Resources>
       </div>
     </div>
     <div>
@@ -44,6 +48,9 @@
               <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Esse minus et expedita ea voluptatibus sit, vero autem beatae recusandae sequi consequatur mollitia quas earum animi suscipit obcaecati laudantium, voluptas quibusdam!</p>
               <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Esse minus et expedita ea voluptatibus sit, vero autem beatae recusandae sequi consequatur mollitia quas earum animi suscipit obcaecati laudantium, voluptas quibusdam!</p>
               <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Esse minus et expedita ea voluptatibus sit, vero autem beatae recusandae sequi consequatur mollitia quas earum animi suscipit obcaecati laudantium, voluptas quibusdam!</p>
+              <p class="text-center">
+                <router-link class="btn-main m-auto text-sm" to="/about">Learn More</router-link>
+              </p>
             </div>
           </section>
           <!-- section -->
@@ -157,7 +164,6 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import Resources from '../components/Resources.vue'
 import SmallCard from '../components/SmallCard.vue'
 
 export default {
@@ -169,7 +175,6 @@ export default {
     }
   },
   components: {
-    Resources,
     SmallCard
   },
   methods:{

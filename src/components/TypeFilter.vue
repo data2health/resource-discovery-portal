@@ -3,10 +3,11 @@
         <template v-for="(info, type) in resourceTypes" :key="type + 'f'">
             <button 
             @click="activateTypeFilter(type)"
-            :class="info?.active ? 'text-white bg-main hover:bg-main-light' : 'bg-white dark:bg-gray-300 text-main hover:bg-gray-100'"
+            :class="info?.active ? 'text-white bg-tertiary hover:bg-tertiary-light' : 
+            'bg-main dark:bg-secondary dark:hover:bg-secondary-light text-white hover:bg-main-light'"
             class="shadow-sm hover:shadow-md px-4 py-1 text-center 
-            m-1 rounded-full transition-all duration-300 text-xs md:text-sm">
-                <i :class="[info?.active ? 'fas fa-circle' : 'far fa-circle']"></i> {{type}}
+            m-1 rounded-lg transition-all duration-300 text-xs md:text-sm">
+                {{type}}
             </button>
         </template>
     </div>

@@ -78,7 +78,8 @@ h1,h2,h3,h4,h5,p{
 }
 
 .btn-main{
-    @apply bg-tertiary hover:bg-tertiary-light text-main hover:text-secondary-light focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-opacity-50 rounded-full py-2 px-3
+    @apply bg-none border-4 font-bold border-main dark:border-tertiary bg-white/25 dark:bg-black/25 hover:bg-main 
+    text-main dark:text-tertiary-light hover:text-white focus:outline-none rounded-full py-2 px-3 dark:hover:bg-tertiary dark:hover:text-white
 }
 
 .dm{

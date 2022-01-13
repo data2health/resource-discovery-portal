@@ -11,7 +11,7 @@
             </slot>
         </h6>
         <div class="content">
-            <slot>
+            <slot name="content">
                 <!-- CONTENT GOES HERE -->
             </slot>
         </div>

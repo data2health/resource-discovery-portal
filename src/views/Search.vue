@@ -17,42 +17,26 @@
             </button>
             </form>
         </div>
-        <div class="container mx-auto px-4">
+        <div class="container mx-auto px-4 max-w-screen-lg">
             <!-- main container -->
             <div class="flex justify-around items-start flex-wrap">
-                <!-- Left columns -->
-                <div class="p-1 flex-initial md:w-1/5 w-full">
-                    <!-- Preferences -->
-                    <Preferences></Preferences>
-                    <!-- Filters -->
-                    <div class="rounded-2xl p-2 mb-3 shadow bg-gray-100 dark:bg-gray-700 select-none hover:bg-gray-200">
-                        <div @click="open = !open" class="rounded cursor-pointer text-gray-500 p-1 font-light flex justify-start text-sm items-center">
-                            <button @click="open = !open" type="button" class="icon-btn bg-white dark:bg-gray-500">
-                                <i class="fas text-secondary dark:text-tertiary-light" :class="[open ? 'fa-minus' : 'fa-plus']"></i>
-                            </button> <span class="ml-2">Advanced Search</span>
-                        </div>
-                        <div v-if="open">
-                            <FilterList type="checkbox" name="dataSource" :items="['CD2H','Outbreak.info','Data Discovery Engine','DataMed']"></FilterList>
-                            <FilterList type="checkbox" name="dataType" :items="['Dataset','Publication','Video','Repository','Person', 'Clinical Trial']"></FilterList>
-                        </div>
-                    </div>
-                </div>
+
                 <!-- Results -->
-                <div class="flex-initial w-64 flex-grow mx-3 highlight_container min-h-[75vh]">
+                <div class="w-full flex-grow mx-3 highlight_container min-h-[75vh]">
                     <!-- details -->
                     <div class="mb-3 p-2 dark:text-gray-500 text-gray-400">
                         <Pagination :items="results" key="top-pagination"></Pagination>
                     </div>
                     <!-- hits -->
                     <template v-for="(result) in results" :key="result._source.label">
-                        <Result :item="result"></Result>
+                        <ExpandableResult :item="result"></ExpandableResult>
                     </template>
                     <div>
                         <Pagination :items="results" key="bottom-pagination"></Pagination>
                     </div>
                 </div>
-                <!-- Right Column -->
-                <div class="flex-initial w-full md:w-1/5">
+                <!-- Bottom Column -->
+                <div class="w-1/5">
                     <!-- Recent History -->
                     <div class="p-4 text-left rounded-lg bg-gray-200 dark:bg-gray-700 mb-2">
                         <div class="flex justify-between items-center mb-3">
@@ -110,28 +94,24 @@
 import { mapGetters } from 'vuex'
 import Mark from 'mark.js'
 
-import Result from '../components/ResultWrapper.vue'
-import FilterList from '../components/FilterList.vue'
+// import Result from '../components/ResultWrapper.vue'
 import Pagination from '../components/Pagination.vue'
 import ShareButtons from '../components/ShareButtons.vue'
 import TypeFilter from '../components/TypeFilter.vue'
-import Preferences from '../components/Preferences.vue'
+import ExpandableResult from '../components/ExpandableResult.vue'
 
 export default {
     name: "Search",
     data: function(){
         return {
             highlighter: null,
-            open: false
         }
     },
     components: {
-        Result,
-        FilterList,
+        ExpandableResult,
         Pagination,
         ShareButtons,
         TypeFilter,
-        Preferences
     },
     methods:{
         search(){

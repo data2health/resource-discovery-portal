@@ -1,8 +1,13 @@
 <template>
+    <div class="flex justify-between w-full">
+        <!-- Preferences -->
+        <AdvancedSearch></AdvancedSearch>
+        <Preferences></Preferences>
+    </div>
     <div class="flex justify-between items-center flex-wrap">
         <!-- total hits -->
         <div>
-            <p class="font-extralight text-xs">{{numberWithCommas(items.length)}} Results</p>
+            <p class="font-bold text-lg">{{numberWithCommas(items.length)}} Results</p>
         </div>
         <!-- pages -->
         <div>
@@ -44,6 +49,9 @@
 </template>
 
 <script>
+import Preferences from './Preferences.vue'
+import AdvancedSearch from '../components/AdvancedSearch.vue'
+
 export default {
     name: "Pagination",
     props:['items'],
@@ -52,6 +60,10 @@ export default {
             currentPage: '1',
             pages: ['1','2','3','4','5','6','7']
         }
+    },
+    components:{
+        Preferences,
+        AdvancedSearch
     },
     methods:{
         numberWithCommas(x) {

@@ -153,22 +153,26 @@ export default {
     methods:{
         getType(content){
             var self = this;
-            if (content.constructor === Object) {
-                self.type = 'object'
-            }
-            else if (content.constructor === Array) {
-                self.type = 'array'
-            }
-            else if (content.constructor === Boolean) {
-                self.type = 'boolean'
-            }
-            else if (content.constructor === Number) {
-                self.type = 'number'
-            }
-            else if (content.constructor === String) {
-                self.type = 'string'
-            }else {
-                self.type = 'IDK'
+            if (content) {
+               if (content?.constructor === Object) {
+                    self.type = 'object'
+                }
+                else if (content?.constructor === Array) {
+                    self.type = 'array'
+                }
+                else if (content?.constructor === Boolean) {
+                    self.type = 'boolean'
+                }
+                else if (content?.constructor === Number) {
+                    self.type = 'number'
+                }
+                else if (content?.constructor === String) {
+                    self.type = 'string'
+                }else {
+                    self.type = 'IDK'
+                }
+            }else{
+              self.type = 'IDK'
             }
         },
         isUrl(txt){
@@ -235,10 +239,10 @@ export default {
         },
     },
     mounted: function(){
-            this.getType(this.content)
-            if (this.type == 'array') {
-                this.calculatePages();
-            }
+      this.getType(this.content)
+      if (this.type == 'array') {
+          this.calculatePages();
+      }
     },
     computed: {
         arrayResults: function () {
