@@ -7,7 +7,7 @@
     <div class="flex justify-between items-center flex-wrap">
         <!-- total hits -->
         <div>
-            <p class="font-bold text-lg">{{numberWithCommas(items.length)}} Results</p>
+            <p class="font-bold text-lg">{{$filters.numberWithCommas(items.length)}} Results</p>
         </div>
         <!-- pages -->
         <div>
@@ -64,11 +64,6 @@ export default {
     components:{
         Preferences,
         AdvancedSearch
-    },
-    methods:{
-        numberWithCommas(x) {
-            return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-        }
     }
 }
 </script>

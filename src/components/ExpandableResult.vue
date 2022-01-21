@@ -1,11 +1,9 @@
 <template>
-    <div :key="uniqueID" class="min-w-full flex justify-between mb-2 border-b-2 border-gray-400">
-        <div class="flex flex-col justify-start p-2">
-            <i class="fas cursor-pointer" @click.prevent="open = !open" :class="open ? 'fa-chevron-down' : 'fa-chevron-right'"></i>
-        </div>
-        <div class="w-3/4">
-            <h1 class="text-lg font-bold">{{title}}</h1>
-            <h2 class="font-bolder capitalize">{{result_type}}</h2>
+    <!-- Type -->
+    <ResultTab :name="result_type" :cls="[theme.bg]" ></ResultTab>
+    <div :key="uniqueID" class="min-w-full flex justify-between border-2 border-gray-200 mb-5 shadow-lg p-3">
+        <div class="w-full">
+            <h1 class="text-lg font-bold cursor-pointer" @click.prevent="open = !open">{{title}}</h1>
             <div class="flex space-x-2 flex-wrap justify-start">
                 <!-- method -->
                 <template v-if="source?.method || source?.delivery_method" class="text-sm">
@@ -32,7 +30,12 @@
                     </div>
                 </template>
             </div>
-            <div v-if="open || expandedView">
+            <div v-if="open || expandedView" class="bg-gray-200">
+                <div class="flex justify-start p-2 space-x-2">
+                    <i class="fas fa-external-link-square-alt"></i>
+                    <i class="fas fa-envelope-square"></i>
+                    <i class="fas fa-clipboard-list"></i>
+                </div>
                 <!-- published date -->
                 <p v-if="source?.created_at" class="text-sm">
                     <i class="fas fa-book" :class="theme.text"></i> {{$filters.formatDate(source?.created_at)}}
@@ -46,11 +49,6 @@
                 </template>
             </div>
         </div>
-        <div class="flex flex-col justify-start p-2 space-y-5">
-            <i class="fas fa-external-link-square-alt"></i>
-            <i class="fas fa-envelope-square"></i>
-            <i class="fas fa-clipboard-list"></i>
-        </div>
     </div>
 </template>
 
@@ -58,6 +56,7 @@
 import { mapGetters } from 'vuex'
 
 import FieldBox from './FieldBox.vue'
+import ResultTab from './ResultTab.vue'
 
 export default {
     name: "ExpandableResult",
@@ -71,7 +70,8 @@ export default {
         item: Object
     },
     components:{
-        FieldBox
+        FieldBox,
+        ResultTab
     },
     computed:{
         ...mapGetters([

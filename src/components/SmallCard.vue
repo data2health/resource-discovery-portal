@@ -14,7 +14,7 @@
                 </router-link>
             </li>
         </ul>
-        <p class="text-sm text-left mt-3 text-secondary-light group-hover:hidden">{{numberWithCommas(2354385)}} available</p>
+        <p class="text-sm text-left mt-3 text-secondary-light group-hover:hidden">{{$filters.numberWithCommas(2354385)}} available</p>
         </div>
     </div>
 </template>
@@ -26,11 +26,6 @@ export default {
         icon: String,
         items: Array,
         title: String
-    },
-    methods:{
-        numberWithCommas(x) {
-            return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-        }
     },
     computed: {
         theme: function() {

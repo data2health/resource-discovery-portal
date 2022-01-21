@@ -1,11 +1,7 @@
 <template>
     <a v-if="fullView" class="cursor-pointer" @click="$router.go(-1)"><i class="fas fa-chevron-left"></i> Go Back </a>
-    <div class="p-1 rounded-t-xl text-sm ml-2 bg-gray-200" :class="fullView ? 'w-3/4 dark:bg-gray-800' : 'w-1/3 dark:bg-gray-700'">
-        <h3 class="flex justify-between dark:text-gray-400 text-gray-400 ml-3">
-            <span class="capitalize" :class="fullView ? 'text-2xl font-light' : ''">
-                <i :class="[cls]"></i> {{name}}
-            </span>
-        </h3>
+    <div class="p-1 rounded-t-xl text-xs inline-block min-w-[20%]" :class="[cls]">
+        <h3 class="text-white p-1 capitalize" :class="fullView ? 'text-2xl font-light' : ''">{{name}}</h3>
     </div>
 </template>
 

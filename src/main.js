@@ -54,6 +54,9 @@ app.config.globalProperties.$filters = {
             return moment(ts).format("MMM DD, YYYY");
         }
         return ts
+    },
+    numberWithCommas(x) {
+        return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     }
   }
 

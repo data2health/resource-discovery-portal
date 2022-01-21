@@ -15,7 +15,8 @@
 
           <!-- primary nav -->
           <div class="hidden md:flex items-center space-x-3 mr-5">
-            <router-link to="/search" class="py-3 px-3 text-main hover:text-main-light">Search</router-link>
+            <router-link to="/search" class="py-3 px-3 text-main hover:text-main-light">Keyword Search</router-link>
+            <router-link to="/resource-types" class="py-3 px-3 text-main hover:text-main-light">Resource Types</router-link>
             <router-link to="/about" class="py-3 px-3 text-main hover:text-main-light">About</router-link>
           </div>
         </div>
@@ -45,7 +46,8 @@
 
     <!-- mobile menu -->
     <div class="mobile-menu md:hidden bg-main-dark" :class="menuClass">
-      <router-link to="/search"  @click="toggleMenu()" class="block py-2 px-4 text-sm hover:bg-secondary">Search</router-link>
+      <router-link to="/search"  @click="toggleMenu()" class="block py-2 px-4 text-sm hover:bg-secondary">Keyword Search</router-link>
+      <router-link to="/resource-types"  @click="toggleMenu()" class="block py-2 px-4 text-sm hover:bg-secondary">Resource Types</router-link>
       <router-link to="/about"  @click="toggleMenu()" class="block py-2 px-4 text-sm hover:bg-secondary">About</router-link>
       <a href="#" @click="toggleDarkMode()" class="block py-2 px-4 text-sm hover:bg-secondary">
         <i class="fas" :class="[!darkMode ? 'fa-moon text-indigo-300' : 'fa-sun text-yellow-400']"></i> Toggle Mode
