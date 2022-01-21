@@ -16,7 +16,7 @@
       <section class="space-y-10 mb-4 p-3 min-h-[50vh]" id="intro">
         <h1 class="text-2xl md:text-5xl mb-6 text-main dark:text-secondary-light font-extrabold">About the RDP</h1>
         <p class="text-2xl">
-          The CD2H Resource Discovery Portal is a single, intuitive interface that allows researchers to explore the landscape of potential biofinormatics resources around a topic of interest.
+          The CD2H Resource Discovery Portal is a single, intuitive interface that allows researchers to explore the landscape of potential bio-informatics resources around a topic of interest.
         </p>
          <h2 class="text-2xl md:text-5xl mb-6 text-main dark:text-secondary-light font-extrabold">What we provide</h2>
         <ul class="space-y-3 list-disc ml-6">
@@ -63,7 +63,7 @@
         <div class="space-y-2 text-center">
           <h1 class="text-md md:text-2xl mb-6 text-main dark:text-secondary-light">How to use RDP</h1>
           <figure>
-            <img src="/assets/img/video.png" alt="how to use rdp" class="w-1/3 m-auto">
+            <img src="/assets/img/video-how.png" alt="how to use rdp" class="w-1/3 m-auto">
             <figcaption class="text-gray-400">Learn how to use the Resource Discovery Portal</figcaption>
           </figure>
         </div>
