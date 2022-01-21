@@ -1,35 +1,35 @@
 <template>
   <!-- hero -->
   <div class="dm">
-    <div class="min-h-[60vh] m-auto flex items-center justify-center bg-no-repeat bg-center flex-wrap md:flex-nowrap" 
-          style="background-image:url('/assets/img/hero.svg')">
-      <div class="w-2/3">
-        <!-- <div class="bg-grey-100 p-5 text-center max-w-screen-md m-auto mb-10">
-          <img v-if="!darkMode" src="/assets/img/rdp_color.svg" alt="logo" class="m-auto w-1/3">
-          <img v-else src="/assets/img/rdp_dark.svg" alt="logo" class="m-auto w-1/3">
-        </div> -->
-        <!-- search -->
-        <div class="w-2/3 m-auto px-5 space-y-5">
-          <h1 class="text-xl text-center">Start your search here</h1>
-          <form @submit.prevent="search()" class="w-full flex items-center">
-            <input 
-            v-model="query"
-            type="text" 
-            placeholder="search" 
-            class="w-full m-auto py-2 px-4 text-2x text-main
-            rounded-full border-secondary dark:border-tertiary border-2 focus:outline-none focus:ring-2 
-            focus:ring-secondary-light dark:focus:ring-tertiary-light focus:border-transparent dark:bg-gray-300 caret-pink-500 shadow-xl">
-            <button type="submit" class="btn-main ml-2">
-              <i class="fas fa-search"></i>
-            </button>
-          </form>
-          <span class="text-sm block mt-2 text-gray-400">
-            Eg. <router-link :to="{ path: '/search', query: { 'q': 'COVID-19' }}">COVID-19</router-link>
-          </span>
-          <h1 class="text-xl text-center">Or explore our resources by type</h1>
-          <p class="text-center">
-            <router-link class="btn-main m-auto" to="/search">Resource Types</router-link>
-          </p>
+    <div class="min-h-[60vh] m-auto flex items-center justify-center bg-no-repeat bg-cover bg-bottom flex-wrap md:flex-nowrap">
+      <div class="relative w-full min-h-[60vh] overflow-hidden">
+        <div class="w-2/3 absolute z-50 top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%]">
+
+          <div class=" w-full m:w-2/3 m-auto px-5 space-y-5">
+            <h1 class="text-xl text-center">Start your search here</h1>
+            <form @submit.prevent="search()" class="w-full flex items-center justify-center flex-wrap">
+              <input 
+              v-model="query"
+              type="text" 
+              placeholder="search" 
+              class="w-2/3 py-2 px-4 text-2x text-main
+              rounded-full border-secondary dark:border-tertiary border-2 focus:outline-none focus:ring-2 
+              focus:ring-secondary-light dark:focus:ring-tertiary-light focus:border-transparent dark:bg-gray-300 caret-pink-500 shadow-md">
+              <button type="submit" class="btn-main ml-2">
+                <i class="fas fa-search"></i>
+              </button>
+            </form>
+            <span class="text-xs md:text-sm block mt-2 text-gray-400 text-center m:text-left">
+              Eg. <router-link :to="{ path: '/search', query: { 'q': 'COVID-19' }}">COVID-19</router-link>
+            </span>
+            <h1 class="text-sm md:text-xl text-center">Or explore our resources by type</h1>
+            <p class="text-center">
+              <router-link class="btn-main m-auto" to="/search">Resource&nbsp;Types</router-link>
+            </p>
+          </div>
+        </div>
+        <div class="top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] absolute z-10 overflow-hidden opacity-50">
+          <RotatingCards></RotatingCards>
         </div>
       </div>
     </div>
@@ -45,22 +45,20 @@
             </div>
             <div class="w-full md:w-4/6 leading-snug space-y-5 p-4 md:p-20 md:text-3xl text-md m-0">
               <div class="h-1/3 w-1/3 bg-gray-400 m-auto"></div>
-              <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Esse minus et expedita ea voluptatibus sit, vero autem beatae recusandae sequi consequatur mollitia quas earum animi suscipit obcaecati laudantium, voluptas quibusdam!</p>
-              <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Esse minus et expedita ea voluptatibus sit, vero autem beatae recusandae sequi consequatur mollitia quas earum animi suscipit obcaecati laudantium, voluptas quibusdam!</p>
-              <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Esse minus et expedita ea voluptatibus sit, vero autem beatae recusandae sequi consequatur mollitia quas earum animi suscipit obcaecati laudantium, voluptas quibusdam!</p>
+              <p>The CD2H Resource Discovery Portal (RDP) is a single location to start your search for bioinformatics resources. <br>The platform draws from over 50 databases and covers over 20,000,000 total resources. You can accomplish a wide range of tasks with this single interface to search for many types of resources, including datasets, journal articles, Youtube videos, GitHub profiles, funding opportunities and more.</p>
               <p class="text-center">
-                <router-link class="btn-main m-auto text-sm" to="/about">Learn More</router-link>
+                <router-link class="btn-main m-auto text-sm md:border-tertiary-light md:text-white" to="/about">Learn More</router-link>
               </p>
             </div>
           </section>
           <!-- section -->
-          <section class="flex  items-start min-h-[50vh] flex-wrap md:flex-nowrap">
-            <div class="w-full md:w-2/6 md:sticky top-10 py-10 px-20">
-              <h2 class="text-2xl md:text-5xl font-bold text-main dark:text-secondary-light">
-                One unified location to search for...
+          <section class="min-h-[50vh]">
+            <div class="w-full top-10 py-10 px-20">
+              <h2 class="text-2xl md:text-3xl font-bold text-main dark:text-secondary-light text-center">
+                A central space to search for...
               </h2>
             </div>
-            <div class="flex justify-center items-stretch flex-wrap w-full p-4 md:p-20">
+            <div class="flex justify-center items-stretch flex-wrap w-full p-4 md:p-20 bg-center bg-no-repeat">
                 <SmallCard 
                 title="Datasets"
                 icon="fas fa-database" 
@@ -134,7 +132,7 @@
                   </div>
                 </div>
                 <div class="p-3 text-center w-full md:w-1/3 flex items-center justify-center">
-                  <router-link to="/search" class="btn-main !text-main font-bold text-sm">
+                  <router-link to="/search" class="btn-main font-bold text-sm md:border-tertiary-light md:text-white">
                     Try&nbsp;This&nbsp;Search
                   </router-link>
                 </div>
@@ -147,7 +145,7 @@
     <!-- cookie consent -->
     <Modal v-if="cookiesWarning">
       <template v-slot:title>
-        <h2 class="text-tertiary"><i class="fas fa-cookie-bite text-orange-300"></i> RDP Analytics &amp; Cookies</h2>
+        <h2 class="text-main"><i class="fas fa-cookie-bite text-orange-300"></i> RDP Analytics &amp; Cookies</h2>
       </template>
       <template v-slot:content>
         <p class="text-xs">
@@ -165,6 +163,7 @@
 <script>
 import { mapGetters } from 'vuex'
 import SmallCard from '../components/SmallCard.vue'
+import RotatingCards from '../components/RotatingCards.vue'
 
 export default {
   name: 'Home',
@@ -175,7 +174,8 @@ export default {
     }
   },
   components: {
-    SmallCard
+    SmallCard,
+    RotatingCards
   },
   methods:{
     search(){

@@ -2,7 +2,7 @@
   <!-- head html images -->
   <HeadMeta></HeadMeta>
   <!-- main content -->
-  <div :class="[darkMode ? 'dark' : '']">
+  <div :class="[darkMode ? 'dark' : '']" class="relative">
     <Navigation></Navigation>
     <RDPLoader v-if="loading"></RDPLoader>
     <!-- render modal components here -->
@@ -12,6 +12,7 @@
         <component :is="Component" />
       </transition>
     </router-view>
+    <Feedback></Feedback>
     <Footer></Footer>
   </div>
 </template>
@@ -23,6 +24,7 @@
   import Navigation from './components/Navigation.vue'
   import RDPLoader from './components/RDPLoader.vue'
   import HeadMeta from './components/HeadMeta.vue'
+  import Feedback from './components/Feedback.vue'
 
   export default {
   name: 'App',
@@ -30,7 +32,8 @@
     Navigation,
     Footer,
     RDPLoader,
-    HeadMeta
+    HeadMeta,
+    Feedback
   },
   computed:{
     ...mapGetters([

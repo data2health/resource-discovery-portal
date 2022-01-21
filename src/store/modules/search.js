@@ -34,47 +34,62 @@ export default {
             'Dataset' : {
                 'text': 'text-orange-400',
                 'bg': 'bg-orange-400',
-                'icon': 'fas fa-newspaper'
+                'icon': 'fas fa-newspaper',
+                'img': '/assets/img/icons/data.svg',
             },
             'Education' : {
                 'text': 'text-pink-500',
                 'bg': 'bg-pink-500',
-                'icon': 'fas fa-apple-alt'
+                'icon': 'fas fa-apple-alt',
+                'img': '/assets/img/icons/edu.svg',
             },
             'ClinicalTrial' : {
                 'text': 'text-purple-500',
                 'bg': 'bg-purple-500',
-                'icon': 'fas fa-flask'
+                'icon': 'fas fa-flask',
+                'img': '/assets/img/icons/ct.svg',
             },
             'Clinical Trial' : {
                 'text': 'text-purple-500',
                 'bg': 'bg-purple-500',
-                'icon': 'fas fa-flask'
+                'icon': 'fas fa-flask',
+                'img': '/assets/img/icons/ct.svg',
             },
             'Clinical trial' : {
                 'text': 'text-purple-500',
                 'bg': 'bg-purple-500',
-                'icon': 'fas fa-flask'
+                'icon': 'fas fa-flask',
+                'img': '/assets/img/icons/ct.svg',
             },
             'Publication' : {
                 'text': 'text-teal-500',
                 'bg': 'bg-teal-500',
-                'icon': 'fas fa-book'
+                'icon': 'fas fa-book',
+                'img': '/assets/img/icons/book.svg',
+            },
+            'Article' : {
+                'text': 'text-teal-500',
+                'bg': 'bg-teal-500',
+                'icon': 'fas fa-book',
+                'img': '/assets/img/icons/book.svg',
             },
             'Video' : {
                 'text': 'text-red-500',
                 'bg': 'bg-red-500',
-                'icon': 'fab fa-youtube'
+                'icon': 'fab fa-youtube',
+                'img': '/assets/img/icons/vid.svg',
             },
             'Playlist' : {
                 'text': 'text-red-600',
                 'bg': 'bg-red-600',
-                'icon': 'fab fa-youtube-square'
+                'icon': 'fab fa-youtube-square',
+                'img': '/assets/img/icons/vid.svg',
             },
             'Video clip' : {
                 'text': 'text-red-600 dark:text-red-400',
                 'bg': 'bg-red-600',
-                'icon': 'fab fa-youtube-square'
+                'icon': 'fab fa-youtube-square',
+                'img': '/assets/img/icons/vid.svg',
             },
             'Tool' : {
                 'text': 'text-indigo-600 dark:text-indigo-300',
@@ -84,12 +99,14 @@ export default {
             'Repository' : {
                 'text': 'text-blue-600 dark:text-blue-300',
                 'bg': 'bg-blue-600',
-                'icon': 'fab fa-github'
+                'icon': 'fab fa-github',
+                'img': '/assets/img/icons/gh.svg',
             },
             'Person' : {
                 'text': 'text-amber-500',
                 'bg': 'bg-amber-500',
-                'icon': 'fas fa-user'
+                'icon': 'fas fa-user',
+                'img': '/assets/img/icons/person.svg',
             },
             'Funding opportunity' : {
                 'text': 'text-emerald-700 dark:text-emerald-500',
@@ -105,7 +122,8 @@ export default {
         default:{
             'text': 'text-sky-500',
             'bg': 'bg-sky-500',
-            'icon': 'fas fa-circle'
+            'icon': 'fas fa-circle',
+            'img': '/assets/img/icons/default.svg',
         }
     }),
     actions: {
