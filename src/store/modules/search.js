@@ -7,116 +7,97 @@ export default {
         expandedView: false,
         recentSearches: [],
         maxRecentHistory: 5,
-        resourceTypes: {
-            'ALL': {
-                'active' : false
-            },
-            'Dataset': {
-                'active' : false
-            },
-            'Education': {
-                'active' : false
-            },
-            'Tool': {
-                'active' : false
-            },
-            'Publication': {
-                'active' : false
-            },
-            'Video': {
-                'active' : false
-            },
-            'Person': {
-                'active' : false
-            },
-        },
-        resultTheme:{
+        resourceTypes:{
             'Dataset' : {
                 'text': 'text-orange-400',
                 'bg': 'bg-orange-400',
                 'icon': 'fas fa-newspaper',
                 'img': '/assets/img/icons/data.svg',
+                'active' : false
             },
             'Education' : {
                 'text': 'text-pink-500',
                 'bg': 'bg-pink-500',
                 'icon': 'fas fa-apple-alt',
                 'img': '/assets/img/icons/edu.svg',
+                'active' : false
             },
             'ClinicalTrial' : {
                 'text': 'text-purple-500',
                 'bg': 'bg-purple-500',
                 'icon': 'fas fa-flask',
                 'img': '/assets/img/icons/ct.svg',
-            },
-            'Clinical Trial' : {
-                'text': 'text-purple-500',
-                'bg': 'bg-purple-500',
-                'icon': 'fas fa-flask',
-                'img': '/assets/img/icons/ct.svg',
-            },
-            'Clinical trial' : {
-                'text': 'text-purple-500',
-                'bg': 'bg-purple-500',
-                'icon': 'fas fa-flask',
-                'img': '/assets/img/icons/ct.svg',
+                'active' : false
             },
             'Publication' : {
                 'text': 'text-teal-500',
                 'bg': 'bg-teal-500',
                 'icon': 'fas fa-book',
                 'img': '/assets/img/icons/book.svg',
+                'active' : false
             },
             'Article' : {
                 'text': 'text-teal-500',
                 'bg': 'bg-teal-500',
                 'icon': 'fas fa-book',
                 'img': '/assets/img/icons/book.svg',
+                'active' : false
             },
             'Video' : {
                 'text': 'text-red-500',
                 'bg': 'bg-red-500',
                 'icon': 'fab fa-youtube',
                 'img': '/assets/img/icons/vid.svg',
+                'active' : false
             },
-            'Playlist' : {
-                'text': 'text-red-600',
-                'bg': 'bg-red-600',
-                'icon': 'fab fa-youtube-square',
-                'img': '/assets/img/icons/vid.svg',
-            },
-            'Video clip' : {
-                'text': 'text-red-600 dark:text-red-400',
-                'bg': 'bg-red-600',
-                'icon': 'fab fa-youtube-square',
-                'img': '/assets/img/icons/vid.svg',
-            },
-            'Tool' : {
+            'ComputationalTool' : {
                 'text': 'text-indigo-600 dark:text-indigo-300',
                 'bg': 'bg-indigo-600',
-                'icon': 'fas fa-laptop'
+                'icon': 'fas fa-laptop',
+                'img': '/assets/img/icons/tool.svg',
+                'active' : false
             },
             'Repository' : {
                 'text': 'text-blue-600 dark:text-blue-300',
                 'bg': 'bg-blue-600',
                 'icon': 'fab fa-github',
-                'img': '/assets/img/icons/gh.svg',
+                'img': '/assets/img/icons/repo.svg',
+                'active' : false
             },
             'Person' : {
                 'text': 'text-amber-500',
                 'bg': 'bg-amber-500',
                 'icon': 'fas fa-user',
                 'img': '/assets/img/icons/person.svg',
+                'active' : false
             },
-            'Funding opportunity' : {
+            'FundingOpportunity' : {
+                'text': 'text-yellow-500',
+                'bg': 'bg-yellow-500',
+                'icon': 'fas fa-money-check-alt',
+                'img': '/assets/img/icons/funding.svg',
+                'active' : false
+            },
+            'Grant' : {
                 'text': 'text-emerald-700 dark:text-emerald-500',
                 'bg': 'bg-emerald-700 dark:bg-emerald-500',
-                'icon': 'fas fa-money-check-alt'
+                'icon': 'fas fa-money-check-alt',
+                'img': '/assets/img/icons/grant.svg',
+                'active' : false
             },
-            'Funding Opportunity' : {
-                'text': 'text-emerald-700',
-                'bg': 'bg-emerald-700',
-                'icon': 'fas fa-money-check-alt'
+            'Instrument' : {
+                'text': 'text-lime-500',
+                'bg': 'bg-lime-500',
+                'icon': 'fas fa-microscope',
+                'img': '/assets/img/icons/instrument.svg',
+                'active' : false
+            },
+            'Protocol' : {
+                'text': 'text-cyan-500',
+                'bg': 'bg-cyan-500',
+                'icon': 'fas fa-list',
+                'img': '/assets/img/icons/protocol.svg',
+                'active' : false
             },
         },
         default:{
@@ -209,7 +190,7 @@ export default {
             return state.resourceTypes;
         },
         getTheme: (state) => (name) => {
-            return state.resultTheme?.[name] ? state.resultTheme?.[name] : state.default;
+            return state.resourceTypes?.[name] ? state.resourceTypes?.[name] : state.default;
         },
         expandedView: (state) => {
             return state.expandedView;

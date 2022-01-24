@@ -58,21 +58,21 @@
                 A central space to search for...
               </h2>
             </div>
-            <div class="flex justify-center items-stretch flex-wrap w-full p-4 md:p-20 bg-center bg-no-repeat">
+            <div class="flex justify-center items-stretch flex-wrap w-full p-4 md:p-20">
                 <SmallCard 
-                title="Datasets"
+                title="Dataset"
                 icon="fas fa-database" 
                 :items="['A Nuclease DNA complex', 'Hair follicle and skin molecular signatures', 'Altering cancer transcriptomes using epigenomic inhibitors']"></SmallCard>
                 <SmallCard 
-                title="Researcher Profiles"
+                title="Person"
                 icon="fas fa-user" 
                 :items="['Michelle James', 'Cody Thompson', 'Joel Smith']"></SmallCard>
                 <SmallCard 
-                title="Computational Tools"
+                title="ComputationalTools"
                 icon="fas fa-laptop" 
                 :items="['Omics Integrator', 'Data Driven Ontology', 'ImmClassifier']"></SmallCard>
                 <SmallCard 
-                title="Research Study Instruments"
+                title="Instruments"
                 icon="fas fa-microscope" 
                 :items="['Hamilton Anxiety Scale (HAM-A)','Multidimensional Fatigue Inventory ', 'Self Care Of Heart Failure Index V 6.2']"></SmallCard>
                 <SmallCard 
@@ -80,7 +80,7 @@
                 icon="fas fa-book-open" 
                 :items="['Human antiviral B cell responses: Emerging lessons from hepatitis B and COVID-19', 'Lung Ultrasound in Patients With Dyspnea From Infective Lung Disease']"></SmallCard>
                 <SmallCard 
-                title="Clinical Trials"
+                title="ClinicalTrials"
                 icon="fas fa-flask" 
                 :items="['Pilot Evaluation of a New Galyfilcon A Lens Prototype and Enfilcon A Lens', 'A Phase I Clinical Study of a GamLPV, a Live Intranasal Bordetella Pertussis Vaccine']"></SmallCard>
                 <SmallCard 
@@ -92,7 +92,7 @@
                 icon="fab fa-youtube" 
                 :items="['How a Drug Becomes a Drug', 'Curing a Child, Preserving a Childhood', 'Watch a moth drive a robot car']"></SmallCard>
                 <SmallCard 
-                title="Training Opportunities"
+                title="Education"
                 icon="fas fa-chalkboard" 
                 :items="['An Overview of Survey Design','Developing and Writing Research Questions, Aims & Hypotheses','Managing Communication and Conflict']"></SmallCard>
                 <div class="w-full p-10 text-center">

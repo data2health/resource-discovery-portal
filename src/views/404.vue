@@ -6,7 +6,7 @@
             <img v-if="!darkMode" src="/assets/img/404.svg" alt="logo" class="m-auto w-1/2">
             <img v-else src="/assets/img/404-dark.svg" alt="logo" class="m-auto w-1/2">
             <p class="text-center">
-                <router-link to="/">Home</router-link>
+                <router-link to="/">Let's start again...</router-link>
             </p>
         </div>
     </div>
