@@ -1,41 +1,57 @@
 <template>
     <!-- Type -->
-    <ResultTab :name="result_type" :cls="[theme.bg]" ></ResultTab>
+    <ResultTab :name="result_type" :theme="theme"></ResultTab>
     <div :key="uniqueID" class="min-w-full flex justify-between border-2 border-gray-200 mb-5 shadow-lg p-3">
         <div class="w-full">
-            <h1 class="text-lg font-bold cursor-pointer" @click.prevent="open = !open">{{title}}</h1>
-            <div class="flex space-x-2 flex-wrap justify-start">
+            <h1 class="text-lg font-bold cursor-pointer text-tertiary-dark hover:text-tertiary-light" @click.prevent="open = !open">
+                {{title}} <i class="fas text-gray-500" :class="[open ? 'fa-chevron-down' : 'fa-chevron-right']"></i>
+            </h1>
+            <template v-if="open || expandedView">
+                <div class="flex justify-start items-center p-2 space-x-4">
+                    <div>
+                        <Popper content="Source" class="tip" :hover="true" placement="bottom">
+                            <i class="fas fa-external-link-square-alt fa-2x text-tertiary-dark hover:text-tertiary-light cursor-pointer"></i>
+                        </Popper>
+                    </div>
+                    <div>
+                        <Popper content="Metadata" class="tip" :hover="true" placement="bottom">
+                            <i class="fas fa-clipboard-list fa-2x text-tertiary-dark hover:text-tertiary-light cursor-pointer"></i>
+                        </Popper>
+                    </div>
+                    <div>
+                        <Popper content="Share" class="tip" :hover="true" placement="bottom">
+                            <i class="fas fa-envelope-square fa-2x text-tertiary-dark hover:text-tertiary-light cursor-pointer"></i>
+                        </Popper>
+                    </div>
+                </div>
+            </template>
+            <div class="flex space-x-2 flex-wrap justify-start my-2">
                 <!-- method -->
-                <template v-if="source?.method || source?.delivery_method" class="text-sm">
-                    <div class="bg-gray-300 rounded px-3 py-1">
+                <template v-if="source?.method || source?.delivery_method">
+                    <div class="text-white banner-clip pr-3 pl-5 py-1 text-xs" :class="theme.bg">
                         {{source?.method || source?.delivery_method}}
                     </div>
                 </template>
                 <!-- status -->
-                <template v-if="source?.frequency" class="text-sm">
-                    <div class="bg-gray-300 rounded px-3 py-1">
+                <template v-if="source?.frequency">
+                    <div class="text-white banner-clip pr-3 pl-5 py-1 text-xs" :class="theme.bg">
                         {{source?.frequency}}
                     </div>
                 </template>
                 <!-- type -->
                 <template v-if="source?.types">
-                    <div class="bg-gray-300 rounded px-3 py-1" v-for="type in source?.types" :key="type">
+                    <div class="text-white banner-clip pr-3 pl-5 py-1 text-xs" :class="theme.bg" v-for="type in source?.types" :key="type">
                         {{type}}
                     </div>
                 </template>
                 <!-- public -->
-                <template v-if="source?.learning_level" class="text-sm">
-                    <div class="bg-gray-300 rounded px-3 py-1">
+                <template v-if="source?.learning_level">
+                    <div class="text-white banner-clip pr-3 pl-5 py-1 text-xs" :class="theme.bg">
                         {{source?.learning_level}}
                     </div>
                 </template>
             </div>
             <div v-if="open || expandedView" class="bg-gray-200">
-                <div class="flex justify-start p-2 space-x-2">
-                    <i class="fas fa-external-link-square-alt"></i>
-                    <i class="fas fa-envelope-square"></i>
-                    <i class="fas fa-clipboard-list"></i>
-                </div>
                 <!-- published date -->
                 <p v-if="source?.created_at" class="text-sm">
                     <i class="fas fa-book" :class="theme.text"></i> {{$filters.formatDate(source?.created_at)}}

@@ -3,7 +3,7 @@
     <div class="shadow-md rounded-xl m-2 dark:bg-gray-700 w-32 md:w-64 group bg-white">
         <div class="p-4 text-center space-y-3">
             <h1 class="font-bold text-xs md:text-lg text-gray-700 dark:text-gray-400">
-                <router-link :to="'/resource/' + title">{{title}}</router-link>
+                <router-link :to="'/resources/' + title">{{title}}</router-link>
             </h1>
             <img :src="theme.img" alt="logo" :class="theme.fill" class="rounded w-full md:w-1/3 m-auto md:group-hover:hidden">
         </div>

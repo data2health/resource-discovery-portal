@@ -129,21 +129,11 @@ export default {
             state.results = payload.value;
         },
         activateTypeFilter(state, payload){
-            if (payload.value == 'ALL') {
-                for (const type in state.resourceTypes) {
-                    if (type !== 'All') {
-                        state.resourceTypes[type].active = false;
-                    }
+            Object.keys(state.resourceTypes).forEach((type) => {
+                if (type == payload.value) {
+                    state.resourceTypes[type].active = !state.resourceTypes[type].active;
                 }
-                state.resourceTypes['ALL'].active = !state.resourceTypes['ALL'].active;
-            }else{
-                state.resourceTypes['ALL'].active = false;
-                Object.keys(state.resourceTypes).forEach((type) => {
-                    if (type == payload.value) {
-                        state.resourceTypes[type].active = !state.resourceTypes[type].active;
-                    }
-                });
-            }
+            });
         },
         addRecent(state, payload){
             if (state.recentSearches.length < state.maxRecentHistory) {

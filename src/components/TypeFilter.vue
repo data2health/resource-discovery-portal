@@ -1,13 +1,13 @@
 <template>
-    <div class="flex justify-center items-center overflow-scroll p-3 bg-gray-100 dark:bg-gray-800 w-full flex-wrap">
+    <div class="flex justify-start items-center overflow-scroll p-3 w-full flex-wrap">
         <template v-for="(info, type) in resourceTypes" :key="type + 'f'">
             <button 
             @click="activateTypeFilter(type)"
             :class="info?.active ? 'text-white bg-tertiary hover:bg-tertiary-light' : 
             'bg-main dark:bg-secondary dark:hover:bg-secondary-light text-white hover:bg-main-light'"
             class="shadow-sm hover:shadow-md px-4 py-1 text-center 
-            m-1 rounded-lg transition-all duration-300 text-xs md:text-sm">
-                {{type}}
+            m-1 rounded-lg text-xs md:text-sm flex justify-center items-center">
+                <img :src="info.img" :alt="type" class="h-5 mr-2"> {{type}}
             </button>
         </template>
     </div>

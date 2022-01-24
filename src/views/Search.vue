@@ -1,17 +1,13 @@
 <template>
     <div class="dark:bg-gray-800 dark:text-white bg-gray-100">
-        <!-- Types -->
-        <TypeFilter></TypeFilter>
-        <div class="container mx-auto w-full md:w-1/2 py-2 px-4 md:px-1">
+        <div class="container mx-auto w-full md:w-1/2 py-2 px-4 md:px-1 pt-5">
             <!-- Search Bar -->
             <form @submit.prevent="search()" class="w-full flex items-center">
             <input 
             v-model="$route.query.q"
             type="text" 
             placeholder="search" 
-            class="w-full m-auto py-2 px-4 text-2x text-main 
-            rounded-full border-secondary border-2 focus:outline-none focus:ring-2 
-            focus:ring-secondary-light focus:border-transparent dark:bg-gray-300 caret-pink-500">
+            class="main-input">
             <button type="submit" class="btn-main ml-2">
                 <i class="fas fa-search"></i>
             </button>
@@ -97,7 +93,6 @@ import Mark from 'mark.js'
 // import Result from '../components/ResultWrapper.vue'
 import Pagination from '../components/Pagination.vue'
 import ShareButtons from '../components/ShareButtons.vue'
-import TypeFilter from '../components/TypeFilter.vue'
 import ExpandableResult from '../components/ExpandableResult.vue'
 
 export default {
@@ -111,7 +106,6 @@ export default {
         ExpandableResult,
         Pagination,
         ShareButtons,
-        TypeFilter,
     },
     methods:{
         search(){

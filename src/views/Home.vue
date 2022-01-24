@@ -12,9 +12,7 @@
               v-model="query"
               type="text" 
               placeholder="search" 
-              class="w-2/3 py-2 px-4 text-2x text-main
-              rounded-full border-secondary dark:border-tertiary border-2 focus:outline-none focus:ring-2 
-              focus:ring-secondary-light dark:focus:ring-tertiary-light focus:border-transparent dark:bg-gray-300 caret-pink-500 shadow-md">
+              class="main-input">
               <button type="submit" class="btn-main ml-2">
                 <i class="fas fa-search"></i>
               </button>
@@ -68,27 +66,27 @@
                 icon="fas fa-user" 
                 :items="['Michelle James', 'Cody Thompson', 'Joel Smith']"></SmallCard>
                 <SmallCard 
-                title="ComputationalTools"
+                title="ComputationalTool"
                 icon="fas fa-laptop" 
                 :items="['Omics Integrator', 'Data Driven Ontology', 'ImmClassifier']"></SmallCard>
                 <SmallCard 
-                title="Instruments"
+                title="Instrument"
                 icon="fas fa-microscope" 
                 :items="['Hamilton Anxiety Scale (HAM-A)','Multidimensional Fatigue Inventory ', 'Self Care Of Heart Failure Index V 6.2']"></SmallCard>
                 <SmallCard 
-                title="Articles"
+                title="Article"
                 icon="fas fa-book-open" 
                 :items="['Human antiviral B cell responses: Emerging lessons from hepatitis B and COVID-19', 'Lung Ultrasound in Patients With Dyspnea From Infective Lung Disease']"></SmallCard>
                 <SmallCard 
-                title="ClinicalTrials"
+                title="ClinicalTrial"
                 icon="fas fa-flask" 
                 :items="['Pilot Evaluation of a New Galyfilcon A Lens Prototype and Enfilcon A Lens', 'A Phase I Clinical Study of a GamLPV, a Live Intranasal Bordetella Pertussis Vaccine']"></SmallCard>
                 <SmallCard 
-                title="Grants"
+                title="Grant"
                 icon="fas fa-scroll" 
                 :items="['Omics Integrator', 'Data Driven Ontology', 'ImmClassifier']"></SmallCard>
                 <SmallCard 
-                title="Videos"
+                title="Video"
                 icon="fab fa-youtube" 
                 :items="['How a Drug Becomes a Drug', 'Curing a Child, Preserving a Childhood', 'Watch a moth drive a robot car']"></SmallCard>
                 <SmallCard 
@@ -96,7 +94,7 @@
                 icon="fas fa-chalkboard" 
                 :items="['An Overview of Survey Design','Developing and Writing Research Questions, Aims & Hypotheses','Managing Communication and Conflict']"></SmallCard>
                 <div class="w-full p-10 text-center">
-                  <router-link to="/resources" class="btn-main !text-main font-bold">
+                  <router-link to="/resources" class="btn-main text-main font-bold hover:text-white">
                     Search By Resource
                   </router-link>
                 </div>

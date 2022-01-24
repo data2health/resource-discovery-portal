@@ -2,8 +2,8 @@
     <div class="w-full min-h-screen dm">
         <div class="relative w-full">
             <div class="w-full sticky top-0" :class="theme.bg">
-                <div class="max-w-screen-xl m-auto flex justify-between items-center flex-wrap p-6">
-                    <router-link to="/resources"><i class="fas fa-chevron-left"></i> Back to all resources</router-link>
+                <div class="max-w-screen-xl m-auto flex justify-between items-center flex-wrap p-6 text-white">
+                    <router-link to="/resources" class="text-white hover:text-gray-300"><i class="fas fa-chevron-left"></i> Back to all resources</router-link>
                     <input type="text" class="rounded-full p-2 w-1/3">
                     <div class="flex justify-around flex-wrap items-center space-x-4">
                         <h1 class="font-bold text-xl">{{resource}}</h1>

@@ -17,6 +17,12 @@
     --popper-theme-box-shadow: 0 6px 30px -6px rgba(0, 0, 0, 0.25);
 }
 
+.main-input{
+    @apply w-full m-auto py-2 px-4 text-lg text-main 
+    rounded-full border-secondary border-2 focus:outline-none focus:ring-2 
+    focus:ring-secondary-light focus:border-none dark:bg-gray-300 caret-pink-500
+}
+
 *{
     scroll-behavior: smooth;
 }
@@ -67,6 +73,10 @@ h1,h2,h3,h4,h5,p{
     100%{
         box-shadow: 0px 0px 0px rgb(68, 233, 255);
     }
+}
+
+.banner-clip{
+    clip-path: polygon(100% 0, 100% 50%, 100% 100%, 0% 100%, 11% 50%, 0% 0%);
 }
 
 .icon-btn{

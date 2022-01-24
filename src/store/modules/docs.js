@@ -82,7 +82,7 @@ export default [
           "code": "T32"
         }
       ],
-      "entity": "funding opportunity",
+      "entity": "FundingOpportunity",
       "_meta": {
         "content": {
           "id": [
@@ -416,7 +416,7 @@ export default [
         }
       ],
       "url": "https://clinicaltrials.gov/ct2/show/NCT00001131",
-      "entity": "clinical trial",
+      "entity": "ClinicalTrial",
       "_meta": {
         "overall_official": {
           "id": [
@@ -548,7 +548,7 @@ export default [
         }
       ],
       "url": "https://www.youtube.com/watch?v=6BCWRCnI7_s",
-      "entity": "video clip",
+      "entity": "video",
       "_meta": {
         "playlist": {
           "playlist_id": [
@@ -615,7 +615,7 @@ export default [
       },
       "video": null,
       "url": "https://www.youtube.com/playlist?list=PLsRNoUx8w3rNLsFfJiMvkw4kWjXfKmidP",
-      "entity": "video clip",
+      "entity": "Video",
       "_meta": {
         "channel": {
           "channel_id": [
@@ -1338,6 +1338,7 @@ export default [
   "_id": "8FBRbn0BigeGU-hS6xHq",
   "_score": 1,
   "_source": {
+    "@type": 'ComputationalTool',
     "tool": {
       "toolId": null,
       "toolName": "complementcovid",
