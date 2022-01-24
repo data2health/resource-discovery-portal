@@ -38,11 +38,19 @@ export const routes = [
         }
     },
     {
+        path: '/resources/:resource',
+        name: 'ResourceSearch',
+        component: () => import('../views/ResourceSearch.vue'),
+        props: true,
+        meta: {
+            sitemap: {
+                priority:    0.8,
+            }
+        }
+    },
+    {
         path: '/resources',
         name: 'Resources',
-        // route level code-splitting
-        // this generates a separate chunk (about.[hash].js) for this route
-        // which is lazy-loaded when the route is visited.
         component: () => import('../views/Resources.vue'),
         meta: {
             sitemap: {

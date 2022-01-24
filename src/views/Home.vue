@@ -24,12 +24,12 @@
             </span>
             <h1 class="text-sm md:text-xl text-center">Or explore our resources by type</h1>
             <p class="text-center">
-              <router-link class="btn-main m-auto" to="/search">Resource&nbsp;Types</router-link>
+              <router-link class="btn-main m-auto" to="/resources">Resource&nbsp;Types</router-link>
             </p>
           </div>
         </div>
-        <div class="top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] absolute z-10 overflow-hidden opacity-50">
-          <RotatingCards></RotatingCards>
+        <div class="top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] absolute z-10 overflow-hidden opacity-75">
+          <RotatingCards class="-rotate-45"></RotatingCards>
         </div>
       </div>
     </div>
@@ -46,7 +46,7 @@
             <div class="w-full md:w-4/6 leading-snug space-y-5 p-4 md:p-20 md:text-3xl text-md m-0">
               <div class="h-1/3 w-1/3 bg-gray-400 m-auto"></div>
               <p>The CD2H Resource Discovery Portal (RDP) is a single location to start your search for bioinformatics resources. <br>The platform draws from over 50 databases and covers over 20,000,000 total resources. You can accomplish a wide range of tasks with this single interface to search for many types of resources, including datasets, journal articles, Youtube videos, GitHub profiles, funding opportunities and more.</p>
-              <p class="text-center">
+              <p class="text-center p-10">
                 <router-link class="btn-main m-auto text-sm md:border-tertiary-light md:text-white" to="/about">Learn More</router-link>
               </p>
             </div>
@@ -96,7 +96,7 @@
                 icon="fas fa-chalkboard" 
                 :items="['An Overview of Survey Design','Developing and Writing Research Questions, Aims & Hypotheses','Managing Communication and Conflict']"></SmallCard>
                 <div class="w-full p-10 text-center">
-                  <router-link to="/search" class="btn-main !text-main font-bold">
+                  <router-link to="/resources" class="btn-main !text-main font-bold">
                     Search By Resource
                   </router-link>
                 </div>
@@ -131,7 +131,7 @@
                     <p class="font-bold text-tertiary-light">Video - PCR Essentials</p>
                   </div>
                 </div>
-                <div class="p-3 text-center w-full md:w-1/3 flex items-center justify-center">
+                <div class="p-10 text-center w-full md:w-1/3 flex items-center justify-center">
                   <router-link to="/search" class="btn-main font-bold text-sm md:border-tertiary-light md:text-white">
                     Try&nbsp;This&nbsp;Search
                   </router-link>

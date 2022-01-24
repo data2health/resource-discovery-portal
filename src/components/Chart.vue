@@ -63,7 +63,7 @@ export default {
         },
         drawDoughnutChart(data){
             let self = this;
-            var ctx = document.getElementById(this.type);
+            var ctx = document.getElementById(this.name);
 
             new Chart(ctx, {
                 'type': 'doughnut',
@@ -117,7 +117,7 @@ export default {
         },
         drawHorBarChart(data){
             let self = this;
-            var ctx = document.getElementById(this.type);
+            var ctx = document.getElementById(this.name);
 
             new Chart(ctx, {
                 'type': 'horizontalBar',
@@ -151,7 +151,7 @@ export default {
         },
         drawBarChart(data, includeTotal){
             let self = this;
-            var ctx = document.getElementById(this.type);
+            var ctx = document.getElementById(this.name);
 
             new Chart(ctx, {
                 'type': 'bar',
@@ -197,6 +197,9 @@ export default {
             switch (type) {
                 case 'pie':
                     this.drawPieChart(data);
+                    break;
+                case 'doughnut':
+                    this.drawDoughnutChart(data);
                     break;
                 default:
                     break;

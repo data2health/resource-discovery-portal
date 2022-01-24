@@ -1,17 +1,18 @@
 <template>
-    <div class="flex justify-center items-stretch flex-wrap w-full p-4 md:p-20">
+    <div class="flex justify-center items-stretch flex-wrap w-full p-4 md:p-20 dm">
         <template v-for="(resource, title) in resourceTypes" :key="resource.name">
-            <SmallCard 
+            <ResourceCard 
                 :title="title"
-                :items="['test', 'test2']"></SmallCard>
+                :items="['test', 'test2']"></ResourceCard>
         </template>
+        <router-view></router-view>
     </div>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
 
-import SmallCard from '../components/SmallCard.vue'
+import ResourceCard from '../components/ResourceCard.vue'
 
 export default {
     name: 'Resources',
@@ -21,7 +22,7 @@ export default {
         }
     },
     components:{
-        SmallCard
+        ResourceCard
     },
     computed:{
         ...mapGetters([
