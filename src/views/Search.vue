@@ -1,16 +1,18 @@
 <template>
-    <div class="dark:bg-gray-800 dark:text-white bg-gray-100">
+    <div class="dark:bg-gray-800 dark:text-white bg-white">
         <div class="container mx-auto w-full md:w-1/2 py-2 px-4 md:px-1 pt-5">
             <!-- Search Bar -->
             <form @submit.prevent="search()" class="w-full flex items-center">
-            <input 
-            v-model="$route.query.q"
-            type="text" 
-            placeholder="search" 
-            class="main-input">
-            <button type="submit" class="btn-main ml-2">
-                <i class="fas fa-search"></i>
-            </button>
+                <div class="relative w-full">
+                    <input 
+                    v-model="$route.query.q"
+                    type="text" 
+                    placeholder="search" 
+                    class="main-input w-full">
+                    <button type="submit" class="btn-main absolute right-0">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
             </form>
         </div>
         <div class="container mx-auto px-4 max-w-screen-lg">

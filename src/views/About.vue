@@ -1,5 +1,5 @@
 <template>
-  <div class="dm py-10 text-gray-700 dark:text-gray-400 flex justify-items-stretch" id="scrollArea">
+  <div class="darkMode py-10 text-gray-700 dark:text-gray-400 flex justify-items-stretch" id="scrollArea">
     <div class="relative hidden md:block">
       <div class="p-2 sticky top-10 ml-5">
         <ul class="text-sm space-y-2">

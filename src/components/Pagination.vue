@@ -20,7 +20,7 @@
                         <a href="#" 
                         data-aos="zoom-in"
                         :data-aos-delay="(i+1) * 50"
-                        class="icon-btn hover:bg-tertiary dark:bg-main-dark"
+                        class="icon-btn hover:bg-tertiary dark:bg-tertiary-dark"
                         :class="page == currentPage ? 'bg-tertiary-light text-main dark:bg-secondary-light' : 'bg-gray-200' "
                         >
                             {{page}}

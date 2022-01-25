@@ -1,10 +1,10 @@
 <template>
     <!-- Type -->
     <ResultTab :name="result_type" :theme="theme"></ResultTab>
-    <div :key="uniqueID" class="min-w-full flex justify-between border-2 border-gray-200 mb-5 shadow-lg p-3">
+    <div :key="uniqueID" class="min-w-full flex justify-between border-2 border-gray-200 dark:border-gray-500 mb-5 shadow-lg p-3 bg-gray-100 dark:bg-gray-600">
         <div class="w-full">
-            <h1 class="text-lg font-bold cursor-pointer text-tertiary-dark hover:text-tertiary-light" @click.prevent="open = !open">
-                {{title}} <i class="fas text-gray-500" :class="[open ? 'fa-chevron-down' : 'fa-chevron-right']"></i>
+            <h1 class="text-lg font-bold cursor-pointer text-tertiary-dark hover:text-tertiary-light dark:text-white" @click.prevent="open = !open">
+                {{title}} <i class="fas text-gray-500 dark:text-tertiary-light" :class="[open ? 'fa-chevron-down' : 'fa-chevron-right']"></i>
             </h1>
             <template v-if="open || expandedView">
                 <div class="flex justify-start items-center p-2 space-x-4">
@@ -51,7 +51,7 @@
                     </div>
                 </template>
             </div>
-            <div v-if="open || expandedView" class="bg-gray-200">
+            <div v-if="open || expandedView" class="bg-gray-200 dark:bg-gray-700">
                 <!-- published date -->
                 <p v-if="source?.created_at" class="text-sm">
                     <i class="fas fa-book" :class="theme.text"></i> {{$filters.formatDate(source?.created_at)}}

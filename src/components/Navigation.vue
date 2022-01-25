@@ -1,6 +1,6 @@
 <template>
   <!-- navbar goes here -->
-  <nav class="bg-gray-200 dark:bg-gray-600">
+  <nav class="bg-gray-100 dark:bg-gray-600">
     <div class="max-w-6xl mx-auto px-2">
       <div class="flex justify-between">
 
@@ -25,7 +25,7 @@
         <div class="hidden md:flex items-center space-x-1">
           <Popper :content="darkMode ? 'Light Mode' : 'Dark Mode'" class="tip" :hover="true" placement="bottom">
             <button @click="toggleDarkMode()" 
-            :class="[darkMode ? 'dm-btn-light' : 'dm-btn-dark']"
+            :class="[darkMode ? 'darkMode-btn-light' : 'darkMode-btn-dark']"
             class="py-2 px-3 icon-btn bg-black dark:bg-white transition-all duration-300">
               <i class="fas transition-all duration-300" :class="[!darkMode ? 'fa-moon text-indigo-300' : 'fa-sun text-yellow-400']"></i>
             </button>

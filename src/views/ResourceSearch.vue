@@ -1,5 +1,5 @@
 <template>
-    <div class="w-full min-h-screen dm">
+    <div class="w-full min-h-screen darkMode">
         <div class="relative w-full">
             <div class="w-full sticky top-0" :class="theme.bg">
                 <div class="max-w-screen-xl m-auto flex justify-between items-center flex-wrap p-6 text-white">

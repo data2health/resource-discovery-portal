@@ -1,5 +1,5 @@
 <template>
-    <div class="flex justify-center items-center min-h-[80vh] w-full dm px-5">
+    <div class="flex justify-center items-center min-h-[80vh] w-full darkMode px-5">
         <div>
             <h1 class="text-9xl font-bold text-center">404</h1>
             <h1 class="text-2xl font-light text-center italic font-serif text-secondary-light dark:text-tertiary">"You are here...but you should be over here"</h1>
