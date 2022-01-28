@@ -44,6 +44,7 @@
   mounted: function(){
     //recent search history
     this.$store.commit('checkRecentSearches');
+    this.$store.dispatch('performAggregations');
   }
 }
 </script>

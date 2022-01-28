@@ -1,5 +1,5 @@
 <template>
-    <div v-if="name !== '_meta'" class="m-0 rounded-none dark:text-gray-300" :class="[isChild?'p-1 border-left':'p-1 border-bottom']">
+    <div v-if="name !== '_meta'" class="m-0 rounded dark:text-gray-300" :class="[isChild?'p-1 border-left':'p-1 border-bottom']">
         <!-- 🌈 Array 🌈 -->
         <template v-if="type == 'array'">
           <div class="row m-0">
@@ -13,32 +13,32 @@
             <div class="col-sm-12" v-if="expandArray">
               <div>
                 <template v-if="content.length > perPage">
-                  <select class="m-auto w-25" v-model="perPage" @change="calculatePages" id="perPage">
+                  <select class="m-auto w-auto" v-model="perPage" @change="calculatePages" id="perPage">
                       <option value="" disabled selected>Shown Per Page</option>
                       <option value="10">10 per page</option>
                       <option value="25">25 per page</option>
                       <option value="100">100 per page</option>
                   </select>
                   <div class="flex flex-wrap justify-center p-1 mt-2">
-                    <div class="page-item rounded-none" :class="{ 'disabled': page <= 1 }">
+                    <div class="rounded" :class="{ 'disabled': page <= 1 }">
                       <a class="page-link p-1" @click.prevent="prevPage()"><i class="fas fa-step-backward"></i></a>
                     </div>
                     <template v-if="groupPages">
-                      <div class="page-item rounded-none" v-show="!startCapLimitReached">
+                      <div class="rounded" v-show="!startCapLimitReached">
                         <a href="#" class="page-link p-1" @click.prevent="previousGroup()">Previous 20</a>
                       </div>
                     </template>
                     <template v-for="n in pages" :key="n+'page'">
-                      <div v-if="n >= startCap && n <= endCap" class="page-item rounded-none" :class="{ 'active': page == n, 'bg-main': page == n, 'white-text': page == n  }">
+                      <div v-if="n >= startCap && n <= endCap" class="rounded" :class="{ 'bg-tertiary': page == n, 'bg-main': page == n, 'text-white': page == n  }">
                         <a href="#" class="page-link p-1" @click.prevent="page = n" v-text="n"></a>
                       </div>
                     </template>
                     <template v-if="groupPages">
-                      <div class="page-item rounded-none" v-show="!endCapLimitReached">
+                      <div class="rounded" v-show="!endCapLimitReached">
                         <a href="#" class="page-link p-1" @click.prevent="nextGroup()">Next 20</a>
                       </div>
                     </template>
-                    <div class="page-item rounded-none" :class="{ 'disabled': page >= pages }">
+                    <div class="rounded" :class="{ 'disabled': page >= pages }">
                       <a class="page-link p-1" @click.prevent="nextPage()"><i class="fas fa-step-forward"></i></a>
                     </div>
                   </div>
@@ -52,34 +52,34 @@
         </template>
           <!-- 🌈 String 🌈 -->
           <template v-if="type == 'string'">
-            <div class="flex">
+            <div class="flex justify-start items-center">
               <template v-if="isUrl(content)">
-                <div class="text-left">
+                <div class="p-1">
                   <small :class="theme?.text">
-                    <b v-text="readable_name"></b> <i v-if="!readable_name" class="fas fa-circle"></i> <span v-else>:</span>
+                    <b v-text="readable_name"></b> <i v-if="!readable_name" class="fas fa-circle"></i><span v-else>&nbsp;:</span>
                   </small>
                 </div>
                 <div class="ml-1">
-                  <a :href="content" target="_blank" rel="nonreferrer">
-                    <small><span v-text="content"></span> <i class="fas fa-external-link-alt"></i></small>
+                  <a :href="content" target="_blank" rel="nonreferrer" :title="content">
+                    <small><span v-text="content.length > 70 ? content.substring(0, 70) + '...' : content"></span> <i class="fas fa-external-link-alt text-tertiary"></i></small>
                   </a>
                 </div>
               </template>
               <template v-else> 
-                <div class="flex">
+                <div class="p-1">
                   <small :class="theme?.text">
-                    <b v-text="readable_name?readable_name+' :':''" class="mr-1"></b>
+                    <b v-text="readable_name ? readable_name + '&nbsp;:' : ''" class="mr-1"></b>
                   </small>
                 </div>
-                <div class="flex">
+                <div class="p-1">
                   <a class="ml-1" v-if="isUrl(content)" v-text="content" :href="content" target="_blank" rel="nonreferrer"></a>
                   <template v-else>
                     <small>
-                      <i v-if="name == '@type' && content == 'Person' " class="fas fa-user text-muted"></i>
-                      <i v-if="name == '@type' && content == 'Organization' " class="fas fa-building text-muted"></i>
-                      <i v-if="name == '@type' && content == 'CreativeWork' " class="fas fa-lightbulb text-muted"></i>
+                      <i v-if="name == '@type' && content == 'Person' " class="fas fa-user text-main"></i>
+                      <i v-if="name == '@type' && content == 'Organization' " class="fas fa-building text-main"></i>
+                      <i v-if="name == '@type' && content == 'CreativeWork' " class="fas fa-lightbulb text-main"></i>
                     </small> &nbsp;
-                    <small class="text-muted text-left" v-html="content"></small>
+                    <small class="text-left" v-html="content"></small>
                   </template>
                 </div>
               </template>
@@ -87,7 +87,7 @@
           </template>
           <!-- 🌈 Object 🌈 -->
           <template v-if="type == 'object'">
-            <div class="flex">
+            <div class="p-1">
               <div class=" flex justify-start items-center">
                 <small :class="theme?.text">
                   <b v-text="readable_name"></b> <i class="fas fa-chevron-circle-right mr-1"></i>
@@ -102,7 +102,7 @@
           </template>
           <!-- 🌈 Boolean 🌈 -->
           <template v-if="type == 'boolean'">
-            <div class="flex">
+            <div class="p-1">
               <div class=" flex justify-start items-center">
                 <small :class="theme?.text">
                   <b v-text="readable_name"></b> :&nbsp;
@@ -116,7 +116,7 @@
           </template>
           <!-- 🌈 Number 🌈 -->
           <template v-if="type == 'number'">
-            <div class="flex">
+            <div class="p-1">
               <div class=" flex justify-start items-center">
                 <small :class="theme?.text">
                   <b v-text="readable_name"></b> :&nbsp;

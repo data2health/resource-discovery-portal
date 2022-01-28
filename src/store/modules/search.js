@@ -1,13 +1,14 @@
-import docs from './docs'
+import axios from 'axios';
 
 export default {
     state: () => ({
+        baseURL: "http://rdp.biothings.io/api/query",
         loading: false,
         results: [],
         expandedView: false,
         recentSearches: [],
         maxRecentHistory: 5,
-        resourceTypes:{
+        resourceTypesMapping:{
             'Dataset' : {
                 'text': 'text-orange-400',
                 'bg': 'bg-orange-400',
@@ -100,28 +101,122 @@ export default {
                 'active' : false
             },
         },
+        resourceTypes:{
+            //populated with performAggregations
+        },
         default:{
             'text': 'text-sky-500',
             'bg': 'bg-sky-500',
             'icon': 'fas fa-circle',
-            'img': '/assets/img/icons/default.svg',
-        }
+            'img': '/assets/img/rdp_square.svg',
+        },
+        perPage: 10,
+        page: 1,
+        sortChange: 'A-Z',
+        pages: 1,
+        pageLimit: 20,
+        groupPages: false,
+        total: 0,
+        q: '',
+        totalDocsRDP: 0
     }),
     actions: {
-        search({ commit }, payload) {
+        search({commit, state }, payload) {
+            let url = state.baseURL; 
+
             if (payload?.value) {
                 commit('addRecent', payload);
+                commit('saveQuery', payload);
             }
-            console.log('%c search' + JSON.stringify(payload, null, 2), 'color:limegreen');
+            //loading start
             commit('setLoading', { value: true});
-            setTimeout(() => {
+            //pagination
+            var config = {
+                "params": {
+                    'size': state.perPage,
+                    'from': state.page == 1 ? state.page-1 : ((state.page-1) * state.perPage )  
+                }
+            }
+
+            if(state.q){
+                config.params.q = state.q
+            }
+            // sorting
+            // switch (state.sortChange) {
+            //     case 'relevance':
+            //         //default behavior
+            //         break;
+            //     case 'A-Z':
+            //         url += '&sort=name.raw'
+            //         break;
+            //     case 'Z-A':
+            //         url += '&sort=-name.raw'
+            //         break;
+            //     case 'recent':
+            //         url += '&sort=-_ts.last_updated'
+            //         break;
+            //     default:
+            //         //no matching sort
+            //         break;
+            // }
+            console.log('%c Search' + JSON.stringify(config, null, 2), 'color:limegreen');
+            axios.get(url, config).then( res =>{
+                console.log(res)
+                commit('saveResults', { value: res.data.hits});
                 commit('setLoading', { value: false});
-                // mock results
-                commit('saveResults', { value: docs});
-            }, 1000);
+                commit('updatePages', { value: res.data.total});
+            }).catch( err =>{
+                commit('setLoading', { value: false});
+            });
+        },
+        performAggregations({commit, state }) {
+            // data types
+            axios.get(state.baseURL + "?aggs=@type").then( res =>{
+                
+                if( res.data?.facets?.['@type']?.terms){
+                    res.data?.facets?.['@type']?.terms.forEach(termInfo => {
+                        state.totalDocsRDP = res.data.total;
+                        let term = termInfo.term.charAt(0).toUpperCase() + termInfo.term.slice(1);
+                        if (term in state.resourceTypesMapping) {
+                            state.resourceTypes[term] = {...termInfo, ...state.resourceTypesMapping[term]}
+                        }else{
+                            state.resourceTypes[term] = {...termInfo, ...state.default}
+                        }
+                    });
+                }
+            }).catch( err =>{
+                console.log(err);
+            });
         }
     },
     mutations: {
+        saveQuery(state, payload){
+            state.q = payload.value;
+        },
+        updatePages(state, payload){
+            state.total = payload.value;
+            //a huge number slows down rendering
+            let maxTotal = state.total > 500 ? 500 : state.total;
+            state.pages = Math.ceil(maxTotal / state.perPage);
+            if(state.page > state.pages){
+                state.page = 1
+            }
+            if (state.pages > state.pageLimit) {
+                state.groupPages =  true;
+              }
+        },
+        changePerPage(state, payload){
+            state.perPage = payload.value;
+        },
+        changePage(state, pageNumber){
+            state.page = pageNumber;
+        },
+        upPage(state){
+            state.page  += 1;
+        },
+        downPage(state){
+            state.page  -= 1;
+        },
         setLoading(state, payload){
             state.loading = payload.value;
         },
@@ -184,6 +279,24 @@ export default {
         },
         expandedView: (state) => {
             return state.expandedView;
+        },
+        perPage: (state) => {
+            return state.perPage;
+        },
+        pages: (state) => {
+            return state.pages;
+        },
+        page: (state) => {
+            return state.page;
+        },
+        groupPages: (state) => {
+            return state.groupPages;
+        },
+        total: (state) => {
+            return state.total;
+        },
+        totalDocsRDP: (state) => {
+            return state.totalDocsRDP;
         },
     },
 }

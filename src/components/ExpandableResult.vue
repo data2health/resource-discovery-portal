@@ -3,25 +3,19 @@
     <ResultTab :name="result_type" :theme="theme"></ResultTab>
     <div :key="uniqueID" class="min-w-full flex justify-between border-2 border-gray-200 dark:border-gray-500 mb-5 shadow-lg p-3 bg-gray-100 dark:bg-gray-600">
         <div class="w-full">
-            <h1 class="text-lg font-bold cursor-pointer text-tertiary-dark hover:text-tertiary-light dark:text-white" @click.prevent="open = !open">
+            <h1 class="text-lg font-bold cursor-pointer text-blue-500 hover:text-blue-400 dark:text-white" @click.prevent="open = !open">
                 {{title}} <i class="fas text-gray-500 dark:text-tertiary-light" :class="[open ? 'fa-chevron-down' : 'fa-chevron-right']"></i>
             </h1>
             <template v-if="open || expandedView">
                 <div class="flex justify-start items-center p-2 space-x-4">
-                    <div>
-                        <Popper content="Source" class="tip" :hover="true" placement="bottom">
-                            <i class="fas fa-external-link-square-alt fa-2x text-tertiary-dark hover:text-tertiary-light cursor-pointer"></i>
-                        </Popper>
+                    <div class="bg-tertiary text-white rounded-full px-3 py-1 cursor-pointer hover:bg-tertiary-light text-sm">
+                        source <i class="fas fa-external-link-square-alt"></i>
                     </div>
-                    <div>
-                        <Popper content="Metadata" class="tip" :hover="true" placement="bottom">
-                            <i class="fas fa-clipboard-list fa-2x text-tertiary-dark hover:text-tertiary-light cursor-pointer"></i>
-                        </Popper>
+                    <div class="bg-tertiary text-white rounded-full px-3 py-1 cursor-pointer hover:bg-tertiary-light text-sm">
+                        metadata <i class="fas fa-newspaper"></i>
                     </div>
-                    <div>
-                        <Popper content="Share" class="tip" :hover="true" placement="bottom">
-                            <i class="fas fa-envelope-square fa-2x text-tertiary-dark hover:text-tertiary-light cursor-pointer"></i>
-                        </Popper>
+                    <div class="bg-tertiary text-white rounded-full px-3 py-1 cursor-pointer hover:bg-tertiary-light text-sm">
+                        share <i class="fas fa-share"></i>
                     </div>
                 </div>
             </template>
@@ -95,35 +89,21 @@ export default {
         ]),
         //root level of data, for readability
         source: function () {
-            // deeper > shallow
-            return this.item?._source?.raw?.attributes ? this.item?._source?.raw?.attributes : 
-            this.item?._source?.raw ? this.item?._source?.raw : 
-            this.item?._source?.tool ? this.item?._source?.tool : 
-            this.item?._source ? this.item?._source : this.item;
+            return this.item?._source?.tool ? this.item?._source?.tool : this.item;
         },
         result_type: function () {
             // deeper > shallow
-            return this.item?._source?.entity ? this.item?._source?.entity : 
-            this.item?._source?.['@type'] ? this.item?._source?.['@type'] : '';
+            return this.source?.entity ? this.source?.entity : 
+            this.source?.['@type'] ? this.ource?.['@type'] : '';
         },
         theme: function() {
             return this.$store.getters.getTheme(this.result_type.charAt(0).toUpperCase() + this.result_type.slice(1));
         },
         title: function () {
-            // top level
-            if (this.item?._source?.label) {
-                return this.item?._source?.label
-            }
-            else if (this.item?._source?.title) {
-                return this.item?._source?.title
-            }
-            else if (this.item?._source?.name) {
-                return this.item?._source?.name
-            }
-            else if (this.source?.toolName) {
+
+            if (this.source?.toolName) {
                 return this.source?.toolName
             }
-            //nested level
             else if (this.source?.label) {
                 return this.source?.label
             }
@@ -135,15 +115,13 @@ export default {
             }
         },
         description: function (){
-            return this.item?._source?.description ? this.item?._source?.description :
-            this.item?._source?.abstract ? this.item?._source?.abstract :
-            this.source?.description ? this.source?.description :
+            return this.source?.description ? this.source?.description :
             this.source?.abstract ? this.source?.abstract :
             this.source?.purpose ? this.source?.purpose : '';
         },
         viewable_fields: function(){
             let allowed = ['description', 'id', 'keywords', 'tags',
-            'player', 'published', 'created', 'author', 'abstract', 'url', 'curatedBy', 'doi'];
+            'player', 'published', 'created', 'author', 'abstract', 'url', 'curatedBy', 'doi', 'abstract'];
             let res = {};
             allowed.forEach(field => {
                 if (Object.hasOwnProperty.call(this.source, field)) {

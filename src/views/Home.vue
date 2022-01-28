@@ -19,11 +19,12 @@
                 </button>
               </div>
             </form>
-            <span class="text-xs md:text-sm block mt-2 text-gray-400 text-center m:text-left">
+            <p v-if="totalDocsRDP" data-aos="fade-in" class="text-center text-2xl font-light">{{$filters.numberWithCommas(totalDocsRDP)}} Documents</p>
+            <!-- <span class="text-xs md:text-sm block mt-2 text-gray-400 text-center m:text-left">
               Eg. <router-link :to="{ path: '/search', query: { 'q': 'COVID-19' }}">COVID-19</router-link>
-            </span>
+            </span> -->
             <h1 class="text-sm md:text-xl text-center text-main dark:text-white font-bold">Or explore our resources by type</h1>
-            <p class="text-center">
+            <p class="text-center mt-5">
               <router-link class="btn-main m-auto" to="/resources">Resource&nbsp;Types</router-link>
             </p>
           </div>
@@ -197,6 +198,7 @@ export default {
   computed:{
       ...mapGetters([
         'darkMode',
+        'totalDocsRDP'
       ]),
     },
 }

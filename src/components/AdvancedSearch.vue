@@ -11,13 +11,15 @@
                 <TypeFilter></TypeFilter>
                 <!-- Filters -->
                 <FilterList type="checkbox" name="dataSource" :items="['CD2H','Outbreak.info','Data Discovery Engine','DataMed']"></FilterList>
-                <FilterList type="checkbox" name="dataType" :items="['Dataset','Publication','Video','Repository','Person', 'Clinical Trial']"></FilterList>
+                <FilterList type="checkbox" name="dataType" :items="Object.keys(resourceTypes)"></FilterList>
             </div>
         </template>
     </VModal>
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 import FilterList from '../components/FilterList.vue'
 import TypeFilter from '../components/TypeFilter.vue'
 
@@ -31,6 +33,11 @@ export default {
     components:{
         FilterList,
         TypeFilter
+    },
+    computed:{
+        ...mapGetters([
+            'resourceTypes'
+        ]),
     }
 }
 </script>

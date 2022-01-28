@@ -2,13 +2,20 @@
     <div class="dark:bg-gray-800 dark:text-white bg-white">
         <div class="container mx-auto w-full md:w-1/2 py-2 px-4 md:px-1 pt-5">
             <!-- Search Bar -->
-            <form @submit.prevent="search()" class="w-full flex items-center">
+            <form @submit.prevent="search()" class="w-full flex items-center group">
                 <div class="relative w-full">
                     <input 
                     v-model="$route.query.q"
                     type="text" 
                     placeholder="search" 
                     class="main-input w-full">
+                    
+                    <button v-if="$route.query.q" type="submit" @click="clearSearch()" class="py-2 px-3 absolute right-16 hidden md:group-hover:inline">
+                        <Popper content="Clear" class="tip" :hover="true" placement="bottom">
+                            <i class="fas fa-times fa-2x text-gray-400"></i>
+                        </Popper>
+                    </button>
+                    
                     <button type="submit" class="btn-main absolute right-0">
                         <i class="fas fa-search"></i>
                     </button>
@@ -26,17 +33,17 @@
                         <Pagination :items="results" key="top-pagination"></Pagination>
                     </div>
                     <!-- hits -->
-                    <template v-for="(result) in results" :key="result._source.label">
+                    <template v-for="(result, i) in results" :key="i">
                         <ExpandableResult :item="result"></ExpandableResult>
                     </template>
-                    <div>
+                    <div v-if="results && results.length">
                         <Pagination :items="results" key="bottom-pagination"></Pagination>
                     </div>
                 </div>
                 <!-- Bottom Column -->
-                <div class="w-1/5">
+                <div class="w-full flex justify-around items-center py-10">
                     <!-- Recent History -->
-                    <div class="p-4 text-left rounded-lg bg-gray-200 dark:bg-gray-700 mb-2">
+                    <div class="p-4 text-left rounded-lg bg-gray-200 dark:bg-gray-700 mb-2 w-1/3">
                         <div class="flex justify-between items-center mb-3">
                             <p class="font-thin text-gray-500 text-sm">Recent Searches</p>
                             <Popper content="Clear All" class="tip" :hover="true" placement="right" arrow>
@@ -110,6 +117,12 @@ export default {
         ShareButtons,
     },
     methods:{
+        clearSearch(){
+            this.$store.commit('saveQuery', {value: ''});
+            this.$router.replace({'query': null});
+            this.$store.dispatch('search', {value: null});
+            this.highlighter.unmark();
+        },
         search(){
             console.log('searching')
             this.$store.dispatch('search', {value: this.$route.query.q});
