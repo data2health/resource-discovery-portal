@@ -97,7 +97,7 @@ h1,h2,h3,h4,h5,p{
 }
 
 .route-active{
-    @apply text-tertiary-light font-bold dark:text-white
+    @apply text-tertiary-dark font-bold dark:text-white
 }
 
 a{

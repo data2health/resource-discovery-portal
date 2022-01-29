@@ -1,7 +1,6 @@
 <template>
     <div class="flex justify-between w-full">
         <!-- Preferences -->
-        <AdvancedSearch></AdvancedSearch>
         <Preferences></Preferences>
     </div>
     <div class="flex justify-between items-center flex-wrap">
@@ -59,7 +58,6 @@
 
 <script>
 import Preferences from './Preferences.vue'
-import AdvancedSearch from '../components/AdvancedSearch.vue'
 import { mapGetters } from 'vuex'
 
 export default {
@@ -139,7 +137,6 @@ export default {
     },
     components:{
         Preferences,
-        AdvancedSearch
     },
     computed:{
         ...mapGetters([

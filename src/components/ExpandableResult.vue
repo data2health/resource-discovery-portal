@@ -100,19 +100,15 @@ export default {
             return this.$store.getters.getTheme(this.result_type.charAt(0).toUpperCase() + this.result_type.slice(1));
         },
         title: function () {
+            let possibleFields = ['title', 'name', 'toolName', 'article_title', 'label'];
 
-            if (this.source?.toolName) {
-                return this.source?.toolName
-            }
-            else if (this.source?.label) {
-                return this.source?.label
-            }
-            else if (this.source?.title) {
-                return this.source?.title
-            }
-            else if (this.source?.name) {
-                return this.source?.name
-            }
+            let match =  possibleFields.find( field => {
+                if (field in this.source) {
+                    return this.source[field]
+                }
+            });
+
+            return match ? this.source[match] : this.result_type + ' info'
         },
         description: function (){
             return this.source?.description ? this.source?.description :
