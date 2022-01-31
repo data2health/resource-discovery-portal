@@ -2,17 +2,20 @@
     <div class="dark:bg-gray-800 dark:text-white bg-white relative">
         <div class="sticky top-0 bg-white/75 dark:bg-black/20 w-full z-50">
             <div class="flex justify-center items-center px-7 flex-wrap">
-                <div class="container mx-auto w-full md:w-1/2 py-2 px-4 md:px-1 pt-5">
+                <div class="hidden md:w-1/3 md:flex">
+                <!-- spacer -->
+                </div>
+                <div class="container mx-auto w-full md:w-1/3 py-2 px-4 md:px-1 pt-5">
                     <!-- Search Bar -->
                     <form @submit.prevent="search()" class="w-full flex items-center group">
                         <div class="relative w-full">
-                            <input 
-                            v-model="$route.query.q"
+                            <input
+                            v-model="q"
                             type="text" 
                             placeholder="search" 
                             class="main-input w-full">
                             
-                            <button v-if="$route.query.q" type="submit" @click="clearSearch()" class="py-2 px-3 absolute right-16 hidden md:group-hover:inline">
+                            <button v-if="q" type="submit" @click="clearSearch()" class="py-2 px-3 absolute right-16 hidden md:group-hover:inline">
                                 <Popper content="Clear" class="tip" :hover="true" placement="bottom">
                                     <i class="fas fa-times fa-2x text-gray-400"></i>
                                 </Popper>
@@ -24,7 +27,7 @@
                         </div>
                     </form>
                 </div>
-                <div class="w-full md:w-1/3">
+                <div class="w-full md:w-1/3 flex justify-center">
                     <AdvancedSearch></AdvancedSearch>
                 </div>
             </div>
@@ -117,6 +120,7 @@ export default {
     data: function(){
         return {
             highlighter: null,
+            q:''
         }
     },
     components: {
@@ -127,6 +131,7 @@ export default {
     },
     methods:{
         clearSearch(){
+            this.q = '';
             this.$store.commit('saveQuery', {value: ''});
             this.$router.replace({'query': null});
             this.$store.dispatch('search', {value: null});
@@ -134,32 +139,35 @@ export default {
             this.highlighter.unmark();
         },
         search(){
-            console.log('searching')
-            this.$store.dispatch('search', {value: this.$route.query.q});
+            this.$store.dispatch('search', {value: this.q});
         },
         clearRecentSearches() {
             this.$store.commit('clearRecentSearches');
         },
         download(){
             console.log('download')
-        }
-    },
-    updated: function(){
-        // Highlight matches in results
-        if(this.$route.query.q){
-            this.highlighter.unmark();
-            this.highlighter.mark(this.$route.query.q, {"separateWordSearch": false, "className": "highlight"});
+        },
+        highlightMatches(keyword){
+            if (keyword) {
+                this.highlighter.unmark();
+                this.highlighter.mark(keyword, {"separateWordSearch": false, "className": "highlight"});
+            }else{
+                this.highlighter.unmark();
+            }
         }
     },
     mounted: function(){
         this.highlighter = new Mark(document.querySelector(".highlight_container"));
         this.search();
     },
+    updated: function(){
+        this.highlightMatches(this.q);
+    },
     computed:{
         ...mapGetters([
             'results',
             'recentSearches'
-        ]),
+        ])
     }
 }
 </script>
