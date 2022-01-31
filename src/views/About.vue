@@ -49,9 +49,13 @@
             <p class="text-2xl">The ability to search resources by both institution and creator</p>
           </li>
         </ul>
-        <div class="grid grid-cols-2 w-1/2">
-          <Chart :data="[]" type="pie" name='Resource Types'></Chart>
-          <Chart :data="[]" type="pie" name='Data Sources'></Chart>
+        <div class="flex justify-center items-center w-full flex-wrap space-y-7 md:space-y-0">
+          <div class="w-2/3 md:w-1/2 m-auto">
+            <Chart :data="[]" type="pie" name='Resource Types'></Chart>
+          </div>
+          <div class="w-2/3 md:w-1/2 m-auto">
+            <Chart :data="[]" type="pie" name='Data Sources'></Chart>
+          </div>
         </div>
       </section>
 
@@ -71,16 +75,28 @@
           The front-end allows users to explore the resource in multiple ways, including:
         </p>
         <p class="text-2xl">
-          <b>Keyword search </b>- A simple one box search to see a range of results among the 10+ types of resources. Advanced searching is also available for users that would like to limit to specific resource types or further filter based on the many facets available for each resource type.
+          <b class="text-main dark:text-tertiary">Keyword search </b>- A simple one box search to see a range of results among the 10+ types of resources. Advanced searching is also available for users that would like to limit to specific resource types or further filter based on the many facets available for each resource type.
         </p>
         <p class="text-2xl">
-          <b>Resource type</b> - Specialized views for each type of resource available. Users can explore interactive visualizations to see breakdowns of the available resources by various facets. Users can also search within a given facet’s results. For example, a user might explore datasets by performing the query “lung,” selecting a database, and browsing based on relevant subject terms.
+          <b class="text-main dark:text-tertiary">Resource type</b> - Specialized views for each type of resource available. Users can explore interactive visualizations to see breakdowns of the available resources by various facets. Users can also search within a given facet’s results. For example, a user might explore datasets by performing the query “lung,” selecting a database, and browsing based on relevant subject terms.
         </p>
       </section>
 
       <section class="space-y-10 mb-4 p-3 min-h-[50vh]" id="data">
         <h1 class="text-2xl md:text-5xl mb-6 text-main dark:text-secondary-light font-extrabold">Where is our data coming from?</h1>
-        <img class="w-3/4 m-auto" src="/assets/img/sources.jpg" alt="Our Data">
+        <div v-if="filters.sources.length" class="space-y-4 p-2">
+          <template v-for="source in filters.sources" :key="source.name">
+            <div class="p-1 space-y-4 border-b border-gray-200">
+              <a :v-html="source.link" target="_blank" rel="nonreferrer">
+                <img class="w-32" :alt="source.name" :src="source.img">
+              </a>
+              <h2 class="text-2xl font-bold">{{source.name}}</h2>
+              <h3 class="text-lg text-main dark:text-tertiary">{{$filters.numberWithCommas(source.count)}} Documents</h3>
+              <p v-html="source.description"></p>
+              <p><a :href="source.link" target="_blank" rel="nonreferrer">For citation information and to learn more, click here. <i class="fas fa-external-link-square-alt"></i></a></p>
+            </div>
+          </template>
+        </div>
       </section>
 
       <section class="space-y-10 mb-4 p-3 min-h-[10vh]" id="project">
@@ -220,7 +236,8 @@ export default {
   },
   computed:{
         ...mapGetters([
-            'team'
+            'team',
+            'filters'
         ]),
   },
   components:{

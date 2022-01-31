@@ -110,6 +110,105 @@ export default {
             'icon': 'fas fa-circle',
             'img': '/assets/img/rdp_square.svg',
         },
+        filters:{
+            'sources' :[
+
+            ],
+            'types': [
+
+            ]
+        },
+        sourceReadableNames:{
+            'cd2h-nih-reporter': {
+                'name': 'NIH RePorter',
+                'img': '/assets/img/reporter.png',
+                'description': 'RePORTER (RePORT Expenditures and Results) module. RePORTER is an electronic tool that allows users to search a repository of NIH-funded research projects and access publications and patents resulting from NIH funding.',
+                'link': 'https://reporter.nih.gov/',
+                'active': false
+            },
+            'cd2h-datamed': {
+                'name': 'DataMed',
+                'img': '/assets/img/datamed.png',
+                'link': 'https://datamed.org/',
+                'description': 'DataMed is a prototype biomedical data search engine. Its goal is to discover data sets across data repositories or data aggregators. In the future it will allow searching outside these boundaries. DataMed supports the NIH-endorsed FAIR principles of Findability, Accessibility, Interoperability and Reusability of datasets with current functionality assisting in finding datasets and providing access information about them.',
+                'active': false
+            },
+            'cd2h-clinical-trials':{
+                'name': 'NIH Clinical Trials',
+                'img': '/assets/img/nih-ct.png',
+                'description': `<p>
+                ClinicalTrials.gov is a Web-based resource that provides patients, their family members, health care professionals, researchers, and the public with easy access to information on publicly and privately supported clinical studies on a wide range of diseases and conditions. The Web site is maintained by the
+                <a title="opens new window" href="https://www.nlm.nih.gov/" onclick="openNewWindow('https://www.nlm.nih.gov/'); return false">National Library of Medicine</a> (NLM)
+                at the
+                <a title="opens new window" href="https://www.nih.gov/" onclick="openNewWindow('https://www.nih.gov/'); return false">National Institutes of Health</a> (NIH). 
+                Information on ClinicalTrials.gov is provided and updated by the sponsor or principal investigator of the clinical study. 
+                Studies are generally submitted to the Web site (that is, registered) when they begin, and the information on the site is 
+                updated throughout the study. 
+                In some cases, results of the study are submitted after the study ends. This Web site and database of clinical studies is commonly 
+                referred to as a "<span style="display:inline;" class="term" data-term="study registry" title="Click to define">registry</span> and <span style="display:inline;" class="term" data-term="results database" title="Click to define" tabindex="0">results database</span>."
+                    </p>`,
+                'link': 'https://covid.cd2h.org/trials',
+                'active': false
+            },
+            'cd2h-nih-litcovid':{
+                'name': 'LitCOVID',
+                'img': '/assets/img/litcovid.jpeg',
+                'link': 'https://www.ncbi.nlm.nih.gov/research/coronavirus/',
+                'description': 'LitCovid is a curated literature hub for tracking up-to-date scientific information about the 2019 novel Coronavirus. It is the most comprehensive resource on the subject, providing a central access to 217091 (and growing) relevant articles in PubMed. The articles are updated daily and are further categorized by different research topics (e.g. transmission) and geographic locations.',
+                'active': false
+            },
+            'outbreak_litcovid_202110070745_vvrw8kmo':{
+                'name': 'Outbreak.info',
+                'img': '/assets/img/outbreak.svg',
+                'description': 'In response to the current outbreak of SARS-CoV-2 (the virus that causes COVID-19), researchers worldwide have been generating and openly sharing data, publications, reagents, code, protocols, and more. Broad sharing of these resources improves the speed and efficiency of science. Unfortunately, there are no uniform standards and repositories for collecting all this information in one place.',
+                'link': 'https://outbreak.info/',
+                'active': false
+            },
+            'cd2h-profile-vivo':{
+                'name': 'VIVO',
+                'img': '/assets/img/vivo.gif',
+                'link': 'https://vivo.lyrasis.org/',
+                'description': 'VIVO is member-supported, open source software and an ontology for representing scholarship.  VIVO supports recording, editing, searching, browsing, and visualizing scholarly activity. VIVO encourages showcasing the scholarly record, research discovery, expert finding, network analysis, and assessment of research impact.  VIVO is easily extended to support additional domains of scholarly activity.',
+                'active': false
+            },
+            'cd2h-youtube-video':{
+                'name': 'YouTube',
+                'img': '/assets/img/youtube.png',
+                'link': 'https://www.youtube.com/',
+                'description': 'Our mission is to give everyone a voice and show them the world. We believe that everyone deserves to have a voice, and that the world is a better place when we listen, share and build community through our stories.',
+                'active': false
+            },
+            'cd2h-datacite':{
+                'name': 'DataCite',
+                'img': '/assets/img/datacite.png',
+                'link': 'https://datacite.org/',
+                'description': 'DataCite is a leading global non-profit organization that provides persistent identifiers (DOIs) for research data and other research outputs. Organizations within the research community join DataCite as members to be able to assign DOIs to all their research outputs. This way, their outputs become discoverable and associated metadata is made available to the community. DataCite then develops additional services to improve the DOI management experience, making it easier for our members to connect and share their DOIs with the broader research ecosystem and to assess the use of their DOIs within that ecosystem. DataCite is an active participant in the research community and promotes data sharing and citation through community-building efforts and outreach activities.',
+                'active': false
+            },
+            'cd2h-youtube-playlist':{
+                'name': 'YouTube Playlists',
+                'img': '/assets/img/youtube.png',
+                'link': 'https://reporter.nih.gov/',
+                'description': 'Our mission is to give everyone a voice and show them the world. We believe that everyone deserves to have a voice, and that the world is a better place when we listen, share and build community through our stories.',
+                'active': false
+            },
+            'cd2h-sparc-musc':{
+                'name': 'SPARCRequest',
+                'img': '/assets/img/sparc.jpeg',
+                'link': 'https://sparc.musc.edu/',
+                'description': `<h5 class="font-weight-normal mb-3">
+                <b>SPARCRequest</b> (<b>S</b>ervices, <b>P</b>ricing, &amp; <b>A</b>pplication for <b>R</b>esearch <b>C</b>enters) is a web-based research transaction management system that provides a central portal to researchers and their study teams to browse for research services and resources as well as submit service and pricing requests with a focus on billing compliance and proposal/budget development. SPARCRequest is OSS (Open-Source Software) for which MUSC holds the copyright license. SPARCRequest is developed in a collaborative and public manner for easy adoptability and the source code is available to anyone.
+                </h5>`,
+                'active': false
+            },
+        },
+        sourceDefault: {
+            'name': '',
+            'img': '/assets/img/rdp_color.svg',
+            'description': 'Not Available',
+            'link': '#',
+            'active': false
+        },
         perPage: 10,
         page: 1,
         sortChange: 'A-Z',
@@ -179,17 +278,50 @@ export default {
                         let term = termInfo.term.charAt(0).toUpperCase() + termInfo.term.slice(1);
                         if (term in state.resourceTypesMapping) {
                             state.resourceTypes[term] = {...termInfo, ...state.resourceTypesMapping[term]}
+                            commit('addFilter', {
+                                'section': 'types',
+                                'filter' : {...termInfo, ...state.resourceTypesMapping[term]}
+                            })
                         }else{
                             state.resourceTypes[term] = {...termInfo, ...state.default}
+                            commit('addFilter', {
+                                'section': 'types',
+                                'filter' : {...termInfo, ...state.default}
+                            })
                         }
                     });
                 }
             }).catch( err =>{
-                console.log(err);
+                console.log("Failed to get types info", err);
+            });
+            //sources
+            axios.get(state.baseURL + "?aggs=_index").then( res =>{
+                
+                if( res.data?.facets?.['_index']?.terms){
+                    res.data?.facets?.['_index']?.terms.forEach(termInfo => {
+                        let source = termInfo.term
+                        if (source in state.sourceReadableNames) {
+                            commit('addFilter', {
+                                'section': 'sources',
+                                'filter' : {...termInfo, ...state.sourceReadableNames[source]}
+                            })
+                        }else{
+                            commit('addFilter', {
+                                'section': 'sources',
+                                'filter' : {...termInfo, ...state.sourceDefault}
+                            })
+                        }
+                    });
+                }
+            }).catch( err =>{
+                console.log("Failed to get sources info", err);
             });
         }
     },
     mutations: {
+        addFilter(state, payload){
+            state.filters[payload.section].push(payload.filter);
+        },
         saveQuery(state, payload){
             state.q = payload.value;
         },
@@ -223,12 +355,13 @@ export default {
         saveResults(state, payload){
             state.results = payload.value;
         },
-        activateTypeFilter(state, payload){
-            Object.keys(state.resourceTypes).forEach((type) => {
-                if (type == payload.value) {
-                    state.resourceTypes[type].active = !state.resourceTypes[type].active;
+        activateFilter(state, payload){
+            let filter = state.filters[payload.section].find((f) => {
+                if (f.term == payload.filter.term) {
+                    return f;
                 }
             });
+            filter.active = !filter.active;
         },
         addRecent(state, payload){
             if (state.recentSearches.length < state.maxRecentHistory) {
@@ -297,6 +430,9 @@ export default {
         },
         totalDocsRDP: (state) => {
             return state.totalDocsRDP;
+        },
+        filters: (state) => {
+            return state.filters;
         },
     },
 }

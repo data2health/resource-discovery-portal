@@ -11,6 +11,7 @@ import Pill from './components/Pill.vue'
 import CopyButton from './components/CopyButton.vue'
 import AOS from 'aos';
 import moment from 'moment';
+import VueCookies from 'vue3-cookies'
 // import VueGtag from "vue-gtag-next";
 
 //vue ecosystem
@@ -33,7 +34,15 @@ app.use(router)
 //         id: "UA-123456-7"
 //     }
 // })
-.use(store);
+.use(store)
+.use(VueCookies, {
+    expireTimes: "7d",
+    path: "/",
+    domain: "",
+    secure: true,
+    sameSite: "None"
+});
+// this.$cookies.set('theme','default');
 
 app.component("Popper", Popper);
 app.component("Modal", SimpleModal);

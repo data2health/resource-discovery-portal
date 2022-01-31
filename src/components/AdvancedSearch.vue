@@ -6,12 +6,12 @@
             <h2 class="text-main"><i class="fas fa-cog"></i> Advanced Search</h2>
         </template>
         <template v-slot:content>
-            <div class="p-1 w-full space-y-6">
-                 <!-- Types -->
+            <div class="p-1 w-full space-y-4">
+                <!-- Types -->
                 <TypeFilter></TypeFilter>
                 <!-- Filters -->
-                <FilterList type="checkbox" name="dataSource" :items="['CD2H','Outbreak.info','Data Discovery Engine','DataMed']"></FilterList>
-                <FilterList type="checkbox" name="dataType" :items="Object.keys(resourceTypes)"></FilterList>
+                <FilterList type="checkbox" name="Filter by source" section="sources" :items="filters.sources"></FilterList>
+                <FilterList type="checkbox" name="Filter by entity type" section="types" :items="filters.types"></FilterList>
             </div>
         </template>
     </VModal>
@@ -36,7 +36,7 @@ export default {
     },
     computed:{
         ...mapGetters([
-            'resourceTypes'
+            'filters'
         ]),
     }
 }
