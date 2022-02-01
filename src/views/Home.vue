@@ -7,22 +7,8 @@
 
           <div class=" w-full m:w-2/3 m-auto px-5 space-y-5">
             <h1 class="text-2xl text-center font-extrabold text-main dark:text-white">Start your search here</h1>
-            <form @submit.prevent="search()" class="w-full flex items-center justify-center flex-wrap">
-              <div class="relative">
-                <input 
-                v-model="query"
-                type="text" 
-                placeholder="search" 
-                class="main-input w-full md:flex-grow">
-                <button type="submit" class="btn-main absolute right-0">
-                  <i class="fas fa-search"></i>
-                </button>
-              </div>
-            </form>
+            <SearchBar class="w-full md:w-2/3 m-auto"></SearchBar>
             <p v-if="totalDocsRDP" data-aos="fade-in" class="text-center text-2xl font-light">{{$filters.numberWithCommas(totalDocsRDP)}} Documents</p>
-            <!-- <span class="text-xs md:text-sm block mt-2 text-gray-400 text-center m:text-left">
-              Eg. <router-link :to="{ path: '/search', query: { 'q': 'COVID-19' }}">COVID-19</router-link>
-            </span> -->
             <h1 class="text-sm md:text-xl text-center text-main dark:text-white font-bold">Or explore our resources by type</h1>
             <p class="text-center mt-5">
               <router-link class="btn-main m-auto" to="/resources">Resource&nbsp;Types</router-link>
@@ -166,6 +152,7 @@
 import { mapGetters } from 'vuex'
 import SmallCard from '../components/SmallCard.vue'
 import RotatingCards from '../components/RotatingCards.vue'
+import SearchBar from '../components/SearchBar.vue'
 
 export default {
   name: 'Home',
@@ -177,7 +164,8 @@ export default {
   },
   components: {
     SmallCard,
-    RotatingCards
+    RotatingCards,
+    SearchBar
   },
   methods:{
     search(){

@@ -37,7 +37,7 @@
       </section>
 
       <section class="space-y-10 mb-4 p-3 min-h-[50vh]" id="dashboard">
-        <h1 class="text-2xl md:text-5xl mb-6 text-main dark:text-secondary-light font-extrabold">2,000,000 Total Resources</h1>
+        <h1 class="text-2xl md:text-5xl mb-6 text-main dark:text-secondary-light font-extrabold">{{$filters.numberWithCommas(totalDocsRDP)}} Total Documents!</h1>
         <ul>
           <li>
             <p class="text-2xl">A simple search interface to quickly find varied resources around a given topic</p>
@@ -238,7 +238,8 @@ export default {
         ...mapGetters([
             'team',
             'filters',
-            'chartData'
+            'chartData',
+            'totalDocsRDP'
         ]),
   },
   components:{

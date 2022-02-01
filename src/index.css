@@ -18,9 +18,8 @@
 }
 
 .main-input{
-    @apply m-auto py-2 px-4 text-lg text-blue-600 shadow-lg
-    rounded-full border-main focus:outline-none focus:ring-2 border-2 dark:border-tertiary
-    focus:ring-secondary-light focus:border-main focus:border-2 dark:bg-gray-300 caret-pink-500 transition-all duration-300
+    @apply m-auto py-2 px-7 md:px-20 text-lg text-pink-400 shadow-md focus:shadow-lg border-main focus:outline-none focus:ring-2 border-2 dark:border-tertiary
+    focus:ring-secondary-light dark:focus:ring-tertiary-light focus:border-main focus:border-2 dark:bg-gray-900 caret-pink-500 transition-all duration-300
 }
 
 *{

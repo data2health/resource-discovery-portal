@@ -216,13 +216,13 @@ export default {
         pageLimit: 20,
         groupPages: false,
         total: 0,
-        q: '',
         totalDocsRDP: 0,
         chartData:{
             'about':{
 
             }
-        }
+        },
+        query: ""
     }),
     actions: {
         search({commit, state }, payload) {
@@ -242,8 +242,8 @@ export default {
                 }
             }
 
-            if(state.q){
-                config.params.q = state.q
+            if(state.query){
+                config.params.q = state.query
             }
             // sorting
             // switch (state.sortChange) {
@@ -263,7 +263,9 @@ export default {
             //         //no matching sort
             //         break;
             // }
+
             console.log('%c Search' + JSON.stringify(config, null, 2), 'color:limegreen');
+
             axios.get(url, config).then( res =>{
                 console.log(res)
                 commit('saveResults', { value: res.data.hits});
@@ -351,7 +353,7 @@ export default {
             state.filters[payload.section].push(payload.filter);
         },
         saveQuery(state, payload){
-            state.q = payload.value;
+            state.query = payload.value;
         },
         updatePages(state, payload){
             state.total = payload.value;
@@ -467,6 +469,9 @@ export default {
         },
         baseURL: (state) => {
             return state.baseURL;
+        },
+        query: (state) => {
+            return state.query;
         },
     },
 }

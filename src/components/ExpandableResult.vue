@@ -94,7 +94,7 @@ export default {
         result_type: function () {
             // deeper > shallow
             return this.source?.entity ? this.source?.entity : 
-            this.source?.['@type'] ? this.ource?.['@type'] : '';
+            this.source?.['@type'] ? this.source?.['@type'] : '';
         },
         theme: function() {
             return this.$store.getters.getTheme(this.result_type.charAt(0).toUpperCase() + this.result_type.slice(1));

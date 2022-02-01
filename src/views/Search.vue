@@ -6,16 +6,15 @@
                 <!-- spacer -->
                 </div>
                 <div class="container mx-auto w-full md:w-1/3 py-2 px-4 md:px-1 pt-5">
-                    <!-- Search Bar -->
                     <form @submit.prevent="search()" class="w-full flex items-center group">
                         <div class="relative w-full">
                             <input
                             v-model="q"
                             type="text" 
                             placeholder="search" 
-                            class="main-input w-full">
+                            class="main-input w-full rounded-full">
                             
-                            <button v-if="q" type="button" @click="clearSearch()" class="py-2 px-3 absolute right-16 hidden md:group-hover:inline">
+                            <button v-if="q" type="button" @click="clearSearch()" class="py-2 px-3 absolute right-10 hidden md:group-hover:inline">
                                 <Popper content="Clear" class="tip" :hover="true" placement="bottom">
                                     <i class="fas fa-times fa-2x text-gray-400"></i>
                                 </Popper>
@@ -127,7 +126,7 @@ export default {
         ExpandableResult,
         Pagination,
         ShareButtons,
-        AdvancedSearch
+        AdvancedSearch,
     },
     methods:{
         clearSearch(){
@@ -139,6 +138,9 @@ export default {
             this.highlighter.unmark();
         },
         search(){
+            if (this.$route?.query?.q) {
+                this.q = this.$route?.query?.q;
+            }
             this.$store.dispatch('search', {value: this.q});
         },
         clearRecentSearches() {
