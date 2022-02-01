@@ -141,7 +141,8 @@ export default {
             if (this.$route?.query?.q) {
                 this.q = this.$route?.query?.q;
             }
-            this.$store.dispatch('search', {value: this.q});
+            this.$store.commit('saveQuery', {value: this.q});
+            this.$store.dispatch('search');
         },
         clearRecentSearches() {
             this.$store.commit('clearRecentSearches');
