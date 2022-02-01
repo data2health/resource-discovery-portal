@@ -18,8 +18,6 @@
 import Result from '../components/ResultWrapper.vue'
 import ShareButtons from '../components/ShareButtons.vue'
 
-import docs from '../store/modules/docs.js'
-
 export default {
     name: "ResultDetails",
     data: function() {
@@ -32,11 +30,11 @@ export default {
         ShareButtons
     },
     mounted: function () {
-        this.item = docs.find((doc) => doc._id == this.$route.query?.resource)
-        // schema.org compliant docs
-        if (this.embeddableMetadata) {
-            this.embedMetadata();
-        }
+        // this.item = docs.find((doc) => doc._id == this.$route.query?.resource)
+        // // schema.org compliant docs
+        // if (this.embeddableMetadata) {
+        //     this.embedMetadata();
+        // }
     },
     computed:{
         embeddableMetadata: function () {
