@@ -71,7 +71,7 @@
                                         <router-link :title="item" active-class="text-secondary"
                                         :to="{ path: '/search', query: { 'q': item }}">
                                         <i class="fas fa-search text-xs"></i> 
-                                        {{item.length > 25 ? item.substring(0, 25) + '...' : item}}
+                                        {{item ? item.substring(0, 25) + '...' : item}}
                                         </router-link>
                                     </Popper>
                                 </li>

@@ -9,12 +9,11 @@
             <template v-for="(s, i) in items" :key="s + i">
                 <li class="text-xs mb-3 text-white">
                     <Popper :content="s.name || s.title || s.toolName" class="tip" :hover="true" placement="top" arrow>
-                        <router-link :title="s"
-                        :to="{ path: '/search', query: { 'q': s._id }}">
+                        <router-link :title="s" class="!text-white" active-class="text-secondary" :to="{ path: '/search', query: { 'q': s._id }}">
                         <i class="fas fa-search text-xs text-tertiary"></i> 
-                            {{s.name && s.name.length > 30? s.name.substring(0, 30) + '...' : s.name || 
-                            s.title && s.title.length > 30? s.tile.substring(0, 25) + '...' : s.title || 
-                            s.toolName && s.toolName.length > 30? s.toolName.substring(0, 25) + '...' : s.toolName}}
+                            {{s.name ? s.name.substring(0, 30) + '...' : s.name || 
+                            s.title ? s.tile.substring(0, 30) + '...' : s.title || 
+                            s.toolName ? s.toolName.substring(0, 30) + '...' : s.toolName}}
                         </router-link>
                     </Popper>
                 </li>

@@ -1,6 +1,6 @@
 <template>
   <!-- hero -->
-  <div class="darkMode">
+  <div class="darkMode z-50">
     <div class="min-h-[60vh] m-auto flex items-center justify-center bg-no-repeat bg-cover bg-bottom flex-wrap md:flex-nowrap">
       <div class="relative w-full min-h-[60vh] overflow-hidden">
         <div class="w-2/3 absolute z-50 top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%]">
@@ -20,7 +20,7 @@
         </div>
       </div>
     </div>
-    <div>
+    <div class="z-20">
       <!-- SECTIONS -->
       <div class="mx-auto">
           <!-- section -->

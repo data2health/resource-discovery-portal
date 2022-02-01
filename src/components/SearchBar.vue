@@ -5,7 +5,7 @@
             v-model="query"
             @keydown="keyDown()"
             @keyup="keyUp()"
-            @blur="suggestions = null"
+            @blur="hideSuggestions()"
             type="text" 
             placeholder="search" 
             :class="suggestions ? 'rounded-full rounded-b-sm' : 'rounded-full'"
@@ -23,8 +23,8 @@
                                 <Popper :content="item" class="tip" :hover="true" placement="top" arrow>
                                     <router-link :title="item" active-class="text-secondary"
                                     :to="{ path: '/search', query: { 'q': item }}">
-                                    <i class="fas fa-search text-xs text-tertiary"></i> 
-                                    {{item.length > 25 ? item.substring(0, 25) + '...' : item}}
+                                        <i class="fas fa-search text-xs text-tertiary"></i> 
+                                        {{item ? item.substring(0, 25) + '...' : item}}
                                     </router-link>
                                 </Popper>
                             </li>
@@ -44,7 +44,6 @@
 
 <script>
 import axios from 'axios';
-import Mark from 'mark.js'
 
 import { mapGetters } from 'vuex'
 
@@ -58,7 +57,6 @@ export default {
             doneTypingInterval : 1000,
             typingTimer: null,
             suggestions: null,
-            highlighter: null
         }
     },
     components:{
@@ -93,15 +91,12 @@ export default {
                     console.log('Error loading suggestions', err);
                 });
             }
-            this.highlightMatches(this.query);
+            console.log(this.suggestions)
         },
-        highlightMatches(keyword){
-            if (keyword) {
-                this.highlighter.unmark();
-                this.highlighter.mark(keyword, {"separateWordSearch": false, "className": "highlight"});
-            }else{
-                this.highlighter.unmark();
-            }
+        hideSuggestions(){
+            setTimeout(()=>{
+                this.suggestions = null
+            }, 1000);
         }
     },
     computed:{
@@ -109,12 +104,6 @@ export default {
             'recentSearches',
             'baseURL'
         ])
-    },
-    mounted: function(){
-        this.highlighter = new Mark(document.querySelector(".highlight_container"));
-    },
-    updated: function(){
-        this.highlightMatches(this.query);
     },
     watch:{
         query: function (v) {
