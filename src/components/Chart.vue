@@ -69,17 +69,15 @@ export default {
                 'type': 'doughnut',
                 'data': data,
                 'options': {
-                    'title': {
-                        display: true,
-                        text: self.name.replace('_',' ') + " ("+data.datasets[0].data.reduce((a, b) => a + b, 0)+")",
-                        fontColor: 'black',
-                        fontSize: '20'
-                    },
-                    legend: {
-                        position: 'top',
-                        labels: {
-                            fontColor: "grey"
+                    plugins: {
+                        legend: {
+                            position: 'top',
                         },
+                        title: {
+                            display: true,
+                            text: self.name,
+                            fontSize: '40'
+                        }
                     },
                     onClick: function (e, item) {
                         if (item.length && Object.prototype.hasOwnProperty.call(item[0], '_view')) {
@@ -99,11 +97,15 @@ export default {
                 'type': 'pie',
                 'data': data,
                 'options': {
-                    'title': {
-                        display: true,
-                        text: self.name.replace('_',' ')+ " ("+data.datasets[0].data.reduce((a, b) => a + b, 0)+")",
-                        fontColor: 'black',
-                        fontSize: '20'
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                        },
+                        title: {
+                            display: true,
+                            text: self.name,
+                            fontSize: '40'
+                        }
                     },
                     onClick: function (e, item) {
                         if (item.length && Object.prototype.hasOwnProperty.call(item[0], '_view')) {
@@ -184,22 +186,26 @@ export default {
             });
         },
         draw(type){
-            let data = {
-                labels: ['Dataset', 'Video', 'Repository', 'Article', 'Educational', 'Person'],
-                datasets: [
-                    {
-                    label: this.name,
-                    data: [200, 300, 40, 377, 23, 1000],
-                    backgroundColor: this.getRandomColors(6),
-                    }
-                ]
+            if (!this.data) {
+                this.data = {
+                    labels: ['Dataset', 'Video', 'Repository', 'Article', 'Educational', 'Person'],
+                    datasets: [
+                        {
+                        label: this.name,
+                        data: [200, 300, 40, 377, 23, 1000],
+                        backgroundColor: this.getRandomColors(6),
+                        }
+                    ]
                 }
+            }else{
+                this.data.datasets[0].backgroundColor = this.getRandomColors(this.data.datasets[0].data.length);
+            }
             switch (type) {
                 case 'pie':
-                    this.drawPieChart(data);
+                    this.drawPieChart(this.data);
                     break;
                 case 'doughnut':
-                    this.drawDoughnutChart(data);
+                    this.drawDoughnutChart(this.data);
                     break;
                 default:
                     break;

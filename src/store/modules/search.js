@@ -105,8 +105,8 @@ export default {
             //populated with performAggregations
         },
         default:{
-            'text': 'text-sky-500',
-            'bg': 'bg-sky-500',
+            'text': 'text-indigo-500',
+            'bg': 'bg-indigo-500',
             'icon': 'fas fa-circle',
             'img': '/assets/img/rdp_square.svg',
         },
@@ -217,7 +217,12 @@ export default {
         groupPages: false,
         total: 0,
         q: '',
-        totalDocsRDP: 0
+        totalDocsRDP: 0,
+        chartData:{
+            'about':{
+
+            }
+        }
     }),
     actions: {
         search({commit, state }, payload) {
@@ -271,6 +276,11 @@ export default {
         performAggregations({commit, state }) {
             // data types
             axios.get(state.baseURL + "?aggs=@type").then( res =>{
+
+                let data = {
+                    labels: [],
+                    datasets: [{data: []}]
+                };
                 
                 if( res.data?.facets?.['@type']?.terms){
                     res.data?.facets?.['@type']?.terms.forEach(termInfo => {
@@ -289,13 +299,24 @@ export default {
                                 'filter' : {...termInfo, ...state.default}
                             })
                         }
+                        //chart data for /About
+                        data.labels.push(termInfo.term);
+                        data.datasets[0].label = 'Entity Types';
+                        data.datasets[0].data.push(termInfo.count);
                     });
+                    
+                    state.chartData.about.types = data;
                 }
             }).catch( err =>{
                 console.log("Failed to get types info", err);
             });
             //sources
             axios.get(state.baseURL + "?aggs=_index").then( res =>{
+
+                let data = {
+                    labels: [],
+                    datasets: [{data: []}]
+                };
                 
                 if( res.data?.facets?.['_index']?.terms){
                     res.data?.facets?.['_index']?.terms.forEach(termInfo => {
@@ -305,6 +326,11 @@ export default {
                                 'section': 'sources',
                                 'filter' : {...termInfo, ...state.sourceReadableNames[source]}
                             })
+                            //chart data for /About
+                            data.labels.push(state.sourceReadableNames[source].name);
+                            data.datasets[0].label = 'Data Sources';
+                            data.datasets[0].data.push(termInfo.count);
+
                         }else{
                             commit('addFilter', {
                                 'section': 'sources',
@@ -313,6 +339,8 @@ export default {
                         }
                     });
                 }
+
+                state.chartData.about.sources = data;
             }).catch( err =>{
                 console.log("Failed to get sources info", err);
             });
@@ -433,6 +461,12 @@ export default {
         },
         filters: (state) => {
             return state.filters;
+        },
+        chartData: (state) => {
+            return state.chartData;
+        },
+        baseURL: (state) => {
+            return state.baseURL;
         },
     },
 }

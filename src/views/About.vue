@@ -50,11 +50,11 @@
           </li>
         </ul>
         <div class="flex justify-center items-center w-full flex-wrap space-y-7 md:space-y-0">
-          <div class="w-2/3 md:w-1/2 m-auto">
-            <Chart :data="[]" type="pie" name='Resource Types'></Chart>
+          <div class="w-full md:w-1/2 m-auto">
+            <Chart :data="chartData.about.types" type="pie" name='Resource Types'></Chart>
           </div>
-          <div class="w-2/3 md:w-1/2 m-auto">
-            <Chart :data="[]" type="pie" name='Data Sources'></Chart>
+          <div class="w-full md:w-1/2 m-auto">
+            <Chart :data="chartData.about.sources" type="pie" name='Data Sources'></Chart>
           </div>
         </div>
       </section>
@@ -237,7 +237,8 @@ export default {
   computed:{
         ...mapGetters([
             'team',
-            'filters'
+            'filters',
+            'chartData'
         ]),
   },
   components:{

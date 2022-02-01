@@ -121,7 +121,7 @@ export const about= {
         
     },
     actions: {
-
+        
     },
     getters: {
         team: (state) => {
