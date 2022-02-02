@@ -104,11 +104,25 @@ export default {
 
             let match =  possibleFields.find( field => {
                 if (field in this.source) {
-                    return this.source[field]
+                    return true
                 }
             });
-
-            return match ? this.source[match] : this.result_type + ' info'
+            //match is string
+            if (typeof this.source[match] == 'string') {
+                return this.source[match];
+            }
+            // match was nested in object eg. article.title['article_title']
+            else if (typeof this.source[match] == 'object') {
+                for (const key in this.source[match]) {
+                    if (typeof this.source[match][key] == 'string') {
+                        return this.source[match][key];
+                    }
+                }
+            }
+            //last resort
+            else{
+                return this.result_type + ' info'
+            }
         },
         description: function (){
             return this.source?.description ? this.source?.description :

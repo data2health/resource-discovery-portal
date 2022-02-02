@@ -10,8 +10,8 @@
                 <!-- Types -->
                 <TypeFilter></TypeFilter>
                 <!-- Filters -->
-                <FilterList type="checkbox" name="Filter by source" section="sources" :items="filters.sources"></FilterList>
-                <FilterList type="checkbox" name="Filter by entity type" section="types" :items="filters.types"></FilterList>
+                <FilterList type="checkbox" name="Filter by source" section="_index" :items="filters['_index']"></FilterList>
+                <FilterList type="checkbox" name="Filter by entity type" section="@type" :items="filters['@type']"></FilterList>
             </div>
         </template>
     </VModal>

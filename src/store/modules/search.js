@@ -111,10 +111,10 @@ export default {
             'img': '/assets/img/rdp_square.svg',
         },
         filters:{
-            'sources' :[
+            '_index' :[
 
             ],
-            'types': [
+            '@type': [
 
             ]
         },
@@ -227,24 +227,26 @@ export default {
     actions: {
         search({commit, state }, payload) {
             let url = state.baseURL; 
-
+            // RECENT SEARCHES
             if (payload?.value) {
                 commit('addRecent', payload);
                 commit('saveQuery', payload);
             }
-            //loading start
+            //LOADING
             commit('setLoading', { value: true});
-            //pagination
+            //PAGINATION
             var config = {
                 "params": {
                     'size': state.perPage,
                     'from': state.page == 1 ? state.page-1 : ((state.page-1) * state.perPage )  
                 }
             }
-
+            // QUERY
             if(state.query){
                 config.params.q = state.query
             }
+
+            // SORTING
             // sorting
             // switch (state.sortChange) {
             //     case 'relevance':
@@ -264,8 +266,20 @@ export default {
             //         break;
             // }
 
-            console.log('%c Search' + JSON.stringify(config, null, 2), 'color:limegreen');
+            // FILTERS
+            let active = {};
+            for (const filter_type in state.filters) {
+                state.filters[filter_type].forEach(filter => {
+                    if (filter.active) {
+                        Object.hasOwnProperty.call(active, filter_type) ? 
+                        active[filter_type].push(filter.term) : active[filter_type] = [filter.term];
+                    }
+                });
+            }
+            console.log('%c Filters ' + JSON.stringify(active, null, 2), 'color:hotpink');
 
+            console.log('%c Search ' + JSON.stringify(config, null, 2), 'color:limegreen');
+            // SEARCH
             axios.get(url, config).then( res =>{
                 console.log(res)
                 commit('saveResults', { value: res.data.hits});
@@ -291,13 +305,13 @@ export default {
                         if (term in state.resourceTypesMapping) {
                             state.resourceTypes[term] = {...termInfo, ...state.resourceTypesMapping[term]}
                             commit('addFilter', {
-                                'section': 'types',
+                                'section': '@type',
                                 'filter' : {...termInfo, ...state.resourceTypesMapping[term]}
                             })
                         }else{
                             state.resourceTypes[term] = {...termInfo, ...state.default}
                             commit('addFilter', {
-                                'section': 'types',
+                                'section': '@type',
                                 'filter' : {...termInfo, ...state.default}
                             })
                         }
@@ -325,7 +339,7 @@ export default {
                         let source = termInfo.term
                         if (source in state.sourceReadableNames) {
                             commit('addFilter', {
-                                'section': 'sources',
+                                'section': '_index',
                                 'filter' : {...termInfo, ...state.sourceReadableNames[source]}
                             })
                             //chart data for /About
@@ -335,7 +349,7 @@ export default {
 
                         }else{
                             commit('addFilter', {
-                                'section': 'sources',
+                                'section': '_index',
                                 'filter' : {...termInfo, ...state.sourceDefault}
                             })
                         }

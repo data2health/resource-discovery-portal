@@ -84,8 +84,8 @@
 
       <section class="space-y-10 mb-4 p-3 min-h-[50vh]" id="data">
         <h1 class="text-2xl md:text-5xl mb-6 text-main dark:text-secondary-light font-extrabold">Where is our data coming from?</h1>
-        <div v-if="filters.sources.length" class="space-y-4 p-2">
-          <template v-for="source in filters.sources" :key="source.name">
+        <div v-if="filters._index.length" class="space-y-4 p-2">
+          <template v-for="source in filters._index" :key="source.name">
             <div class="p-1 space-y-4 border-b border-gray-200">
               <a :v-html="source.link" target="_blank" rel="nonreferrer">
                 <img class="w-32" :alt="source.name" :src="source.img">
