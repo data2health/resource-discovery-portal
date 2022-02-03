@@ -33,7 +33,7 @@ export default {
     },
     methods:{
         activateFilter (type){
-            this.$store.commit('activateFilter', {'section': this.section, 'filter': type});
+            this.$store.dispatch('activateFilter', {'section': this.section, 'filter': type});
         }
     }
 }

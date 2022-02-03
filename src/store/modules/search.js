@@ -225,6 +225,10 @@ export default {
         query: ""
     }),
     actions: {
+        activateFilter({ dispatch, commit }, payload) {
+            commit('activateFilter', payload)
+            dispatch('search');
+        },
         search({commit, state }, payload) {
             let url = state.baseURL; 
             // RECENT SEARCHES

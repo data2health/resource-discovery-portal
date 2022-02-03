@@ -25,7 +25,7 @@ export default {
     },
     methods:{
         activateFilter (type){
-            this.$store.commit('activateFilter', {'section': '@type', 'filter': type});
+            this.$store.dispatch('activateFilter', {'section': '@type', 'filter': type});
         }
     },
     computed:{

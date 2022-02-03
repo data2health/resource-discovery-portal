@@ -3,7 +3,9 @@
     <!-- cookie consent -->
     <VModal v-model="as_open" @confirm="as_open = false">
         <template v-slot:title>
-            <h2 class="text-main"><i class="fas fa-cog"></i> Advanced Search</h2>
+            <h2 class="text-main">
+                <i class="fas fa-cog"></i> Advanced Search <span class="text-center text-red-400" v-if="loading">Updating Results...</span>
+            </h2>
         </template>
         <template v-slot:content>
             <div class="p-1 w-full space-y-4">
@@ -36,7 +38,8 @@ export default {
     },
     computed:{
         ...mapGetters([
-            'filters'
+            'filters',
+            'loading'
         ]),
     }
 }
