@@ -1,34 +1,34 @@
 <template>
     <div :key="uniqueID" class="min-w-full">
         <!-- render customized async result component depending on type -->
-        <template v-if="item._index.includes('outbreak')">
+        <template v-if="type == 'Publication'">
             <Outbreak :item="item" :fullView="fullView"></Outbreak>
         </template>
-        <template v-else-if="item._index == 'cd2h-youtube-video'">
+        <template v-else-if="type == 'Video'">
             <VideoResult :item="item" :fullView="fullView"></VideoResult>
         </template>
-        <template v-else-if="item._index == 'cd2h-youtube-playlist'">
+        <template v-else-if="type == 'Playlist'">
             <PlaylistResult :item="item" :fullView="fullView"></PlaylistResult>
         </template>
-        <template v-else-if="item._index == 'cd2h-github-repository'">
+        <template v-else-if="type == 'Repository'">
             <RepoResult :item="item" :fullView="fullView"></RepoResult>
         </template>
-        <template v-else-if="item._index == 'cd2h-clinical-trials'">
+        <template v-else-if="type == 'ClinicalTrial'">
             <ClinicalTrial :item="item" :fullView="fullView"></ClinicalTrial>
         </template>
-        <template v-else-if="item._index == 'cd2h-datamed'">
+        <template v-else-if="type == 'Dataset'">
             <Dataset :item="item" :fullView="fullView"></Dataset>
         </template>
-        <template v-else-if="item._index == 'cd2h-clic-education'">
+        <template v-else-if="type == 'Education'">
             <Educational :item="item" :fullView="fullView"></Educational>
         </template>
-        <template v-else-if="item._index == 'cd2h-diamond-training-material'">
+        <template v-else-if="type == 'Educational'">
             <Educational :item="item" :fullView="fullView"></Educational>
         </template>
-        <template v-else-if="item._index == 'csbc-pson-computational-tools'">
+        <template v-else-if="type == 'ComputationalTool'">
             <Tool :item="item" :fullView="fullView"></Tool>
         </template>
-        <template v-else-if="item._index == 'cd2h-github-user'">
+        <template v-else-if="type == 'Person'">
             <Person :item="item" :fullView="fullView"></Person>
         </template>
         <template v-else>
@@ -123,6 +123,9 @@ export default {
         fullView: function () {
             // deeper > shallow
             return this.$route.name == 'ResultDetails' ? true : false;
+        },
+        type: function(){
+            return this.item?.['@type'];
         }
     }
 }

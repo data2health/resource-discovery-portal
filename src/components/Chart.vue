@@ -1,6 +1,6 @@
 <template>
     <div>
-        <canvas :id="name" :key="uniqueID" width="100" height="100"></canvas>
+        <canvas :id="name" :key="uniqueID" width="100" height="10"></canvas>
     </div>
     
 </template>
@@ -16,6 +16,7 @@ export default {
     data: function() {
         return{
             uniqueID: Math.floor(Math.random()*90000) + 10000,
+            colors: ['#1F78B4', '#33A02C', '#6A3D9A', '#A6CEE3', '#B2DF8A', '#CAB2D6', '#E31A1C', '#FB9A99', '#FDBF6F', '#FF7F00']
         }
     },
     props: ['data', 'type', 'name'],
@@ -77,6 +78,14 @@ export default {
                             display: true,
                             text: self.name,
                             fontSize: '40'
+                        },
+                        tooltip: {
+                            // titleFont: {
+                            //     size: 100
+                            // },
+                            bodyFont: {
+                                size: 20
+                            },
                         }
                     },
                     onClick: function (e, item) {
@@ -105,6 +114,14 @@ export default {
                             display: true,
                             text: self.name,
                             fontSize: '40'
+                        },
+                        tooltip: {
+                            // titleFont: {
+                            //     size: 100
+                            // },
+                            bodyFont: {
+                                size: 20
+                            },
                         }
                     },
                     onClick: function (e, item) {
@@ -151,6 +168,36 @@ export default {
                 }
             });
         },
+        StackedBar(data){
+            let self = this;
+            var ctx = document.getElementById(this.name);
+
+            new Chart(ctx, {
+                type: 'bar',
+                data: data,
+                options: {
+                    indexAxis: 'y',
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Chart.js Bar Chart - Stacked'
+                        },
+                        legend:{
+                            position: 'bottom'
+                        }
+                    },
+                    responsive: true,
+                    scales: {
+                        x: {
+                            stacked: true,
+                        },
+                        y: {
+                            stacked: true
+                        }
+                    }
+                }
+            });
+        },
         drawBarChart(data, includeTotal){
             let self = this;
             var ctx = document.getElementById(this.name);
@@ -193,12 +240,13 @@ export default {
                         {
                         label: this.name,
                         data: [200, 300, 40, 377, 23, 1000],
-                        backgroundColor: this.getRandomColors(6),
+                        backgroundColor: this.colors,
+                        // backgroundColor: this.getRandomColors(6),
                         }
                     ]
                 }
             }else{
-                this.data.datasets[0].backgroundColor = this.getRandomColors(this.data.datasets[0].data.length);
+                this.data.datasets[0].backgroundColor = this.colors;
             }
             switch (type) {
                 case 'pie':
@@ -206,6 +254,9 @@ export default {
                     break;
                 case 'doughnut':
                     this.drawDoughnutChart(this.data);
+                    break;
+                case 'stacked-bar':
+                    this.StackedBar(this.data);
                     break;
                 default:
                     break;

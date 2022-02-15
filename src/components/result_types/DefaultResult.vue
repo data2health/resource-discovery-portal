@@ -1,21 +1,21 @@
 <template>
     <div :key="uniqueID">
         <!-- Type -->
-        <ResultTab :name="result_type" :cls="[theme.icon, theme.text]" ></ResultTab>
+        <ResultTab :name="item?.['@type'] || 'N/A'" :theme="theme" ></ResultTab>
         <!-- Content Preview-->
-        <div class="bg-white h-auto p-4 tracking-wide mb-4 mx-1 rounded-sm relative dark:bg-gray-600 border border-t-gray-300 border-t-2">
+        <div class="bg-white h-auto p-4 tracking-wide mb-4 mx-1 rounded-sm relative dark:bg-gray-600 border border-t-gray-300 border-t-2 w-full">
             <!-- SHRUNK VIEW -->
             <h5 class="text-lg font-semibold">
                 <router-link :to="{ name: 'ResultDetails', query: {'resource': item._id} }">{{title}}</router-link>
             </h5>
             <div class="flex justify-between p-2 dark:text-gray-200">
                 <!-- published date -->
-                <p v-if="source?.published" class="text-sm">
-                    <i class="fas fa-book" :class="theme.text"></i> {{$filters.formatDate(source?.published)}}
+                <p v-if="item?.published" class="text-sm">
+                    <i class="fas fa-book" :class="theme.text"></i> {{$filters.formatDate(item?.published)}}
                 </p>
                 <!-- updated -->
-                <p v-if="source?.updated" class="text-sm">
-                    <i class="fas fa-clock" :class="theme.text"></i> {{$filters.formatDate(source?.updated)}}
+                <p v-if="item?.updated" class="text-sm">
+                    <i class="fas fa-clock" :class="theme.text"></i> {{$filters.formatDate(item?.updated)}}
                 </p>
             </div>
             <!-- Full View Headers -->
@@ -31,17 +31,17 @@
             <!-- detail box -->
             <div class="flex justify-start items-center flex-wrap">
                 <!-- ID -->
-                <template v-if="source?.id" class="text-sm">
+                <template v-if="item?.id" class="text-sm">
                     <Pill :color="theme['bg']">
                         <template v-slot:title>ID</template>
-                        <template v-slot:value>{{source?.id}}</template>
+                        <template v-slot:value>{{item?.id}}</template>
                     </Pill>
                 </template>
                 <!-- Doc #-->
-                <template v-if="source?.doc_num" class="text-sm">
+                <template v-if="item?.doc_num" class="text-sm">
                     <Pill :color="theme['bg']">
                         <template v-slot:title><i class="fas fa-passport"></i></template>
-                        <template v-slot:value>{{source?.doc_num}}</template>
+                        <template v-slot:value>{{item?.doc_num}}</template>
                     </Pill>
                 </template>
             </div>
@@ -52,11 +52,11 @@
                     <h1 class="font-light">MORE INFO</h1>
                 </div>
                 <!-- stats box -->
-                <div v-if="showDetails || source?.url" class="text-md font-regular p-6 pt-2 text-gray-500 dark:text-white flex justify-between items-center">
+                <div v-if="showDetails || item?.url" class="text-md font-regular p-6 pt-2 text-gray-500 dark:text-white flex justify-between items-center">
                     <div class="ml-2 p-3 rounded border border-gray-200 text-xs">
                         <!-- url -->
-                        <p v-if="source?.url">
-                            <a :href="source?.url" target="_blank" rel="nonreferrer">Source <i class="fas fa-external-link-square-alt" :class="theme.text"></i></a>
+                        <p v-if="item?.url">
+                            <a :href="item?.url" target="_blank" rel="nonreferrer">Source <i class="fas fa-external-link-square-alt" :class="theme.text"></i></a>
                         </p>
                         <!-- curated -->
                         <template v-if="item?._source?.curatedBy">
@@ -69,7 +69,7 @@
                     </div>
                     <div class="text-md font-regular p-6 pt-2 text-gray-500 dark:text-white flex items-center justify-start">
                         <div class="ml-2 p-3 rounded border border-gray-200 text-xs">
-                            <p v-if="source?.primary_ic" class="mb-1"><i class="fas fa-building" :class="theme.text"></i> {{source?.primary_ic}}</p>
+                            <p v-if="item?.primary_ic" class="mb-1"><i class="fas fa-building" :class="theme.text"></i> {{item?.primary_ic}}</p>
                         </div>
                     </div>
                 </div>
@@ -80,8 +80,13 @@
                     </small>
                 </div>
                 <!-- only for Funding if full view -->
-                <template v-if="source?.content?.html && fullView">
-                    <div class="dark:text-gray-300" v-html="source?.content?.html"></div>
+                <template v-if="item?.content?.html && fullView">
+                    <div class="dark:text-gray-300" v-html="item?.content?.html"></div>
+                </template>
+                <template v-if="fullView">
+                    <template v-for="(val, field) in item" :key="field">
+                        <FieldBox :content="val" :name="field" :isChild="false" :theme="theme"></FieldBox>
+                    </template>
                 </template>
             </template>
         </div>
@@ -93,6 +98,7 @@ import { mapGetters } from 'vuex'
 
 import Description from '../ExpandableDescription.vue'
 import ResultTab from '../ResultTab.vue'
+import FieldBox from '../FieldBox.vue'
 
 export default {
     name: "DefaultResult",
@@ -104,7 +110,8 @@ export default {
     },
     components:{
         Description,
-        ResultTab
+        ResultTab,
+        FieldBox
     },
     props:{
         item: Object,
@@ -114,26 +121,14 @@ export default {
         ...mapGetters([
             'expandedView'
         ]),
-        //root level of data, for readability
-        source: function () {
-            // deeper > shallow
-            return this.item?._source?.raw?.attributes ? this.item?._source?.raw?.attributes : 
-            this.item?._source?.raw ? this.item?._source?.raw : 
-            this.item?._source ? this.item?._source : this.item;
-        },
-        result_type: function () {
-            // deeper > shallow
-            return this.item?._source?.entity ? this.item?._source?.entity : 
-            this.item?._source?.['@type'] ? this.item?._source?.['@type'] : '';
-        },
         theme: function() {
-            return this.$store.getters.getTheme(this.result_type.charAt(0).toUpperCase() + this.result_type.slice(1));
+            return this.$store.getters.getTheme(this.item?.['@type']);
         },
         keywords: function () {
             let res = [];
             //find field with keywords
-            let keywords = this.source?.topic ? this.source?.topic : this.source?.keywords ?
-            this.source?.keywords : this.source?.tag ? this.source?.tag : false;
+            let keywords = this.item?.topic ? this.item?.topic : this.item?.keywords ?
+            this.item?.keywords : this.item?.tag ? this.item?.tag : false;
             //parse keywords
             if (keywords) {
                 if (Array.isArray(keywords)) {
@@ -167,23 +162,23 @@ export default {
                 return this.item?._source?.name
             }
             //nested level
-            else if (this.source?.label) {
-                return this.source?.label
+            else if (this.item?.label) {
+                return this.item?.label
             }
-            else if (this.source?.title) {
-                return this.source?.title
+            else if (this.item?.title) {
+                return this.item?.title
             }
-            else if (this.source?.name) {
-                return this.source?.name
+            else if (this.item?.name) {
+                return this.item?.name
             }
         },
         description: function (){
 
             return this.item?._source?.description ? this.item?._source?.description :
             this.item?._source?.abstract ? this.item?._source?.abstract :
-            this.source?.description ? this.source?.description :
-            this.source?.abstract ? this.source?.abstract :
-            this.source?.purpose ? this.source?.purpose : '';
+            this.item?.description ? this.item?.description :
+            this.item?.abstract ? this.item?.abstract :
+            this.item?.purpose ? this.item?.purpose : '';
         }
     }
 }

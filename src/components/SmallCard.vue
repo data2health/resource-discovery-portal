@@ -10,7 +10,9 @@
         <div class="text-left text-sm p-4">
             <ul class="space-y-2 hidden md:group-hover:block">
                 <li v-for="item in items" :key="item + 'card'">
-                    <i class="fas fa-search" :class="sourceInfo.text"></i> <router-link class="!text-main dark:!text-tertiary-light" :to="{ path: '/search', query: { 'q': item }}">
+                    <i class="fas fa-search" :class="sourceInfo.text"></i> <router-link 
+                    class="!text-main dark:!text-tertiary-light" 
+                    :to="{ path: '/search', query: { 'q': item + ' AND @Type=' + title}}">
                         {{item}}
                     </router-link>
                 </li>

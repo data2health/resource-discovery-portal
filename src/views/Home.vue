@@ -6,10 +6,15 @@
         <div class="w-2/3 absolute z-50 top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%]">
 
           <div class=" w-full m:w-2/3 m-auto px-5 space-y-5">
-            <h1 class="text-2xl text-center font-extrabold text-main dark:text-white">Start your search here</h1>
+            <h1 class="text-3xl md:text-5xl text-center text-main dark:text-white">
+              CD2H <b>R</b>esource <b>D</b>iscovery <b>P</b>ortal
+            </h1>
+            <p v-if="totalDocsRDP" data-aos="fade-in" class="text-center text-md md:text-2xl font-bold text-gray-600 dark:text-tertiary mb-7">
+              <span>{{$filters.numberWithCommas(totalDocsRDP)}}</span> resources and counting...
+            </p>
+            <h2 class="text-md md:text-2xl text-center font-extrabold text-gray-600 dark:text-white">Start your search here</h2>
             <SearchBar class="w-full md:w-2/3 m-auto"></SearchBar>
-            <p v-if="totalDocsRDP" data-aos="fade-in" class="text-center text-2xl font-light">{{$filters.numberWithCommas(totalDocsRDP)}} Documents</p>
-            <h1 class="text-sm md:text-xl text-center text-main dark:text-white font-bold">Or explore our resources by type</h1>
+            <h1 class="text-sm md:text-xl text-center text-gray-600 dark:text-white font-bold">Or explore our resources by type</h1>
             <p class="text-center mt-5">
               <router-link class="btn-main m-auto" to="/resources">Resource&nbsp;Types</router-link>
             </p>
@@ -35,14 +40,14 @@
               <img src="/assets/img/rdp_dark.svg" alt="Resource Discovery Portal" class="w-1/3 m-auto">
               <p>The CD2H Resource Discovery Portal (RDP) is a single location to start your search for bioinformatics resources. <br>The platform draws from over 50 databases and covers over 20,000,000 total resources. You can accomplish a wide range of tasks with this single interface to search for many types of resources, including datasets, journal articles, Youtube videos, GitHub profiles, funding opportunities and more.</p>
               <p class="text-center p-10">
-                <router-link class="btn-main m-auto text-sm md:border-tertiary-light md:text-white" to="/about">Learn More</router-link>
+                <router-link class="btn-main m-auto text-sm md:border-tertiary-light md:text-main" to="/about">Learn More</router-link>
               </p>
             </div>
           </section>
           <!-- section -->
           <section class="min-h-[50vh]">
             <div class="w-full top-10 py-10 px-20">
-              <h2 class="text-2xl md:text-3xl font-bold text-main dark:text-secondary-light text-center">
+              <h2 class="text-2xl md:text-3xl font-bold text-gray-600 dark:text-secondary-light text-center">
                 A central space to search for...
               </h2>
             </div>
@@ -120,7 +125,7 @@
                   </div>
                 </div>
                 <div class="p-10 text-center w-full md:w-1/3 flex items-center justify-center">
-                  <router-link to="/search" class="btn-main font-bold text-sm md:border-tertiary-light md:text-white">
+                  <router-link to="/search" class="btn-main font-bold text-sm md:border-tertiary-light md:text-main">
                     Try&nbsp;This&nbsp;Search
                   </router-link>
                 </div>

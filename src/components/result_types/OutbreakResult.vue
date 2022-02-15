@@ -1,16 +1,16 @@
 <template>
     <div>
         <!-- Type -->
-        <ResultTab :name="result_type" :cls="[theme.icon, theme.text]" ></ResultTab>
+        <ResultTab :name="item?.['@type']" :theme="theme" ></ResultTab>
         <!-- Content Preview-->
         <div class="bg-white h-auto p-4 tracking-wide mb-4 mx-1 rounded-sm relative dark:bg-gray-600 border border-t-gray-300 border-t-2">
             <div class="flex justify-between flex-wrap">
                 <h5 class="text-lg font-semibold">
-                    <router-link :to="{ name: 'ResultDetails', query: {'resource': item._id} }">{{item._source.name}}</router-link>
+                    <router-link :to="{ name: 'ResultDetails', query: {'resource': item._id} }">{{item?.name}}</router-link>
                 </h5>
                 <!-- published date -->
-                <p v-if="item && item?._source?.datePublished" class="text-sm">
-                    <i class="fas fa-book" :class="theme.text"></i> {{$filters.formatDate(item?._source?.datePublished)}}
+                <p v-if="item && item?.datePublished" class="text-sm">
+                    <i class="fas fa-book" :class="theme.text"></i> {{$filters.formatDate(item?.datePublished)}}
                 </p>
             </div>
             <!-- Full View Headers -->
@@ -18,7 +18,7 @@
                 <h1 class="font-light">ABOUT</h1>
             </div>
             <!-- description -->
-            <Description :text="item?._source?.abstract"></Description>
+            <Description :text="item?.abstract"></Description>
             <!-- Full View Headers -->
             <div v-if="fullView" :class="theme['text']" class="text-2xl p-3 border-b-2 border-gray-200 mb-3">
                 <h1 class="font-light">DETAILS</h1>
@@ -26,7 +26,7 @@
             <!-- detail box -->
             <div class="flex justify-start items-center flex-wrap">
                 <!-- type -->
-                <template v-if="item && item?._source?.publicationType">
+                <template v-if="item && item?.publicationType">
                     <!-- pill -->
                     <Pill :color="theme['bg']" v-for="type in item._source.publicationType" :key="type">
                         <template v-slot:title>Type</template>
@@ -34,11 +34,11 @@
                     </Pill>
                 </template>
                 <!-- DOI -->
-                <template v-if="item && item?._source?.doi" class="text-sm">
+                <template v-if="item && item?.doi" class="text-sm">
                     <!-- pill -->
                     <Pill :color="theme['bg']">
                         <template v-slot:title>DOI</template>
-                        <template v-slot:value>{{item?._source?.doi}}</template>
+                        <template v-slot:value>{{item?.doi}}</template>
                     </Pill>
                 </template>
             </div>
@@ -47,12 +47,12 @@
                 <div class="text-md font-regular p-6 pt-2 text-gray-500 dark:text-white flex justify-between items-center">
                     <div class="ml-2 p-3 rounded border border-gray-200 text-xs">
                         <!-- curated -->
-                        <template v-if="item?._source?.curatedBy">
+                        <template v-if="item?.curatedBy">
                             <p :class="theme.text">Curated by:</p>
-                            <a v-if="item?._source?.curatedBy?.url" :href="item?._source?.curatedBy?.url" target="_blank" rel="nonreferrer">
-                                {{item?._source?.curatedBy?.name}} ({{$filters.formatDate(item?._source?.curatedBy?.curationDate)}}) <i class="fas fa-external-link-square-alt" :class="theme.text"></i>
+                            <a v-if="item?.curatedBy?.url" :href="item?.curatedBy?.url" target="_blank" rel="nonreferrer">
+                                {{item?.curatedBy?.name}} ({{$filters.formatDate(item?.curatedBy?.curationDate)}}) <i class="fas fa-external-link-square-alt" :class="theme.text"></i>
                             </a>
-                            <p v-else>{{item?._source?.curatedBy?.name}} ({{$filters.formatDate(item?._source?.curatedBy?.curationDate)}})</p>
+                            <p v-else>{{item?.curatedBy?.name}} ({{$filters.formatDate(item?.curatedBy?.curationDate)}})</p>
                         </template>
                         <!-- authors -->
                         <template v-if="authors || authorsByInstitution">
@@ -111,24 +111,19 @@ export default {
             'expandedView'
         ]),
         authors: function(){
-            if (this.item && this.item?._source?.author) {
-                return this.item?._source?.author.map(item => item.name);
+            if (this.item && this.item?.author) {
+                return this.item?.author.map(item => item.name);
             }else{
                 return false
             }
         },
-        result_type: function () {
-            // deeper > shallow
-            return this.item?._source?.entity ? this.item?._source?.entity : 
-            this.item?._source?.['@type'] ? this.item?._source?.['@type'] : 'Tool';
-        },
         theme: function() {
-            return this.$store.getters.getTheme(this.result_type.charAt(0).toUpperCase() + this.result_type.slice(1));
+            return this.$store.getters.getTheme(this.item?.["@type"]);
         },
         authorsByInstitution: function(){
             let res = {};
-            if (this.item && this.item?._source?.author) {
-                this.item?._source?.author.forEach(item => {
+            if (this.item && this.item?.author) {
+                this.item?.author.forEach(item => {
                     if( Object.hasOwnProperty.call(item, 'affiliation')){
                         item.affiliation.forEach(aff => {
                             if (Object.hasOwnProperty.call(aff, 'name')) {
@@ -145,14 +140,7 @@ export default {
             }else{
                 return false
             }
-        },
-        outbreak_type: function(){
-            if (this.item && this.item?._source?.['@type']) {
-                return this.item?._source?.['@type']
-            }else{
-                return 'Outbreak.info'
-            }
-        },
+        }
     }
 }
 </script>

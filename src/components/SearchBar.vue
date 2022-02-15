@@ -8,7 +8,7 @@
             @blur="hideSuggestions()"
             type="text" 
             placeholder="search" 
-            :class="suggestions ? 'rounded-full rounded-b-sm' : 'rounded-full'"
+            :class="suggestions ? 'rounded-full rounded-b-sm' : 'rounded-sm md:rounded-full'"
             class="main-input w-full">
             <!-- small screen action-->
             <button class="block md:hidden bg-tertiary text-white p-3 w-full text-center" >Search</button>

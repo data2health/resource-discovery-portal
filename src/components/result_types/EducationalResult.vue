@@ -1,7 +1,7 @@
 <template>
     <div>
         <!-- Type -->
-        <ResultTab :name="result_type" :cls="[theme.icon, theme.text]" ></ResultTab>
+        <ResultTab :name="result_type" :theme="theme" ></ResultTab>
         <!-- Content Preview-->
         <div class="bg-white h-auto p-4 tracking-wmethode mb-4 mx-1 rounded-sm relative dark:bg-gray-600 border border-t-gray-300 border-t-2">
             <!-- SHRUNK VIEW -->

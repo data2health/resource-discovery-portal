@@ -1,18 +1,18 @@
 <template>
     <div>
         <!-- Type -->
-        <ResultTab :name="result_type" :cls="[theme.icon, theme.text]" ></ResultTab>
+        <ResultTab :name="item?.['@type']" :theme="theme" ></ResultTab>
         <!-- Content Preview-->
         <div class="bg-white h-auto p-4 tracking-wide mb-4 mx-1 rounded-sm relative dark:bg-gray-600 border border-t-gray-300 border-t-2">
             <div class="flex justify-between flex-wrap">
                 <h5 class="text-lg font-semibold">
                     <router-link :to="{ name: 'ResultDetails', query: {'resource': item._id} }">
-                        {{source?.dataset?.title }} <span v-if="source?.dataset?.version" class="text-gray-400 font-extralight">V.{{source?.dataset?.version}}</span>
+                        {{item?.title }} <span v-if="item?.version" class="text-gray-400 font-extralight">V.{{item?.version}}</span>
                     </router-link>
                 </h5>
                 <!-- published date -->
-                <p v-if="source?.dataset?.dateReleased" class="text-sm">
-                    <i class="fas fa-book" :class="theme.text"></i> {{$filters.formatDate(source?.dataset?.dateReleased)}}
+                <p v-if="item?.dateReleased" class="text-sm">
+                    <i class="fas fa-book" :class="theme.text"></i> {{$filters.formatDate(item?.dateReleased)}}
                 </p>
             </div>
             <!-- Full View Headers -->
@@ -20,7 +20,7 @@
                 <h1 class="font-light">ABOUT</h1>
             </div>
             <!-- description -->
-            <Description :text="source?.dataset?.description"></Description>
+            <Description :text="item?.description"></Description>
             <!-- Full View Headers -->
             <div v-if="fullView" :class="theme['text']" class="text-2xl p-3 border-b-2 border-gray-200 mb-3">
                 <h1 class="font-light">DETAILS</h1>
@@ -28,22 +28,22 @@
             <!-- detail box -->
             <div class="flex justify-start items-center flex-wrap">
                 <!-- ID -->
-                <template v-if="source?.dataset?.ID" class="text-sm">
+                <template v-if="item?.ID" class="text-sm">
                     <Pill :color="theme['bg']">
                         <template v-slot:title>ID</template> 
-                        <template v-slot:value>{{source?.dataset?.ID}}</template>
+                        <template v-slot:value>{{item?.ID}}</template>
                     </Pill>
                 </template>
                 <!-- status -->
-                <template v-if="source?.dataset?.privacy" class="text-sm">
+                <template v-if="item?.privacy" class="text-sm">
                     <Pill :color="theme['bg']">
                         <template v-slot:title>Privacy</template> 
-                        <template v-slot:value>{{source?.dataset?.privacy}}</template>
+                        <template v-slot:value>{{item?.privacy}}</template>
                     </Pill>
                 </template>
                 <!-- type -->
-                <template v-if="source?.dataset?.types">
-                    <Pill :color="theme['bg']" v-for="type in source?.dataset?.types" :key="type">
+                <template v-if="item?.types">
+                    <Pill :color="theme['bg']" v-for="type in item?.types" :key="type">
                         <template v-slot:title>Type</template>
                         <template v-slot:value>{{type}}</template>
                     </Pill>
@@ -54,8 +54,8 @@
                 <div class="text-md font-regular p-6 pt-2 text-gray-500 dark:text-white flex justify-between items-center">
                     <div class="ml-2 p-3 rounded border border-gray-200 text-xs">
                         <!-- url -->
-                        <p v-if="source?.dataset?.url">
-                            <a :href="source?.dataset?.url" target="_blank" rel="nonreferrer">Source <i class="fas fa-external-link-square-alt" :class="theme.text"></i></a>
+                        <p v-if="item?.url">
+                            <a :href="item?.url" target="_blank" rel="nonreferrer">Source <i class="fas fa-external-link-square-alt" :class="theme.text"></i></a>
                         </p>
                         <!-- people -->
                         <template v-if="people">
@@ -75,11 +75,16 @@
                         </template>
                     </div>
                 </div>
-                <div v-if="source?.dataset?.keywords">
-                    <small class="text-xs mr-2 text-gray-400" v-for="(tag, i) in source?.dataset?.keywords" :key="tag + i">
+                <div v-if="item?.keywords">
+                    <small class="text-xs mr-2 text-gray-400" v-for="(tag, i) in item?.keywords" :key="tag + i">
                         <i class="fas fa-tag" :class="theme.text"></i> {{tag}}
                     </small>
                 </div>
+                <template v-if="fullView">
+                    <template v-for="(val, field) in item" :key="field">
+                        <FieldBox :content="val" :name="field" :isChild="false" :theme="theme"></FieldBox>
+                    </template>
+                </template>
             </template>
         </div>
     </div>
@@ -90,6 +95,7 @@ import { mapGetters } from 'vuex'
 
 import Description from '../ExpandableDescription.vue'
 import ResultTab from '../ResultTab.vue'
+import FieldBox from '../FieldBox.vue'
 
 export default {
     name: "DatasetResult",
@@ -99,35 +105,30 @@ export default {
     },
     components:{
         Description,
-        ResultTab
+        ResultTab,
+        FieldBox
     },
     computed:{
         ...mapGetters([
             'expandedView'
         ]),
-        // root level of data, for readability
-        source: function () {
-            if (this.item?._source?.raw?._source) {
-                return this.item?._source?.raw?._source
-            }else{
-                return this.item
-            }
-        },
         result_type: function () {
             // deeper > shallow
-            return this.item?._source?.entity ? this.item?._source?.entity : 
-            this.item?._source?.['@type'] ? this.item?._source?.['@type'] : 'Tool';
+            return this.item?.['@type'] 
         },
         theme: function() {
-            return this.$store.getters.getTheme(this.result_type.charAt(0).toUpperCase() + this.result_type.slice(1));
+            return this.$store.getters.getTheme(this.item?.['@type']);
         },
         people: function(){
-            if (this.item && this.source?.dataset?.creators) {
-                return this.source?.dataset?.creators.map(item => item);
+            if (this.item && this.item?.creators) {
+                return this.item?.creators.map(item => item);
             }else{
                 return false
             }
         },
+    },
+    mounted:function () {
+        console.log("THEME", this.theme)
     }
 }
 </script>

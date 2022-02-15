@@ -1,6 +1,6 @@
 <template>
     <!-- Type -->
-    <ResultTab :name="result_type" :theme="theme"></ResultTab>
+    <ResultTab :name="item?.['@type'] || 'N/A'" :theme="theme"></ResultTab>
     <div :key="uniqueID" class="min-w-full flex justify-between border-2 border-gray-200 dark:border-gray-500 mb-5 shadow-lg p-3 bg-gray-100 dark:bg-gray-600">
         <div class="w-full">
             <h1 class="text-lg font-bold cursor-pointer text-blue-500 hover:text-blue-400 dark:text-white" @click.prevent="open = !open">
@@ -17,42 +17,44 @@
                     <div class="bg-tertiary text-white rounded-full px-3 py-1 cursor-pointer hover:bg-tertiary-light text-sm">
                         share <i class="fas fa-share"></i>
                     </div>
+                    <router-link class="bg-green-500 !text-white rounded-full px-3 py-1 cursor-pointer hover:bg-green-400 text-sm" 
+                    :to="{ name: 'ResultDetails', query: {'resource': item._id} }">more info</router-link>
                 </div>
             </template>
             <div class="flex space-x-2 flex-wrap justify-start my-2">
                 <!-- method -->
-                <template v-if="source?.method || source?.delivery_method">
+                <template v-if="item?.method || item?.delivery_method">
                     <div class="text-white banner-clip pr-3 pl-5 py-1 text-xs" :class="theme.bg">
-                        {{source?.method || source?.delivery_method}}
+                        {{item?.method || item?.delivery_method}}
                     </div>
                 </template>
                 <!-- status -->
-                <template v-if="source?.frequency">
+                <template v-if="item?.frequency">
                     <div class="text-white banner-clip pr-3 pl-5 py-1 text-xs" :class="theme.bg">
-                        {{source?.frequency}}
+                        {{item?.frequency}}
                     </div>
                 </template>
                 <!-- type -->
-                <template v-if="source?.types">
-                    <div class="text-white banner-clip pr-3 pl-5 py-1 text-xs" :class="theme.bg" v-for="type in source?.types" :key="type">
+                <template v-if="item?.types">
+                    <div class="text-white banner-clip pr-3 pl-5 py-1 text-xs" :class="theme.bg" v-for="type in item?.types" :key="type">
                         {{type}}
                     </div>
                 </template>
                 <!-- public -->
-                <template v-if="source?.learning_level">
+                <template v-if="item?.learning_level">
                     <div class="text-white banner-clip pr-3 pl-5 py-1 text-xs" :class="theme.bg">
-                        {{source?.learning_level}}
+                        {{item?.learning_level}}
                     </div>
                 </template>
             </div>
             <div v-if="open || expandedView" class="bg-gray-200 dark:bg-gray-700">
                 <!-- published date -->
-                <p v-if="source?.created_at" class="text-sm">
-                    <i class="fas fa-book" :class="theme.text"></i> {{$filters.formatDate(source?.created_at)}}
+                <p v-if="item?.created_at" class="text-sm">
+                    <i class="fas fa-book" :class="theme.text"></i> {{$filters.formatDate(item?.created_at)}}
                 </p>
                 <!-- updated date -->
-                <p v-if="source?.updated_at" class="text-sm">
-                    <i class="fas fa-clock" :class="theme.text"></i> {{$filters.formatDate(source?.updated_at)}}
+                <p v-if="item?.updated_at" class="text-sm">
+                    <i class="fas fa-clock" :class="theme.text"></i> {{$filters.formatDate(item?.updated_at)}}
                 </p>
                 <template v-for="(item, field) in viewable_fields" :key="field">
                     <FieldBox :content="item" :name="field" :isChild="false" :theme="theme"></FieldBox>
@@ -87,35 +89,26 @@ export default {
         ...mapGetters([
             'expandedView'
         ]),
-        //root level of data, for readability
-        source: function () {
-            return this.item?._source?.tool ? this.item?._source?.tool : this.item;
-        },
-        result_type: function () {
-            // deeper > shallow
-            return this.source?.entity ? this.source?.entity : 
-            this.source?.['@type'] ? this.source?.['@type'] : '';
-        },
         theme: function() {
-            return this.$store.getters.getTheme(this.result_type.charAt(0).toUpperCase() + this.result_type.slice(1));
+            return this.$store.getters.getTheme(this.item?.['@type']);
         },
         title: function () {
             let possibleFields = ['title', 'name', 'toolName', 'article_title', 'label'];
 
             let match =  possibleFields.find( field => {
-                if (field in this.source) {
+                if (field in this.item && this.item[field] !== null) {
                     return true
                 }
             });
             //match is string
-            if (typeof this.source[match] == 'string') {
-                return this.source[match];
+            if (typeof this.item[match] == 'string') {
+                return this.item[match];
             }
             // match was nested in object eg. article.title['article_title']
-            else if (typeof this.source[match] == 'object') {
-                for (const key in this.source[match]) {
-                    if (typeof this.source[match][key] == 'string') {
-                        return this.source[match][key];
+            else if (typeof this.item[match] == 'object') {
+                for (const key in this.item[match]) {
+                    if (typeof this.item[match][key] == 'string') {
+                        return this.item[match][key];
                     }
                 }
             }
@@ -125,17 +118,17 @@ export default {
             }
         },
         description: function (){
-            return this.source?.description ? this.source?.description :
-            this.source?.abstract ? this.source?.abstract :
-            this.source?.purpose ? this.source?.purpose : '';
+            return this.item?.description ? this.item?.description :
+            this.item?.abstract ? this.item?.abstract :
+            this.item?.purpose ? this.item?.purpose : '';
         },
         viewable_fields: function(){
             let allowed = ['description', 'id', 'keywords', 'tags',
             'player', 'published', 'created', 'author', 'abstract', 'url', 'curatedBy', 'doi', 'abstract'];
             let res = {};
             allowed.forEach(field => {
-                if (Object.hasOwnProperty.call(this.source, field)) {
-                    res[field] = this.source[field]
+                if (Object.hasOwnProperty.call(this.item, field)) {
+                    res[field] = this.item[field]
                 }
             });
             return res;

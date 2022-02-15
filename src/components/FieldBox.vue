@@ -52,7 +52,7 @@
         </template>
           <!-- 🌈 String 🌈 -->
           <template v-if="type == 'string'">
-            <div class="flex justify-start items-center">
+            <div class="flex justify-start items-start">
               <template v-if="isUrl(content)">
                 <div class="p-1">
                   <small :class="theme?.text">
@@ -88,7 +88,7 @@
           <!-- 🌈 Object 🌈 -->
           <template v-if="type == 'object'">
             <div class="p-1">
-              <div class=" flex justify-start items-center">
+              <div class="flex justify-start items-start">
                 <small :class="theme?.text">
                   <b v-text="readable_name"></b> <i class="fas fa-chevron-circle-right mr-1"></i>
                 </small>
@@ -103,7 +103,7 @@
           <!-- 🌈 Boolean 🌈 -->
           <template v-if="type == 'boolean'">
             <div class="p-1">
-              <div class=" flex justify-start items-center">
+              <div class=" flex justify-start items-start">
                 <small :class="theme?.text">
                   <b v-text="readable_name"></b> :&nbsp;
                 </small>
@@ -116,8 +116,8 @@
           </template>
           <!-- 🌈 Number 🌈 -->
           <template v-if="type == 'number'">
-            <div class="p-1">
-              <div class=" flex justify-start items-center">
+            <div class="flex justify-start items-start">
+              <div class="p-1">
                 <small :class="theme?.text">
                   <b v-text="readable_name"></b> :&nbsp;
                 </small>
@@ -239,9 +239,12 @@ export default {
         },
     },
     mounted: function(){
-      this.getType(this.content)
-      if (this.type == 'array') {
-          this.calculatePages();
+      //don't render internal fields
+      if (!this.name.startsWith('_')) {
+        this.getType(this.content)
+        if (this.type == 'array') {
+            this.calculatePages();
+        }
       }
     },
     computed: {

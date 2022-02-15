@@ -14,13 +14,7 @@
                             placeholder="search" 
                             class="main-input w-full rounded-full">
                             
-                            <button v-if="q" type="button" @click="clearSearch()" class="py-2 px-3 absolute right-10 hidden md:group-hover:inline">
-                                <Popper content="Clear" class="tip" :hover="true" placement="bottom">
-                                    <i class="fas fa-times fa-2x text-gray-400"></i>
-                                </Popper>
-                            </button>
-                            
-                            <button type="submit" class="btn-main absolute right-0">
+                            <button type="submit" class="btn-main absolute right-0 inline md:hidden">
                                 <i class="fas fa-search"></i>
                             </button>
                         </div>
