@@ -1,3 +1,4 @@
+import { data } from 'autoprefixer';
 import axios from 'axios';
 
 export default {
@@ -247,7 +248,10 @@ export default {
             }
             // QUERY
             if(state.query){
-                config.params.q = state.query
+                // TEMP remove when all docs have @type
+                config.params.q = state.query + " AND _exists_:@type"
+            }else{
+                config.params.q = "_exists_:@type"
             }
 
             // SORTING
@@ -281,6 +285,16 @@ export default {
                 });
             }
             console.log('%c Filters ' + JSON.stringify(active, null, 2), 'color:hotpink');
+            
+            let fString = "";
+            if (Object.keys(active).length) {
+                for (const section in active) {
+                    fString += " AND (" + active[section].map(value => section + ":" + value ).join(' OR ') + ")"
+                }
+            }
+            if (fString) {
+                config.params.q += fString
+            }
 
             console.log('%c Search ' + JSON.stringify(config, null, 2), 'color:limegreen');
             // SEARCH

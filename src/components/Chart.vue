@@ -154,8 +154,8 @@ export default {
                     'scales': {
                         yAxes: [{
                             ticks: {
-                                precision:0
-                            }
+                                precision:0,
+                            },
                         }],
                     },
                     onClick: function (e, item) {
@@ -180,7 +180,7 @@ export default {
                     plugins: {
                         title: {
                             display: true,
-                            text: 'Chart.js Bar Chart - Stacked'
+                            text: this.name
                         },
                         legend:{
                             position: 'bottom'
@@ -190,9 +190,11 @@ export default {
                     scales: {
                         x: {
                             stacked: true,
+                            display: false 
                         },
                         y: {
-                            stacked: true
+                            stacked: true,
+                            display: false 
                         }
                     }
                 }

@@ -14,7 +14,7 @@
             </div>
             <div class="min-h-screen">
                 <div class="flex justify-center items-center">
-                    <div class="w-full h-32" v-if="data">
+                    <div class="h-32 w-[80%]" v-if="data">
                         <Chart :data="data" type="stacked-bar" name='By Source'></Chart>
                     </div>
                 </div>
@@ -57,7 +57,7 @@ export default {
             axios.get(this.baseURL + `?aggs=_index&q=@type:${this.resource}&size=0`).then(res=>{
 
                 let data = {
-                    labels: ['Sources'],
+                    labels: [self.resource],
                     datasets: []
                 };
 

@@ -2,7 +2,7 @@
     <div class="rounded-2xl p-2 mb-3 shadow select-none bg-gray-200/50 hover:bg-gray-300/50" data-aos="fade-in">
         <div @click="open = !open" 
         class="rounded cursor-pointer p-1 text-gray-600 flex justify-start text-xs items-center">
-            <span>{{ name }} ({{items.length}})</span>
+            <span>{{ name }} ({{items.length}}) <b class="text-main" v-if="currentlyActive">({{currentlyActive}} active)</b></span>
         </div>
         <div v-if="type == 'checkbox' && open">
             <template v-for="(item) in items" :key="item + name">
@@ -34,6 +34,11 @@ export default {
     methods:{
         activateFilter (type){
             this.$store.dispatch('activateFilter', {'section': this.section, 'filter': type});
+        }
+    },
+    computed:{
+        currentlyActive: function () {
+            return this.items.filter((value) => value.active).length
         }
     }
 }
