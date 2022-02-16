@@ -273,6 +273,18 @@ export default {
             //         //no matching sort
             //         break;
             // }
+            
+             // RESOURCE FILTER
+            if (payload?.resourceFilter) {
+                console.log('%c Resource Filter: ' + payload.resourceFilter, 'color:orange')
+                state.filters['@type'].forEach(f => {
+                    if (f.term == payload.resourceFilter) {
+                        f.active = true;
+                    }else{
+                        f.active = false;
+                    }
+                });
+            }
 
             // FILTERS
             let active = {};
@@ -309,7 +321,7 @@ export default {
         },
         performAggregations({commit, state }) {
             // data types
-            axios.get(state.baseURL + "?aggs=@type").then( res =>{
+            axios.get(state.baseURL + "?aggs=@type,_index").then( res =>{
 
                 let data = {
                     labels: [],

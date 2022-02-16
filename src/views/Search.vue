@@ -64,8 +64,8 @@
                                     <Popper :content="item" class="tip" :hover="true" placement="right" arrow>
                                         <router-link :title="item" active-class="text-secondary"
                                         :to="{ path: '/search', query: { 'q': item }}">
-                                        <i class="fas fa-search text-xs"></i> 
-                                        {{item ? item.substring(0, 25) + '...' : item}}
+                                        <i class="fas fa-search text-xs text-tertiary-light"></i> 
+                                        {{item && item.length > 25 ? item.substring(0, 25) + '...' : item}}
                                         </router-link>
                                     </Popper>
                                 </li>
@@ -80,7 +80,7 @@
                         <p class="font-thin text-gray-500">Sharing</p>
                         <div class="flex justify-around items-center p-2">
                             <!-- share URL -->
-                            <CopyButton copy_msg="Copy URL" copy="COPY TEST"></CopyButton>
+                            <CopyButton copy_msg="Copy URL" :copy="url"></CopyButton>
                             <!-- Download -->
                             <Popper content="Download Results" class="tip" :hover="true" placement="top">
                                 <button class="icon-btn rounded-xl bg-main hover:bg-main-light dark:bg-secondary-light dark:hover:bg-secondary" 
@@ -113,7 +113,9 @@ export default {
     data: function(){
         return {
             highlighter: null,
-            q:''
+            q:'',
+            url: window.location.href,
+            download_data: {}
         }
     },
     components: {
@@ -135,6 +137,7 @@ export default {
             if (this.q) {
                 this.$router.push({ query: { q: this.q }})
                 this.q = this.$route?.query?.q;
+                this.$store.commit('addRecent', {value: this.q});
             }
             this.$store.commit('saveQuery', {value: this.q});
             this.$store.dispatch('search');
@@ -142,8 +145,12 @@ export default {
         clearRecentSearches() {
             this.$store.commit('clearRecentSearches');
         },
-        download(){
-            console.log('download')
+        download() {
+            var a = document.createElement("a");
+            var file = new Blob([JSON.stringify(this.results, null, 2)], {type: 'text/plain'});
+            a.href = URL.createObjectURL(file);
+            a.download = 'RDP_results.json';
+            a.click();
         },
         highlightMatches(keyword){
             if (keyword) {

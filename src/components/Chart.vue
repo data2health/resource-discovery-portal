@@ -169,7 +169,6 @@ export default {
             });
         },
         StackedBar(data){
-            let self = this;
             var ctx = document.getElementById(this.name);
 
             new Chart(ctx, {
