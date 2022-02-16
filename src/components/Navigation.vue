@@ -8,8 +8,8 @@
           <!-- logo -->
           <div class="flex-grow">
             <router-link to="/" class="flex items-center py-1 px-2 text-main hover:text-main-light">
-              <img v-if="darkMode" src="/assets/img/rdp_text.svg" class="h-20 w-24">
-              <img v-else src="/assets/img/rdp_text_color.svg" class="h-20 w-24">
+              <img v-if="darkMode" src="/assets/img/rdp_text.svg" class="md:w-24 w-16 py-3">
+              <img v-else src="/assets/img/rdp_text_color.svg" class="md:w-24 w-16 py-3">
             </router-link>
           </div>
 

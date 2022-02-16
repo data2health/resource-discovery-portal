@@ -28,7 +28,7 @@
                 <!-- type -->
                 <template v-if="item && item?.publicationType">
                     <!-- pill -->
-                    <Pill :color="theme['bg']" v-for="type in item._source.publicationType" :key="type">
+                    <Pill :color="theme['bg']" v-for="type in item.publicationType" :key="type">
                         <template v-slot:title>Type</template>
                         <template v-slot:value>{{type}}</template>
                     </Pill>

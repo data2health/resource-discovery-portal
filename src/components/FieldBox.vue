@@ -1,25 +1,25 @@
 <template>
-    <div v-if="name !== '_meta'" class="m-0 rounded dark:text-gray-300" :class="[isChild?'p-1 border-left':'p-1 border-bottom']">
+    <div v-if="name !== '_meta'" class="m-0 rounded dark:text-gray-300 p-1" :class="[isChild ? 'ml-4' : 'ml-0']">
         <!-- 🌈 Array 🌈 -->
         <template v-if="type == 'array'">
           <div class="row m-0">
             <div class="text-left">
               <small class="cursor-pointer font-bold" :class="theme?.text" @click="expandArray=!expandArray">
                 <span v-text="readable_name"></span> (<span v-text="content.length"></span>) 
-                <b v-if="!expandArray">+</b>
-                <b v-if="expandArray">-</b>
+                <b v-if="!expandArray"><i class="fas fa-plus bg-tertiary rounded-full p-1 text-white"></i></b>
+                <b v-if="expandArray"><i class="fas fa-minus bg-tertiary-dark rounded-full p-1 text-white"></i></b>
               </small>
             </div>
             <div class="col-sm-12" v-if="expandArray">
-              <div>
+              <div class="p-1">
                 <template v-if="content.length > perPage">
-                  <select class="m-auto w-auto" v-model="perPage" @change="calculatePages" id="perPage">
+                  <select class="appearance-none accent-pink-500 px-2 py-1 font-bold rounded dark:bg-gray-800 focus:outline-none text-tertiary" v-model="perPage" @change="calculatePages" id="perPage">
                       <option value="" disabled selected>Shown Per Page</option>
                       <option value="10">10 per page</option>
                       <option value="25">25 per page</option>
                       <option value="100">100 per page</option>
                   </select>
-                  <div class="flex flex-wrap justify-center p-1 mt-2">
+                  <div class="flex flex-wrap justify-center p-1 mt-2 space-x-1">
                     <div class="rounded" :class="{ 'disabled': page <= 1 }">
                       <a class="page-link p-1" @click.prevent="prevPage()"><i class="fas fa-step-backward"></i></a>
                     </div>
@@ -54,50 +54,43 @@
           <template v-if="type == 'string'">
             <div class="flex justify-start items-start">
               <template v-if="isUrl(content)">
-                <div class="p-1">
+                <div class="p-1" :class="theme?.text">
                   <small :class="theme?.text">
-                    <b v-text="readable_name"></b> <i v-if="!readable_name" class="fas fa-circle"></i><span v-else>&nbsp;:</span>
+                    <b v-text="readable_name"></b>
                   </small>
                 </div>
-                <div class="ml-1">
+                <div class="ml-1 p-1">
                   <a :href="content" target="_blank" rel="nonreferrer" :title="content">
                     <small><span v-text="content.length > 70 ? content.substring(0, 70) + '...' : content"></span> <i class="fas fa-external-link-alt text-tertiary"></i></small>
                   </a>
                 </div>
               </template>
-              <template v-else> 
+              <div v-else class="flex items-start"> 
                 <div class="p-1">
-                  <small :class="theme?.text">
-                    <b v-text="readable_name ? readable_name + '&nbsp;:' : ''" class="mr-1"></b>
+                  <small>
+                    <b v-text="readable_name ? readable_name + '&nbsp;:' : ''" class="mr-1" :class="theme?.text"></b>
                   </small>
                 </div>
                 <div class="p-1">
                   <a class="ml-1" v-if="isUrl(content)" v-text="content" :href="content" target="_blank" rel="nonreferrer"></a>
                   <template v-else>
-                    <small>
-                      <i v-if="name == '@type' && content == 'Person' " class="fas fa-user text-main"></i>
-                      <i v-if="name == '@type' && content == 'Organization' " class="fas fa-building text-main"></i>
-                      <i v-if="name == '@type' && content == 'CreativeWork' " class="fas fa-lightbulb text-main"></i>
-                    </small> &nbsp;
-                    <small class="text-left" v-html="content"></small>
+                    <Description :text="content"></Description>
                   </template>
                 </div>
-              </template>
+              </div>
             </div>
           </template>
           <!-- 🌈 Object 🌈 -->
           <template v-if="type == 'object'">
-            <div class="p-1">
+            <div>
               <div class="flex justify-start items-start">
                 <small :class="theme?.text">
                   <b v-text="readable_name"></b> <i class="fas fa-chevron-circle-right mr-1"></i>
                 </small>
               </div>
-              <div>
-                <template v-for="(value,key) in content" :key="key">
-                  <field-box :name="key" :content="value" isChild="true"></field-box>
-                </template>
-              </div>
+              <template v-for="(value,key) in content" :key="key">
+                <field-box :name="key" :content="value" :theme="theme" isChild="true"></field-box>
+              </template>
             </div>
           </template>
           <!-- 🌈 Boolean 🌈 -->
@@ -131,6 +124,8 @@
 </template>
 
 <script>
+import Description from './ExpandableDescription.vue'
+
 export default {
     name: "FieldBox",
     data: function(){
@@ -148,6 +143,9 @@ export default {
             endCapLimitReached: false,
             readable_labels : {}
         }
+    },
+    components:{
+      Description
     },
     props: ['name','content','isChild', 'theme'],
     methods:{

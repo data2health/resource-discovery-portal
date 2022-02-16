@@ -2,7 +2,7 @@
   <!-- hero -->
   <div class="darkMode z-50">
     <div class="min-h-[60vh] m-auto flex items-center justify-center bg-no-repeat bg-cover bg-bottom flex-wrap md:flex-nowrap">
-      <div class="relative w-full min-h-[60vh] overflow-hidden">
+      <div class="relative w-full min-h-[60vh]">
         <div class="w-2/3 absolute z-50 top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%]">
 
           <div class=" w-full m:w-2/3 m-auto px-5 space-y-5">
@@ -69,7 +69,7 @@
                 icon="fas fa-microscope" 
                 :items="['Hamilton Anxiety Scale (HAM-A)','Multidimensional Fatigue Inventory ', 'Self Care Of Heart Failure Index V 6.2']"></SmallCard>
                 <SmallCard 
-                title="Article"
+                title="Publication"
                 icon="fas fa-book-open" 
                 :items="['Human antiviral B cell responses: Emerging lessons from hepatitis B and COVID-19', 'Lung Ultrasound in Patients With Dyspnea From Infective Lung Disease']"></SmallCard>
                 <SmallCard 

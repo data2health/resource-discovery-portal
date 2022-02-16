@@ -8,31 +8,38 @@
             @blur="hideSuggestions()"
             type="text" 
             placeholder="search" 
-            :class="suggestions ? 'rounded-full rounded-b-sm' : 'rounded-sm md:rounded-full'"
+            :class="suggestions ? 'rounded-xl rounded-b-sm' : 'rounded-sm md:rounded-xl'"
             class="main-input w-full">
             <!-- small screen action-->
             <button class="block md:hidden bg-tertiary text-white p-3 w-full text-center" >Search</button>
             <!-- options drawer -->
-            <div v-if="suggestions" class="bg-gray-200 w-full max-h-64 overflow-scroll 
+            <div v-if="suggestions" class="bg-gray-200 w-full shadow-xl
             md:absolute md:top-12 hidden md:flex flex-wrap highlight_container">
-                <div class="p-4 bg-main-dark text-white space-y-1 w-full md:w-1/3 ">
+                <div class="p-4 bg-main-dark text-white space-y-1 w-full">
                     <h1>Recent Searches</h1>
-                    <ul>
+                    <div class="space-x-2 flex flex-wrap">
                         <template v-for="(item, i) in recentSearches" :key="item + i">
-                            <li class="text-xs mb-3">
-                                <Popper :content="item" class="tip" :hover="true" placement="top" arrow>
-                                    <router-link :title="item" active-class="text-secondary"
-                                    :to="{ path: '/search', query: { 'q': item }}">
-                                        <i class="fas fa-search text-xs text-tertiary"></i> 
-                                        {{item ? item.substring(0, 25) + '...' : item}}
-                                    </router-link>
-                                </Popper>
-                            </li>
+                            <span class="text-xs mb-3">
+                                <template v-if="item.length > 60">
+                                    <Popper :content="item" class="tip" :hover="true" placement="top" arrow>
+                                        <router-link :title="item" active-class="text-secondary" class="text-white hover:text-tertiary-light"
+                                        :to="{ path: '/search', query: { 'q': item }}">
+                                            <i class="fas fa-search text-xs text-tertiary"></i> 
+                                            {{item.length > 60 ? item.substring(0, 60) + '...' : item}}
+                                        </router-link>
+                                    </Popper>
+                                </template>
+                                <router-link v-else :title="item" active-class="text-secondary" class="text-white hover:text-tertiary-light"
+                                :to="{ path: '/search', query: { 'q': item }}">
+                                    <i class="fas fa-search text-xs text-tertiary"></i> 
+                                    {{item}}
+                                </router-link>
+                            </span>
                         </template>
-                        <template v-if="recentSearches.length == 0">
-                            <li class="text-gray-400">No Recent Searches</li>
-                        </template>
-                    </ul>
+                    </div>
+                    <template v-if="recentSearches.length == 0">
+                        <span class="text-gray-400">No Recent Searches</span>
+                    </template>
                 </div>
                 <!-- Suggestions -->
                 <template v-for="(items, type) in suggestions" :key="type">
@@ -54,7 +61,7 @@ export default {
     data: function(){
         return {
             query: "",
-            doneTypingInterval : 1000,
+            doneTypingInterval : 400,
             typingTimer: null,
             suggestions: null,
         }
@@ -78,9 +85,9 @@ export default {
             if (this.query.length > 2) {
                 this.suggestions = {};
                 axios.get(this.baseURL + "?q=" + this.query + "&size=0&aggs=@type").then(res => {
-                    let top5 = res.data?.facets?.['@type']?.terms.map(f => f.term);
-                    top5 = top5.length > 5 ? top5.slice(4) : top5;
-                    top5.forEach(term => {
+                    let top = res.data?.facets?.['@type']?.terms.map(f => f.term);
+                    top = top.length > 3 ? top.slice(2) : top;
+                    top.forEach(term => {
                             axios.get(this.baseURL + "?q=" + this.query + " AND @type:" + term + "&size=5&fields=name,title,toolName,article_title").then(res => {
                                 self.suggestions[term] = res.data.hits;
                             }).catch(err =>{
@@ -96,7 +103,7 @@ export default {
         hideSuggestions(){
             setTimeout(()=>{
                 this.suggestions = null
-            }, 1000);
+            }, 500);
         }
     },
     computed:{
