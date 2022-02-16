@@ -15,12 +15,12 @@
             <!-- options drawer -->
             <div v-if="suggestions" class="bg-gray-200 w-full shadow-xl
             md:absolute md:top-12 hidden md:flex flex-wrap highlight_container">
-                <div class="p-4 bg-main-dark text-white space-y-1 w-full">
+                <div class="p-4 bg-gray-600 text-white space-y-1 w-full">
                     <h1>Recent Searches</h1>
                     <div class="space-x-2 flex flex-wrap">
                         <template v-for="(item, i) in recentSearches" :key="item + i">
                             <span class="text-xs mb-3">
-                                <template v-if="item.length > 60">
+                                <template v-if="item && item.length > 60">
                                     <Popper :content="item" class="tip" :hover="true" placement="top" arrow>
                                         <router-link :title="item" active-class="text-secondary" class="text-white hover:text-tertiary-light"
                                         :to="{ path: '/search', query: { 'q': item }}">
