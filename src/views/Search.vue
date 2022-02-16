@@ -132,7 +132,8 @@ export default {
             this.highlighter.unmark();
         },
         search(){
-            if (this.$route?.query?.q) {
+            if (this.q) {
+                this.$router.push({ query: { q: this.q }})
                 this.q = this.$route?.query?.q;
             }
             this.$store.commit('saveQuery', {value: this.q});
@@ -151,6 +152,15 @@ export default {
             }else{
                 this.highlighter.unmark();
             }
+        }
+    },
+    watch:{
+        '$route.query.q': {
+            handler: function(search) {
+                this.q = search
+            },
+            deep: true,
+            immediate: true
         }
     },
     mounted: function(){

@@ -8,7 +8,7 @@
         <ul>
             <template v-for="(s, i) in items" :key="s + i">
                 <li class="text-xs mb-1 text-white" v-if="i < 3">
-                    <router-link :title="s" class="text-white hover:text-tertiary-light" active-class="text-secondary"
+                    <router-link class="!text-white hover:!text-tertiary-light" active-class="text-secondary"
                      :to="{ path: '/search', query: { 'q': s._id + ' AND @type:' + name }}">
                     <i class="fas fa-search text-xs text-tertiary"></i> 
                         {{s.name ||  s.title  || s.toolName}}

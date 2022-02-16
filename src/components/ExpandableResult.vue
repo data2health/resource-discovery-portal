@@ -83,7 +83,8 @@ export default {
             let possibleFields = {
                 "Publication": ['topicCategory', 'doi'],
                 "Dataset": ['keywords', 'identifier'],
-                "ClinicalTrial": ['keywords', 'identifier', 'healthCondition']
+                "ClinicalTrial": ['keywords', 'identifier', 'healthCondition'],
+                "Protocol": ['protocolCategory', 'protocolSetting']
             }
 
             if (this.item?.['@type'] in possibleFields) {
