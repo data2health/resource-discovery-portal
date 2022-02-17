@@ -1,36 +1,65 @@
 <template>
     <div class="w-full min-h-screen darkMode">
-        <div class="relative w-full py-7">
+        <div class="relative w-full pb-7">
             <div class="w-full sticky top-0" :class="sourceInfo.bg">
                 <div class="max-w-screen-xl m-auto flex justify-between items-center flex-wrap p-2 md:px-6 text-white">
-                    <router-link to="/resources" class="text-white hover:text-gray-300 dark:text-white dark:hover:text-gray-200 m-1"><i class="fas fa-chevron-left"></i> Back to all resources</router-link>
-                    <form @submit.prevent="search()" class="w-full md:w-1/3 flex items-center group">
-                        <input v-model="q"
-                            type="text" 
-                            placeholder="search" 
-                            class="main-input w-full rounded-full">
-                    </form>
-                    <div class="flex justify-center flex-wrap items-center w-full md:w-1/3 mt-3 md:mt-0">
-                        <h1 class="font-bold text-md md:text-xl mr-2">{{resource}}</h1>
-                        <img :src="sourceInfo.img" :alt="resource" class="h-6 md:h-12">
-                        <h3 class="ml-2">{{$filters.numberWithCommas(sourceInfo.count)}} Documents</h3>
+                    <div class="w-full space-y-5">
+                        <div class="flex justify-start flex-wrap items-center w-full">
+                            <router-link to="/resources" class="text-white hover:text-gray-300 dark:text-white dark:hover:text-gray-200 m-1 mr-6"><i class="fas fa-chevron-left"></i> Back</router-link>
+                            <img :src="sourceInfo.img" :alt="resource" class="h-6 md:h-14 mr-2">
+                            <h1 class="font-bold text-md md:text-3xl mr-2">{{resource}}</h1>
+                            <!-- <h3 class="ml-2">{{$filters.numberWithCommas(sourceInfo.count)}} Documents</h3> -->
+                        </div>
                     </div>
                 </div>
             </div>
-            <div>
-                <div class="flex justify-center items-center">
-                    <div class="h-32 w-[80%]" v-if="data">
-                        <Chart :data="data" type="stacked-bar" name='By Source'></Chart>
+            <div class="container m-auto max-w-6xl">
+                <div class="bg-gray-100 dark:bg-gray-900 rounded-2xl p-3 my-5 shadow">
+                    <div class="flex justify-center items-center flex-wrap">
+                        <div class="w-1/2 md:w-1/3" v-if="data">
+                            <Chart :data="data" type="doughnut" name='Where is the data coming from?' :color="sourceInfo.hex"></Chart>
+                        </div>
+                        <div class="text-xl w-full md:w-2/3">
+                            <h1 class="text-2xl md:text-4xl mb-3" :class="sourceInfo.text"><span class="font-extrabold">RDP</span> <span class="capitalize">{{resource}}s</span></h1>
+                            <template v-if="sourceInfo?.description">
+                                <p v-html="sourceInfo.description"></p>
+                            </template>
+                            <p v-else>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Expedita delectus iste perferendis eos architecto rem animi dicta dignissimos quia incidunt maxime error, mollitia repellendus blanditiis, ea laborum non impedit. Aut.</p>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <!-- results -->
-            <div class="min-h-screen max-w-xl m-auto highlight_container" :class="sourceInfo.text">
-                <template v-for="(result, i) in results" :key="i">
-                    <p class="mb-4 font-extrabold">
-                        <span :class="sourceInfo.bg" class="p-1 rounded-xl text-white">{{result['@type']}}</span> {{result?.name}}
-                    </p>
-                </template>
+                <!-- most recent -->
+                <div class="w-full m-auto p-3">
+                    <h2 class="text-4xl my-7 font-light" :class="sourceInfo.text">Most Recent</h2>
+                    <template v-for="(result, i) in results" :key="i">
+                        <p class="mb-4 font-extrabold text-blue-600 hover:text-tertiary-light cursor-pointer" v-if="i < 3">
+                            <img :src="sourceInfo.img" :alt="resource" class="h-6 mr-2 inline"> {{result?.name}}  
+                            <router-link class="!text-green-500 hover:!text-green-300 ml-1" 
+                            :to="{ name: 'ResultDetails', query: {'resource': result._id} }">more info</router-link>
+                        </p>
+                    </template>
+                </div>
+                <!-- search -->
+                <div class="w-full m-auto p-3 highlight_container">
+                    <div class="p-3 rounded-2xl bg-gray-100 dark:bg-gray-900">
+                        <h2 class="text-4xl font-light text-center my-2" :class="sourceInfo.text">
+                            <i class="fas fa-search"></i> Search
+                        </h2>
+                        <form @submit.prevent="search()" class="w-1/2 flex items-center m-auto">
+                            <input v-model="q"
+                                type="text" 
+                                placeholder="search" 
+                                class="main-input w-full rounded-full">
+                        </form>
+                    </div>
+                    <!-- <template v-for="(result, i) in results" :key="i">
+                        <p class="mb-4 font-extrabold">
+                            {{result?.name}}  
+                            <router-link class="!text-green-500 hover:!text-green-300 ml-1" 
+                            :to="{ name: 'ResultDetails', query: {'resource': result._id} }">more info</router-link>
+                        </p>
+                    </template> -->
+                </div>
             </div>
         </div>
     </div>
@@ -62,7 +91,8 @@ export default {
     computed:{
         ...mapGetters([
             'baseURL',
-            'results'
+            'results',
+            'sourceReadableNames'
         ]),
         sourceInfo: function() {
             return this.$store.getters.getTheme(this.resource);
@@ -73,21 +103,41 @@ export default {
             let self = this;
             axios.get(this.baseURL + `?aggs=_index&q=@type:${this.resource}&size=0`).then(res=>{
 
+                // let data = {
+                //     labels: [self.resource],
+                //     datasets: []
+                // };
+
                 let data = {
-                    labels: [self.resource],
-                    datasets: []
+                    labels: [],
+                    datasets: [{data: []}]
                 };
 
                 let colors = ['#1F78B4', '#33A02C', '#6A3D9A', '#A6CEE3', '#B2DF8A', '#CAB2D6', '#E31A1C', '#FB9A99', '#FDBF6F', '#FF7F00']
                 
+                // if( res.data?.facets?.['_index']?.terms){
+                //     res.data?.facets?.['_index']?.terms.forEach((termInfo, i) => {
+                //         //chart data for /About
+                //         data.datasets[0].push({
+                //             label: termInfo.term,
+                //             data: [termInfo.count],
+                //             backgroundColor: colors[i]
+                //         });
+                //     });
+                // }
+
                 if( res.data?.facets?.['_index']?.terms){
-                    res.data?.facets?.['_index']?.terms.forEach((termInfo, i) => {
+                    res.data?.facets?.['_index']?.terms.forEach(termInfo => {
                         //chart data for /About
-                        data.datasets.push({
-                            label: termInfo.term,
-                            data: [termInfo.count],
-                            backgroundColor: colors[i]
-                        });
+                        let name = termInfo.term
+                        if (name in this.sourceReadableNames) {
+                            name = this.sourceReadableNames[name].name
+                        }else if(name.includes('outbreak')){
+                            name = name.split('_')[1];
+                        }
+                        data.labels.push(name);
+                        data.datasets[0].label = 'Data Sources';
+                        data.datasets[0].data.push(termInfo.count);
                     });
                 }
 
@@ -130,7 +180,7 @@ export default {
             },
             deep: true,
             immediate: true
-        }
+        },
     },
 }
 </script>

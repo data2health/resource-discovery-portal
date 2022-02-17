@@ -1,4 +1,3 @@
-import { data } from 'autoprefixer';
 import axios from 'axios';
 
 export default {
@@ -11,13 +10,17 @@ export default {
         maxRecentHistory: 5,
         resourceTypesMapping:{
             'Dataset' : {
+                'hex': '#fb923c',
                 'text': 'text-orange-400',
                 'bg': 'bg-orange-400',
                 'icon': 'fas fa-newspaper',
                 'img': '/assets/img/icons/data.svg',
-                'active' : false
+                'active' : false,
+                'description': `The CD2H Resource Discovery Portal houses a collection of over 2,163,616 datasets from over 54 repositories. 
+                This is one of the largest collection of biomedical datasets in the world and is available for CTSA hub members, or researchers, clinicians, or otherwise interested parties.`
             },
             'Education' : {
+                'hex': '#ec4899',
                 'text': 'text-pink-500',
                 'bg': 'bg-pink-500',
                 'icon': 'fas fa-apple-alt',
@@ -25,6 +28,7 @@ export default {
                 'active' : false
             },
             'ClinicalTrial' : {
+                'hex': '#a855f7',
                 'text': 'text-purple-500',
                 'bg': 'bg-purple-500',
                 'icon': 'fas fa-flask',
@@ -32,6 +36,7 @@ export default {
                 'active' : false
             },
             'Publication' : {
+                'hex': '#14b8a6',
                 'text': 'text-teal-500',
                 'bg': 'bg-teal-500',
                 'icon': 'fas fa-book',
@@ -46,6 +51,7 @@ export default {
                 'active' : false
             },
             'Video' : {
+                'hex': '#ef4444',
                 'text': 'text-red-500',
                 'bg': 'bg-red-500',
                 'icon': 'fab fa-youtube',
@@ -53,6 +59,7 @@ export default {
                 'active' : false
             },
             'ComputationalTool' : {
+                'hex': '#4f46e5',
                 'text': 'text-indigo-600 dark:text-indigo-300',
                 'bg': 'bg-indigo-600',
                 'icon': 'fas fa-laptop',
@@ -60,6 +67,7 @@ export default {
                 'active' : false
             },
             'Repository' : {
+                'hex': '#2563eb',
                 'text': 'text-blue-600 dark:text-blue-300',
                 'bg': 'bg-blue-600',
                 'icon': 'fab fa-github',
@@ -67,6 +75,7 @@ export default {
                 'active' : false
             },
             'Person' : {
+                'hex': '#f59e0b',
                 'text': 'text-amber-500',
                 'bg': 'bg-amber-500',
                 'icon': 'fas fa-user',
@@ -74,6 +83,7 @@ export default {
                 'active' : false
             },
             'FundingOpportunity' : {
+                'hex': '#eab308',
                 'text': 'text-yellow-500',
                 'bg': 'bg-yellow-500',
                 'icon': 'fas fa-money-check-alt',
@@ -81,6 +91,7 @@ export default {
                 'active' : false
             },
             'Grant' : {
+                'hex': '#059669',
                 'text': 'text-emerald-700 dark:text-emerald-500',
                 'bg': 'bg-emerald-700 dark:bg-emerald-500',
                 'icon': 'fas fa-money-check-alt',
@@ -88,6 +99,7 @@ export default {
                 'active' : false
             },
             'Instrument' : {
+                'hex': '#84cc16',
                 'text': 'text-lime-500',
                 'bg': 'bg-lime-500',
                 'icon': 'fas fa-microscope',
@@ -95,6 +107,7 @@ export default {
                 'active' : false
             },
             'Protocol' : {
+                'hex': '#06b6d4',
                 'text': 'text-cyan-500',
                 'bg': 'bg-cyan-500',
                 'icon': 'fas fa-list',
@@ -273,7 +286,7 @@ export default {
             //         //no matching sort
             //         break;
             // }
-            
+
              // RESOURCE FILTER
             if (payload?.resourceFilter) {
                 console.log('%c Resource Filter: ' + payload.resourceFilter, 'color:orange')
@@ -516,6 +529,9 @@ export default {
         },
         query: (state) => {
             return state.query;
+        },
+        sourceReadableNames: (state) => {
+            return state.sourceReadableNames;
         },
     },
 }

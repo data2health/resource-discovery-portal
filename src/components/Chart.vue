@@ -19,7 +19,7 @@ export default {
             colors: ['#1F78B4', '#33A02C', '#6A3D9A', '#A6CEE3', '#B2DF8A', '#CAB2D6', '#E31A1C', '#FB9A99', '#FDBF6F', '#FF7F00']
         }
     },
-    props: ['data', 'type', 'name'],
+    props: ['data', 'type', 'name', 'color'],
     methods:{
         handleChartClick(item){
             console.log('clicking', item)
@@ -70,14 +70,19 @@ export default {
                 'type': 'doughnut',
                 'data': data,
                 'options': {
+                    elements: {
+                        arc: {
+                            borderWidth: 0
+                        }
+                    },
                     plugins: {
                         legend: {
-                            position: 'top',
+                            position: 'bottom',
                         },
                         title: {
                             display: true,
                             text: self.name,
-                            fontSize: '40'
+                            fontSize: '40',
                         },
                         tooltip: {
                             // titleFont: {
@@ -234,21 +239,11 @@ export default {
             });
         },
         draw(type){
-            if (!this.data) {
-                this.data = {
-                    labels: ['Dataset', 'Video', 'Repository', 'Article', 'Educational', 'Person'],
-                    datasets: [
-                        {
-                        label: this.name,
-                        data: [200, 300, 40, 377, 23, 1000],
-                        backgroundColor: this.colors,
-                        // backgroundColor: this.getRandomColors(6),
-                        }
-                    ]
-                }
-            }else{
-                this.data.datasets[0].backgroundColor = this.colors;
+            if (this.color) {
+                this.colors.unshift(this.color)
             }
+            this.data.datasets[0].backgroundColor = this.colors;
+
             switch (type) {
                 case 'pie':
                     this.drawPieChart(this.data);
