@@ -24,6 +24,7 @@
                     <AdvancedSearch></AdvancedSearch>
                 </div>
             </div>
+            <Chips></Chips>
         </div>
         
         <div class="container mx-auto px-4 max-w-screen-lg">
@@ -107,6 +108,7 @@ import Pagination from '../components/Pagination.vue'
 import ShareButtons from '../components/ShareButtons.vue'
 import ExpandableResult from '../components/ExpandableResult.vue'
 import AdvancedSearch from '../components/AdvancedSearch.vue'
+import Chips from '../components/FilterChips.vue'
 
 export default {
     name: "Search",
@@ -123,6 +125,7 @@ export default {
         Pagination,
         ShareButtons,
         AdvancedSearch,
+        Chips
     },
     methods:{
         clearSearch(){
