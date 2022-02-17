@@ -8,17 +8,21 @@
             </h1>
             <template v-if="open || expandedView">
                 <div class="flex justify-start items-center p-2 flex-wrap">
-                    <div class="bg-tertiary text-white rounded-full px-3 py-1 cursor-pointer hover:bg-tertiary-light text-sm m-1">
+                    <a v-if="item?.url" :href="item?.url" 
+                        target="_blank" rel="noopener" 
+                        class="bg-tertiary !text-white rounded-full px-3 py-1 cursor-pointer hover:bg-tertiary-light text-sm m-1">
                         source <i class="fas fa-external-link-square-alt"></i>
+                    </a>
+                    <div class="bg-tertiary !text-white rounded-full px-3 py-1 cursor-pointer hover:bg-tertiary-light text-sm m-1">
+                        <PopUpPreview :content="item" name="metadata" :theme="theme"></PopUpPreview>  <i class="fas fa-newspaper"></i>
                     </div>
-                    <div class="bg-tertiary text-white rounded-full px-3 py-1 cursor-pointer hover:bg-tertiary-light text-sm m-1">
-                        metadata <i class="fas fa-newspaper"></i>
-                    </div>
-                    <div class="bg-tertiary text-white rounded-full px-3 py-1 cursor-pointer hover:bg-tertiary-light text-sm m-1">
-                        share <i class="fas fa-share"></i>
-                    </div>
+                    <a :href="'mailto:?subject=Resource%20Discovery%20Portal&amp;body='" 
+                        target="_self" rel="noopener" aria-label="E-Mail" 
+                        class="bg-tertiary !text-white rounded-full px-3 py-1 cursor-pointer hover:bg-tertiary-light text-sm m-1">
+                        e-mail <i class="fas fa-envelope"></i>
+                    </a>
                     <router-link class="bg-green-500 !text-white rounded-full px-3 py-1 cursor-pointer hover:bg-green-400 text-sm m-1" 
-                    :to="{ name: 'ResultDetails', query: {'resource': item._id} }">more info</router-link>
+                    :to="{ path: '/resource/' + item?.['@type'] + '/' + item._id }">more info</router-link>
                 </div>
             </template>
             <div class="flex space-x-2 flex-wrap justify-start my-2">
@@ -57,6 +61,7 @@ import { mapGetters } from 'vuex'
 
 import FieldBox from './FieldBox.vue'
 import ResultTab from './ResultTab.vue'
+import PopUpPreview from '../components/PopUpPreview.vue'
 
 export default {
     name: "ExpandableResult",
@@ -71,7 +76,8 @@ export default {
     },
     components:{
         FieldBox,
-        ResultTab
+        ResultTab,
+        PopUpPreview
     },
     computed:{
         ...mapGetters([
@@ -81,9 +87,9 @@ export default {
             let matches = [];
 
             let possibleFields = {
-                "Publication": ['topicCategory', 'doi'],
-                "Dataset": ['keywords', 'identifier'],
-                "ClinicalTrial": ['keywords', 'identifier', 'healthCondition'],
+                "Publication": ['topicCategory'],
+                "Dataset": ['keywords'],
+                "ClinicalTrial": ['keywords', 'healthCondition'],
                 "Protocol": ['protocolCategory', 'protocolSetting']
             }
 

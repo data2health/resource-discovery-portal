@@ -1,5 +1,5 @@
 <template>
-    <div class="min-h-screen pt-5 dark:bg-gray-800 bg-gray-200">
+    <div class="min-h-screen pt-5 dark:bg-gray-800 bg-gray-200 container">
         <div class="max-w-screen-lg m-auto flex justify-center items-start w-full">
             <div v-if="item">
                 <div class="flex justify-end">
@@ -35,9 +35,8 @@ export default {
     },
     mounted: function () {
         let self = this;
-        axios.get(this.baseURL + '?q=_id:"' + this.$route.query?.resource +'"').then(res=>{
+        axios.get(this.baseURL + '?q=_id:"' + this.$route?.params?.id +'"').then(res=>{
             self.item = res.data.hits[0]
-            console.log({...self.item})
         }).catch(err=>{
             console.log(err)
         });

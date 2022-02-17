@@ -2,10 +2,23 @@
     <div v-if="name !== '_meta'" class="m-0 rounded dark:text-gray-300 p-1" :class="[isChild ? 'ml-4' : 'ml-0']">
         <!-- 🌈 Array 🌈 -->
         <template v-if="type == 'array'">
-          <div class="row m-0">
+          <div v-if="name =='keywords'" class="flex items-center">
+            <div class="p-1">
+              <small class="font-bold" :class="theme?.text">
+                Keywords
+              </small>
+            </div>
+            <div class="flex space-x-1 flex-wrap items-center p-1">
+                <template v-for="tag in content" :key="tag">
+                  <router-link class="text-sm text-tertiary hover:text-tertiary-light underline" :to="{path: '/search', query:{'q': tag}}"><i class="fas fa-hashtag" :class="theme?.text"></i> {{tag}}</router-link>
+                </template>
+            </div>
+          </div>
+          <!-- not keywords -->
+          <div v-else class="m-0">
             <div class="text-left">
               <small class="cursor-pointer font-bold" :class="theme?.text" @click="expandArray=!expandArray">
-                <span v-text="readable_name"></span> (<span v-text="content.length"></span>) 
+                <span v-text="readable_name"></span> (<span v-text="content?.length || 'N/A'"></span>) 
                 <b v-if="!expandArray"><i class="fas fa-plus bg-tertiary rounded-full p-1 text-white"></i></b>
                 <b v-if="expandArray"><i class="fas fa-minus bg-tertiary-dark rounded-full p-1 text-white"></i></b>
               </small>
@@ -63,6 +76,7 @@
                   <a :href="content" target="_blank" rel="nonreferrer" :title="content">
                     <small><span v-text="content.length > 70 ? content.substring(0, 70) + '...' : content"></span> <i class="fas fa-external-link-alt text-tertiary"></i></small>
                   </a>
+                  <CopyButton :copy="content" copy_msg="Copy URL"></CopyButton>
                 </div>
               </template>
               <div v-else class="flex items-start"> 
@@ -73,9 +87,10 @@
                 </div>
                 <div class="p-1">
                   <a class="ml-1" v-if="isUrl(content)" v-text="content" :href="content" target="_blank" rel="nonreferrer"></a>
-                  <template v-else>
+                  <div v-else class="flex items-center">
                     <Description :text="content"></Description>
-                  </template>
+                    <CopyButton :copy="content" copy_msg="Copy"></CopyButton>
+                  </div>
                 </div>
               </div>
             </div>

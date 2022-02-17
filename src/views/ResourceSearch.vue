@@ -33,9 +33,10 @@
                     <h2 class="text-4xl my-7 font-light" :class="sourceInfo.text">Most Recent</h2>
                     <template v-for="(result, i) in results" :key="i">
                         <p class="mb-4 font-extrabold text-blue-600 hover:text-tertiary-light cursor-pointer" v-if="i < 3">
-                            <img :src="sourceInfo.img" :alt="resource" class="h-6 mr-2 inline"> {{result?.name}}  
+                            <img :src="sourceInfo.img" :alt="resource" class="h-6 mr-2 inline"> 
+                            <PopUpPreview :content="result" :name="result?.name" :theme="sourceInfo"></PopUpPreview> 
                             <router-link class="!text-green-500 hover:!text-green-300 ml-1" 
-                            :to="{ name: 'ResultDetails', query: {'resource': result._id} }">more info</router-link>
+                            :to="{ path: '/resource/' + resource + '/' + result._id}"><i class="fas fa-arrow-alt-circle-right"></i></router-link>
                         </p>
                     </template>
                 </div>
@@ -72,6 +73,7 @@ import axios from 'axios';
 import Mark from 'mark.js'
 
 import Chart from '../components/Chart.vue'
+import PopUpPreview from '../components/PopUpPreview.vue'
 
 export default {
     name: 'ResourceSearch',
@@ -86,7 +88,8 @@ export default {
         resource: String,
     },
     components:{
-        Chart
+        Chart,
+        PopUpPreview
     },
     computed:{
         ...mapGetters([
