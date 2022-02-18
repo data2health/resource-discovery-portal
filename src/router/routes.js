@@ -35,7 +35,7 @@ export const routes = [
         }
     },
     {
-        path: '/resource/:resource?/:id?',
+        path: '/resources/:resource?/:id?',
         name: 'ResultDetails',
         component: () => import('../views/ResultDetails.vue'),
         props: true,

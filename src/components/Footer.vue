@@ -8,6 +8,12 @@
               <router-link to="/" >Home</router-link>
             </li>
             <li class="mb-5">
+              <router-link  :to="{name:'Search'}">Search</router-link>
+            </li>
+            <li class="mb-5">
+              <router-link  :to="{name:'Resources'}">Resources</router-link>
+            </li>
+            <li class="mb-5">
               <router-link to="/about">About</router-link>
             </li>
             <li class="mb-5">

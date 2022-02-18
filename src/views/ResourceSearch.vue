@@ -36,7 +36,7 @@
                             <img :src="sourceInfo.img" :alt="resource" class="h-6 mr-2 inline"> 
                             <PopUpPreview :content="result" :name="result?.name" :theme="sourceInfo"></PopUpPreview> 
                             <router-link class="!text-green-500 hover:!text-green-300 ml-1" 
-                            :to="{ path: '/resource/' + resource + '/' + result._id}"><i class="fas fa-arrow-alt-circle-right"></i></router-link>
+                            :to="{ path: '/resources/' + resource + '/' + result._id}"><i class="fas fa-arrow-alt-circle-right"></i></router-link>
                         </p>
                     </template>
                 </div>

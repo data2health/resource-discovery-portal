@@ -22,7 +22,7 @@
                         e-mail <i class="fas fa-envelope"></i>
                     </a>
                     <router-link class="bg-green-500 !text-white rounded-full px-3 py-1 cursor-pointer hover:bg-green-400 text-sm m-1" 
-                    :to="{ path: '/resource/' + item?.['@type'] + '/' + item._id }">more info</router-link>
+                    :to="{ path: '/resources/' + item?.['@type'] + '/' + item._id }">more info</router-link>
                 </div>
             </template>
             <div class="flex space-x-2 flex-wrap justify-start my-2">
