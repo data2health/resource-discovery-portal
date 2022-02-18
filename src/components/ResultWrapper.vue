@@ -1,5 +1,5 @@
 <template>
-    <div :key="uniqueID" class="min-w-full">
+    <div :key="uniqueID">
         <!-- render customized async result component depending on type -->
         <template v-if="type == 'Publication'">
             <Outbreak :item="item" :fullView="fullView"></Outbreak>

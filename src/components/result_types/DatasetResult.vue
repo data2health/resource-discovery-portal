@@ -1,9 +1,9 @@
 <template>
-    <div>
+    <div class="w-full">
         <!-- Type -->
         <ResultTab :name="item?.['@type']" :theme="theme" ></ResultTab>
         <!-- Content Preview-->
-        <div class="bg-white h-auto p-4 tracking-wide mb-4 mx-1 rounded-sm relative dark:bg-gray-600 border border-t-gray-300 border-t-2">
+        <div class="bg-white h-auto p-1 tracking-wide mb-4 mx-1 rounded-sm relative dark:bg-gray-600 border border-t-gray-300 border-t-2">
             <div class="flex justify-between flex-wrap">
                 <h5 class="text-lg font-semibold">
                     <router-link :to="{ name: 'ResultDetails', query: {'resource': item._id} }">
@@ -51,7 +51,7 @@
             </div>
             <template v-if="expandedView || fullView" data-aos="fade-in">
                 <!-- stats box -->
-                <div class="text-md font-regular p-6 pt-2 text-gray-500 dark:text-white flex justify-between items-center">
+                <div class="text-md font-regular p-2 pt-2 text-gray-500 dark:text-white flex justify-between items-center">
                     <div class="ml-2 p-3 rounded border border-gray-200 text-xs">
                         <!-- url -->
                         <p v-if="item?.url">
@@ -80,11 +80,11 @@
                         <i class="fas fa-tag" :class="theme.text"></i> {{tag}}
                     </small>
                 </div>
-                <template v-if="fullView">
+                <div v-if="fullView">
                     <template v-for="(val, field) in item" :key="field">
                         <FieldBox :content="val" :name="field" :isChild="false" :theme="theme"></FieldBox>
                     </template>
-                </template>
+                </div>
             </template>
         </div>
     </div>

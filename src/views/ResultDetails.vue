@@ -1,11 +1,15 @@
 <template>
-    <div class="min-h-screen pt-5 dark:bg-gray-800 bg-gray-200 container">
-        <div class="max-w-screen-lg m-auto flex justify-center items-start w-full">
-            <div v-if="item">
-                <div class="flex justify-end">
+    <div class="min-h-screen pt-5 dark:bg-gray-800 bg-gray-200 w-full">
+        <div class="max-w-screen-lg m-auto flex justify-center items-start container">
+            <div v-if="item" class="flex flex-wrap">
+                <div class="flex justify-end w-full">
                     <ShareButtons></ShareButtons>
                 </div>
-                <Result :item="item"></Result>
+                <div class="w-full">
+                    <template v-for="(val, field) in item" :key="field">
+                        <FieldBox :content="val" :name="field" :isChild="false" :theme="sourceInfo"></FieldBox>
+                    </template>
+                </div>
             </div>
             <div v-else class="flex justify-center items-center h-screen text-gray-500 text-xl">
                 <h1>Nothing to see here...</h1>
@@ -19,8 +23,8 @@ import axios from 'axios';
 
 import { mapGetters } from 'vuex'
 
-import Result from '../components/ResultWrapper.vue'
 import ShareButtons from '../components/ShareButtons.vue'
+import FieldBox from '../components/FieldBox.vue'
 
 export default {
     name: "ResultDetails",
@@ -30,8 +34,8 @@ export default {
         }
     },
     components:{
-        Result,
-        ShareButtons
+        ShareButtons,
+        FieldBox
     },
     mounted: function () {
         let self = this;
@@ -51,7 +55,10 @@ export default {
         ]),
         embeddableMetadata: function () {
             return this.item?.['@type'] ? this.item : false;
-        }
+        },
+        sourceInfo: function() {
+            return this.$store.getters.getTheme(this.$route?.params?.resource);
+        },
     },
     methods:{
         embedMetadata() {

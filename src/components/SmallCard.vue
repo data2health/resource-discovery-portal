@@ -1,17 +1,17 @@
 <template>
     <!-- card -->
-    <div class="shadow-md rounded-xl m-2 dark:bg-gray-700 w-32 md:w-64 group bg-white">
-        <div class="p-4 text-center space-y-3">
-            <h1 class="font-bold text-xs md:text-lg text-gray-700 dark:text-gray-400">
+    <div class="shadow-md rounded-xl m-2 dark:bg-gray-700 w-full md:w-64 group bg-white">
+        <div class="p-2 text-center space-y-1 flex flex-row md:flex-col justify-evenly items-center">
+            <h1 class="font-bold text-xs md:text-lg text-gray-700 dark:text-gray-400 order-2 md:order-1">
                 <router-link :to="'/resources/' + title">{{title}}</router-link>
             </h1>
-            <img :src="sourceInfo.img" alt="logo" :class="sourceInfo.fill" class="rounded w-full md:w-1/3 m-auto md:group-hover:hidden">
+            <img :src="sourceInfo.img" :alt="title" class="rounded w-16 md:w-1/3 md:group-hover:hidden order-1 md:order-2">
         </div>
-        <div class="text-left text-sm p-4">
+        <div class="text-left text-sm p-1 md:p-4">
             <ul class="space-y-2 hidden md:group-hover:block">
                 <li v-for="item in items" :key="item + 'card'">
                     <i class="fas fa-search" :class="sourceInfo.text"></i> <router-link 
-                    class="!text-main dark:!text-tertiary-light" 
+                    class="!text-main dark:!text-tertiary hover:!text-tertiary-light dark:hover:!text-tertiary-light" 
                     :to="{ path: '/search', query: { 'q': item + ' AND @type:' + title}}">
                         {{item}}
                     </router-link>

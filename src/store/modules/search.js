@@ -332,76 +332,83 @@ export default {
                 commit('setLoading', { value: false});
             });
         },
-        performAggregations({commit, state }) {
+        aggregateAndAddFilter({commit, state }, payload) {
+
             // data types
-            axios.get(state.baseURL + "?aggs=@type,_index").then( res =>{
+            axios.get(state.baseURL + "?aggs=" + payload.value).then( res =>{
+
+                console.log(payload.value, res.data)
 
                 let data = {
                     labels: [],
                     datasets: [{data: []}]
                 };
+
+                //Doc Total
+                state.totalDocsRDP = res?.data?.total;
                 
-                if( res.data?.facets?.['@type']?.terms){
-                    res.data?.facets?.['@type']?.terms.forEach(termInfo => {
-                        state.totalDocsRDP = res.data.total;
-                        let term = termInfo.term.charAt(0).toUpperCase() + termInfo.term.slice(1);
-                        if (term in state.resourceTypesMapping) {
-                            state.resourceTypes[term] = {...termInfo, ...state.resourceTypesMapping[term]}
-                            commit('addFilter', {
-                                'section': '@type',
-                                'filter' : {...termInfo, ...state.resourceTypesMapping[term]}
-                            })
-                        }else{
-                            state.resourceTypes[term] = {...termInfo, ...state.default}
-                            commit('addFilter', {
-                                'section': '@type',
-                                'filter' : {...termInfo, ...state.default}
-                            })
+                if( res.data?.facets?.[payload.value]?.terms){
+
+                    res.data?.facets?.[payload.value]?.terms.forEach(termInfo => {
+
+                        if (payload.value == '_index') {
+
+                            let source = termInfo.term
+
+                            if (source in state.sourceReadableNames) {
+
+                                commit('addFilter', {
+                                    'section': '_index',
+                                    'filter' : {...termInfo, ...state.sourceReadableNames[source]}
+                                })
+
+                                //chart data for /About
+                                data.labels.push(state.sourceReadableNames[source].name);
+                                data.datasets[0].label = 'Data Sources';
+                                data.datasets[0].data.push(termInfo.count);
+    
+                            }else{
+                                commit('addFilter', {
+                                    'section': '_index',
+                                    'filter' : {...termInfo, ...state.sourceDefault}
+                                })
+                            }
+                        } else {
+
+                            let term = termInfo.term.charAt(0).toUpperCase() + termInfo.term.slice(1);
+
+                            if (term in state.resourceTypesMapping) {
+
+                                state.resourceTypes[term] = {...termInfo, ...state.resourceTypesMapping[term]}
+
+                                commit('addFilter', {
+                                    'section': payload.value,
+                                    'filter' : {...termInfo, ...state.resourceTypesMapping[term]}
+                                })
+
+                            }else{
+
+                                state.resourceTypes[term] = {...termInfo, ...state.default}
+
+                                commit('addFilter', {
+                                    'section': payload.value,
+                                    'filter' : {...termInfo, ...state.default}
+                                })
+                            }
+
+                            //chart data for /About
+                            data.labels.push(termInfo.term);
+                            data.datasets[0].label = payload.value;
+                            data.datasets[0].data.push(termInfo.count);
                         }
-                        //chart data for /About
-                        data.labels.push(termInfo.term);
-                        data.datasets[0].label = 'Entity Types';
-                        data.datasets[0].data.push(termInfo.count);
+
+                        
                     });
                     
-                    state.chartData.about.types = data;
+                    state.chartData.about[payload.value] = data;
                 }
             }).catch( err =>{
                 console.log("Failed to get types info", err);
-            });
-            //sources
-            axios.get(state.baseURL + "?aggs=_index").then( res =>{
-
-                let data = {
-                    labels: [],
-                    datasets: [{data: []}]
-                };
-                
-                if( res.data?.facets?.['_index']?.terms){
-                    res.data?.facets?.['_index']?.terms.forEach(termInfo => {
-                        let source = termInfo.term
-                        if (source in state.sourceReadableNames) {
-                            commit('addFilter', {
-                                'section': '_index',
-                                'filter' : {...termInfo, ...state.sourceReadableNames[source]}
-                            })
-                            //chart data for /About
-                            data.labels.push(state.sourceReadableNames[source].name);
-                            data.datasets[0].label = 'Data Sources';
-                            data.datasets[0].data.push(termInfo.count);
-
-                        }else{
-                            commit('addFilter', {
-                                'section': '_index',
-                                'filter' : {...termInfo, ...state.sourceDefault}
-                            })
-                        }
-                    });
-                }
-
-                state.chartData.about.sources = data;
-            }).catch( err =>{
-                console.log("Failed to get sources info", err);
             });
         }
     },

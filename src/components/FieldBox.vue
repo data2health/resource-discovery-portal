@@ -1,9 +1,9 @@
 <template>
-    <div v-if="name !== '_meta'" class="m-0 rounded dark:text-gray-300 p-1" :class="[isChild ? 'ml-4' : 'ml-0']">
+    <div v-if="name !== '_meta'" class="m-0 rounded dark:text-gray-300 p-1" :class="[isChild ? 'ml-2' : 'ml-0']">
         <!-- 🌈 Array 🌈 -->
         <template v-if="type == 'array'">
-          <div v-if="name =='keywords'" class="flex items-center">
-            <div class="p-1">
+          <div v-if="name =='keywords'" class="flex items-center flex-wrap">
+            <div class="p-1" >
               <small class="font-bold" :class="theme?.text">
                 Keywords
               </small>
@@ -15,15 +15,15 @@
             </div>
           </div>
           <!-- not keywords -->
-          <div v-else class="m-0">
-            <div class="text-left">
+          <div v-else class="m-0 flex flex-wrap">
+            <div class="text-left" >
               <small class="cursor-pointer font-bold" :class="theme?.text" @click="expandArray=!expandArray">
                 <span v-text="readable_name"></span> (<span v-text="content?.length || 'N/A'"></span>) 
                 <b v-if="!expandArray"><i class="fas fa-plus bg-tertiary rounded-full p-1 text-white"></i></b>
                 <b v-if="expandArray"><i class="fas fa-minus bg-tertiary-dark rounded-full p-1 text-white"></i></b>
               </small>
             </div>
-            <div class="col-sm-12" v-if="expandArray">
+            <div class="w-full" v-if="expandArray">
               <div class="p-1">
                 <template v-if="content.length > perPage">
                   <select class="appearance-none accent-pink-500 px-2 py-1 font-bold rounded dark:bg-gray-800 focus:outline-none text-tertiary" v-model="perPage" @change="calculatePages" id="perPage">
@@ -63,83 +63,88 @@
             </div>
           </div>
         </template>
-          <!-- 🌈 String 🌈 -->
-          <template v-if="type == 'string'">
-            <div class="flex justify-start items-start">
-              <template v-if="isUrl(content)">
-                <div class="p-1" :class="theme?.text">
-                  <small :class="theme?.text">
-                    <b v-text="readable_name"></b>
-                  </small>
-                </div>
-                <div class="ml-1 p-1">
-                  <a :href="content" target="_blank" rel="nonreferrer" :title="content">
-                    <small><span v-text="content.length > 70 ? content.substring(0, 70) + '...' : content"></span> <i class="fas fa-external-link-alt text-tertiary"></i></small>
-                  </a>
-                  <CopyButton :copy="content" copy_msg="Copy URL"></CopyButton>
-                </div>
-              </template>
-              <div v-else class="flex items-start"> 
-                <div class="p-1">
-                  <small>
-                    <b v-text="readable_name ? readable_name + '&nbsp;:' : ''" class="mr-1" :class="theme?.text"></b>
-                  </small>
-                </div>
-                <div class="p-1">
-                  <a class="ml-1" v-if="isUrl(content)" v-text="content" :href="content" target="_blank" rel="nonreferrer"></a>
-                  <div v-else class="flex items-center">
-                    <Description :text="content"></Description>
-                    <CopyButton :copy="content" copy_msg="Copy"></CopyButton>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </template>
-          <!-- 🌈 Object 🌈 -->
-          <template v-if="type == 'object'">
-            <div>
-              <div class="flex justify-start items-start">
+        <!-- 🌈 String 🌈 -->
+        <template v-if="type == 'string'">
+          <div class="flex justify-start items-start flex-wrap">
+            <template v-if="isUrl(content)">
+              <div class="p-1" >
                 <small :class="theme?.text">
-                  <b v-text="readable_name"></b> <i class="fas fa-chevron-circle-right mr-1"></i>
+                  <b v-text="readable_name"></b>
                 </small>
               </div>
-              <template v-for="(value,key) in content" :key="key">
-                <field-box :name="key" :content="value" :theme="theme" isChild="true"></field-box>
-              </template>
-            </div>
-          </template>
-          <!-- 🌈 Boolean 🌈 -->
-          <template v-if="type == 'boolean'">
-            <div class="p-1">
-              <div class=" flex justify-start items-start">
-                <small :class="theme?.text">
-                  <b v-text="readable_name"></b> :&nbsp;
+              <div class="ml-1 p-1 break-words">
+                <a :href="content" target="_blank" rel="nonreferrer" :title="content">
+                  <small><span v-text="content.length > 70 ? content.substring(0, 70) + '...' : content"></span> <i class="fas fa-external-link-alt text-tertiary"></i></small>
+                </a>
+                <CopyButton :copy="content" copy_msg="Copy URL"></CopyButton>
+              </div>
+            </template>
+            <div v-else class="flex items-start flex-wrap"> 
+              <div class="p-1" >
+                <small>
+                  <b v-text="readable_name ? readable_name + '&nbsp;:' : ''" class="mr-1" :class="theme?.text"></b>
                 </small>
               </div>
-              <div>
-                <small v-if="content === true"><i class="fas fa-check text-success"></i> <span v-text="content"></span></small>
-                <small v-else><i class="fas fa-times text-danger"></i> <span v-text="content"></span></small>
-              </div>
-            </div>
-          </template>
-          <!-- 🌈 Number 🌈 -->
-          <template v-if="type == 'number'">
-            <div class="flex justify-start items-start">
               <div class="p-1">
-                <small :class="theme?.text">
-                  <b v-text="readable_name"></b> :&nbsp;
-                </small>
-              </div>
-              <div>
-                <small><span v-text="content"></span></small>
+                <a class="ml-1" v-if="isUrl(content)" v-text="content" :href="content" target="_blank" rel="nonreferrer"></a>
+                <div v-else class="flex items-center">
+                  <Description :text="content"></Description>
+                  <CopyButton :copy="content" copy_msg="Copy"></CopyButton>
+                </div>
               </div>
             </div>
-          </template>
-        </div>
+          </div>
+        </template>
+        <!-- 🌈 Object 🌈 -->
+        <template v-if="type == 'object'">
+          <div>
+            <div class="flex justify-start items-start flex-wrap">
+              <small :class="theme?.text">
+                <b v-text="readable_name"></b> <i class="fas fa-chevron-circle-right mr-1"></i>
+              </small>
+            </div>
+            <template v-for="(value,key) in content" :key="key">
+              <field-box :name="key" :content="value" :theme="theme" isChild="true"></field-box>
+            </template>
+          </div>
+        </template>
+        <!-- 🌈 Boolean 🌈 -->
+        <template v-if="type == 'boolean'">
+          <div class="flex justify-start items-start flex-wrap">
+            <div class="p-1">
+              <small :class="theme?.text">
+                <b v-text="readable_name"></b> :&nbsp;
+              </small>
+            </div>
+            <div>
+              <small v-if="content === true"><i class="fas fa-check text-success"></i> <span v-text="content"></span></small>
+              <small v-else><i class="fas fa-times text-danger"></i> <span v-text="content"></span></small>
+            </div>
+          </div>
+        </template>
+        <!-- 🌈 Number 🌈 -->
+        <template v-if="type == 'number'">
+          <div class="flex justify-start items-start flex-wrap">
+            <!-- <div class="p-1">
+              <small :class="theme?.text">
+                <b v-text="readable_name"></b> :&nbsp;
+              </small>
+            </div>
+            <div>
+              <small><span v-text="content"></span></small>
+            </div> -->
+            <Pill :color="theme['bg']">
+                <template v-slot:title>{{readable_name}}</template>
+                <template v-slot:value>{{content}}</template>
+            </Pill>
+          </div>
+        </template>
+    </div>
 </template>
 
 <script>
 import Description from './ExpandableDescription.vue'
+import Pill from './Pill.vue'
 
 export default {
     name: "FieldBox",
@@ -160,7 +165,8 @@ export default {
         }
     },
     components:{
-      Description
+      Description,
+      Pill
     },
     props: ['name','content','isChild', 'theme'],
     methods:{

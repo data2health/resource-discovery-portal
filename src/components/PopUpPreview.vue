@@ -5,12 +5,12 @@
     <!-- cookie consent -->
     <VModal v-model="preview_open" @confirm="preview_open = false">
         <template v-slot:title>
-            <h2 class="text-main">
+            <h2 class="text-main text-sm md:text-xl">
                 {{name}}
             </h2>
         </template>
         <template v-slot:content>
-            <div class="w-full bg-gray-100 dark:bg-gray-700">
+            <div class="w-full bg-gray-100 dark:bg-gray-700 text-sm md:text-md overflow-scroll">
                 <template v-for="(item, field) in content" :key="field">
                     <FieldBox :content="item" :name="field" :isChild="false" :theme="theme"></FieldBox>
                 </template>
