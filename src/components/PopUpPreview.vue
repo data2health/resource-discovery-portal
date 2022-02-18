@@ -10,10 +10,14 @@
             </h2>
         </template>
         <template v-slot:content>
-            <div class="w-full bg-gray-100 dark:bg-gray-700 text-sm md:text-md overflow-scroll">
-                <template v-for="(item, field) in content" :key="field">
-                    <FieldBox :content="item" :name="field" :isChild="false" :theme="theme"></FieldBox>
-                </template>
+            <div class="bg-white dark:bg-gray-700">
+                <table class="table-auto field-box-table shadow">
+                    <tbody>
+                        <template v-for="(item, field) in content" :key="field">
+                            <FieldBox :content="item" :name="field" :isChild="false" :theme="theme"></FieldBox>
+                        </template>
+                    </tbody>
+                </table>
             </div>
         </template>
     </VModal>

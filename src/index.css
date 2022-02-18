@@ -22,6 +22,18 @@
     focus:ring-secondary-light dark:focus:ring-tertiary-light focus:border-main focus:border-2 dark:bg-gray-900 caret-blue-400 transition-all duration-300
 }
 
+.field-box-table tr{
+  @apply border border-gray-200 dark:border-gray-600
+}
+
+.field-box-table tr td:first-child{
+    @apply bg-gray-100 dark:bg-gray-700 text-sm
+}
+
+.field-box-table tr td{
+    @apply p-1
+}
+
 *{
     scroll-behavior: smooth;
 }

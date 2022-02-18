@@ -1,15 +1,23 @@
 <template>
-    <div class="min-h-screen pt-5 dark:bg-gray-800 bg-gray-200 w-full">
+    <div class="min-h-screen pt-5 dark:bg-gray-800 w-full bg-white">
         <div class="max-w-screen-lg m-auto flex justify-center items-start container">
             <div v-if="item" class="flex flex-wrap">
-                <div class="flex justify-end w-full">
+                <div class="flex justify-end w-full p-2">
+                    <Popper content="Download Metadata" class="tip" :hover="true" placement="top">
+                        <button @click="download" 
+                        class="icon-btn rounded-xl bg-main hover:bg-main-light dark:bg-secondary-light dark:hover:bg-secondary">
+                            <i class="fas fa-download text-white"></i>
+                        </button>
+                    </Popper>
                     <ShareButtons></ShareButtons>
                 </div>
-                <div class="w-full">
-                    <template v-for="(val, field) in item" :key="field">
-                        <FieldBox :content="val" :name="field" :isChild="false" :theme="sourceInfo"></FieldBox>
-                    </template>
-                </div>
+                <table class="table-auto field-box-table shadow">
+                    <tbody>
+                        <template v-for="(val, field) in item" :key="field">
+                            <FieldBox :content="val" :name="field" :isChild="false" :theme="sourceInfo"></FieldBox>
+                        </template>
+                    </tbody>
+                </table>
             </div>
             <div v-else class="flex justify-center items-center h-screen text-gray-500 text-xl">
                 <h1>Nothing to see here...</h1>
@@ -79,6 +87,13 @@ export default {
                 linkTag.setAttribute('href',meta.url);
                 document.head.appendChild(linkTag);
             }
+        },
+        download() {
+            var a = document.createElement("a");
+            var file = new Blob([JSON.stringify(this.item, null, 2)], {type: 'text/plain'});
+            a.href = URL.createObjectURL(file);
+            a.download = this.item?.['@type'] + "-" + this.item['_id'] + '.json';
+            a.click();
         },
     }
 }
