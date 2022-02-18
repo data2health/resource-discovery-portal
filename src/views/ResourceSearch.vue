@@ -5,10 +5,9 @@
                 <div class="max-w-screen-xl m-auto flex justify-between items-center flex-wrap p-2 md:px-6 text-white">
                     <div class="w-full space-y-5">
                         <div class="flex justify-start flex-wrap items-center w-full">
-                            <router-link to="/resources" class="text-white hover:text-gray-300 dark:text-white dark:hover:text-gray-200 m-1 mr-6"><i class="fas fa-chevron-left"></i> Back</router-link>
+                            <router-link :to="{name:'Resources'}" class="text-white hover:text-gray-300 dark:text-white dark:hover:text-gray-200 m-1 mr-6"><i class="fas fa-chevron-left"></i> Back</router-link>
                             <img :src="sourceInfo.img" :alt="resource" class="h-6 md:h-14 mr-2">
                             <h1 class="font-bold text-md md:text-3xl mr-2">{{resource}}</h1>
-                            <!-- <h3 class="ml-2">{{$filters.numberWithCommas(sourceInfo.count)}} Documents</h3> -->
                         </div>
                     </div>
                 </div>
