@@ -26,74 +26,91 @@
             </div>
             <Chips></Chips>
         </div>
-        
+        <!-- main container -->
         <div class="container mx-auto px-4 max-w-screen-lg">
-            <!-- main container -->
-            <div class="flex justify-around items-start flex-wrap">
+            
+            <div class="flex relative items-start flex-wrap md:flex-nowrap">
+                <!-- type facets -->
+                <div v-if="results" class="w-full md:w-32 p-3 sticky top-20">
+                    <p class="text-xs text-gray-400">Results include:</p>
+                    <div v-for="type in filters['@type']" :key="type + 'f'" class="hidden md:inline">
+                        <Popper :content="type.term" class="tip" :hover="true" placement="left" arrow>
+                            <button 
+                            @click="activateFilter(type)"
+                            :class="!type?.active ? 'text-main dark:text-gray-300' : 
+                            'bg-main dark:bg-secondary dark:hover:bg-secondary-light text-white hover:bg-main-light'"
+                            class="shadow-sm hover:shadow-md px-6 py-2 text-center 
+                            m-1 rounded-full text-xs md:text-sm flex justify-center items-center border-none">
+                                <img :src="type.img" :alt="type" class="h-5 mr-2"> <span v-if="type.result_count">{{$filters.numberWithCommas(type.result_count)}}</span>
+                            </button>
+                        </Popper>
+                    </div>
+                </div>
 
                 <!-- Results -->
-                <div class="w-full flex-grow mx-3 highlight_container min-h-[75vh]">
+                <div class="flex-grow mx-3 highlight_container min-h-[75vh]">
                     <!-- details -->
                     <div class="mb-3 p-2 dark:text-gray-500 text-gray-400">
                         <Pagination :items="results" key="top-pagination"></Pagination>
                     </div>
                     <!-- hits -->
                     <template v-for="(result, i) in results" :key="i">
-                        <ExpandableResult :item="result"></ExpandableResult>
+                        <Result :item="result"></Result>
                     </template>
                     <div v-if="results && results.length">
                         <Pagination :items="results" key="bottom-pagination"></Pagination>
                     </div>
                 </div>
-                <!-- Bottom Column -->
-                <div class="w-full flex justify-around items-center py-10">
-                    <!-- Recent History -->
-                    <div class="p-4 text-left rounded-lg bg-gray-200 dark:bg-gray-700 mb-2 w-1/3">
-                        <div class="flex justify-between items-center mb-3">
-                            <p class="font-thin text-gray-500 text-sm">Recent Searches</p>
-                            <Popper content="Clear All" class="tip" :hover="true" placement="right" arrow>
-                                <button class="icon-btn icon-btn bg-gray-300 text-gray-400 
-                                dark:bg-gray-600 dark:text-gray-500 hover:bg-red-400 dark:hover:bg-red-400 hover:text-white dark:hover:text-white"
-                                @click.prevent="clearRecentSearches()">
-                                    <i class="fas fa-times"></i>
-                                </button>
-                            </Popper>
-                        </div>
-                        <ul>
-                            <template v-for="(item, i) in recentSearches" :key="item + i">
-                                <li class="text-xs mb-3">
-                                    <Popper :content="item" class="tip" :hover="true" placement="right" arrow>
-                                        <router-link :title="item" active-class="text-secondary"
-                                        :to="{ path: '/search', query: { 'q': item }}">
-                                        <i class="fas fa-search text-xs text-tertiary-light"></i> 
-                                        {{item && item.length > 25 ? item.substring(0, 25) + '...' : item}}
-                                        </router-link>
-                                    </Popper>
-                                </li>
-                            </template>
-                            <template v-if="recentSearches.length == 0">
-                                <li class="text-gray-400">No Recent Searches</li>
-                            </template>
-                        </ul>
+            </div>
+
+            <!-- Bottom Column -->
+            <div class="w-full flex justify-around items-center py-10">
+                <!-- Recent History -->
+                <div class="p-4 text-left rounded-lg bg-gray-200 dark:bg-gray-700 mb-2 w-1/3">
+                    <div class="flex justify-between items-center mb-3">
+                        <p class="font-thin text-gray-500 text-sm">Recent Searches</p>
+                        <Popper content="Clear All" class="tip" :hover="true" placement="right" arrow>
+                            <button class="icon-btn icon-btn bg-gray-300 text-gray-400 
+                            dark:bg-gray-600 dark:text-gray-500 hover:bg-red-400 dark:hover:bg-red-400 hover:text-white dark:hover:text-white"
+                            @click.prevent="clearRecentSearches()">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </Popper>
                     </div>
-                    <!-- Sharing-->
-                    <div class="p-4 text-left rounded-lg bg-gray-200 dark:bg-gray-700 mb-2">
-                        <p class="font-thin text-gray-500">Sharing</p>
-                        <div class="flex justify-around items-center p-2">
-                            <!-- share URL -->
-                            <CopyButton copy_msg="Copy URL" :copy="url"></CopyButton>
-                            <!-- Download -->
-                            <Popper content="Download Results" class="tip" :hover="true" placement="top">
-                                <button class="icon-btn rounded-xl bg-main hover:bg-main-light dark:bg-secondary-light dark:hover:bg-secondary" 
-                                    @click.prevent="download">
-                                    <i class="fas fa-download text-white"></i>
-                                </button>
-                            </Popper>
-                            <!-- Social -->
-                            <ShareButtons></ShareButtons>
-                        </div>
-                        
+                    <ul>
+                        <template v-for="(item, i) in recentSearches" :key="item + i">
+                            <li class="text-xs mb-3">
+                                <Popper :content="item" class="tip" :hover="true" placement="right" arrow>
+                                    <router-link :title="item" active-class="text-secondary"
+                                    :to="{ path: '/search', query: { 'q': item }}">
+                                    <i class="fas fa-search text-xs text-tertiary-light"></i> 
+                                    {{item && item.length > 25 ? item.substring(0, 25) + '...' : item}}
+                                    </router-link>
+                                </Popper>
+                            </li>
+                        </template>
+                        <template v-if="recentSearches.length == 0">
+                            <li class="text-gray-400">No Recent Searches</li>
+                        </template>
+                    </ul>
+                </div>
+                <!-- Sharing-->
+                <div class="p-4 text-left rounded-lg bg-gray-200 dark:bg-gray-700 mb-2">
+                    <p class="font-thin text-gray-500">Sharing</p>
+                    <div class="flex justify-around items-center p-2">
+                        <!-- share URL -->
+                        <CopyButton copy_msg="Copy URL" :copy="url"></CopyButton>
+                        <!-- Download -->
+                        <Popper content="Download Results" class="tip" :hover="true" placement="top">
+                            <button class="icon-btn rounded-xl bg-main hover:bg-main-light dark:bg-secondary-light dark:hover:bg-secondary" 
+                                @click.prevent="download">
+                                <i class="fas fa-download text-white"></i>
+                            </button>
+                        </Popper>
+                        <!-- Social -->
+                        <ShareButtons></ShareButtons>
                     </div>
+                    
                 </div>
             </div>
         </div>
@@ -109,6 +126,7 @@ import ShareButtons from '../components/ShareButtons.vue'
 import ExpandableResult from '../components/ExpandableResult.vue'
 import AdvancedSearch from '../components/AdvancedSearch.vue'
 import Chips from '../components/FilterChips.vue'
+import Result from '../components/ResultWrapper.vue'
 
 export default {
     name: "Search",
@@ -125,7 +143,8 @@ export default {
         Pagination,
         ShareButtons,
         AdvancedSearch,
-        Chips
+        Chips,
+        Result
     },
     methods:{
         clearSearch(){
@@ -162,6 +181,9 @@ export default {
             }else{
                 this.highlighter.unmark();
             }
+        },
+        activateFilter (type){
+            this.$store.dispatch('activateFilter', {'section': '@type', 'filter': type});
         }
     },
     watch:{
@@ -183,7 +205,8 @@ export default {
     computed:{
         ...mapGetters([
             'results',
-            'recentSearches'
+            'recentSearches',
+            'filters'
         ])
     }
 }

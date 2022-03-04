@@ -1,10 +1,10 @@
 <template>
     <Popper :content="copy_msg" class="tip" :hover="true" placement="top">
         <button v-bind="$attrs" 
-        class="bg-tertiary hover:bg-tertiary-light text-white mx-1 px-2 py-1 rounded-lg text-xs" 
+        class="bg-gray-200 hover:bg-tertiary-light text-white mx-1 px-2 py-1 rounded-lg text-xs" 
         :data-clipboard-text="copy" 
         :class="['cp'+badgeID]">
-            <slot></slot> <i class="fas fa-clipboard"></i>
+            <slot></slot> <i class="far fa-copy"></i>
         </button>
     </Popper>
 </template>

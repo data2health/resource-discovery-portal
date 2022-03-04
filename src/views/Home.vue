@@ -89,7 +89,7 @@
                 icon="fas fa-chalkboard" 
                 :items="['An Overview of Survey Design','Developing and Writing Research Questions, Aims & Hypotheses','Managing Communication and Conflict']"></SmallCard>
                 <div class="w-full p-10 text-center">
-                  <router-link to="/resources" class="btn-main text-main font-bold hover:text-white">
+                  <router-link :to="{name:'Resources'}" class="btn-main text-main font-bold hover:text-white">
                     Search By Resource
                   </router-link>
                 </div>

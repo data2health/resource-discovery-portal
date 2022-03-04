@@ -1,5 +1,5 @@
 <template>
-    <div class="relative rounded-md hover:bg-gray-400/25 p-1 cursor-pointer text-sm dark:text-gray-300" 
+    <div class="relative rounded-md hover:bg-gray-400/25 p-1 cursor-pointer dark:text-gray-300" 
     v-if="text && text.length > 200" 
     @click.prevent="expanded = !expanded">
         <p v-html="!expanded ? text.substring(0, 200) + '...' : text"></p>
@@ -15,13 +15,12 @@
 <script>
 export default {
     name: 'ExpandableDescription',
-    data: function () {
-        return {
-            expanded: false
-        }
-    },
     props: {
-        text: [String, Number]
+        text: [String, Number],
+        expanded:{
+            type: Boolean,
+            default: false
+        }
     }
 }
 </script>

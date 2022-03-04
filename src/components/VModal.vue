@@ -10,7 +10,7 @@
                 <!-- TITLE -->
             </slot>
         </h6>
-        <div class="content">
+        <div class="content w-full">
             <slot name="content">
                 <!-- CONTENT GOES HERE -->
             </slot>

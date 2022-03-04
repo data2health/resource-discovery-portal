@@ -1,5 +1,5 @@
 <template>
-    <tr v-if="name !== '_meta'" class="dark:text-gray-300" :class="[isChild ? 'ml-2' : 'ml-0']">
+    <tr v-if="name !== '_meta'" class="dark:text-gray-300 min-w-max" :class="[isChild ? 'ml-2' : 'ml-0']">
         <!-- 🌈 Array 🌈 -->
         <template v-if="type == 'array'">
           <template v-if="name =='keywords'">
@@ -72,11 +72,11 @@
               <td :class="theme?.text">
                 {{readable_name}}
               </td>
-              <td>
+              <td class="group">
                 <a :href="content" target="_blank" rel="nonreferrer" :title="content">
                   <small><span v-text="content.length > 70 ? content.substring(0, 70) + '...' : content"></span> <i class="fas fa-external-link-alt text-tertiary"></i></small>
                 </a>
-                <span class="ml-3">
+                <span class="ml-3 opacity-0 group-hover:opacity-100">
                   <CopyButton :copy="content" copy_msg="Copy URL"></CopyButton>
                 </span>
               </td>
@@ -85,11 +85,11 @@
               <td :class="theme?.text">
                 {{readable_name ? readable_name + '&nbsp;:' : ''}}
               </td>
-              <td class="flex items-center justify-start">
+              <td class="flex items-center justify-start group">
                 <a class="ml-1" v-if="isUrl(content)" v-text="content" :href="content" target="_blank" rel="nonreferrer"></a>
                 <template v-else>
                   <Description :text="content"></Description>
-                  <span class="ml-3">
+                  <span class="ml-3 opacity-0 group-hover:opacity-100">
                     <CopyButton v-if="!name.includes('date')" :copy="content" copy_msg="Copy"></CopyButton>
                   </span>
                 </template>

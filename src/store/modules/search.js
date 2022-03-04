@@ -5,6 +5,7 @@ export default {
         baseURL: "http://rdp.biothings.io/api/query",
         loading: false,
         results: [],
+        results_facets: [],
         expandedView: false,
         recentSearches: [],
         maxRecentHistory: 5,
@@ -256,7 +257,8 @@ export default {
             var config = {
                 "params": {
                     'size': state.perPage,
-                    'from': state.page == 1 ? state.page-1 : ((state.page-1) * state.perPage )  
+                    'from': state.page == 1 ? state.page-1 : ((state.page-1) * state.perPage ),
+                    'facets': '@type'
                 }
             }
             // QUERY
@@ -326,6 +328,7 @@ export default {
             axios.get(url, config).then( res =>{
                 console.log(res)
                 commit('saveResults', { value: res.data.hits});
+                commit('saveResultsFacets', { value: res.data.facets?.['@type']?.terms});
                 commit('setLoading', { value: false});
                 commit('updatePages', { value: res.data.total});
             }).catch( err =>{
@@ -449,6 +452,20 @@ export default {
         saveResults(state, payload){
             state.results = payload.value;
         },
+        saveResultsFacets(state, payload){
+            state.results_facets = payload.value;
+            let facets = payload.value;
+            //reset counts
+            state.filters['@type'].forEach(filter => filter.result_count = 0);
+            // merge filter with results facet count
+            facets.forEach(facet => {
+                state.filters['@type'].forEach(filter => {
+                    if (facet.term == filter.term) {
+                        filter.result_count = facet.count;
+                    }
+                });
+            });
+        },
         activateFilter(state, payload){
             let filter = state.filters[payload.section].find((f) => {
                 if (f.term == payload.filter.term) {
@@ -494,6 +511,9 @@ export default {
         },
         results: (state) => {
             return state.results;
+        },
+        results_facets: (state) => {
+            return state.results_facets;
         },
         recentSearches: (state) => {
             return state.recentSearches;

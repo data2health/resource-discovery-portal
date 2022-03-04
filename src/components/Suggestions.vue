@@ -1,6 +1,6 @@
 <template>
     <!-- Suggestions -->
-    <div v-if="items.length" class="p-4 text-white space-y-1 w-full break-words flex-grow" :class="theme.bg">
+    <div v-if="items.length" class="p-4 text-gray-700 space-y-1 w-full break-words flex-grow bg-gray-100">
         <h3 class="flex justify-start text-md">
             <img :src="theme.img" alt="logo" class="w-4 mr-2">
             {{name}} Suggestions
@@ -8,9 +8,9 @@
         <ul>
             <template v-for="(s, i) in items" :key="s + i">
                 <li class="text-xs mb-1 text-white" v-if="i < 3">
-                    <router-link class="!text-white hover:!text-tertiary-light" active-class="text-secondary"
+                    <router-link class="!text-gray-800 hover:!text-tertiary-light" active-class="text-secondary"
                      :to="{ path: '/search', query: { 'q': s._id + ' AND @type:' + name }}">
-                    <i class="fas fa-search text-xs text-tertiary"></i> 
+                    <i class="fas fa-search text-xs" :class="theme.text"></i> 
                         {{s.name ||  s.title  || s.toolName}}
                     </router-link>
                 </li>
