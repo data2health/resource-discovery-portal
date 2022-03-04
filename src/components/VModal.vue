@@ -5,7 +5,7 @@
         classes="modal-container"
         content-class="modal-content"
     >
-        <h6 class="modal__title center text-gray-400">
+        <h6 class="modal__title center p-3">
             <slot name="title">
                 <!-- TITLE -->
             </slot>

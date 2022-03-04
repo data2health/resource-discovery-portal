@@ -1,9 +1,9 @@
 <template>
-    <div :key="uniqueID" class="group">
+    <div :key="uniqueID" class="group dark:text-gray-200">
         <ResultTab :name="item?.['@type']" :theme="theme" ></ResultTab>
         <div class="border border-t-gray-300 dark:border-gray-700 border-t-2 p-1 w-full">
             <div class="bg-white h-auto p-4 tracking-wide rounded-sm relative dark:bg-gray-600">
-                <h1 class="text-lg font-bold cursor-pointer text-blue-500 hover:text-blue-400 dark:text-white" @click.prevent="open = !open">
+                <h1 class="text-2xl font-bold cursor-pointer text-blue-500 hover:text-blue-400 dark:text-white" @click.prevent="open = !open">
                     {{title}}
                 </h1>
             </div>
@@ -24,6 +24,19 @@
                 <router-link v-if="!fullView" class="bg-green-500 !text-white rounded-full px-3 py-1 cursor-pointer hover:bg-green-400 text-sm m-1 ml-8" 
                 :to="{ path: '/resources/' + item?.['@type'] + '/' + item._id }">more info <i class="fas fa-arrow-alt-circle-right"></i></router-link>
             </div>
+            <!-- always open -->
+            <div class="flex flex-wrap justify-start my-2">
+                <!-- badges -->
+                <template v-for="(badge, i) in badges" :key="i">
+                    <template v-for="(text, field) in badge" :key="text">
+                        <div class="px-2 py-1 text-xs m-1 hover:bg-tertiary rounded-sm" :class="theme.bg" v-if="text">
+                            <router-link :to='{ path: "/search", query: { "q":  field + `:"` + text + `"`}}' class="!text-white">
+                                {{text}}
+                            </router-link>
+                        </div>
+                    </template>
+                </template>
+            </div>
             <div v-if="open || fullView" class="p-2">
                 <div class="flex justify-around mt-1 p-3 dark:text-white">
                     <!-- created date -->
@@ -39,6 +52,9 @@
                 <!-- render customized async result component depending on type -->
                 <template v-if="item?.['@type'] == 'Publication'">
                     <Publication :item="item" :fullView="fullView" :theme="theme"></Publication>
+                </template>
+                <template v-else-if="item?.['@type'] == 'Protocol'">
+                    <Protocol :item="item" :fullView="fullView" :theme="theme"></Protocol>
                 </template>
                 <template v-else-if="item?.['@type'] == 'Video'">
                     <VideoResult :item="item" :fullView="fullView" :theme="theme"></VideoResult>
@@ -69,19 +85,6 @@
                 </template>
                 <template v-else>
                     <DefaultResult :item="item" :fullView="fullView" :theme="theme"></DefaultResult>
-                </template>
-            </div>
-            <!-- always open -->
-            <div class="flex flex-wrap justify-start my-2">
-                <!-- badges -->
-                <template v-for="(badge, i) in badges" :key="i">
-                    <template v-for="(text, field) in badge" :key="text">
-                        <div class="px-2 py-1 text-xs m-1 hover:bg-tertiary rounded-sm" :class="theme.bg" v-if="text">
-                            <router-link :to="{ path: '/search', query: { 'q':  field + ':' + text}}" class="!text-white">
-                                {{text}}
-                            </router-link>
-                        </div>
-                    </template>
                 </template>
             </div>
         </div>
@@ -119,6 +122,12 @@ const Publication = defineAsyncComponent({
     errorComponent: DefaultResult
 })
 
+const Protocol = defineAsyncComponent({
+    loader: () => import('./result_types/Protocol.vue'),
+    delay: 200,
+    errorComponent: DefaultResult
+})
+
 const RepoResult = defineAsyncComponent({
     loader: () => import('./result_types/RepoResult.vue'),
     delay: 200,
@@ -132,7 +141,7 @@ const ClinicalTrial = defineAsyncComponent({
 })
 
 const Dataset = defineAsyncComponent({
-    loader: () => import('./result_types/DatasetResult.vue'),
+    loader: () => import('./result_types/Dataset.vue'),
     delay: 200,
     errorComponent: DefaultResult
 })
@@ -181,6 +190,7 @@ export default {
         ResultTab,
         Description,
         PopUpPreview,
+        Protocol
     },
     computed:{
         fullView: function () {

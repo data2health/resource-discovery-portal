@@ -9,6 +9,7 @@ import Toaster from "@meforma/vue-toaster";
 import SimpleModal from './components/SimpleModal.vue'
 import Pill from './components/Pill.vue'
 import CopyButton from './components/CopyButton.vue'
+import ExpandableSection from './components/ExpandableSection.vue'
 import AOS from 'aos';
 import moment from 'moment';
 import VueCookies from 'vue3-cookies'
@@ -49,6 +50,7 @@ app.component("Modal", SimpleModal);
 app.component("VModal", VModal);
 app.component("Pill", Pill);
 app.component("CopyButton", CopyButton);
+app.component("ExpandableSection", ExpandableSection);
 
 app.config.globalProperties.$filters = {
     readableName(text) {

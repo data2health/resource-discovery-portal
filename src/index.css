@@ -23,11 +23,15 @@
 }
 
 .field-box-table tr{
-  @apply border border-gray-200 dark:border-gray-600
+  @apply border border-b-gray-200 dark:border-b-gray-600 border-l-0 border-r-0 border-t-0
 }
 
 .field-box-table tr td:first-child{
-    @apply bg-gray-100 dark:bg-gray-700 text-sm
+    @apply text-sm border-0 bg-gray-100 dark:bg-gray-800
+}
+
+.field-box-table{
+    @apply border-0
 }
 
 .field-box-table tr td{

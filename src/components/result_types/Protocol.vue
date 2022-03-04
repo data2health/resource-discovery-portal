@@ -14,6 +14,10 @@
         </div>
         <!-- 🦄 Various Details 🦄 -->
         <div v-if="fullView">
+            <!-- DOI -->
+            <p v-if="item?.doi">
+                <a :href="item?.doi" target="_blank" rel="nonreferrer">DOI <i class="fas fa-external-link-square-alt" :class="theme.text"></i></a>
+            </p>
             <!-- 🦄 Authors 🦄 -->
             <!-- if by institution -->
             <template v-if="authorsByInstitution">
@@ -40,7 +44,7 @@
 import PopUpPreview from '../PopUpPreview.vue'
 
 export default {
-    name: "Publication",
+    name: "Protocol",
     props:{
         item: Object,
         fullView: Boolean,
@@ -81,7 +85,7 @@ export default {
         pills: function() {
             let pills = [];
             // field containing values you want to display as pills
-            let possibleFields = ['publicationType', 'journalName'];
+            let possibleFields = ['identifier'];
 
             possibleFields.forEach(f => {
                 if (f in this.item) {

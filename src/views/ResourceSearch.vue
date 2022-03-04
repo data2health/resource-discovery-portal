@@ -34,8 +34,8 @@
                         <p class="mb-4 font-extrabold text-blue-600 hover:text-tertiary-light cursor-pointer" v-if="i < 3">
                             <img :src="sourceInfo.img" :alt="resource" class="h-6 mr-2 inline"> 
                             <PopUpPreview :content="result" :name="result?.name" :theme="sourceInfo"></PopUpPreview> 
-                            <router-link class="!text-green-500 hover:!text-green-300 ml-1" 
-                            :to="{ path: '/resources/' + resource + '/' + result._id}"><i class="fas fa-arrow-alt-circle-right"></i></router-link>
+                            <router-link class="bg-green-500 hover:bg-green-300 ml-1 !text-white p-1 rounded-full text-xs px-2" 
+                            :to="{ path: '/resources/' + resource + '/' + result._id}">more info <i class="fas fa-arrow-alt-circle-right"></i></router-link>
                         </p>
                     </template>
                 </div>
