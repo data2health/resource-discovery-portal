@@ -6,7 +6,7 @@
     <VModal v-model="preview_open" @confirm="preview_open = false">
         <template v-slot:title>
             <h2 class="text-main text-sm md:text-xl">
-                {{name}}
+                {{content?.name || name}}
             </h2>
         </template>
         <template v-slot:content>

@@ -1,9 +1,9 @@
 <template>
     <div :key="uniqueID" class="group dark:text-gray-200">
         <ResultTab :name="item?.['@type']" :theme="theme" ></ResultTab>
-        <div class="border border-t-gray-300 dark:border-gray-700 border-t-2 p-1 w-full">
-            <div class="bg-white h-auto p-4 tracking-wide rounded-sm relative dark:bg-gray-600">
-                <h1 class="text-2xl font-bold cursor-pointer text-blue-500 hover:text-blue-400 dark:text-white" @click.prevent="open = !open">
+        <div class="border border-t-gray-300 dark:border-gray-700 border-t-2 p-1 w-full bg-white dark:bg-gray-600">
+            <div class="h-auto p-4 tracking-wide rounded-sm relative">
+                <h1 class="font-bold cursor-pointer text-blue-500 hover:text-blue-400 dark:text-white" @click.prevent="open = !open">
                     {{title}}
                 </h1>
             </div>
@@ -16,7 +16,7 @@
                 <div class="bg-gray-200 dark:bg-gray-500 rounded-full px-3 py-1 cursor-pointer hover:bg-tertiary-light text-sm m-1">
                     <PopUpPreview :content="item" name="metadata" :theme="theme"></PopUpPreview>
                 </div>
-                <a :href="'mailto:?subject=Resource%20Discovery%20Portal&amp;body='" 
+                <a :href="'mailto:?subject=Resource%20Discovery%20Portal&amp;body=Check this out: http://rdp.biothings.io/resources/' + item?.['@type'] + '/' + item._id" 
                     target="_self" rel="noopener" aria-label="E-Mail" 
                     class="bg-gray-200 dark:bg-gray-500  rounded-full px-3 py-1 cursor-pointer hover:bg-tertiary-light text-sm m-1">
                     e-mail <i class="fas fa-envelope"></i>
@@ -25,11 +25,11 @@
                 :to="{ path: '/resources/' + item?.['@type'] + '/' + item._id }">more info <i class="fas fa-arrow-alt-circle-right"></i></router-link>
             </div>
             <!-- always open -->
-            <div class="flex flex-wrap justify-start my-2">
+            <div class="flex flex-wrap justify-start">
                 <!-- badges -->
                 <template v-for="(badge, i) in badges" :key="i">
                     <template v-for="(text, field) in badge" :key="text">
-                        <div class="px-2 py-1 text-xs m-1 hover:bg-tertiary rounded-sm" :class="theme.bg" v-if="text">
+                        <div class="px-2 py-1 m-1 hover:bg-tertiary rounded-sm text-xs" :class="theme.bg" v-if="text">
                             <router-link :to='{ path: "/search", query: { "q":  field + `:"` + text + `"`}}' class="!text-white">
                                 {{text}}
                             </router-link>
@@ -283,7 +283,7 @@ export default {
             let matches = [];
 
             let possibleFields = {
-                "Publication": ['topicCategory'],
+                "Publication": ['topicCategory', 'keywords'],
                 "Dataset": ['keywords'],
                 "ClinicalTrial": ['keywords', 'healthCondition'],
                 "Protocol": ['protocolCategory', 'protocolSetting']
