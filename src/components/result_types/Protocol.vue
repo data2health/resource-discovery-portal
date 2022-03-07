@@ -1,9 +1,8 @@
 <template>
     <!--🦄 Type Specific Content 🦄-->
-    <div class="p-2 rounded-sm relative border-t-gray-300 border-t-2 space-y-3">
-        <h1 v-if="fullView" class="font-light text-2xl" :class="theme['text']">DETAILS</h1>
+    <div :class="theme.bg">
         <!-- 🦄 Badges 🦄 -->
-        <div class="flex justify-start items-center flex-wrap">
+        <div class="flex justify-start items-center flex-wrap bg-white dark:bg-gray-700">
             <template v-for="pill in pills" class="text-sm" :key="pill.value">
                 <!-- pill -->
                 <Pill :color="theme['bg']">
@@ -12,31 +11,91 @@
                 </Pill>
             </template>
         </div>
-        <!-- 🦄 Various Details 🦄 -->
-        <div v-if="fullView">
-            <!-- DOI -->
-            <p v-if="item?.doi">
-                <a :href="item?.doi" target="_blank" rel="nonreferrer">DOI <i class="fas fa-external-link-square-alt" :class="theme.text"></i></a>
-            </p>
-            <!-- 🦄 Authors 🦄 -->
-            <!-- if by institution -->
-            <template v-if="authorsByInstitution">
-                <p class="mt-2" :class="theme.text">Authors by institution:</p>
-                <p v-for="(authors, institution) in authorsByInstitution" :key="institution" class="mb-2">
-                    <PopUpPreview :content="{'authors':authors}" :name="institution + ' (' + authors.length + ')'" :theme="theme"></PopUpPreview>
-                </p>
-            </template>
-            <!-- else list them-->
-            <template v-if="authors">
-                <p class="mt-2" :class="theme.text">Authors:</p>
-                <!-- short list -->
-                <template v-for="(author, i) in authors" :key="author">
-                    <router-link :to='{path: "/search", query:{"q": `"` + author + `"`}}'>
-                        <i class="fas fa-search"></i> {{author}} <span v-if="i < authors.length-1">, </span>
-                    </router-link>
+        <div class="flex justify-around flex-wrap items-center p-2">
+            <!-- 🦄 Curation 🦄 -->
+            <div  v-if="item?.curatedBy" class="bg-gray-100 dark:bg-gray-700 rounded-xl p-2 shadow-md flex justify-center items-center flex-col space-y-1 m-2">
+                <h3 class="font-light text-2xl mb-2" :class="theme['text']">Curated by</h3>
+                <template v-if="item?.curatedBy?.url">
+                    <img v-if="item?.curatedBy?.name == 'ClinicalTrials.gov'" src="/assets/img/ctgov.jpeg" alt="ClinicalTrials.gov" class="w-32">
+                    <img v-else-if="item?.curatedBy?.name == 'Figshare'" src="/assets/img/figshare.png" alt="Figshare" class="w-32">
+                    <img v-else-if="item?.curatedBy?.name == 'Protocols.io'" src="/assets/img/protocols_io.png" alt="Protocols.io" class="w-32">
+                    <a  :href="item?.curatedBy?.url" target="_blank" rel="nonreferrer">
+                            {{item?.curatedBy?.name || 'more info'}} <span class="font-bold">({{$filters.formatDate(item?.curatedBy?.curationDate)}})</span> <i class="fas fa-external-link-square-alt" :class="theme.text"></i>
+                    </a> 
+                    <Pill v-if="item?.curatedBy?.versionDate" :color="theme['bg']">
+                        <template v-slot:title>version</template>
+                        <template v-slot:value>{{$filters.formatDate(item?.curatedBy?.versionDate)}}</template>
+                    </Pill>
                 </template>
+                <p v-else>{{item?.curatedBy?.name}} ({{$filters.formatDate(item?.curatedBy?.curationDate)}})</p>
+            </div>
+            <!-- 🦄 Authors 🦄 -->
+            <div v-if="authors.length" class="bg-gray-100 dark:bg-gray-700 rounded-xl p-2 m-2">
+                <template v-if="authorsByInstitution">
+                    <h3 class="font-light text-2xl mb-2 text-center" :class="theme.text">Authors</h3>
+                    <details v-for="(authors, institution) in authorsByInstitution" :open="authors.length < 5 ? true : false" :key="institution" class="mb-2">
+                        <summary class="font-bold cursor-pointer">
+                            <i class="fas fa-building" :class="theme.text"></i> {{institution}} <span :class="theme.text">({{authors.length}})</span>
+                        </summary>
+                        <div class="p-1 ml-3 rounded bg-gray-200 dark:bg-gray-700">
+                            <ul>
+                                <li v-for="(author) in authors" :key="author" class="mb-2">
+                                    <router-link :to='{path: "/search", query:{"q": `"` + author + `"`}}'>
+                                        <i class="fas fa-search"></i> {{author}}
+                                    </router-link>
+                                </li>
+                            </ul>
+                        </div>
+                    </details>
+                </template>
+                <template v-else-if="authors">
+                    <h3 class="font-light text-2xl mb-2 text-center" :class="theme.text">Authors</h3>
+                    <template v-for="(author, i) in authors" :key="author">
+                        <router-link :to='{path: "/search", query:{"q": `"` + author + `"`}}'>
+                            <i class="fas fa-search"></i> {{author}} <span v-if="i < authors.length-1">, </span>
+                        </router-link>
+                    </template>
+                </template>
+            </div>
+            <!-- 🦄 Funding 🦄 -->
+            <div  v-if="item?.funding && item?.funding.length" class="bg-gray-100 dark:bg-gray-700 rounded-xl p-2 shadow-md flex justify-center items-center flex-col space-y-1 m-2 w-full">
+                <h3 class="font-light text-2xl mb-2" :class="theme['text']">Funding</h3>
+                <ul>
+                    <li v-for="(item, i) in item?.funding" :key="i + 'fund'">
+                        <i class="fas fa-award" :class="theme.text"></i> {{item?.description}}
+                    </li>
+                </ul>
+            </div>
+            <!-- 🦄 Distribution 🦄 -->
+            <div  v-if="item?.distribution && item?.distribution.length" class="bg-gray-100 dark:bg-gray-700 rounded-xl p-2 shadow-md flex justify-center items-center flex-col space-y-1 m-2 w-full">
+                <h3 class="font-light text-2xl mb-2" :class="theme['text']"> Downloads</h3>
+                <table class="table-auto text-left">
+                    <thead class="text-gray-400">
+                        <tr>
+                            <th>Name</th>
+                            <th>Download</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="(link, i) in item?.distribution" :key="i + 'dist'">
+                            <td class="p-2">
+                                {{link.name || 'file'}}
+                            </td>
+                            <td class="p-2">
+                                <a class="px-4 py-1 bg-tertiary hover:bg-tertiary-light !text-white rounded-xl" :href="link?.contentUrl" target="_blank" rel="nonreferrer">
+                                    <i class="fas fa-download"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div v-if="item?.keywords" class="space-x-2 bg-gray-500 dark:bg-gray-900 p-4 w-full">
+            <template v-for="(tag, i) in item?.keywords" :key="tag + i">
+                <router-link class="text-sm text-white hover:text-tertiary-light underline" :to='{path: "/search", query:{"q": `"` + tag + `"`}}'><i class="fas fa-hashtag" :class="theme?.text"></i> {{tag}}</router-link>
             </template>
-        </div> 
+        </div>
     </div>
 </template>
 
@@ -47,7 +106,6 @@ export default {
     name: "Protocol",
     props:{
         item: Object,
-        fullView: Boolean,
         theme: Object
     },
     components:{

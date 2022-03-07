@@ -19,7 +19,7 @@
                 <a :href="'mailto:?subject=Resource%20Discovery%20Portal&amp;body=Check this out: http://rdp.biothings.io/resources/' + item?.['@type'] + '/' + item._id" 
                     target="_self" rel="noopener" aria-label="E-Mail" 
                     class="bg-gray-200 dark:bg-gray-500  rounded-full px-3 py-1 cursor-pointer hover:bg-tertiary-light text-sm m-1">
-                    e-mail <i class="fas fa-envelope"></i>
+                    share <i class="fas fa-envelope"></i>
                 </a>
                 <router-link v-if="!fullView" class="bg-green-500 !text-white rounded-full px-3 py-1 cursor-pointer hover:bg-green-400 text-sm m-1 ml-8" 
                 :to="{ path: '/resources/' + item?.['@type'] + '/' + item._id }">more info <i class="fas fa-arrow-alt-circle-right"></i></router-link>
@@ -48,43 +48,47 @@
                         <i class="fas fa-clock" :class="theme.text"></i> updated <b>{{$filters.formatDate(updated)}}</b>
                     </span>
                 </div>
-                <Description :text="description" :expanded="fullView ? true: false"></Description>
-                <!-- render customized async result component depending on type -->
-                <template v-if="item?.['@type'] == 'Publication'">
-                    <Publication :item="item" :fullView="fullView" :theme="theme"></Publication>
-                </template>
-                <template v-else-if="item?.['@type'] == 'Protocol'">
-                    <Protocol :item="item" :fullView="fullView" :theme="theme"></Protocol>
-                </template>
-                <template v-else-if="item?.['@type'] == 'Video'">
-                    <VideoResult :item="item" :fullView="fullView" :theme="theme"></VideoResult>
-                </template>
-                <template v-else-if="item?.['@type'] == 'Playlist'">
-                    <PlaylistResult :item="item" :fullView="fullView" :theme="theme"></PlaylistResult>
-                </template>
-                <template v-else-if="item?.['@type'] == 'Repository'">
-                    <RepoResult :item="item" :fullView="fullView" :theme="theme"></RepoResult>
-                </template>
-                <template v-else-if="item?.['@type'] == 'ClinicalTrial'">
-                    <ClinicalTrial :item="item" :fullView="fullView" :theme="theme"></ClinicalTrial>
-                </template>
-                <template v-else-if="item?.['@type'] == 'Dataset'">
-                    <Dataset :item="item" :fullView="fullView" :theme="theme"></Dataset>
-                </template>
-                <template v-else-if="item?.['@type'] == 'Education'">
-                    <Educational :item="item" :fullView="fullView" :theme="theme"></Educational>
-                </template>
-                <template v-else-if="item?.['@type'] == 'Educational'">
-                    <Educational :item="item" :fullView="fullView" :theme="theme"></Educational>
-                </template>
-                <template v-else-if="item?.['@type'] == 'ComputationalTool'">
-                    <Tool :item="item" :fullView="fullView" :theme="theme"></Tool>
-                </template>
-                <template v-else-if="item?.['@type'] == 'Person'">
-                    <Person :item="item" :fullView="fullView" :theme="theme"></Person>
-                </template>
-                <template v-else>
-                    <DefaultResult :item="item" :fullView="fullView" :theme="theme"></DefaultResult>
+                <div class="p-1">
+                    <Description :text="description" :expanded="fullView ? true: false"></Description>
+                </div>
+                <template v-if="fullView">
+                    <!-- render customized async result component depending on type -->
+                    <template v-if="item?.['@type'] == 'Publication'">
+                        <Publication :item="item" :theme="theme"></Publication>
+                    </template>
+                    <template v-else-if="item?.['@type'] == 'Protocol'">
+                        <Protocol :item="item" :theme="theme"></Protocol>
+                    </template>
+                    <template v-else-if="item?.['@type'] == 'Video'">
+                        <VideoResult :item="item" :theme="theme"></VideoResult>
+                    </template>
+                    <template v-else-if="item?.['@type'] == 'Playlist'">
+                        <PlaylistResult :item="item" :theme="theme"></PlaylistResult>
+                    </template>
+                    <template v-else-if="item?.['@type'] == 'Repository'">
+                        <RepoResult :item="item" :theme="theme"></RepoResult>
+                    </template>
+                    <template v-else-if="item?.['@type'] == 'ClinicalTrial'">
+                        <ClinicalTrial :item="item" :theme="theme"></ClinicalTrial>
+                    </template>
+                    <template v-else-if="item?.['@type'] == 'Dataset'">
+                        <Dataset :item="item" :theme="theme"></Dataset>
+                    </template>
+                    <template v-else-if="item?.['@type'] == 'Education'">
+                        <Educational :item="item" :theme="theme"></Educational>
+                    </template>
+                    <template v-else-if="item?.['@type'] == 'Educational'">
+                        <Educational :item="item" :theme="theme"></Educational>
+                    </template>
+                    <template v-else-if="item?.['@type'] == 'ComputationalTool'">
+                        <Tool :item="item" :theme="theme"></Tool>
+                    </template>
+                    <template v-else-if="item?.['@type'] == 'Person'">
+                        <Person :item="item" :theme="theme"></Person>
+                    </template>
+                    <template v-else>
+                        <DefaultResult :item="item" :theme="theme"></DefaultResult>
+                    </template>
                 </template>
             </div>
         </div>
