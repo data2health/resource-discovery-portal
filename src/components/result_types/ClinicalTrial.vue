@@ -12,7 +12,9 @@
                 <Pill :color="theme['bg']">
                     <template v-slot:title>Has Results</template>
                     <template v-slot:value>
-                        <i v-if="item?.hasResults == true" class="fas fa-check-circle text-green-300"></i>
+                        <template v-if="item?.hasResults == true">
+                            <i  class="fas fa-check-circle text-green-300"></i>
+                        </template>
                         <i v-else-if="item?.hasResults == false" class="fas fa-times text-red-400"></i>
                         <span v-else>Not Provided</span>
                     </template>
@@ -105,7 +107,7 @@
                 <ul>
                     <li v-for="(group, i) in item?.armGroup" :key="i + 'ag'" class="mb-2">
                         <details>
-                            <summary><h1 class="font-bold" :class="theme.text">{{group?.name}}</h1></summary>
+                            <summary><h1 class="font-bold inline" :class="theme.text">{{group?.name}}</h1></summary>
                             <p>{{group?.description}}</p>
                             <div class="space-y-1">
                                 <div v-for="(inter, it) in group?.intervention" :key="it + 'inter'" class="bg-white dark:bg-gray-800 rounded-lg p-2 text-sm">
@@ -166,15 +168,15 @@
                 </template>
             </div>
             <!-- 🦄 Funding 🦄 -->
-            <div  v-if="item?.funding && item?.funding.length" class="bg-gray-100 dark:bg-gray-700 rounded-xl p-2 shadow-md flex justify-center items-center flex-col space-y-1 m-2 w-full">
+            <div  v-if="item?.funding && item?.funding.length" class="bg-gray-100 dark:bg-gray-700 rounded-xl p-2 shadow-md space-y-1 m-2 w-full">
                 <h3 class="font-light text-2xl mb-2" :class="theme['text']">Funding</h3>
                 <template v-for="(f, i) in item?.funding" :key="i">
                     <ul>
-                        <li v-if="f?.funder">
-                            <template v-for="(fx, y) in f?.funder" :key="y + 'fx'">
+                        <template v-if="f?.funder">
+                            <li v-for="(fx, y) in f?.funder" :key="y + 'fx'">
                                 <i class="fas fa-award" :class="theme.text"></i> {{fx?.name ? fx.name : fx}} <b>({{fx?.role || 'unknown role'}})</b>
-                            </template>
-                        </li>
+                            </li>
+                        </template>
                         <li v-else>
                             <i class="fas fa-award" :class="theme.text"></i> {{f}}
                         </li>
