@@ -133,6 +133,15 @@ export default {
 
             ]
         },
+        typeFilters:{
+            "Dataset": [
+                {
+                    'name': 'Curated',
+                    'field': '_exists_:curatedBy',
+                    'active': false
+                }
+            ]
+        },
         sourceReadableNames:{
             'cd2h-nih-reporter': {
                 'name': 'NIH RePorter',
@@ -559,6 +568,9 @@ export default {
         },
         sourceReadableNames: (state) => {
             return state.sourceReadableNames;
+        },
+        typeFilters: (state) => {
+            return state.typeFilters;
         },
     },
 }

@@ -84,14 +84,14 @@
                     <tbody>
                         <tr>
                             <td>
-                                <ul class="list-disc list-inside space-y-2">
+                                <ul class="list-disc list-inside space-y-2 marker:text-green-400">
                                     <li v-for="criteria in item?.eligibilityCriteria?.inclusionCriteria" :key="criteria">
                                         {{criteria}}
                                     </li>
                                 </ul>
                             </td>
                             <td>
-                                <ul class="list-disc list-inside space-y-2">
+                                <ul class="list-disc list-inside space-y-2 marker:text-red-400">
                                     <li v-for="criteria in item?.eligibilityCriteria?.exclusionCriteria" :key="criteria">
                                         {{criteria}}
                                     </li>

@@ -11,6 +11,16 @@
             <div class="p-1 w-full space-y-4">
                 <!-- Types -->
                 <TypeFilter></TypeFilter>
+                <!-- Detailed Filters -->
+                <template v-for="(filters, type) in typeFilters" :key="type">
+                    <div>
+                        <h2>{{type}}</h2>
+                        <template v-for="f in filters" :key="f">
+                            <input type="checkbox" :id="type + '-' + f.name" class="focus:ring-green-200 checked:!bg-emerald-600 p-2 rounded-full">
+                            <label class="ml-2" :for="type + '-' + f.name">{{f.name}}</label>
+                        </template>
+                    </div>
+                </template>
                 <!-- Filters -->
                 <FilterList type="checkbox" name="Filter by source" section="_index" :items="filters['_index']"></FilterList>
                 <FilterList type="checkbox" name="Filter by entity type" section="@type" :items="filters['@type']"></FilterList>
@@ -39,7 +49,8 @@ export default {
     computed:{
         ...mapGetters([
             'filters',
-            'loading'
+            'loading',
+            'typeFilters'
         ]),
     }
 }
