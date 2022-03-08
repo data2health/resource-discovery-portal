@@ -1,5 +1,5 @@
 <template>
-    <div class="min-h-screen pt-5 dark:bg-gray-800 w-full bg-white">
+    <div class="min-h-screen pt-5 dark:bg-gray-800 w-full bg-gray-200">
         <div class="max-w-screen-lg m-auto flex justify-center items-start container">
             <div v-if="item" class="w-full">
                 <div class="flex justify-end w-full p-2">

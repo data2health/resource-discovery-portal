@@ -34,7 +34,7 @@
                 <div v-if="results" class="w-full md:w-32 p-3 sticky top-20">
                     <p class="text-xs text-gray-400">Results include:</p>
                     <div v-for="type in filters['@type']" :key="type + 'f'" class="hidden md:inline">
-                        <Popper :content="type.term" class="tip" :hover="true" placement="left" arrow>
+                        <Popper :content="$filters.readableName(type.term)" class="tip" :hover="true" placement="left" arrow>
                             <button 
                             @click="activateFilter(type)"
                             :class="!type?.active ? 'text-main dark:text-gray-300' : 
