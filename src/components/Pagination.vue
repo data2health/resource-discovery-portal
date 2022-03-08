@@ -44,7 +44,7 @@
         <div class="flex justify-between items-center">
             <label class="mr-2 text-sm text-gray-500" for="perPage">Per Page</label>
             <select name="perPage" 
-            class="appearance-none accent-pink-500 px-2 py-1 font-bold rounded dark:bg-gray-800 focus:outline-none text-tertiary" 
+            class="outline-none border-0 rounded dark:bg-gray-800 active:border-0 focus:border-0 focus:outline-none text-tertiary" 
             @change="handlePerPage($event)"
             :v-model="perPage">
                 <option value="10">10</option>
