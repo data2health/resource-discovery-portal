@@ -7,7 +7,7 @@ export default {
         results: [],
         results_facets: [],
         expandedView: false,
-        recentSearches: [],
+        recentSearches: new Set(),
         maxRecentHistory: 5,
         resourceTypesMapping:{
             'Dataset' : {
@@ -484,31 +484,32 @@ export default {
             filter.active = !filter.active;
         },
         addRecent(state, payload){
-            if (state.recentSearches.length < state.maxRecentHistory) {
-                if (state.recentSearches.includes(payload.value)) {
+            if (state.recentSearches.size < state.maxRecentHistory) {
+                if (state.recentSearches.has(payload.value)) {
                     //remove old mention
-                    state.recentSearches.splice(state.recentSearches.indexOf(payload.value), 1);
+                    state.recentSearches.delete(payload.value)
                 }
-                state.recentSearches.unshift(payload.value);
-                localStorage.rdp_recent = JSON.stringify(state.recentSearches);
+                state.recentSearches.add(payload.value);
+                localStorage.rdp_recent = JSON.stringify([...state.recentSearches]);
             }else{
-                if (state.recentSearches.includes(payload.value)) {
+                if (state.recentSearches.has(payload.value)) {
                     //remove old mention
-                    state.recentSearches.splice(state.recentSearches.indexOf(payload.value), 1);
+                    state.recentSearches.delete(payload.value);
                 }
-                state.recentSearches.unshift(payload.value);
-                state.recentSearches.pop();
-                localStorage.rdp_recent = JSON.stringify(state.recentSearches);
+                state.recentSearches.add(payload.value);
+                //remove last
+                state.recentSearches = new Set([...state.recentSearches].pop());
+                localStorage.rdp_recent = JSON.stringify([...state.recentSearches]);
             }
         },
         checkRecentSearches(state) {
             if (localStorage.getItem('rdp_recent')) {
-                state.recentSearches = JSON.parse(localStorage.rdp_recent);
+                state.recentSearches = new Set(JSON.parse(localStorage.rdp_recent));
             }
         },
         clearRecentSearches(state){
             localStorage.rdp_recent = [];
-            state.recentSearches = [];
+            state.recentSearches.clear();
         },
         toggleExpandedView(state){
             state.expandedView = !state.expandedView;

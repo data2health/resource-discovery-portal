@@ -17,6 +17,9 @@
                             <button type="submit" class="btn-main absolute right-0 inline md:hidden">
                                 <i class="fas fa-search"></i>
                             </button>
+                            <router-link v-if="q" :to="{path: '/search'}" class="-right-5 top-3 hidden md:inline absolute !text-gray-500">
+                                <i class="fas fa-times"></i>
+                            </router-link>
                         </div>
                     </form>
                 </div>
@@ -45,7 +48,7 @@
                             <label class="text-xs cursor-pointer group-hover:text-tertiary" :for="type.term">
                                 {{$filters.readableName(type.term)}}
                             </label>
-                            <p v-if="type.result_count" class="text-xs text-gray-500 dark:text-gray-400"><span>{{$filters.numberWithCommas(type.result_count)}}</span></p>
+                            <p v-if="type.result_count" data-aos="fade-in" class="text-xs text-gray-500 dark:text-gray-400"><span>{{$filters.numberWithCommas(type.result_count)}}</span></p>
                         </div>
                     </div>
                 </div>
@@ -81,8 +84,8 @@
                         </Popper>
                     </div>
                     <ul>
-                        <template v-for="(item, i) in recentSearches" :key="item + i">
-                            <li class="text-xs mb-3">
+                        <template v-for="(item, i) in recentSearches" :key="i + 'recent'">
+                            <li class="text-xs mb-3" v-if="item">
                                 <Popper :content="item" class="tip" :hover="true" placement="right" arrow>
                                     <router-link :title="item" active-class="text-secondary"
                                     :to="{ path: '/search', query: { 'q': item }}">

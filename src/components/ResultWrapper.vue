@@ -7,7 +7,7 @@
                     {{title}}
                 </h1>
             </div>
-            <div v-if="open || fullView" class="flex justify-start items-center p-2 flex-wrap">
+            <div v-if="open || fullView || expandedView" class="flex justify-center md:justify-start items-center p-2 flex-wrap">
                 <a v-if="item?.url" :href="item?.url" 
                     target="_blank" rel="noopener" 
                     class="bg-gray-200 dark:bg-gray-500 rounded-full px-3 py-1 cursor-pointer hover:bg-tertiary-light text-sm m-1">
@@ -21,7 +21,9 @@
                     class="bg-gray-200 dark:bg-gray-500  rounded-full px-3 py-1 cursor-pointer hover:bg-tertiary-light text-sm m-1">
                     share <i class="fas fa-envelope"></i>
                 </a>
-                <router-link v-if="!fullView" class="bg-green-500 !text-white rounded-full px-3 py-1 cursor-pointer hover:bg-green-400 text-sm m-1 ml-8" 
+                <router-link v-if="!fullView" 
+                class="bg-green-500 !text-white rounded-full px-3 py-1 text-center
+                cursor-pointer hover:bg-green-400 text-sm m-4 md:m-1 md:ml-8 w-3/4 md:w-auto" 
                 :to="{ path: '/resources/' + item?.['@type'] + '/' + item._id }">more info <i class="fas fa-arrow-alt-circle-right"></i></router-link>
             </div>
             <!-- always open -->
@@ -37,7 +39,7 @@
                     </template>
                 </template>
             </div>
-            <div v-if="open || fullView" class="p-2">
+            <div v-if="open || fullView || expandedView" class="p-2">
                 <div class="flex justify-around mt-1 p-3 dark:text-white">
                     <!-- created date -->
                     <span v-if="created" class="text-sm">
@@ -100,6 +102,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 import { defineAsyncComponent } from 'vue'
 
 import ResultTab from './ResultTab.vue'
@@ -197,6 +200,9 @@ export default {
         Protocol
     },
     computed:{
+        ...mapGetters([
+            'expandedView'
+        ]),
         fullView: function () {
             // deeper > shallow
             return this.$route.name == 'ResultDetails' ? true : false;
