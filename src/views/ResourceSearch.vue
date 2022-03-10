@@ -7,7 +7,7 @@
                         <div class="flex justify-start flex-wrap items-center w-full">
                             <router-link :to="{name:'Resources'}" class="text-white hover:text-gray-300 dark:text-white dark:hover:text-gray-200 m-1 mr-6"><i class="fas fa-chevron-left"></i> Back</router-link>
                             <img :src="sourceInfo.img" :alt="resource" class="h-6 md:h-14 mr-2">
-                            <h1 class="font-bold text-md md:text-3xl mr-2">{{resource}}</h1>
+                            <h1 class="font-bold text-md md:text-3xl mr-2">{{$filters.readableName(resource)}}</h1>
                         </div>
                     </div>
                 </div>
