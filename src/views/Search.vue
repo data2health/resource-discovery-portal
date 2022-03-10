@@ -27,28 +27,31 @@
             <Chips></Chips>
         </div>
         <!-- main container -->
-        <div class="container mx-auto px-4 max-w-screen-lg">
+        <div class="container mx-auto px-4 max-w-6xl">
             
             <div class="flex relative items-start flex-wrap md:flex-nowrap">
                 <!-- type facets -->
-                <div v-if="results" class="w-full md:w-32 p-3 sticky top-20">
-                    <p class="text-xs text-gray-400">Results include:</p>
-                    <div v-for="type in filters['@type']" :key="type + 'f'" class="hidden md:inline">
-                        <Popper :content="$filters.readableName(type.term)" class="tip" :hover="true" placement="left" arrow>
-                            <button 
+                <div v-if="results" class="p-3 sticky top-20 bg-gray-100 dark:bg-gray-700 rounded-lg w-1/4">
+                    <p class="text-xs text-gray-400">Resource Types</p>
+                    <div v-for="type in filters['@type']" :key="type + 'f'" class="hidden md:flex mb-1 group justify-start items-center">
+                        <input 
+                            type="checkbox" 
+                            :checked="type.active"
                             @click="activateFilter(type)"
-                            :class="!type?.active ? 'text-main dark:text-gray-300' : 
-                            'bg-main dark:bg-secondary dark:hover:bg-secondary-light text-white hover:bg-main-light'"
-                            class="shadow-sm hover:shadow-md px-6 py-2 text-center 
-                            m-1 rounded-full text-xs md:text-sm flex justify-center items-center border-none">
-                                <img :src="type.img" :alt="type" class="h-5 mr-2"> <span v-if="type.result_count">{{$filters.numberWithCommas(type.result_count)}}</span>
-                            </button>
-                        </Popper>
+                            :id="type.term" 
+                            class="focus:ring-0 checked:!bg-tertiary-dark rounded-full border-gray-200 group-hover:border-tertiary-light mr-2">
+                        <img :src="type.img" :alt="type" class="h-5 mr-2 inline">
+                        <div>
+                            <label class="text-xs cursor-pointer group-hover:text-tertiary" :for="type.term">
+                                {{$filters.readableName(type.term)}}
+                            </label>
+                            <p v-if="type.result_count" class="text-xs text-gray-500 dark:text-gray-400"><span>{{$filters.numberWithCommas(type.result_count)}}</span></p>
+                        </div>
                     </div>
                 </div>
 
                 <!-- Results -->
-                <div class="flex-grow mx-3 highlight_container min-h-[75vh]">
+                <div class="flex-grow mx-3 highlight_container min-h-[75vh] w-3/4">
                     <!-- details -->
                     <div class="mb-3 p-2 dark:text-gray-500 text-gray-400">
                         <Pagination :items="results" key="top-pagination"></Pagination>

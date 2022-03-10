@@ -465,7 +465,7 @@ export default {
             state.results_facets = payload.value;
             let facets = payload.value;
             //reset counts
-            state.filters['@type'].forEach(filter => filter.result_count = 0);
+            // state.filters['@type'].forEach(filter => filter.result_count = 0);
             // merge filter with results facet count
             facets.forEach(facet => {
                 state.filters['@type'].forEach(filter => {
