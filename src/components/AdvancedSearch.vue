@@ -23,7 +23,7 @@
                 </template>
                 <!-- Filters -->
                 <FilterList type="checkbox" name="Filter by source" section="_index" :items="filters['_index']"></FilterList>
-                <FilterList type="checkbox" name="Filter by entity type" section="@type" :items="filters['@type']"></FilterList>
+                <FilterList type="checkbox" name="Filter by entity type" section="resourceTypeName" :items="filters['resourceTypeName']"></FilterList>
             </div>
         </template>
     </VModal>

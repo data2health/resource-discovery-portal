@@ -63,7 +63,7 @@ export default {
         result_type: function () {
             // deeper > shallow
             return this.item?._source?.entity ? this.item?._source?.entity : 
-            this.item?._source?.['@type'] ? this.item?._source?.['@type'] : 'Tool';
+            this.item?._source?.['resourceTypeName'] ? this.item?._source?.['resourceTypeName'] : 'Tool';
         },
         theme: function() {
             return this.$store.getters.getTheme(this.result_type.charAt(0).toUpperCase() + this.result_type.slice(1));

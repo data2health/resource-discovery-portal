@@ -44,7 +44,7 @@
   mounted: function(){
     //recent search history
     this.$store.commit('checkRecentSearches');
-    this.$store.dispatch('aggregateAndAddFilter', {value: '@type'});
+    this.$store.dispatch('aggregateAndAddFilter', {value: 'resourceTypeName'});
     this.$store.dispatch('aggregateAndAddFilter', {value: '_index'});
   }
 }

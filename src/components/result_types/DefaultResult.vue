@@ -1,7 +1,7 @@
 <template>
     <div :key="uniqueID">
         <!-- Type -->
-        <ResultTab :name="item?.['@type'] || 'N/A'" :theme="theme" ></ResultTab>
+        <ResultTab :name="item?.['resourceTypeName'] || 'N/A'" :theme="theme" ></ResultTab>
         <!-- Content Preview-->
         <div class="bg-white h-auto p-4 tracking-wide mb-4 mx-1 rounded-sm relative dark:bg-gray-600 border border-t-gray-300 border-t-2 w-full">
             <!-- SHRUNK VIEW -->
@@ -122,7 +122,7 @@ export default {
             'expandedView'
         ]),
         theme: function() {
-            return this.$store.getters.getTheme(this.item?.['@type']);
+            return this.$store.getters.getTheme(this.item?.['resourceTypeName']);
         },
         keywords: function () {
             let res = [];

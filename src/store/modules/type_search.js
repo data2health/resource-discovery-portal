@@ -39,15 +39,15 @@ export default {
                 "params": {
                     'size': state.perPage,
                     'from': state.page == 1 ? state.page-1 : ((state.page-1) * state.perPage ),
-                    'facets': '@type'
+                    'facets': 'resourceTypeName'
                 }
             }
             // QUERY
             if(state.query){
-                // TEMP remove when all docs have @type
-                config.params.q = state.query + " AND _exists_:@type"
+                // TEMP remove when all docs have resourceTypeName
+                config.params.q = state.query + " AND _exists_:resourceTypeName"
             }else{
-                config.params.q = "_exists_:@type"
+                config.params.q = "_exists_:resourceTypeName"
             }
 
             // SORTING
@@ -73,7 +73,7 @@ export default {
              // RESOURCE FILTER
             if (payload?.resourceFilter) {
                 console.log('%c Resource Filter: ' + payload.resourceFilter, 'color:orange')
-                state.filters['@type'].forEach(f => {
+                state.filters['resourceTypeName'].forEach(f => {
                     if (f.term == payload.resourceFilter) {
                         f.active = true;
                     }else{
@@ -109,7 +109,7 @@ export default {
             axios.get(url, config).then( res =>{
                 console.log(res)
                 commit('saveResults', { value: res.data.hits});
-                commit('saveResultsFacets', { value: res.data.facets?.['@type']?.terms});
+                commit('saveResultsFacets', { value: res.data.facets?.['resourceTypeName']?.terms});
                 commit('setLoading', { value: false});
                 commit('updatePages', { value: res.data.total});
             }).catch( err =>{

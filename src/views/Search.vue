@@ -36,7 +36,7 @@
                 <!-- type facets -->
                 <div v-if="results" class="p-3 sticky top-20 bg-gray-100 dark:bg-gray-700 rounded-lg w-1/4">
                     <p class="text-xs text-gray-400">Resource Types</p>
-                    <div v-for="type in filters['@type']" :key="type + 'f'" class="hidden md:flex mb-1 group justify-start items-center">
+                    <div v-for="type in filters['resourceTypeName']" :key="type + 'f'" class="hidden md:flex mb-1 group justify-start items-center">
                         <input 
                             type="checkbox" 
                             :checked="type.active"
@@ -189,7 +189,7 @@ export default {
             }
         },
         activateFilter (type){
-            this.$store.dispatch('activateFilter', {'section': '@type', 'filter': type});
+            this.$store.dispatch('activateFilter', {'section': 'resourceTypeName', 'filter': type});
         }
     },
     watch:{

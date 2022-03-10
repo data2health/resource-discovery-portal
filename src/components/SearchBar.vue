@@ -84,11 +84,11 @@ export default {
             let self = this;
             if (this.query.length > 2) {
                 this.suggestions = {};
-                axios.get(this.baseURL + "?q=" + this.query + "&size=0&aggs=@type").then(res => {
-                    let top = res.data?.facets?.['@type']?.terms.map(f => f.term);
+                axios.get(this.baseURL + "?q=" + this.query + "&size=0&aggs=resourceTypeName").then(res => {
+                    let top = res.data?.facets?.['resourceTypeName']?.terms.map(f => f.term);
                     top = top.length > 3 ? top.slice(2) : top;
                     top.forEach(term => {
-                            axios.get(this.baseURL + "?q=" + this.query + " AND @type:" + term + "&size=5&fields=name,title,toolName,article_title").then(res => {
+                            axios.get(this.baseURL + "?q=" + this.query + " AND resourceTypeName:" + term + "&size=5&fields=name,title,toolName,article_title").then(res => {
                                 self.suggestions[term] = res.data.hits;
                             }).catch(err =>{
                                 console.log('Error loading suggestions', err);

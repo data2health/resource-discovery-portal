@@ -51,7 +51,7 @@
         </ul>
         <div class="flex justify-center items-center w-full flex-wrap space-y-7 md:space-y-0">
           <div class="w-full md:w-1/2 m-auto">
-            <Chart :data="chartData.about['@type']" type="pie" name='Resource Types'></Chart>
+            <Chart :data="chartData.about['resourceTypeName']" type="pie" name='Resource Types'></Chart>
           </div>
           <div class="w-full md:w-1/2 m-auto">
             <Chart :data="chartData.about['_index']" type="pie" name='Data Sources'></Chart>

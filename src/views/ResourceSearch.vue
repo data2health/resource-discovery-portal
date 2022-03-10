@@ -103,7 +103,7 @@ export default {
     methods:{
         drawChart(){
             let self = this;
-            axios.get(this.baseURL + `?aggs=_index&q=@type:${this.resource}&size=0`).then(res=>{
+            axios.get(this.baseURL + `?aggs=_index&q=resourceTypeName:${this.resource}&size=0`).then(res=>{
 
                 // let data = {
                 //     labels: [self.resource],

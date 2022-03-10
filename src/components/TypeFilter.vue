@@ -1,6 +1,6 @@
 <template>
     <div class="flex justify-start items-center overflow-scroll p-3 w-full flex-wrap">
-        <template v-for="type in filters['@type']" :key="type + 'f'">
+        <template v-for="type in filters['resourceTypeName']" :key="type + 'f'">
             <button 
             @click="activateFilter(type)"
             :class="!type?.active ? 'text-main border-2 border-main hover:border-accent' : 
@@ -25,7 +25,7 @@ export default {
     },
     methods:{
         activateFilter (type){
-            this.$store.dispatch('activateFilter', {'section': '@type', 'filter': type});
+            this.$store.dispatch('activateFilter', {'section': 'resourceTypeName', 'filter': type});
         }
     },
     computed:{

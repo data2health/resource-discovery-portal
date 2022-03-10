@@ -1,6 +1,6 @@
 <template>
     <!-- Type -->
-    <ResultTab :name="item?.['@type']" :theme="theme"></ResultTab>
+    <ResultTab :name="item?.['resourceTypeName']" :theme="theme"></ResultTab>
     <div :key="uniqueID" class="min-w-full flex justify-between border-2 border-gray-200 dark:border-gray-500 mb-5 shadow-lg p-3 bg-gray-100 dark:bg-gray-600">
         <div class="w-full">
             <h1 class="text-lg font-bold cursor-pointer text-blue-500 hover:text-blue-400 dark:text-white" @click.prevent="open = !open">
@@ -22,7 +22,7 @@
                         e-mail <i class="fas fa-envelope"></i>
                     </a>
                     <router-link class="bg-green-500 !text-white rounded-full px-3 py-1 cursor-pointer hover:bg-green-400 text-sm m-1" 
-                    :to="{ path: '/resources/' + item?.['@type'] + '/' + item._id }">more info</router-link>
+                    :to="{ path: '/resources/' + item?.['resourceTypeName'] + '/' + item._id }">more info</router-link>
                 </div>
             </template>
             <div class="flex space-x-2 flex-wrap justify-start my-2">
@@ -93,8 +93,8 @@ export default {
                 "Protocol": ['protocolCategory', 'protocolSetting']
             }
 
-            if (this.item?.['@type'] in possibleFields) {
-                possibleFields[this.item['@type']].forEach((field) => {
+            if (this.item?.['resourceTypeName'] in possibleFields) {
+                possibleFields[this.item['resourceTypeName']].forEach((field) => {
                     if (field in this.item) {
                         let match = field;
                         //match is string
@@ -126,7 +126,7 @@ export default {
             return matches;
         },
         theme: function() {
-            return this.$store.getters.getTheme(this.item?.['@type']);
+            return this.$store.getters.getTheme(this.item?.['resourceTypeName']);
         },
         created: function () {
             let possibleFields = ['date_created', 'dateCreated', 'datePublished'];

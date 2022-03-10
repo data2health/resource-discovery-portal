@@ -1,6 +1,6 @@
 <template>
     <div :key="uniqueID" class="group dark:text-gray-200">
-        <ResultTab :name="item?.['@type']" :theme="theme" ></ResultTab>
+        <ResultTab :name="item?.['resourceTypeName']" :theme="theme" ></ResultTab>
         <div class="border border-t-gray-300 dark:border-gray-700 border-t-2 p-1 w-full bg-white dark:bg-gray-600">
             <div class="h-auto p-4 tracking-wide rounded-sm relative">
                 <h1 class="font-bold cursor-pointer text-blue-500 hover:text-blue-400 dark:text-white" @click.prevent="open = !open">
@@ -16,7 +16,7 @@
                 <div class="bg-gray-200 dark:bg-gray-500 rounded-full px-3 py-1 cursor-pointer hover:bg-accent-light text-sm m-1">
                     <PopUpPreview :content="item" name="metadata" :theme="theme"></PopUpPreview>
                 </div>
-                <a :href="'mailto:?subject=Resource%20Discovery%20Portal&amp;body=Check this out: http://rdp.biothings.io/resources/' + item?.['@type'] + '/' + item._id" 
+                <a :href="'mailto:?subject=Resource%20Discovery%20Portal&amp;body=Check this out: http://rdp.biothings.io/resources/' + item?.['resourceTypeName'] + '/' + item._id" 
                     target="_self" rel="noopener" aria-label="E-Mail" 
                     class="bg-gray-200 dark:bg-gray-500  rounded-full px-3 py-1 cursor-pointer hover:bg-accent-light text-sm m-1">
                     share <i class="fas fa-envelope"></i>
@@ -24,7 +24,7 @@
                 <router-link v-if="!fullView" 
                 class="bg-green-500 !text-white rounded-full px-3 py-1 text-center
                 cursor-pointer hover:bg-green-400 text-sm m-4 md:m-1 md:ml-8 w-3/4 md:w-auto" 
-                :to="{ path: '/resources/' + item?.['@type'] + '/' + item._id }">more info <i class="fas fa-arrow-alt-circle-right"></i></router-link>
+                :to="{ path: '/resources/' + item?.['resourceTypeName'] + '/' + item._id }">more info <i class="fas fa-arrow-alt-circle-right"></i></router-link>
             </div>
             <!-- always open -->
             <div class="flex flex-wrap justify-start">
@@ -55,37 +55,37 @@
                 </div>
                 <template v-if="fullView">
                     <!-- render customized async result component depending on type -->
-                    <template v-if="item?.['@type'] == 'Publication'">
+                    <template v-if="item?.['resourceTypeName'] == 'Publication'">
                         <Publication :item="item" :theme="theme"></Publication>
                     </template>
-                    <template v-else-if="item?.['@type'] == 'Protocol'">
+                    <template v-else-if="item?.['resourceTypeName'] == 'Protocol'">
                         <Protocol :item="item" :theme="theme"></Protocol>
                     </template>
-                    <template v-else-if="item?.['@type'] == 'Video'">
+                    <template v-else-if="item?.['resourceTypeName'] == 'Video'">
                         <VideoResult :item="item" :theme="theme"></VideoResult>
                     </template>
-                    <template v-else-if="item?.['@type'] == 'Playlist'">
+                    <template v-else-if="item?.['resourceTypeName'] == 'Playlist'">
                         <PlaylistResult :item="item" :theme="theme"></PlaylistResult>
                     </template>
-                    <template v-else-if="item?.['@type'] == 'Repository'">
+                    <template v-else-if="item?.['resourceTypeName'] == 'Repository'">
                         <RepoResult :item="item" :theme="theme"></RepoResult>
                     </template>
-                    <template v-else-if="item?.['@type'] == 'ClinicalTrial'">
+                    <template v-else-if="item?.['resourceTypeName'] == 'ClinicalTrial'">
                         <ClinicalTrial :item="item" :theme="theme"></ClinicalTrial>
                     </template>
-                    <template v-else-if="item?.['@type'] == 'Dataset'">
+                    <template v-else-if="item?.['resourceTypeName'] == 'Dataset'">
                         <Dataset :item="item" :theme="theme"></Dataset>
                     </template>
-                    <template v-else-if="item?.['@type'] == 'Education'">
+                    <template v-else-if="item?.['resourceTypeName'] == 'Education'">
                         <Educational :item="item" :theme="theme"></Educational>
                     </template>
-                    <template v-else-if="item?.['@type'] == 'Educational'">
+                    <template v-else-if="item?.['resourceTypeName'] == 'Educational'">
                         <Educational :item="item" :theme="theme"></Educational>
                     </template>
-                    <template v-else-if="item?.['@type'] == 'ComputationalTool'">
+                    <template v-else-if="item?.['resourceTypeName'] == 'ComputationalTool'">
                         <Tool :item="item" :theme="theme"></Tool>
                     </template>
-                    <template v-else-if="item?.['@type'] == 'Person'">
+                    <template v-else-if="item?.['resourceTypeName'] == 'Person'">
                         <Person :item="item" :theme="theme"></Person>
                     </template>
                     <template v-else>
@@ -208,7 +208,7 @@ export default {
             return this.$route.name == 'ResultDetails' ? true : false;
         },
         theme: function() {
-            return this.$store.getters.getTheme(this.item?.["@type"]);
+            return this.$store.getters.getTheme(this.item?.["resourceTypeName"]);
         },
         title: function () {
             let possibleFields = ['title', 'name', 'label', 'toolName', 'article_title'];
@@ -299,8 +299,8 @@ export default {
                 "Protocol": ['protocolCategory', 'protocolSetting']
             }
 
-            if (this.item?.['@type'] in possibleFields) {
-                possibleFields[this.item['@type']].forEach((field) => {
+            if (this.item?.['resourceTypeName'] in possibleFields) {
+                possibleFields[this.item['resourceTypeName']].forEach((field) => {
                     if (field in this.item) {
                         let match = field;
                         //match is string
