@@ -31,7 +31,7 @@
                 <div class="w-full m-auto p-3">
                     <h2 class="text-4xl my-7 font-light" :class="sourceInfo.text">Most Recent</h2>
                     <template v-for="(result, i) in results" :key="i">
-                        <p class="mb-4 font-extrabold text-blue-600 hover:text-tertiary-light cursor-pointer" v-if="i < 3">
+                        <p class="mb-4 font-extrabold text-blue-600 hover:text-accent-light cursor-pointer" v-if="i < 3">
                             <img :src="sourceInfo.img" :alt="resource" class="h-6 mr-2 inline"> 
                             <PopUpPreview :content="result" :name="result?.name" :theme="sourceInfo"></PopUpPreview> 
                             <router-link class="bg-green-500 hover:bg-green-300 ml-1 !text-white p-1 rounded-full text-xs px-2" 

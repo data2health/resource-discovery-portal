@@ -11,7 +11,7 @@
             <ul class="space-y-2 hidden md:group-hover:block">
                 <li v-for="item in items" :key="item + 'card'">
                     <i class="fas fa-search" :class="sourceInfo.text"></i> <router-link 
-                    class="!text-main dark:!text-tertiary hover:!text-tertiary-light dark:hover:!text-tertiary-light" 
+                    class="!text-main dark:!text-accent hover:!text-accent-light dark:hover:!text-accent-light" 
                     :to="{ path: '/search', query: { 'q': item + ' AND @type:' + title}}">
                         {{item}}
                     </router-link>

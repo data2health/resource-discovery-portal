@@ -5,7 +5,7 @@
             <div class="absolute h-4 w-8 bg-main rounded shadow-xl loader-card-1 z-10"></div>
             <div class="absolute h-4 w-8 bg-main-light rounded shadow-xl -mt-2 loader-card-1-b z-20"></div>
             <div class="absolute h-4 w-8 bg-amber-300 rounded shadow-xl mt-2 loader-card-4 z-30"></div>
-            <div class="absolute h-6 w-10 bg-tertiary rounded shadow-xl mt-4 loader-card-2 z-40"></div>
+            <div class="absolute h-6 w-10 bg-accent rounded shadow-xl mt-4 loader-card-2 z-40"></div>
             <div class="absolute h-5 w-9 bg-green-400/50 rounded shadow-xl -mt-4 loader-card-2-b z-50"></div>
             <div class="absolute h-3 w-7 bg-pink-500 rounded shadow-xl mt-8 loader-card-3 z-20"></div>
         </div>

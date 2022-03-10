@@ -42,10 +42,10 @@
                             :checked="type.active"
                             @click="activateFilter(type)"
                             :id="type.term" 
-                            class="focus:ring-0 checked:!bg-tertiary-dark rounded-full border-gray-200 group-hover:border-tertiary-light mr-2">
+                            class="focus:ring-0 checked:!bg-accent-dark rounded-full border-gray-200 group-hover:border-accent-light mr-2">
                         <img :src="type.img" :alt="type" class="h-5 mr-2 inline">
                         <div>
-                            <label class="text-xs cursor-pointer group-hover:text-tertiary" :for="type.term">
+                            <label class="text-xs cursor-pointer group-hover:text-accent" :for="type.term">
                                 {{$filters.readableName(type.term)}}
                             </label>
                             <p v-if="type.result_count" data-aos="fade-in" class="text-xs text-gray-500 dark:text-gray-400"><span>{{$filters.numberWithCommas(type.result_count)}}</span></p>
@@ -89,7 +89,7 @@
                                 <Popper :content="item" class="tip" :hover="true" placement="right" arrow>
                                     <router-link :title="item" active-class="text-secondary"
                                     :to="{ path: '/search', query: { 'q': item }}">
-                                    <i class="fas fa-search text-xs text-tertiary-light"></i> 
+                                    <i class="fas fa-search text-xs text-accent-light"></i> 
                                     {{item && item.length > 25 ? item.substring(0, 25) + '...' : item}}
                                     </router-link>
                                 </Popper>

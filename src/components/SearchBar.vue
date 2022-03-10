@@ -11,7 +11,7 @@
             :class="suggestions ? 'rounded-xl rounded-b-sm' : 'rounded-sm md:rounded-xl'"
             class="main-input w-full">
             <!-- small screen action-->
-            <button class="block md:hidden bg-tertiary text-white p-3 w-full text-center mt-3 rounded-2xl" ><i class="fas fa-search"></i> Search</button>
+            <button class="block md:hidden bg-accent text-white p-3 w-full text-center mt-3 rounded-2xl" ><i class="fas fa-search"></i> Search</button>
             <!-- options drawer -->
             <div v-if="suggestions" class="bg-gray-200 w-full shadow-xl
             md:absolute md:top-12 hidden md:flex flex-wrap highlight_container">
@@ -22,16 +22,16 @@
                             <span class="text-xs mb-3">
                                 <template v-if="item && item.length > 60">
                                     <Popper :content="item" class="tip" :hover="true" placement="top" arrow>
-                                        <router-link :title="item" active-class="text-secondary" class="text-white hover:text-tertiary-light"
+                                        <router-link :title="item" active-class="text-secondary" class="text-white hover:text-accent-light"
                                         :to="{ path: '/search', query: { 'q': item }}">
-                                            <i class="fas fa-search text-xs text-tertiary"></i> 
+                                            <i class="fas fa-search text-xs text-accent"></i> 
                                             {{item.length > 60 ? item.substring(0, 60) + '...' : item}}
                                         </router-link>
                                     </Popper>
                                 </template>
-                                <router-link v-else :title="item" active-class="text-secondary" class="text-white hover:text-tertiary-light"
+                                <router-link v-else :title="item" active-class="text-secondary" class="text-white hover:text-accent-light"
                                 :to="{ path: '/search', query: { 'q': item }}">
-                                    <i class="fas fa-search text-xs text-tertiary"></i> 
+                                    <i class="fas fa-search text-xs text-accent"></i> 
                                     {{item}}
                                 </router-link>
                             </span>

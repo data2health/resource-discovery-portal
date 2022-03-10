@@ -8,9 +8,9 @@
             <template v-for="(item) in items" :key="item + name">
                 <button @click="activateFilter(item)" 
                 class="rounded-2xl block w-full select-none text-left px-3 py-1 m-1 text-xs" 
-                :class="!item?.active ? 'text-main border-2 border-main hover:border-tertiary bg-gray-100' : 
+                :class="!item?.active ? 'text-main border-2 border-main hover:border-accent bg-gray-100' : 
             'bg-main border-2 border-main dark:bg-secondary dark:hover:bg-secondary-light text-white hover:bg-main-light'">
-                    <i :class="[item?.active ? 'fas fa-circle text-tertiary' : 'far fa-circle']"></i> {{item.name || item.term}}
+                    <i :class="[item?.active ? 'fas fa-circle text-accent' : 'far fa-circle']"></i> {{item.name || item.term}}
                 </button>
             </template>
         </div>

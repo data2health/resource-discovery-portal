@@ -12,12 +12,12 @@
         <div>
             <template v-if="items.length > perPage">
                 <div class="flex flex-wrap justify-center p-1 mt-2 text-white">
-                    <div class="cursor-pointer p-1 flex items-center justify-center h-6 bg-tertiary hover:bg-tertiary-light dark:bg-secondary-light dark:hover:bg-secondary rounded mx-2" 
+                    <div class="cursor-pointer p-1 flex items-center justify-center h-6 bg-accent hover:bg-accent-light dark:bg-secondary-light dark:hover:bg-secondary rounded mx-2" 
                     v-show="groupPages && !startCapLimitReached" @click.prevent="previousGroup()">
                         <i class="fas fa-angle-double-left"></i>
                     </div>
                     <div class="p-1 rounded h-6 w-6 flex items-center justify-center mx-2" 
-                    :class="[!page <= 1 ? 'cursor-pointer bg-tertiary hover:bg-tertiary-light dark:bg-secondary-light dark:hover:bg-secondary' : 'cursor-not-allowed bg-gray-400']" @click.prevent="prevPage()">
+                    :class="[!page <= 1 ? 'cursor-pointer bg-accent hover:bg-accent-light dark:bg-secondary-light dark:hover:bg-secondary' : 'cursor-not-allowed bg-gray-400']" @click.prevent="prevPage()">
                         <i class="fas fa-angle-left"></i>
                     </div>
                     <template v-for="n in pages">
@@ -25,15 +25,15 @@
                         :key="n + 'page'"
                         class="rounded cursor-pointer p-1 flex items-center justify-center h-6 w-6" 
                         @click.prevent="handlePageChange(n)"
-                        :class="[page == n ? 'bg-main dark:bg-tertiary-light text-white' : 'text-secondary-light']">
+                        :class="[page == n ? 'bg-main dark:bg-accent-light text-white' : 'text-secondary-light']">
                             {{n}}
                         </div>
                     </template>
                     <div class="p-1 rounded h-6 w-6 flex items-center justify-center mx-2" 
-                    :class="[page >= pages ? 'cursor-not-allowed bg-gray-400' : 'cursor-pointer bg-tertiary hover:bg-tertiary-light dark:bg-secondary-light dark:hover:bg-secondary']" @click.prevent="nextPage()">
+                    :class="[page >= pages ? 'cursor-not-allowed bg-gray-400' : 'cursor-pointer bg-accent hover:bg-accent-light dark:bg-secondary-light dark:hover:bg-secondary']" @click.prevent="nextPage()">
                         <i class="fas fa-angle-right"></i>
                     </div>
-                    <div class="p-1 flex items-center justify-center h-6 bg-tertiary hover:bg-tertiary-light dark:bg-secondary-light dark:hover:bg-secondary rounded mx-2 cursor-pointer" 
+                    <div class="p-1 flex items-center justify-center h-6 bg-accent hover:bg-accent-light dark:bg-secondary-light dark:hover:bg-secondary rounded mx-2 cursor-pointer" 
                     v-show="groupPages && !endCapLimitReached" @click.prevent="nextGroup()">
                         <i class="fas fa-angle-double-right"></i>
                     </div>
@@ -44,7 +44,7 @@
         <div class="flex justify-between items-center">
             <label class="mr-2 text-sm text-gray-500" for="perPage">Per Page</label>
             <select name="perPage" 
-            class="outline-none border-0 rounded dark:bg-gray-800 active:border-0 focus:border-0 focus:outline-none text-tertiary" 
+            class="outline-none border-0 rounded dark:bg-gray-800 active:border-0 focus:border-0 focus:outline-none text-accent" 
             @change="handlePerPage($event)"
             :v-model="perPage">
                 <option value="10">10</option>

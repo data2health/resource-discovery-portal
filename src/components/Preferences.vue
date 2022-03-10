@@ -2,7 +2,7 @@
     <!-- <div class="rounded-2xl p-2 mb-3 shadow bg-gray-100 dark:bg-gray-700 select-none hover:bg-gray-200">
         <div @click="open = !open" class="rounded cursor-pointer p-1 text-gray-500 font-light flex justify-start text-sm items-center">
             <button @click="open = !open" type="button" class="icon-btn bg-white dark:bg-gray-500">
-                <i class="fas text-secondary dark:text-tertiary-light" :class="[open ? 'fa-minus' : 'fa-plus']"></i>
+                <i class="fas text-secondary dark:text-accent-light" :class="[open ? 'fa-minus' : 'fa-plus']"></i>
             </button> <span class="ml-2">Preferences <i class="fas fa-gear text-secondary-light"></i></span>
         </div>
         <div v-if="open" class="rounded-2xl p-2 mb-3 shadow select-none bg-gray-200/50 dark:bg-gray-700 hover:bg-gray-300/50" data-aos="fade-in">

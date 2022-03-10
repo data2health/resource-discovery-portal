@@ -5,7 +5,7 @@
         <ul class="text-sm space-y-2">
           <template v-for="a in anchors" :key="a.anchor">
             <li>
-              <a :class="[{'font-bold text-main dark:text-tertiary-light' : a.visible}, {'ml-4' : !a['main-section']}, {'font-bold' : a['main-section']}]" :href="a.anchor">{{a.name}}</a>
+              <a :class="[{'font-bold text-main dark:text-accent-light' : a.visible}, {'ml-4' : !a['main-section']}, {'font-bold' : a['main-section']}]" :href="a.anchor">{{a.name}}</a>
             </li>
           </template>
         </ul>
@@ -33,7 +33,7 @@
       </section>
 
       <section class="space-y-10 mb-4 p-3 min-h-[10vh]" id="platform">
-        <h2 class="text-3xl md:text-5xl mb-6 text-tertiary font-bold">The Platform</h2>
+        <h2 class="text-3xl md:text-5xl mb-6 text-accent font-bold">The Platform</h2>
       </section>
 
       <section class="space-y-10 mb-4 p-3 min-h-[50vh]" id="dashboard">
@@ -75,10 +75,10 @@
           The front-end allows users to explore the resource in multiple ways, including:
         </p>
         <p class="text-2xl">
-          <b class="text-main dark:text-tertiary">Keyword search </b>- A simple one box search to see a range of results among the 10+ types of resources. Advanced searching is also available for users that would like to limit to specific resource types or further filter based on the many facets available for each resource type.
+          <b class="text-main dark:text-accent">Keyword search </b>- A simple one box search to see a range of results among the 10+ types of resources. Advanced searching is also available for users that would like to limit to specific resource types or further filter based on the many facets available for each resource type.
         </p>
         <p class="text-2xl">
-          <b class="text-main dark:text-tertiary">Resource type</b> - Specialized views for each type of resource available. Users can explore interactive visualizations to see breakdowns of the available resources by various facets. Users can also search within a given facet’s results. For example, a user might explore datasets by performing the query “lung,” selecting a database, and browsing based on relevant subject terms.
+          <b class="text-main dark:text-accent">Resource type</b> - Specialized views for each type of resource available. Users can explore interactive visualizations to see breakdowns of the available resources by various facets. Users can also search within a given facet’s results. For example, a user might explore datasets by performing the query “lung,” selecting a database, and browsing based on relevant subject terms.
         </p>
       </section>
 
@@ -91,7 +91,7 @@
                 <img class="w-32" :alt="source.name" :src="source.img">
               </a>
               <h2 class="text-2xl font-bold">{{source.name}}</h2>
-              <h3 class="text-lg text-main dark:text-tertiary">{{$filters.numberWithCommas(source.count)}} Documents</h3>
+              <h3 class="text-lg text-main dark:text-accent">{{$filters.numberWithCommas(source.count)}} Documents</h3>
               <p v-html="source.description"></p>
               <p><a :href="source.link" target="_blank" rel="nonreferrer">For citation information and to learn more, click here. <i class="fas fa-external-link-square-alt"></i></a></p>
             </div>
@@ -100,7 +100,7 @@
       </section>
 
       <section class="space-y-10 mb-4 p-3 min-h-[10vh]" id="project">
-        <h2 class="text-3xl md:text-5xl mb-6 text-tertiary font-bold">The Project</h2>
+        <h2 class="text-3xl md:text-5xl mb-6 text-accent font-bold">The Project</h2>
       </section>
 
       <section class="space-y-10 mb-4 p-3 min-h-[50vh]" id="history">

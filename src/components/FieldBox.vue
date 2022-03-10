@@ -8,21 +8,21 @@
             </td>
             <td class="space-x-1">
                 <template v-for="tag in content" :key="tag">
-                  <router-link class="text-sm text-tertiary hover:text-tertiary-light underline" :to='{path: "/search", query:{"q": `"` + tag + `"`}}'><i class="fas fa-hashtag" :class="theme?.text"></i> {{tag}}</router-link>
+                  <router-link class="text-sm text-accent hover:text-accent-light underline" :to='{path: "/search", query:{"q": `"` + tag + `"`}}'><i class="fas fa-hashtag" :class="theme?.text"></i> {{tag}}</router-link>
                 </template>
             </td>
           </template>
           <!-- not keywords -->
           <template v-else>
             <td :class="theme?.text" @click="expandArray =! expandArray" class="cursor-pointer font-bold group">
-              {{readable_name}} <span class="text-tertiary">({{content?.length || 'N/A'}})</span>
+              {{readable_name}} <span class="text-accent">({{content?.length || 'N/A'}})</span>
               <b v-if="!expandArray"><i class="fas fa-plus-circle text-green-400 ml-3 mr-2"></i></b>
               <b v-if="expandArray"><i class="fas fa-minus-circle text-red-400 ml-3 mr-2"></i></b>
             </td>
             <td v-if="expandArray">
               <div class="p-1 text-white">
                 <template v-if="content.length > perPage">
-                  <select class="appearance-none accent-pink-500 px-2 py-1 font-bold rounded dark:bg-gray-800 focus:outline-none text-tertiary" v-model="perPage" @change="calculatePages" id="perPage">
+                  <select class="appearance-none accent-pink-500 px-2 py-1 font-bold rounded dark:bg-gray-800 focus:outline-none text-accent" v-model="perPage" @change="calculatePages" id="perPage">
                       <option value="" disabled selected>Shown Per Page</option>
                       <option value="10">10 per page</option>
                       <option value="25">25 per page</option>
@@ -38,7 +38,7 @@
                       </div>
                     </template>
                     <template v-for="n in pages" :key="n+'page'">
-                      <div v-if="n >= startCap && n <= endCap" class="rounded px-1" :class="{ 'bg-tertiary': page == n, 'bg-main !text-white': page == n, 'text-white': page == n  }">
+                      <div v-if="n >= startCap && n <= endCap" class="rounded px-1" :class="{ 'bg-accent': page == n, 'bg-main !text-white': page == n, 'text-white': page == n  }">
                         <a href="#" class="page-link p-1" @click.prevent="page = n" v-text="n"></a>
                       </div>
                     </template>
@@ -74,7 +74,7 @@
               </td>
               <td class="group">
                 <a :href="content" target="_blank" rel="nonreferrer" :title="content">
-                  <small><span v-text="content.length > 70 ? content.substring(0, 70) + '...' : content"></span> <i class="fas fa-external-link-alt text-tertiary"></i></small>
+                  <small><span v-text="content.length > 70 ? content.substring(0, 70) + '...' : content"></span> <i class="fas fa-external-link-alt text-accent"></i></small>
                 </a>
                 <span class="ml-3 opacity-0 group-hover:opacity-100">
                   <CopyButton :copy="content" copy_msg="Copy URL"></CopyButton>

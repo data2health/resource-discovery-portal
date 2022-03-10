@@ -10,15 +10,15 @@
             <div v-if="open || fullView || expandedView" class="flex justify-center md:justify-start items-center p-2 flex-wrap">
                 <a v-if="item?.url" :href="item?.url" 
                     target="_blank" rel="noopener" 
-                    class="bg-gray-200 dark:bg-gray-500 rounded-full px-3 py-1 cursor-pointer hover:bg-tertiary-light text-sm m-1">
+                    class="bg-gray-200 dark:bg-gray-500 rounded-full px-3 py-1 cursor-pointer hover:bg-accent-light text-sm m-1">
                     source <i class="fas fa-external-link-square-alt"></i>
                 </a>
-                <div class="bg-gray-200 dark:bg-gray-500 rounded-full px-3 py-1 cursor-pointer hover:bg-tertiary-light text-sm m-1">
+                <div class="bg-gray-200 dark:bg-gray-500 rounded-full px-3 py-1 cursor-pointer hover:bg-accent-light text-sm m-1">
                     <PopUpPreview :content="item" name="metadata" :theme="theme"></PopUpPreview>
                 </div>
                 <a :href="'mailto:?subject=Resource%20Discovery%20Portal&amp;body=Check this out: http://rdp.biothings.io/resources/' + item?.['@type'] + '/' + item._id" 
                     target="_self" rel="noopener" aria-label="E-Mail" 
-                    class="bg-gray-200 dark:bg-gray-500  rounded-full px-3 py-1 cursor-pointer hover:bg-tertiary-light text-sm m-1">
+                    class="bg-gray-200 dark:bg-gray-500  rounded-full px-3 py-1 cursor-pointer hover:bg-accent-light text-sm m-1">
                     share <i class="fas fa-envelope"></i>
                 </a>
                 <router-link v-if="!fullView" 
@@ -31,7 +31,7 @@
                 <!-- badges -->
                 <template v-for="(badge, i) in badges" :key="i">
                     <template v-for="(text, field) in badge" :key="text">
-                        <div class="px-2 py-1 m-1 hover:bg-tertiary rounded-sm text-xs" :class="theme.bg" v-if="text">
+                        <div class="px-2 py-1 m-1 hover:bg-accent rounded-sm text-xs" :class="theme.bg" v-if="text">
                             <router-link :to='{ path: "/search", query: { "q":  field + `:"` + text + `"`}}' class="!text-white">
                                 {{text}}
                             </router-link>

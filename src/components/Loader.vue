@@ -4,7 +4,7 @@
             <div class="loader-ring"></div>
             <div class="loader-ring"></div>
             <div class="loader-ring"></div>
-            <div class="loader-text text-tertiary dark:text-light">Loading</div>
+            <div class="loader-text text-accent dark:text-light">Loading</div>
       </div>
   </div>
 </template>

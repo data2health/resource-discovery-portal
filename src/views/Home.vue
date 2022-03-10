@@ -9,7 +9,7 @@
             <h1 class="text-3xl md:text-5xl text-center text-main dark:text-white">
               CD2H <b>R</b>esource <b>D</b>iscovery <b>P</b>ortal
             </h1>
-            <p v-if="totalDocsRDP" data-aos="fade-in" class="text-center text-md md:text-2xl font-bold text-gray-600 dark:text-tertiary mb-7">
+            <p v-if="totalDocsRDP" data-aos="fade-in" class="text-center text-md md:text-2xl font-bold text-gray-600 dark:text-accent mb-7">
               <span>{{$filters.numberWithCommas(totalDocsRDP)}}</span> resources and counting...
             </p>
             <h2 class="text-md md:text-2xl text-center font-extrabold text-gray-600 dark:text-white">Start your search here</h2>
@@ -40,7 +40,7 @@
               <img src="/assets/img/rdp_dark.svg" alt="Resource Discovery Portal" class="w-1/3 m-auto">
               <p>The CD2H Resource Discovery Portal (RDP) is a single location to start your search for bioinformatics resources. <br>The platform draws from over 50 databases and covers over 20,000,000 total resources. You can accomplish a wide range of tasks with this single interface to search for many types of resources, including datasets, journal articles, Youtube videos, GitHub profiles, funding opportunities and more.</p>
               <p class="text-center p-10">
-                <router-link class="btn-main m-auto text-sm md:border-tertiary-light md:text-main" to="/about">Learn More</router-link>
+                <router-link class="btn-main m-auto text-sm md:border-accent-light md:text-main" to="/about">Learn More</router-link>
               </p>
             </div>
           </section>
@@ -109,23 +109,23 @@
                 <div class="flex flex-row flex-wrap p-3 space-y-3 items-stretch">
                   <div class="flex justify-evenly items-center space-x-7 text-sm py-3 px-10 md:rounded-full bg-black/50 rounded-md flex-wrap">
                     <p>Discover researchers with relevant experience</p>
-                    <p class="font-bold text-tertiary-light">Researcher- Maneesh Pingle, Assistant Professor of Microbiology and Immunology (Courtesy), Weill Cornell Medical College</p>
+                    <p class="font-bold text-accent-light">Researcher- Maneesh Pingle, Assistant Professor of Microbiology and Immunology (Courtesy), Weill Cornell Medical College</p>
                   </div>
                   <div class="flex justify-evenly items-center space-x-7 text-sm py-3 px-10 md:rounded-full bg-black/50 flex-wrap rounded-md">
                     <p>Browse literature for new publications</p>
-                    <p class="font-bold text-tertiary-light">Article - Comparison of Digital PCR and Quantitative PCR with Various SARS-CoV-2 Primer-Probe Sets.</p>
+                    <p class="font-bold text-accent-light">Article - Comparison of Digital PCR and Quantitative PCR with Various SARS-CoV-2 Primer-Probe Sets.</p>
                   </div>
                   <div class="flex justify-evenly items-center space-x-7 text-sm py-3 px-10 md:rounded-full bg-black/50 flex-wrap rounded-md">
                     <p>Search for a protocol</p>
-                    <p class="font-bold text-tertiary-light">Protocol - Detection of Sars-Cov2 Using Droplet Digital PCR</p>
+                    <p class="font-bold text-accent-light">Protocol - Detection of Sars-Cov2 Using Droplet Digital PCR</p>
                   </div>
                   <div class="flex justify-evenly items-center space-x-7 text-sm py-3 px-10 md:rounded-full bg-black/50 flex-wrap rounded-md">
                     <p>Find informative Youtube videos</p>
-                    <p class="font-bold text-tertiary-light">Video - PCR Essentials</p>
+                    <p class="font-bold text-accent-light">Video - PCR Essentials</p>
                   </div>
                 </div>
                 <div class="p-10 text-center w-full md:w-1/3 flex items-center justify-center">
-                  <router-link to="/search" class="btn-main font-bold text-sm md:border-tertiary-light md:text-main">
+                  <router-link to="/search" class="btn-main font-bold text-sm md:border-accent-light md:text-main">
                     Try&nbsp;This&nbsp;Search
                   </router-link>
                 </div>

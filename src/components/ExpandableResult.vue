@@ -4,21 +4,21 @@
     <div :key="uniqueID" class="min-w-full flex justify-between border-2 border-gray-200 dark:border-gray-500 mb-5 shadow-lg p-3 bg-gray-100 dark:bg-gray-600">
         <div class="w-full">
             <h1 class="text-lg font-bold cursor-pointer text-blue-500 hover:text-blue-400 dark:text-white" @click.prevent="open = !open">
-                {{title}} <i class="fas text-gray-500 dark:text-tertiary-light" :class="[open ? 'fa-chevron-down' : 'fa-chevron-right']"></i>
+                {{title}} <i class="fas text-gray-500 dark:text-accent-light" :class="[open ? 'fa-chevron-down' : 'fa-chevron-right']"></i>
             </h1>
             <template v-if="open || expandedView">
                 <div class="flex justify-start items-center p-2 flex-wrap">
                     <a v-if="item?.url" :href="item?.url" 
                         target="_blank" rel="noopener" 
-                        class="bg-tertiary !text-white rounded-full px-3 py-1 cursor-pointer hover:bg-tertiary-light text-sm m-1">
+                        class="bg-accent !text-white rounded-full px-3 py-1 cursor-pointer hover:bg-accent-light text-sm m-1">
                         source <i class="fas fa-external-link-square-alt"></i>
                     </a>
-                    <div class="bg-tertiary !text-white rounded-full px-3 py-1 cursor-pointer hover:bg-tertiary-light text-sm m-1">
+                    <div class="bg-accent !text-white rounded-full px-3 py-1 cursor-pointer hover:bg-accent-light text-sm m-1">
                         <PopUpPreview :content="item" name="metadata" :theme="theme"></PopUpPreview>  <i class="fas fa-newspaper"></i>
                     </div>
                     <a :href="'mailto:?subject=Resource%20Discovery%20Portal&amp;body='" 
                         target="_self" rel="noopener" aria-label="E-Mail" 
-                        class="bg-tertiary !text-white rounded-full px-3 py-1 cursor-pointer hover:bg-tertiary-light text-sm m-1">
+                        class="bg-accent !text-white rounded-full px-3 py-1 cursor-pointer hover:bg-accent-light text-sm m-1">
                         e-mail <i class="fas fa-envelope"></i>
                     </a>
                     <router-link class="bg-green-500 !text-white rounded-full px-3 py-1 cursor-pointer hover:bg-green-400 text-sm m-1" 
@@ -30,7 +30,7 @@
                 <template v-for="(badge, i) in badges" :key="i">
                     <template v-for="(text, field) in badge" :key="text">
                         <div class="banner-clip pr-3 pl-5 py-1 text-xs m-1" :class="theme.bg" v-if="text">
-                            <router-link :to="{ path: '/search', query: { 'q':  field + ':' + text}}" class="!text-white hover:!text-tertiary-light">
+                            <router-link :to="{ path: '/search', query: { 'q':  field + ':' + text}}" class="!text-white hover:!text-accent-light">
                                 {{text}}
                             </router-link>
                         </div>

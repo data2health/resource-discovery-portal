@@ -200,7 +200,7 @@
                                 {{link.name || 'file'}}
                             </td>
                             <td class="p-2">
-                                <a class="px-4 py-1 bg-tertiary hover:bg-tertiary-light !text-white rounded-xl" :href="link?.contentUrl" target="_blank" rel="nonreferrer">
+                                <a class="px-4 py-1 bg-accent hover:bg-accent-light !text-white rounded-xl" :href="link?.contentUrl" target="_blank" rel="nonreferrer">
                                     <i class="fas fa-download"></i>
                                 </a>
                             </td>
@@ -229,7 +229,7 @@
         <!-- 🦄 Keywords 🦄 -->
         <div v-if="item?.keywords" class="space-x-2 bg-gray-500 dark:bg-gray-900 p-4 w-full">
             <template v-for="(tag, i) in item?.keywords" :key="tag + i">
-                <router-link class="text-sm text-white hover:text-tertiary-light underline" :to='{path: "/search", query:{"q": `"` + tag + `"`}}'><i class="fas fa-hashtag" :class="theme?.text"></i> {{tag}}</router-link>
+                <router-link class="text-sm text-white hover:text-accent-light underline" :to='{path: "/search", query:{"q": `"` + tag + `"`}}'><i class="fas fa-hashtag" :class="theme?.text"></i> {{tag}}</router-link>
             </template>
         </div>
     </div>
