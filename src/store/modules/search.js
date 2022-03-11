@@ -328,8 +328,6 @@ export default {
             // data types
             axios.get(state.baseURL + "?aggs=" + payload.value).then( res =>{
 
-                console.log(payload.value, res.data)
-
                 let data = {
                     labels: [],
                     datasets: [{data: []}]
