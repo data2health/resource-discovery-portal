@@ -3,12 +3,12 @@
     <!-- cookie consent -->
     <VModal v-model="as_open" @confirm="as_open = false">
         <template v-slot:title>
-            <h2 class="text-main">
-                <i class="fas fa-cog"></i> Advanced Search <span class="text-center text-red-400" v-if="loading">Updating Results...</span>
+            <h2 class="text-main dark:text-white">
+                <i class="fas fa-cog" :class="{'animate-spin': loading}"></i> Advanced Search <span class="text-center text-red-400" v-if="loading">Updating Results...</span>
             </h2>
         </template>
         <template v-slot:content>
-            <div class="p-1 w-full space-y-4">
+            <div class="p-1 w-full space-y-4 dark:text-gray-200">
                 <!-- Types -->
                 <TypeFilter></TypeFilter>
                 <!-- Detailed Filters -->
@@ -22,8 +22,8 @@
                     </div>
                 </template>
                 <!-- Filters -->
-                <FilterList type="checkbox" name="Filter by source" section="_index" :items="filters['_index']"></FilterList>
-                <FilterList type="checkbox" name="Filter by entity type" section="resourceTypeName" :items="filters['resourceTypeName']"></FilterList>
+                <FilterList name="Filter by source" section="_index" :items="filters['_index']"></FilterList>
+                <FilterList name="Filter by entity type" section="resourceTypeName" :items="filters['resourceTypeName']"></FilterList>
             </div>
         </template>
     </VModal>

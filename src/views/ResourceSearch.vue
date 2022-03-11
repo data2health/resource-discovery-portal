@@ -7,7 +7,7 @@
                         <div class="flex justify-start flex-wrap items-center w-full">
                             <router-link :to="{name:'Resources'}" class="text-white hover:text-gray-300 dark:text-white dark:hover:text-gray-200 m-1 mr-6"><i class="fas fa-chevron-left"></i> Back</router-link>
                             <img :src="sourceInfo.img" :alt="resource" class="h-6 md:h-14 mr-2">
-                            <h1 class="font-bold text-md md:text-3xl mr-2">{{$filters.readableName(resource)}}</h1>
+                            <h1 class="font-bold text-md md:text-3xl mr-2">{{resource}}</h1>
                         </div>
                     </div>
                 </div>
@@ -15,7 +15,7 @@
             <div class="container m-auto max-w-6xl">
                 <div class="bg-gray-100 dark:bg-gray-900 rounded-2xl p-3 my-5 shadow">
                     <div class="flex justify-center items-center flex-wrap">
-                        <div class="w-1/2 md:w-1/3" v-if="data">
+                        <div class="w-1/2 md:w-1/4" v-if="data">
                             <Chart :data="data" type="doughnut" name='Where is the data coming from?' :color="sourceInfo.hex"></Chart>
                         </div>
                         <div class="text-xl w-full md:w-2/3">
@@ -28,20 +28,30 @@
                     </div>
                 </div>
                 <!-- most recent -->
-                <div class="w-full m-auto p-3">
-                    <h2 class="text-4xl my-7 font-light" :class="sourceInfo.text">Most Recent</h2>
-                    <template v-for="(result, i) in results" :key="i">
-                        <p class="mb-4 font-extrabold text-blue-600 hover:text-accent-light cursor-pointer" v-if="i < 3">
-                            <img :src="sourceInfo.img" :alt="resource" class="h-6 mr-2 inline"> 
-                            <PopUpPreview :content="result" :name="result?.name" :theme="sourceInfo"></PopUpPreview> 
-                            <router-link class="bg-green-500 hover:bg-green-300 ml-1 !text-white p-1 rounded-full text-xs px-2" 
-                            :to="{ path: '/resources/' + resource + '/' + result._id}">more info <i class="fas fa-arrow-alt-circle-right"></i></router-link>
-                        </p>
-                    </template>
+                <div class="w-full m-auto p-3 flex justify-center items-center w-full">
+                    <div class="max-w-4xl">
+                        <h2 class="text-4xl my-7 font-light" :class="sourceInfo.text">Most Recent</h2>
+                        <table class="table-auto">
+                            <tbody>
+                                <template v-for="(result, i) in results" :key="i">
+                                    <tr v-if="i < 3">
+                                        <td class="mb-2 font-extrabold text-blue-600 hover:text-accent-light cursor-pointer w-3/4">
+                                            <img :src="sourceInfo.img" :alt="resource" class="h-6 mr-2 inline"> 
+                                            <PopUpPreview :content="result" :name="result?.name" :theme="sourceInfo"></PopUpPreview> 
+                                        </td>
+                                        <td class="w-1/4">
+                                            <router-link class="bg-green-500 hover:bg-green-300 ml-1 !text-white p-1 rounded-full text-xs px-2" 
+                                            :to="{ path: '/resources/' + resource + '/' + result._id}">more info <i class="fas fa-arrow-alt-circle-right"></i></router-link>
+                                        </td>
+                                    </tr>
+                                </template>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
                 <!-- search -->
-                <div class="w-full m-auto p-3 highlight_container">
-                    <div class="p-3 rounded-2xl bg-gray-100 dark:bg-gray-900">
+                <div class="w-full m-auto p-3 highlight_container rounded-2xl bg-gray-100 dark:bg-gray-900">
+                    <div class="p-3">
                         <h2 class="text-4xl font-light text-center my-2" :class="sourceInfo.text">
                             <i class="fas fa-search"></i> Search
                         </h2>
@@ -52,13 +62,24 @@
                                 class="main-input w-full rounded-full">
                         </form>
                     </div>
-                    <!-- <template v-for="(result, i) in results" :key="i">
-                        <p class="mb-4 font-extrabold">
-                            {{result?.name}}  
-                            <router-link class="!text-green-500 hover:!text-green-300 ml-1" 
-                            :to="{ name: 'ResultDetails', query: {'resource': result._id} }">more info</router-link>
-                        </p>
-                    </template> -->
+                    <div class="w-full flex flex-wrap justify-center">
+                        <div class="w-full md:w-1/4 p-4">
+                            <FilterList name="Filter by author" section="author.name.keyword" :items="filters['author.name.keyword']"></FilterList>
+                            <FilterList name="Filter by source" section="_index" :items="filters['_index']"></FilterList>
+                        </div>
+                        <div class="w-full md:w-3/4 p-4">
+                            <div class="mb-3 p-2 dark:text-gray-500 text-gray-400">
+                                <Pagination :items="results" key="top-pagination"></Pagination>
+                            </div>
+                            <template v-for="(result, i) in results" :key="i">
+                                <Result :item="result"></Result>
+                            </template>
+                            <div class="mb-3 p-2 dark:text-gray-500 text-gray-400">
+                                <Pagination :items="results" key="bottom-pagination"></Pagination>
+                            </div>
+                        </div>
+                    </div>
+                    
                 </div>
             </div>
         </div>
@@ -73,6 +94,9 @@ import Mark from 'mark.js'
 
 import Chart from '../components/Chart.vue'
 import PopUpPreview from '../components/PopUpPreview.vue'
+import FilterList from '../components/FilterList.vue'
+import Pagination from '../components/Pagination.vue'
+import Result from '../components/ResultWrapper.vue'
 
 export default {
     name: 'ResourceSearch',
@@ -88,13 +112,17 @@ export default {
     },
     components:{
         Chart,
-        PopUpPreview
+        PopUpPreview,
+        FilterList,
+        Pagination,
+        Result
     },
     computed:{
         ...mapGetters([
             'baseURL',
             'results',
-            'sourceReadableNames'
+            'sourceReadableNames',
+            'filters'
         ]),
         sourceInfo: function() {
             return this.$store.getters.getTheme(this.resource);
@@ -105,28 +133,10 @@ export default {
             let self = this;
             axios.get(this.baseURL + `?aggs=_index&q=resourceTypeName:${this.resource}&size=0`).then(res=>{
 
-                // let data = {
-                //     labels: [self.resource],
-                //     datasets: []
-                // };
-
                 let data = {
                     labels: [],
                     datasets: [{data: []}]
                 };
-
-                let colors = ['#1F78B4', '#33A02C', '#6A3D9A', '#A6CEE3', '#B2DF8A', '#CAB2D6', '#E31A1C', '#FB9A99', '#FDBF6F', '#FF7F00']
-                
-                // if( res.data?.facets?.['_index']?.terms){
-                //     res.data?.facets?.['_index']?.terms.forEach((termInfo, i) => {
-                //         //chart data for /About
-                //         data.datasets[0].push({
-                //             label: termInfo.term,
-                //             data: [termInfo.count],
-                //             backgroundColor: colors[i]
-                //         });
-                //     });
-                // }
 
                 if( res.data?.facets?.['_index']?.terms){
                     res.data?.facets?.['_index']?.terms.forEach(termInfo => {
@@ -153,7 +163,6 @@ export default {
             if (this.q) {
                 this.$router.push({ query: { q: this.q }})
                 this.q = this.$route?.query?.q;
-                this.$store.commit('addRecent', {value: this.q});
             }
             this.$store.commit('saveQuery', {value: this.q});
             this.$store.dispatch('search', {'resourceFilter': this.resource});
@@ -165,10 +174,32 @@ export default {
             }else{
                 this.highlighter.unmark();
             }
+        },
+        aggregateField(field){
+            let self = this;
+            let def = {
+                'active': false
+            };
+
+            axios.get(this.baseURL + `?aggs=${field}&q=resourceTypeName:${this.resource}&size=0`).then(res=>{
+
+                res.data?.facets?.[field]?.terms.forEach(termInfo => {
+                    self.$store.commit('addFilter', {
+                        'section': field,
+                        'filter' : {...termInfo, ...def}
+                    })
+            });
+
+            console.log(self.filters)
+
+            }).catch(err=>{
+                console.log(err);
+            });
         }
     },
     mounted: function () {
         this.highlighter = new Mark(document.querySelector(".highlight_container"));
+        this.aggregateField('author.name.keyword');
         this.drawChart();
         this.search();
     },

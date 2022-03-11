@@ -1,6 +1,6 @@
 <template>
     <div class="dark:bg-gray-800 dark:text-white bg-white relative">
-        <div class="sticky top-0 bg-white/75 dark:bg-black/20 w-full z-50">
+        <div class="sticky top-0 bg-gray-200/75 dark:bg-gray-900/75 w-full z-50">
             <div class="flex justify-center items-center px-7 flex-wrap">
                 <div class="hidden md:w-1/3 md:flex">
                 <!-- spacer -->
@@ -34,23 +34,25 @@
             
             <div class="flex relative items-start flex-wrap md:flex-nowrap">
                 <!-- type facets -->
-                <div v-if="results" class="p-3 sticky top-20 bg-gray-100 dark:bg-gray-700 rounded-lg w-1/4">
-                    <p class="text-xs text-gray-400">Resource Types</p>
-                    <div v-for="type in filters['resourceTypeName']" :key="type + 'f'" class="hidden md:flex mb-1 group justify-start items-center">
-                        <input 
-                            type="checkbox" 
-                            :checked="type.active"
-                            @click="activateFilter(type)"
-                            :id="type.term" 
-                            class="focus:ring-0 checked:!bg-accent-dark rounded-full border-gray-200 group-hover:border-accent-light mr-2">
-                        <img :src="type.img" :alt="type" class="h-5 mr-2 inline">
-                        <div>
-                            <label class="text-xs cursor-pointer group-hover:text-accent" :for="type.term">
-                                {{$filters.readableName(type.term)}}
-                            </label>
-                            <p v-if="type.result_count" data-aos="fade-in" class="text-xs text-gray-500 dark:text-gray-400"><span>{{$filters.numberWithCommas(type.result_count)}}</span></p>
+                <div class="p-3 inline md:sticky top-40 bg-gray-100 dark:bg-gray-700 rounded-lg w-full md:w-1/4">
+                    <details open>
+                        <summary><p class="text-xs text-gray-400 inline">Resource Types</p></summary>
+                        <div v-for="type in filters['resourceTypeName']" :key="type + 'f'" class="flex mb-1 group justify-start items-center">
+                            <input 
+                                type="checkbox" 
+                                :checked="type.active"
+                                @click="activateFilter(type)"
+                                :id="type.term" 
+                                class="focus:ring-0 checked:!bg-accent-dark rounded-full border-gray-200 group-hover:border-accent-light mr-2">
+                            <img :src="type.img" :alt="type" class="h-5 mr-2 inline">
+                            <div>
+                                <label class="text-xs cursor-pointer group-hover:text-accent" :for="type.term">
+                                    {{$filters.readableName(type.term)}}
+                                </label>
+                                <p v-if="type.result_count" data-aos="fade-in" class="text-xs text-gray-500 dark:text-gray-400"><span>{{$filters.numberWithCommas(type.result_count)}}</span></p>
+                            </div>
                         </div>
-                    </div>
+                    </details>
                 </div>
 
                 <!-- Results -->

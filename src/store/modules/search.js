@@ -126,12 +126,12 @@ export default {
             'img': '/assets/img/rdp_square.svg',
         },
         filters:{
-            '_index' :[
+            // '_index' :[
 
-            ],
-            'resourceTypeName': [
+            // ],
+            // 'resourceTypeName': [
 
-            ]
+            // ]
         },
         typeFilters:{
             "Dataset": [
@@ -235,7 +235,6 @@ export default {
         },
         perPage: 10,
         page: 1,
-        sortChange: 'A-Z',
         pages: 1,
         pageLimit: 20,
         groupPages: false,
@@ -267,7 +266,7 @@ export default {
                 "params": {
                     'size': state.perPage,
                     'from': state.page == 1 ? state.page-1 : ((state.page-1) * state.perPage ),
-                    'facets': 'resourceTypeName'
+                    'aggs': 'resourceTypeName'
                 }
             }
             // QUERY
@@ -277,26 +276,6 @@ export default {
             }else{
                 config.params.q = "_exists_:resourceTypeName"
             }
-
-            // SORTING
-            // sorting
-            // switch (state.sortChange) {
-            //     case 'relevance':
-            //         //default behavior
-            //         break;
-            //     case 'A-Z':
-            //         url += '&sort=name.raw'
-            //         break;
-            //     case 'Z-A':
-            //         url += '&sort=-name.raw'
-            //         break;
-            //     case 'recent':
-            //         url += '&sort=-_ts.last_updated'
-            //         break;
-            //     default:
-            //         //no matching sort
-            //         break;
-            // }
 
              // RESOURCE FILTER
             if (payload?.resourceFilter) {
@@ -320,7 +299,7 @@ export default {
                     }
                 });
             }
-            console.log('%c Filters ' + JSON.stringify(active, null, 2), 'color:hotpink');
+            console.log('%c Active Filters ' + JSON.stringify(active, null, 2), 'color:hotpink');
             
             let fString = "";
             if (Object.keys(active).length) {
@@ -387,7 +366,7 @@ export default {
                             }
                         } else {
 
-                            let term = termInfo.term.charAt(0).toUpperCase() + termInfo.term.slice(1);
+                            let term = termInfo.term;
 
                             if (term in state.resourceTypesMapping) {
 
@@ -419,6 +398,7 @@ export default {
                     
                     state.chartData.about[payload.value] = data;
                 }
+                console.log('%c Filters Added: ' + Object.keys(state.filters), 'color:violet');
             }).catch( err =>{
                 console.log("Failed to get types info", err);
             });
@@ -426,7 +406,12 @@ export default {
     },
     mutations: {
         addFilter(state, payload){
-            state.filters[payload.section].push(payload.filter);
+            if (!Object.hasOwnProperty.call(state.filters, payload.section)) {
+                state.filters[payload.section] = [];
+            }else{
+                state.filters[payload.section].push(payload.filter);
+            }
+            
         },
         saveQuery(state, payload){
             state.query = payload.value;

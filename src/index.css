@@ -42,6 +42,10 @@
     @apply dark:!bg-gray-700 !bg-gray-200 !border-0
 }
 
+summary {
+    @apply text-accent
+}
+
 *{
     scroll-behavior: smooth;
 }

@@ -1,13 +1,22 @@
 <template>
-    <div class="rounded-2xl p-2 mb-3 shadow select-none bg-gray-200/50 hover:bg-gray-300/50" data-aos="fade-in">
+    <div class="rounded-2xl p-2 mb-3 shadow select-none bg-gray-200/50 dark:bg-gray-200 hover:bg-gray-300/50">
         <div @click="open = !open" 
-        class="rounded cursor-pointer p-1 text-gray-600 flex justify-start text-xs items-center">
-            <span>{{ name }} ({{items.length}}) <b class="text-main" v-if="currentlyActive">({{currentlyActive}} active)</b></span>
+        class="rounded cursor-pointer p-1 text-gray-600 flex justify-start text-xs items-center font-bold">
+            <span>{{ name }} <span class="text-accent-dark">({{items.length}})</span> <b class="text-main" v-if="currentlyActive">({{currentlyActive}} active)</b></span>
         </div>
-        <div v-if="type == 'checkbox' && open">
-            <template v-for="(item) in items" :key="item + name">
+        <div v-if="open">
+            <div class="bg-gray-300 dark:bg-gray-800 p-2 rounded-md mb-1">
+                <small>Search Term</small>
+                <form @submit.prevent="search()" class="w-full flex items-center m-auto">
+                    <input v-model="q"
+                        type="text" 
+                        placeholder="search" 
+                        class="main-input w-full rounded-md !p-1">
+                </form>
+            </div>
+            <template v-for="(item) in results" :key="item.term">
                 <button @click="activateFilter(item)" 
-                class="rounded-2xl block w-full select-none text-left px-3 py-1 m-1 text-xs" 
+                class="rounded-2xl block w-full select-none text-left px-3 py-1 m-1 text-xs break-words" 
                 :class="!item?.active ? 'text-main border-2 border-main hover:border-accent bg-gray-100' : 
             'bg-main border-2 border-main dark:bg-secondary dark:hover:bg-secondary-light text-white hover:bg-main-light'">
                     <i :class="[item?.active ? 'fas fa-circle text-accent' : 'far fa-circle']"></i> {{item.name || item.term}}
@@ -22,13 +31,16 @@ export default {
     name: "FilterList",
     props: {
         'name': String,
-        'items': Array,
-        'type': String,
+        'items': {
+            type: Array,
+            default: []
+        },
         'section': String
     },
     data: function(){
         return {
-            open: false
+            open: false,
+            q: ''
         }
     },
     methods:{
@@ -39,6 +51,13 @@ export default {
     computed:{
         currentlyActive: function () {
             return this.items.filter((value) => value.active).length
+        },
+        results: function(){
+            if (this.q) {
+                return this.items.filter(item => item.term.toLocaleLowerCase().includes(this.q.toLocaleLowerCase()));
+            }else{
+                return this.items
+            }
         }
     }
 }

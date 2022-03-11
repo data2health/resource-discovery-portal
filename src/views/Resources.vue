@@ -1,9 +1,8 @@
 <template>
     <div class="flex justify-center items-center darkMode">
         <div class="flex justify-center items-center flex-wrap p-4 min-h-screen max-w-4xl">
-            <template v-for="(resource, i) in filters['resourceTypeName']" :key="resource.term">
-                <ResourceCard :title="resource.term" :sourceInfo="resource" data-aos="flip-up"
-                :data-aos-delay="i * 100"></ResourceCard>
+            <template v-for="(resource) in filters['resourceTypeName']" :key="resource.term">
+                <ResourceCard :title="resource.term" :sourceInfo="resource"></ResourceCard>
             </template>
         </div>
     </div>
