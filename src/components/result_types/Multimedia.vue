@@ -16,6 +16,28 @@
             <License :url="item?.license"></License>
         </div>
         <div class="flex justify-around flex-wrap items-center p-2">
+            <!--🦄 Video 🦄-->
+            <div v-if="videoThumbnail && videoPlayer">
+                <div v-if="!videoView">
+                    <Popper content="Play Video" class="tip" :hover="true" placement="left" arrow>
+                        <img @click="videoView = !videoView" :src="videoThumbnail.url" alt="video thumbnail" class="w-1/3 hover:border hover:border-red-500 hover:cursor-pointer">
+                    </Popper>
+                </div>
+                <div v-else>
+                    <div v-html="videoPlayer"></div>
+                </div>
+            </div>
+            <div v-else-if="videoThumbnail && !videoPlayer">
+                <img :src="videoThumbnail.url" alt="video thumbnail" class="w-1/3 hover:border hover:border-red-500">
+                <template v-if="item?._source?.url">
+                    <a :href="item._source.url" target="_blank" rel="nonreferrer">
+                        <i class="fab fa-youtube-square" :class="theme.text"></i> View Video <i class="fas fa-external-link-alt"></i>
+                    </a>
+                </template>
+            </div>
+            <div v-else>
+                <h1>No Video Available</h1>
+            </div>
             <!-- 🦄 Curation 🦄 -->
             <div  v-if="item?.curatedBy" class="bg-gray-100 dark:bg-gray-700 rounded-xl p-2 shadow-md flex justify-center items-center flex-col space-y-1 m-2">
                 <h3 class="font-light text-2xl mb-2" :class="theme['text']">Curated by</h3>
@@ -124,12 +146,21 @@
 </template>
 
 <script>
+
 import Description from '../ExpandableDescription.vue'
 import License from '../License.vue'
 import PopUpPreview from '../PopUpPreview.vue'
 
 export default {
-    name: "EducationalResult",
+    name: "VideoResult",
+    data: function() {
+        return {
+            videoView: false,
+        }
+    },
+    mounted: function () {
+        this.videoView = this.fullView ? true : false;
+    },
     props:{
         item: Object,
         fullView: Boolean,
@@ -172,7 +203,7 @@ export default {
         pills: function() {
             let pills = [];
             // field containing values you want to display as pills
-            let possibleFields = ['public', 'delivery_method', 'frequency', 'types', 'learning_level', 'cost_to_access'];
+            let possibleFields = ['publicationType', 'journalName'];
 
             possibleFields.forEach(f => {
                 if (f in this.item) {
@@ -185,6 +216,28 @@ export default {
             });
             return pills;
         },
+        videoThumbnail: function(){
+            if(this.item?.video_thumbnail){
+                try {
+                    return this.item.video_thumbnail.find(thumbnail => {
+                    if (thumbnail.size == 'medium') {
+                        return true;
+                    }
+                });
+                } catch (e) {
+                    return false
+                }
+            }else{
+                return false
+            }
+        },
+        videoPlayer: function(){
+            if(this.item?.player){
+                return this.item.player
+            }else{
+                return false
+            }
+        }
     }
 }
 </script>

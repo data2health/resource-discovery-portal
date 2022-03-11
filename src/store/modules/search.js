@@ -28,7 +28,7 @@ export default {
                 'img': '/assets/img/icons/edu.svg',
                 'active' : false
             },
-            'ClinicalTrial' : {
+            'Clinical Trial' : {
                 'hex': '#a855f7',
                 'text': 'text-purple-500',
                 'bg': 'bg-purple-500',

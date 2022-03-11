@@ -61,8 +61,8 @@
                     <template v-else-if="item?.['resourceTypeName'] == 'Protocol'">
                         <Protocol :item="item" :theme="theme"></Protocol>
                     </template>
-                    <template v-else-if="item?.['resourceTypeName'] == 'Video'">
-                        <VideoResult :item="item" :theme="theme"></VideoResult>
+                    <template v-else-if="item?.['resourceTypeName'] == 'Multimedia Object'">
+                        <Multimedia :item="item" :theme="theme"></Multimedia>
                     </template>
                     <template v-else-if="item?.['resourceTypeName'] == 'Playlist'">
                         <PlaylistResult :item="item" :theme="theme"></PlaylistResult>
@@ -70,19 +70,19 @@
                     <template v-else-if="item?.['resourceTypeName'] == 'Repository'">
                         <RepoResult :item="item" :theme="theme"></RepoResult>
                     </template>
-                    <template v-else-if="item?.['resourceTypeName'] == 'ClinicalTrial'">
+                    <template v-else-if="item?.['resourceTypeName'] == 'Clinical Trial'">
                         <ClinicalTrial :item="item" :theme="theme"></ClinicalTrial>
                     </template>
                     <template v-else-if="item?.['resourceTypeName'] == 'Dataset'">
                         <Dataset :item="item" :theme="theme"></Dataset>
                     </template>
-                    <template v-else-if="item?.['resourceTypeName'] == 'Education'">
+                    <template v-else-if="item?.['resourceTypeName'] == 'Educational Resource'">
                         <Educational :item="item" :theme="theme"></Educational>
                     </template>
                     <template v-else-if="item?.['resourceTypeName'] == 'Educational'">
                         <Educational :item="item" :theme="theme"></Educational>
                     </template>
-                    <template v-else-if="item?.['resourceTypeName'] == 'ComputationalTool'">
+                    <template v-else-if="item?.['resourceTypeName'] == 'Tool'">
                         <Tool :item="item" :theme="theme"></Tool>
                     </template>
                     <template v-else-if="item?.['resourceTypeName'] == 'Person'">
@@ -111,8 +111,8 @@ import Description from './ExpandableDescription.vue'
 import PopUpPreview from './PopUpPreview.vue'
 
 // Async component with options
-const VideoResult = defineAsyncComponent({
-    loader: () => import('./result_types/VideoResult.vue'),
+const Multimedia = defineAsyncComponent({
+    loader: () => import('./result_types/Multimedia.vue'),
     delay: 200,
     errorComponent: DefaultResult
 })
@@ -184,7 +184,7 @@ export default {
         item: Object
     },
     components:{
-        VideoResult,
+        Multimedia,
         DefaultResult,
         RepoResult,
         PlaylistResult,
@@ -295,6 +295,8 @@ export default {
             let possibleFields = {
                 "Publication": ['topicCategory', 'keywords'],
                 "Dataset": ['keywords'],
+                "Multimedia Object": ['keywords'],
+                "Educational Resource": ['keywords'],
                 "ClinicalTrial": ['keywords', 'healthCondition'],
                 "Protocol": ['protocolCategory', 'protocolSetting']
             }
