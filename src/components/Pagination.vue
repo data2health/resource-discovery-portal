@@ -10,7 +10,7 @@
         </div>
         <!-- pages -->
         <div>
-            <template v-if="items.length > perPage">
+            <template v-if="items && items.length > perPage">
                 <div class="flex flex-wrap justify-center p-1 mt-2 text-white">
                     <div class="cursor-pointer p-1 flex items-center justify-center h-6 bg-accent hover:bg-accent-light dark:bg-secondary-light dark:hover:bg-secondary rounded mx-2" 
                     v-show="groupPages && !startCapLimitReached" @click.prevent="previousGroup()">

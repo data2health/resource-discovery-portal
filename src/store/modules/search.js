@@ -20,7 +20,7 @@ export default {
                 'description': `The CD2H Resource Discovery Portal houses a collection of over 2,163,616 datasets from over 54 repositories. 
                 This is one of the largest collection of biomedical datasets in the world and is available for CTSA hub members, or researchers, clinicians, or otherwise interested parties.`
             },
-            'Education' : {
+            'Educational Resource' : {
                 'hex': '#ec4899',
                 'text': 'text-pink-500',
                 'bg': 'bg-pink-500',
@@ -51,7 +51,7 @@ export default {
                 'img': '/assets/img/icons/book.svg',
                 'active' : false
             },
-            'Video' : {
+            'Multimedia Object' : {
                 'hex': '#ef4444',
                 'text': 'text-red-500',
                 'bg': 'bg-red-500',
@@ -59,7 +59,7 @@ export default {
                 'img': '/assets/img/icons/vid.svg',
                 'active' : false
             },
-            'ComputationalTool' : {
+            'Tool' : {
                 'hex': '#4f46e5',
                 'text': 'text-indigo-600 dark:text-indigo-300',
                 'bg': 'bg-indigo-600',
@@ -325,7 +325,7 @@ export default {
             let fString = "";
             if (Object.keys(active).length) {
                 for (const section in active) {
-                    fString += " AND (" + active[section].map(value => section + ":" + value ).join(' OR ') + ")"
+                    fString += ' AND (' + active[section].map(value => section + ':"' + value + '"' ).join(' OR ') + ')'
                 }
             }
             if (fString) {
