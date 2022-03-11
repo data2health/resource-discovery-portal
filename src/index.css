@@ -50,6 +50,14 @@ summary {
     scroll-behavior: smooth;
 }
 
+.table-main tr:nth-child(odd){
+    @apply !bg-gray-300/10 dark:!bg-gray-200/10
+}
+
+.table-main tr:hover{
+    @apply !bg-gray-300/20 dark:!bg-gray-200/20
+}
+
 mark{
     background-color: transparent !important;
     color: red;

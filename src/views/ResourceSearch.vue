@@ -29,9 +29,9 @@
                 </div>
                 <!-- most recent -->
                 <div class="w-full m-auto p-3 flex justify-center items-center w-full">
-                    <div class="max-w-4xl">
+                    <div class="max-w-4xl w-full">
                         <h2 class="text-4xl my-7 font-light" :class="sourceInfo.text">Most Recent</h2>
-                        <table class="table-auto">
+                        <table class="table-auto min-w-full table-main">
                             <tbody>
                                 <template v-for="(result, i) in results" :key="i">
                                     <tr v-if="i < 3">

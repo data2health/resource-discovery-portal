@@ -5,7 +5,7 @@
             <span>{{ name }} <span class="text-accent-dark">({{items.length}})</span> <b class="text-main" v-if="currentlyActive">({{currentlyActive}} active)</b></span>
         </div>
         <div v-if="open">
-            <div class="bg-gray-300 dark:bg-gray-800 p-2 rounded-md mb-1">
+            <div class="bg-gray-400 p-2 rounded-md mb-1">
                 <small>Search Term</small>
                 <form @submit.prevent="search()" class="w-full flex items-center m-auto">
                     <input v-model="q"

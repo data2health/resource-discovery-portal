@@ -23,7 +23,7 @@
                 </template>
                 <!-- Filters -->
                 <FilterList name="Filter by source" section="_index" :items="filters['_index']"></FilterList>
-                <FilterList name="Filter by entity type" section="resourceTypeName" :items="filters['resourceTypeName']"></FilterList>
+                <FilterList name="Filter by entity type" section="resourceTypeName" :items="filters['resourceTypeName.keyword']"></FilterList>
             </div>
         </template>
     </VModal>

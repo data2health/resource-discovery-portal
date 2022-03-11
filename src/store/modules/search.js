@@ -266,7 +266,7 @@ export default {
                 "params": {
                     'size': state.perPage,
                     'from': state.page == 1 ? state.page-1 : ((state.page-1) * state.perPage ),
-                    'aggs': 'resourceTypeName'
+                    'aggs': 'resourceTypeName.keyword'
                 }
             }
             // QUERY
@@ -280,7 +280,7 @@ export default {
              // RESOURCE FILTER
             if (payload?.resourceFilter) {
                 console.log('%c Resource Filter: ' + payload.resourceFilter, 'color:orange')
-                state.filters['resourceTypeName'].forEach(f => {
+                state.filters['resourceTypeName.keyword'].forEach(f => {
                     if (f.term == payload.resourceFilter) {
                         f.active = true;
                     }else{
@@ -316,7 +316,7 @@ export default {
             axios.get(url, config).then( res =>{
                 console.log(res)
                 commit('saveResults', { value: res.data.hits});
-                commit('saveResultsFacets', { value: res.data.facets?.['resourceTypeName']?.terms});
+                commit('saveResultsFacets', { value: res.data.facets?.['resourceTypeName.keyword']?.terms});
                 commit('setLoading', { value: false});
                 commit('updatePages', { value: res.data.total});
             }).catch( err =>{
@@ -398,6 +398,7 @@ export default {
                     
                     state.chartData.about[payload.value] = data;
                 }
+                console.log(state.filters)
                 console.log('%c Filters Added: ' + Object.keys(state.filters), 'color:violet');
             }).catch( err =>{
                 console.log("Failed to get types info", err);
@@ -453,7 +454,7 @@ export default {
             // state.filters['resourceTypeName'].forEach(filter => filter.result_count = 0);
             // merge filter with results facet count
             facets.forEach(facet => {
-                state.filters['resourceTypeName'].forEach(filter => {
+                state.filters['resourceTypeName.keyword'].forEach(filter => {
                     if (facet.term == filter.term) {
                         filter.result_count = facet.count;
                     }

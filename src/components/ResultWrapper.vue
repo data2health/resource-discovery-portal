@@ -160,7 +160,7 @@ const Educational = defineAsyncComponent({
 })
 
 const Tool = defineAsyncComponent({
-    loader: () => import('./result_types/CompTool.vue'),
+    loader: () => import('./result_types/Tool.vue'),
     delay: 200,
     errorComponent: DefaultResult
 })
@@ -298,7 +298,8 @@ export default {
                 "Multimedia Object": ['keywords'],
                 "Educational Resource": ['keywords'],
                 "ClinicalTrial": ['keywords', 'healthCondition'],
-                "Protocol": ['protocolCategory', 'protocolSetting']
+                "Protocol": ['protocolCategory', 'protocolSetting'],
+                "Tool": ['applicationCategory', 'programmingLanguage', 'operatingSystem']
             }
 
             if (this.item?.['resourceTypeName'] in possibleFields) {

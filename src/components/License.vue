@@ -1,13 +1,16 @@
 <template>
     <div class="bg-gray-100 dark:bg-gray-700 p-2">
         <div class="flex justify-center items-center flex-col space-y-2">
-            <template v-if="img">
-                <img :src="img" :alt="type" width="80">
-                <h2 class="text-2xl font-bold">{{title}}</h2>
+            <template v-if="isUrl">
+                <template v-if="img">
+                    <img :src="img" :alt="type" width="80">
+                    <h2 class="text-2xl font-bold">{{title}}</h2>
+                </template>
+                <a class="font-bold text-xl" :href="url" target="_blanl" rel="nonreferrer">
+                    View License Details <i class="fas fa-external-link-square-alt"></i>
+                </a>
             </template>
-            <a class="font-bold text-xl" :href="url" target="_blanl" rel="nonreferrer">
-                View License Details <i class="fas fa-external-link-square-alt"></i>
-            </a>
+            <p v-else><b>License:</b> {{url}}</p>
         </div>
     </div>
 </template>
@@ -19,12 +22,16 @@ export default {
         return {
             type: 'null',
             img: '',
-            title: ''
+            title: '',
+            isUrl: false
         } 
     },
     props: ['url'],
     mounted: function(){
-        if (this.url.includes('by/4.0/')) {
+        console.log(this.url)
+        if (this.url.includes('http')) {
+            this.isUrl = true;
+            if (this.url.includes('by/4.0/')) {
                 this.type = 'Attribution'
                 this.title = 'Attribution 4.0 International (CC BY 4.0)'
                 this.img = '/assets/img/by.png'
@@ -64,6 +71,10 @@ export default {
                 this.title = ''
                 this.img = ''
             }
+        }else{
+            this.isUrl= false;
+            this.title = this.url
+        }
     }
 }
 </script>
