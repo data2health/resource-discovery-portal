@@ -36,7 +36,8 @@
                                 <template v-for="(result, i) in results" :key="i">
                                     <tr v-if="i < 3">
                                         <td class="mb-2 font-extrabold text-blue-600 hover:text-accent-light cursor-pointer w-3/4">
-                                            <img :src="sourceInfo.img" :alt="resource" class="h-6 mr-2 inline"> 
+                                            <!-- <img :src="sourceInfo.img" :alt="resource" class="h-6 mr-2 inline">  -->
+                                            <i :class="[sourceInfo.icon, sourceInfo.text]" class="mr-2 inline"></i>
                                             <PopUpPreview :content="result" :name="result?.name" :theme="sourceInfo"></PopUpPreview> 
                                         </td>
                                         <td class="w-1/4">

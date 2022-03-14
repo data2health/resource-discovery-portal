@@ -14,11 +14,27 @@ export default {
                 'hex': '#fb923c',
                 'text': 'text-orange-400',
                 'bg': 'bg-orange-400',
-                'icon': 'fas fa-newspaper',
+                'icon': 'fas fa-database',
                 'img': '/assets/img/icons/data.svg',
                 'active' : false,
                 'description': `The CD2H Resource Discovery Portal houses a collection of over 2,163,616 datasets from over 54 repositories. 
                 This is one of the largest collection of biomedical datasets in the world and is available for CTSA hub members, or researchers, clinicians, or otherwise interested parties.`
+            },
+            'CreativeWork' : {
+                'hex': '#fb7185',
+                'text': 'text-rose-400',
+                'bg': 'bg-rose-400',
+                'icon': 'fas fa-lightbulb',
+                'img': '/assets/img/icons/creative.svg',
+                'active' : false
+            },
+            'SoftwareSourceCode' : {
+                'hex': '#0891b2',
+                'text': 'text-cyan-600',
+                'bg': 'bg-cyan-600',
+                'icon': 'fas fa-code',
+                'img': '/assets/img/icons/software.svg',
+                'active' : false
             },
             'Educational Resource' : {
                 'hex': '#ec4899',
@@ -55,7 +71,7 @@ export default {
                 'hex': '#ef4444',
                 'text': 'text-red-500',
                 'bg': 'bg-red-500',
-                'icon': 'fab fa-youtube',
+                'icon': 'fab fa-photo-video',
                 'img': '/assets/img/icons/vid.svg',
                 'active' : false
             },
@@ -111,7 +127,7 @@ export default {
                 'hex': '#06b6d4',
                 'text': 'text-cyan-500',
                 'bg': 'bg-cyan-500',
-                'icon': 'fas fa-list',
+                'icon': 'fas fa-list-alt',
                 'img': '/assets/img/icons/protocol.svg',
                 'active' : false
             },

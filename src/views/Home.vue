@@ -54,39 +54,30 @@
             <div class="flex justify-center items-stretch flex-wrap w-full p-4 md:p-20">
                 <SmallCard 
                 title="Dataset"
-                icon="fas fa-database" 
                 :items="['A Nuclease DNA complex', 'Hair follicle and skin molecular signatures', 'Altering cancer transcriptomes using epigenomic inhibitors']"></SmallCard>
                 <SmallCard 
                 title="Person"
-                icon="fas fa-user" 
                 :items="['Michelle James', 'Cody Thompson', 'Joel Smith']"></SmallCard>
                 <SmallCard 
-                title="ComputationalTool"
-                icon="fas fa-laptop" 
+                title="Tool"
                 :items="['Omics Integrator', 'Data Driven Ontology', 'ImmClassifier']"></SmallCard>
                 <SmallCard 
                 title="Instrument"
-                icon="fas fa-microscope" 
                 :items="['Hamilton Anxiety Scale (HAM-A)','Multidimensional Fatigue Inventory ', 'Self Care Of Heart Failure Index V 6.2']"></SmallCard>
                 <SmallCard 
                 title="Publication"
-                icon="fas fa-book-open" 
                 :items="['Human antiviral B cell responses: Emerging lessons from hepatitis B and COVID-19', 'Lung Ultrasound in Patients With Dyspnea From Infective Lung Disease']"></SmallCard>
                 <SmallCard 
-                title="ClinicalTrial"
-                icon="fas fa-flask" 
+                title="Clinical Trial"
                 :items="['Pilot Evaluation of a New Galyfilcon A Lens Prototype and Enfilcon A Lens', 'A Phase I Clinical Study of a GamLPV, a Live Intranasal Bordetella Pertussis Vaccine']"></SmallCard>
                 <SmallCard 
                 title="Grant"
-                icon="fas fa-scroll" 
                 :items="['Omics Integrator', 'Data Driven Ontology', 'ImmClassifier']"></SmallCard>
                 <SmallCard 
-                title="Video"
-                icon="fab fa-youtube" 
+                title="Multimedia Object"
                 :items="['How a Drug Becomes a Drug', 'Curing a Child, Preserving a Childhood', 'Watch a moth drive a robot car']"></SmallCard>
                 <SmallCard 
-                title="Education"
-                icon="fas fa-chalkboard" 
+                title="Educational Resource"
                 :items="['An Overview of Survey Design','Developing and Writing Research Questions, Aims & Hypotheses','Managing Communication and Conflict']"></SmallCard>
                 <div class="w-full p-10 text-center">
                   <router-link :to="{name:'Resources'}" class="btn-main text-main font-bold hover:text-white">
