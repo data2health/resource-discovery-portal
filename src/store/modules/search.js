@@ -20,7 +20,7 @@ export default {
                 'description': `The CD2H Resource Discovery Portal houses a collection of over 2,163,616 datasets from over 54 repositories. 
                 This is one of the largest collection of biomedical datasets in the world and is available for CTSA hub members, or researchers, clinicians, or otherwise interested parties.`
             },
-            'CreativeWork' : {
+            'Creative Work' : {
                 'hex': '#fb7185',
                 'text': 'text-rose-400',
                 'bg': 'bg-rose-400',
@@ -36,7 +36,7 @@ export default {
                 'img': '/assets/img/icons/software.svg',
                 'active' : false
             },
-            'Educational Resource' : {
+            'Education Resource' : {
                 'hex': '#ec4899',
                 'text': 'text-pink-500',
                 'bg': 'bg-pink-500',
