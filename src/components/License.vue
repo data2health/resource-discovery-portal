@@ -28,7 +28,7 @@ export default {
     },
     props: ['url'],
     mounted: function(){
-        console.log(this.url)
+        // console.log(this.url)
         if (this.url.includes('http')) {
             this.isUrl = true;
             if (this.url.includes('by/4.0/')) {

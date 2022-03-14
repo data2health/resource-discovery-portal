@@ -61,6 +61,9 @@
                     <template v-else-if="item?.['resourceTypeName'] == 'Protocol'">
                         <Protocol :item="item" :theme="theme"></Protocol>
                     </template>
+                    <template v-else-if="item?.['resourceTypeName'] == 'CreativeWork'">
+                        <Creative :item="item" :theme="theme"></Creative>
+                    </template>
                     <template v-else-if="item?.['resourceTypeName'] == 'Multimedia Object'">
                         <Multimedia :item="item" :theme="theme"></Multimedia>
                     </template>
@@ -125,6 +128,12 @@ const PlaylistResult = defineAsyncComponent({
 
 const Publication = defineAsyncComponent({
     loader: () => import('./result_types/Publication.vue'),
+    delay: 200,
+    errorComponent: DefaultResult
+})
+
+const Creative = defineAsyncComponent({
+    loader: () => import('./result_types/Creative.vue'),
     delay: 200,
     errorComponent: DefaultResult
 })
@@ -197,7 +206,8 @@ export default {
         ResultTab,
         Description,
         PopUpPreview,
-        Protocol
+        Protocol,
+        Creative
     },
     computed:{
         ...mapGetters([

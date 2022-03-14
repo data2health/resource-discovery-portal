@@ -125,7 +125,7 @@ import PopUpPreview from '../PopUpPreview.vue'
 import Description from '../ExpandableDescription.vue'
 
 export default {
-    name: "DefaultResult",
+    name: "Creative",
     props:{
         item: Object,
         fullView: Boolean,

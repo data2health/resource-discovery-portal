@@ -49,7 +49,7 @@ export default {
             self.item = res.data.hits[0];
             console.log(res.data.hits[0])
             // schema.org compliant docs
-            if (self.item?.['resourceTypeName']) {
+            if (self.item?.['@type']) {
                 self.embedMetadata();
             }
         }).catch(err=>{
@@ -76,7 +76,7 @@ export default {
             var a = document.createElement("a");
             var file = new Blob([JSON.stringify(this.item, null, 2)], {type: 'text/plain'});
             a.href = URL.createObjectURL(file);
-            a.download = this.item?.['resourceTypeName'] + "-" + this.item['_id'] + '.json';
+            a.download = this.item?.['@type'] + "-" + this.item['_id'] + '.json';
             a.click();
         },
     }
