@@ -29,25 +29,35 @@
                 </div>
                 <!-- most recent -->
                 <div class="w-full m-auto p-3 flex justify-center items-center w-full">
-                    <div class="max-w-4xl w-full">
+                    <div class="max-w-4xl w-full" v-if="mostRecentResults && mostRecentResults.length">
                         <h2 class="text-4xl my-7 font-light" :class="sourceInfo.text">Most Recent</h2>
-                        <table class="table-auto min-w-full table-main">
-                            <tbody>
-                                <template v-for="(result, i) in results" :key="i">
-                                    <tr v-if="i < 3">
-                                        <td class="mb-2 font-extrabold text-blue-600 hover:text-accent-light cursor-pointer w-3/4">
-                                            <!-- <img :src="sourceInfo.img" :alt="resource" class="h-6 mr-2 inline">  -->
-                                            <i :class="[sourceInfo.icon, sourceInfo.text]" class="mr-2 inline"></i>
-                                            <PopUpPreview :content="result" :name="result?.name" :theme="sourceInfo"></PopUpPreview> 
-                                        </td>
-                                        <td class="w-1/4">
-                                            <router-link class="bg-green-500 hover:bg-green-300 ml-1 !text-white p-1 rounded-full text-xs px-2" 
-                                            :to="{ path: '/resources/' + resource + '/' + result._id}">more info <i class="fas fa-arrow-alt-circle-right"></i></router-link>
-                                        </td>
-                                    </tr>
-                                </template>
-                            </tbody>
-                        </table>
+                        <div class="max-h-64 overflow-scroll">
+                            <table class="table-auto min-w-full table-main">
+                                <tbody>
+                                    <template v-for="(result, i) in mostRecentResults" :key="i">
+                                        <tr>
+                                            <td class="mb-2 font-extrabold text-blue-600 hover:text-accent-light cursor-context-menu w-3/4">
+                                                <!-- <img :src="sourceInfo.img" :alt="resource" class="h-6 mr-2 inline">  -->
+                                                <i :class="[sourceInfo.icon, sourceInfo.text]" class="mr-2 inline"></i>
+                                                <PopUpPreview :content="result" :name="result?.name" :theme="sourceInfo"></PopUpPreview> 
+                                            </td>
+                                            <td class="w-1/4 text-center">
+                                                <p class="text-xs">
+                                                    <template v-if="result?.dateModified">{{$filters.formatDate(result?.dateModified)}}</template>
+                                                    <template v-else-if="result?.date_modified">{{$filters.formatDate(result?.date_modified)}}</template>
+                                                </p>
+                                                <router-link class="bg-green-500 hover:bg-green-300 ml-1 !text-white p-1 rounded-full text-xs px-2" 
+                                                :to="{ path: '/resources/' + resource + '/' + result._id}">more info <i class="fas fa-arrow-alt-circle-right"></i></router-link>
+                                            </td>
+                                        </tr>
+                                    </template>
+                                    
+                                </tbody>
+                            </table>
+                        </div>
+                        <div>
+                            <button class="w-full bg-gray-200 dark:bg-gray-600 p-1 text-xs" @click="loadMore">Load more</button>
+                        </div>
                     </div>
                 </div>
                 <!-- search -->
@@ -106,6 +116,7 @@ export default {
             data: null,
             q:'',
             highlighter: null,
+            more: 0,
         }
     },
     props:{
@@ -123,7 +134,8 @@ export default {
             'baseURL',
             'results',
             'sourceReadableNames',
-            'filters'
+            'filters',
+            'mostRecentResults'
         ]),
         sourceInfo: function() {
             return this.$store.getters.getTheme(this.resource);
@@ -196,6 +208,13 @@ export default {
             }).catch(err=>{
                 console.log(err);
             });
+        },
+        loadMore(){
+            this.more += 3;
+            this.$store.dispatch('getMostRecent', {
+                'resource': this.resource,
+                'size': this.more
+                });
         }
     },
     mounted: function () {
@@ -203,6 +222,7 @@ export default {
         this.aggregateField('author.name.keyword');
         this.drawChart();
         this.search();
+        this.$store.dispatch('getMostRecent', {'resource': this.resource});
     },
     updated: function(){
         this.highlightMatches(this.q);

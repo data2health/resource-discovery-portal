@@ -261,7 +261,9 @@ export default {
 
             }
         },
-        query: ""
+        query: "",
+        mostRecentResults:[],
+        mostRecentSize: 3
     }),
     actions: {
         activateFilter({ dispatch, commit }, payload) {
@@ -335,6 +337,34 @@ export default {
                 commit('saveResultsFacets', { value: res.data.facets?.['resourceTypeName.keyword']?.terms});
                 commit('setLoading', { value: false});
                 commit('updatePages', { value: res.data.total});
+            }).catch( err =>{
+                commit('setLoading', { value: false});
+            });
+        },
+        getMostRecent({commit, state }, payload) {
+            // RESET
+            commit('saveMostRecent', { value: []});
+            let url = state.baseURL; 
+            //LOADING
+            commit('setLoading', { value: true});
+            // SIZE
+            if (payload.size) {
+                state.mostRecentSize += payload.size
+            }
+            //PAGINATION
+            var config = {
+                "params": {
+                    'q': `resourceTypeName:${payload.resource} AND _exists_:resourceTypeName`,
+                    'size': state.mostRecentSize,
+                    '-sort': 'dateModified,date_modified'
+                }
+            }
+            console.log('%c Most Recent ' + JSON.stringify(config, null, 2), 'color:coral');
+            // SEARCH
+            axios.get(url, config).then( res =>{
+                console.log('Most Recent', res)
+                commit('saveMostRecent', { value: res.data.hits});
+                commit('setLoading', { value: false});
             }).catch( err =>{
                 commit('setLoading', { value: false});
             });
@@ -420,6 +450,9 @@ export default {
         }
     },
     mutations: {
+        saveMostRecent(state, payload){
+            state.mostRecentResults = payload.value;
+        },
         addFilter(state, payload){
             if (!Object.hasOwnProperty.call(state.filters, payload.section)) {
                 state.filters[payload.section] = [];
@@ -572,6 +605,9 @@ export default {
         },
         typeFilters: (state) => {
             return state.typeFilters;
+        },
+        mostRecentResults: (state) => {
+            return state.mostRecentResults;
         },
     },
 }
