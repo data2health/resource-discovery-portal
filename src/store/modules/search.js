@@ -455,11 +455,10 @@ export default {
         },
         addFilter(state, payload){
             if (!Object.hasOwnProperty.call(state.filters, payload.section)) {
-                state.filters[payload.section] = [];
+                state.filters[payload.section] = [payload.filter];
             }else{
                 state.filters[payload.section].push(payload.filter);
             }
-            
         },
         saveQuery(state, payload){
             state.query = payload.value;
