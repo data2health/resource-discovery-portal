@@ -43,7 +43,7 @@
                                 :checked="type.active"
                                 @click="activateFilter(type)"
                                 :id="type.term" 
-                                class="focus:ring-0 checked:!bg-accent-dark rounded-full border-gray-200 group-hover:border-accent-light mr-2">
+                                class="focus:ring-0 checked:!bg-accent-dark rounded border-gray-200 group-hover:border-accent-light mr-2">
                             <img :src="type.img" :alt="type" class="h-5 mr-2 inline">
                             <div>
                                 <label class="text-xs cursor-pointer group-hover:text-gray-600 dark:group-hover:text-gray-200 font-bold" :class="type.active ? type.text : ''" :for="type.term">

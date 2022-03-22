@@ -9,21 +9,9 @@
         </template>
         <template v-slot:content>
             <div class="p-1 w-full space-y-4 dark:text-gray-200">
-                <!-- Types -->
-                <TypeFilter></TypeFilter>
-                <!-- Detailed Filters -->
-                <template v-for="(filters, type) in typeFilters" :key="type">
-                    <div>
-                        <h2>{{type}}</h2>
-                        <template v-for="f in filters" :key="f">
-                            <input type="checkbox" :id="type + '-' + f.name" class="focus:ring-green-200 checked:!bg-emerald-600 p-2 rounded-full">
-                            <label class="ml-2" :for="type + '-' + f.name">{{f.name}}</label>
-                        </template>
-                    </div>
-                </template>
+                <AdvancedFilters></AdvancedFilters>
                 <!-- Filters -->
                 <FilterList name="Filter by source" section="_index" :items="filters['_index']"></FilterList>
-                <FilterList name="Filter by entity type" section="resourceTypeName" :items="filters['resourceTypeName.keyword']"></FilterList>
             </div>
         </template>
     </VModal>
@@ -33,7 +21,7 @@
 import { mapGetters } from 'vuex'
 
 import FilterList from '../components/FilterList.vue'
-import TypeFilter from '../components/TypeFilter.vue'
+import AdvancedFilters from '../components/AdvancedFilters.vue'
 
 export default {
     name: "AdvancedSearch",
@@ -44,7 +32,7 @@ export default {
     },
     components:{
         FilterList,
-        TypeFilter
+        AdvancedFilters
     },
     computed:{
         ...mapGetters([

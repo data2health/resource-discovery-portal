@@ -18,7 +18,14 @@ export default {
                 'img': '/assets/img/icons/data.svg',
                 'active' : false,
                 'description': `The CD2H Resource Discovery Portal houses a collection of over 2,163,616 datasets from over 54 repositories. 
-                This is one of the largest collection of biomedical datasets in the world and is available for CTSA hub members, or researchers, clinicians, or otherwise interested parties.`
+                This is one of the largest collection of biomedical datasets in the world and is available for CTSA hub members, or researchers, clinicians, or otherwise interested parties.`,
+                'filters':[
+                    {
+                        'name': 'Dataset is Curated',
+                        'field': '_exists_:curatedBy',
+                        'active': false
+                    }
+                ]
             },
             'Creative Work' : {
                 'hex': '#fb7185',
@@ -149,15 +156,6 @@ export default {
 
             // ]
         },
-        typeFilters:{
-            "Dataset": [
-                {
-                    'name': 'Curated',
-                    'field': '_exists_:curatedBy',
-                    'active': false
-                }
-            ]
-        },
         sourceReadableNames:{
             'cd2h-nih-reporter': {
                 'name': 'NIH RePorter',
@@ -270,6 +268,10 @@ export default {
             commit('activateFilter', payload)
             dispatch('search');
         },
+        activateSubFilter({ dispatch, commit }, payload) {
+            commit('activateSubFilter', payload)
+            dispatch('search');
+        },
         search({commit, state }, payload) {
             let url = state.baseURL; 
             // RECENT SEARCHES
@@ -317,7 +319,7 @@ export default {
                     }
                 });
             }
-            console.log('%c Active Filters ' + JSON.stringify(active, null, 2), 'color:hotpink');
+            // console.log('%c Active Filters ' + JSON.stringify(active, null, 2), 'color:hotpink');
             
             let fString = "";
             if (Object.keys(active).length) {
@@ -325,8 +327,33 @@ export default {
                     fString += ' AND (' + active[section].map(value => section + ':"' + value + '"' ).join(' OR ') + ')'
                 }
             }
+
+            // ADD FILTERS TO Q STRING
             if (fString) {
                 config.params.q += fString
+            }
+
+            // ADVANCED FILTERS (UNDER RESOURCE TYPE)
+            let advanced_active = [];
+            for (const filter_type in state.filters) {
+                state.filters[filter_type].forEach(filter => {
+                    if (filter?.filters) {
+                        filter?.filters.forEach(f => {
+                            if (f.active) {
+                                advanced_active.push(f.field)
+                            }
+                        })
+                    }
+                });
+            }
+            let advancedString = "" 
+            advancedString = advanced_active.length ? advanced_active.join(' AND ') : false;
+
+            // console.log('%c Active Advanced Filters ' + JSON.stringify(advanced_active, null, 2), 'color:dodgerblue');
+
+            // ADD ADVANCED FILTERS TO Q STRING
+            if (advancedString) {
+                config.params.q += " AND " + advancedString
             }
 
             console.log('%c Search ' + JSON.stringify(config, null, 2), 'color:limegreen');
@@ -515,6 +542,22 @@ export default {
             });
             filter.active = !filter.active;
         },
+        activateSubFilter(state, payload){
+            let filter = state.filters[payload.section].find((f) => {
+                if (f.term == payload.resourceType) {
+                    return f;
+                }
+            });
+            if (filter) {
+                let subFilter = filter?.filters.find((f) => {
+                    if (f.name == payload.filterName) {
+                        return f;
+                    }
+                });
+
+                subFilter.active = !subFilter.active
+            }
+        },
         addRecent(state, payload){
             if (state.recentSearches.size < state.maxRecentHistory) {
                 if (state.recentSearches.has(payload.value)) {
@@ -601,9 +644,6 @@ export default {
         },
         sourceReadableNames: (state) => {
             return state.sourceReadableNames;
-        },
-        typeFilters: (state) => {
-            return state.typeFilters;
         },
         mostRecentResults: (state) => {
             return state.mostRecentResults;
