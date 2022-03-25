@@ -27,6 +27,14 @@ export default {
                     }
                 ]
             },
+            'Institution' : {
+                'hex': '#c026d3',
+                'text': 'text-fuchsia-600',
+                'bg': 'bg-fuchsia-600',
+                'icon': 'fas fa-building',
+                'img': '/assets/img/icons/institution.svg',
+                'active' : false
+            },
             'Creative Work' : {
                 'hex': '#fb7185',
                 'text': 'text-rose-400',
@@ -35,12 +43,12 @@ export default {
                 'img': '/assets/img/icons/creative.svg',
                 'active' : false
             },
-            'SoftwareSourceCode' : {
+            'Service' : {
                 'hex': '#0891b2',
                 'text': 'text-cyan-600',
                 'bg': 'bg-cyan-600',
                 'icon': 'fas fa-code',
-                'img': '/assets/img/icons/software.svg',
+                'img': '/assets/img/icons/service.svg',
                 'active' : false
             },
             'Education Resource' : {
@@ -98,7 +106,7 @@ export default {
                 'img': '/assets/img/icons/repo.svg',
                 'active' : false
             },
-            'Person' : {
+            'Profile' : {
                 'hex': '#f59e0b',
                 'text': 'text-amber-500',
                 'bg': 'bg-amber-500',
@@ -106,7 +114,7 @@ export default {
                 'img': '/assets/img/icons/person.svg',
                 'active' : false
             },
-            'FundingOpportunity' : {
+            'Funding Opportunity' : {
                 'hex': '#eab308',
                 'text': 'text-yellow-500',
                 'bg': 'bg-yellow-500',
@@ -122,7 +130,7 @@ export default {
                 'img': '/assets/img/icons/grant.svg',
                 'active' : false
             },
-            'Instrument' : {
+            'Research Instrument' : {
                 'hex': '#84cc16',
                 'text': 'text-lime-500',
                 'bg': 'bg-lime-500',
@@ -336,9 +344,9 @@ export default {
             // ADVANCED FILTERS (UNDER RESOURCE TYPE)
             let advanced_active = [];
             for (const filter_type in state.filters) {
-                state.filters[filter_type].forEach(filter => {
-                    if (filter?.filters) {
-                        filter?.filters.forEach(f => {
+                state.filters[filter_type].forEach(type => {
+                    if (type?.filters) {
+                        type?.filters.forEach(f => {
                             if (f.active) {
                                 advanced_active.push(f.field)
                             }
@@ -399,7 +407,7 @@ export default {
         aggregateAndAddFilter({commit, state }, payload) {
 
             // data types
-            axios.get(state.baseURL + "?aggs=" + payload.value).then( res =>{
+            axios.get(state.baseURL + "?aggs=" + payload.value + '&facet_size=100').then( res =>{
 
                 let data = {
                     labels: [],

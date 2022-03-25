@@ -56,13 +56,13 @@
                 title="Dataset"
                 :items="['A Nuclease DNA complex', 'Hair follicle and skin molecular signatures', 'Altering cancer transcriptomes using epigenomic inhibitors']"></SmallCard>
                 <SmallCard 
-                title="Person"
+                title="Profile"
                 :items="['Michelle James', 'Cody Thompson', 'Joel Smith']"></SmallCard>
                 <SmallCard 
                 title="Tool"
                 :items="['Omics Integrator', 'Data Driven Ontology', 'ImmClassifier']"></SmallCard>
                 <SmallCard 
-                title="Instrument"
+                title="Research Instrument"
                 :items="['Hamilton Anxiety Scale (HAM-A)','Multidimensional Fatigue Inventory ', 'Self Care Of Heart Failure Index V 6.2']"></SmallCard>
                 <SmallCard 
                 title="Publication"
@@ -77,7 +77,7 @@
                 title="Multimedia Object"
                 :items="['How a Drug Becomes a Drug', 'Curing a Child, Preserving a Childhood', 'Watch a moth drive a robot car']"></SmallCard>
                 <SmallCard 
-                title="Educational Resource"
+                title="Education Resource"
                 :items="['An Overview of Survey Design','Developing and Writing Research Questions, Aims & Hypotheses','Managing Communication and Conflict']"></SmallCard>
                 <div class="w-full p-10 text-center">
                   <router-link :to="{name:'Resources'}" class="btn-main text-main font-bold hover:text-white">

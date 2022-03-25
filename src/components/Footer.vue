@@ -33,7 +33,7 @@
           <img src="/assets/img/rdp_white.svg" class="h-10 m-5">
           <img src="/assets/img/cd2h_white.png" class="h-10 m-5">
           <img src="/assets/img/scripps_white.png" class="h-10 m-5">
-          <img src="/assets/img/uiowa.png" class="h-20 m-5">
+          <img src="/assets/img/iowa.png" class="h-20 m-5">
           <img src="/assets/img/sage_white.svg" class="h-10 m-5">
     </div>
     <div>
@@ -41,9 +41,7 @@
         The CTSA Program National Center for Data to Health (CD2H) is supported by the National Center for Advancing Translational Sciences (NCATS) at the National Institutes of Health (Grant U24TR002306).
       </p>
       <p class="text-center text-sm">Copyright &copy; <span id="year"></span>.
-          <a target="_blank" class="blue-grey-text" href="http://smart-api.info">RDP</a>.
-          All content available via <a target="_blank" rel="license" href="http://creativecommons.org/licenses/by/4.0/">&nbsp;...
-          </a>
+          <a target="_blank" class="blue-grey-text" href="http://search.cd2h.org">RDP</a>.
       </p>
     </div>
     </div>
