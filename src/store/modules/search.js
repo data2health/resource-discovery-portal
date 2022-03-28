@@ -25,7 +25,8 @@ export default {
                         'field': '_exists_:curatedBy',
                         'active': false
                     }
-                ]
+                ],
+                'preview_badges': ['keywords'],
             },
             'Institution' : {
                 'hex': '#c026d3',
@@ -33,7 +34,8 @@ export default {
                 'bg': 'bg-fuchsia-600',
                 'icon': 'fas fa-building',
                 'img': '/assets/img/icons/institution.svg',
-                'active' : false
+                'active' : false,
+                'preview_badges': ['keywords'],
             },
             'Creative Work' : {
                 'hex': '#fb7185',
@@ -41,7 +43,8 @@ export default {
                 'bg': 'bg-rose-400',
                 'icon': 'fas fa-lightbulb',
                 'img': '/assets/img/icons/creative.svg',
-                'active' : false
+                'active' : false,
+                'preview_badges': ['keywords'],
             },
             'Service' : {
                 'hex': '#0891b2',
@@ -49,7 +52,8 @@ export default {
                 'bg': 'bg-cyan-600',
                 'icon': 'fas fa-code',
                 'img': '/assets/img/icons/service.svg',
-                'active' : false
+                'active' : false,
+                'preview_badges': ['keywords'],
             },
             'Education Resource' : {
                 'hex': '#ec4899',
@@ -57,7 +61,8 @@ export default {
                 'bg': 'bg-pink-500',
                 'icon': 'fas fa-apple-alt',
                 'img': '/assets/img/icons/edu.svg',
-                'active' : false
+                'active' : false,
+                'preview_badges': ['keywords', 'method', 'frequency', 'tag'],
             },
             'Clinical Trial' : {
                 'hex': '#a855f7',
@@ -65,7 +70,8 @@ export default {
                 'bg': 'bg-purple-500',
                 'icon': 'fas fa-flask',
                 'img': '/assets/img/icons/ct.svg',
-                'active' : false
+                'active' : false,
+                'preview_badges': ['keywords', 'healthCondition'],
             },
             'Publication' : {
                 'hex': '#14b8a6',
@@ -73,14 +79,16 @@ export default {
                 'bg': 'bg-teal-500',
                 'icon': 'fas fa-book',
                 'img': '/assets/img/icons/book.svg',
-                'active' : false
+                'active' : false,
+                'preview_badges': ['topicCategory', 'keywords'],
             },
             'Article' : {
                 'text': 'text-teal-500',
                 'bg': 'bg-teal-500',
                 'icon': 'fas fa-book',
                 'img': '/assets/img/icons/book.svg',
-                'active' : false
+                'active' : false,
+                'preview_badges': ['keywords'],
             },
             'Multimedia Object' : {
                 'hex': '#ef4444',
@@ -88,7 +96,8 @@ export default {
                 'bg': 'bg-red-500',
                 'icon': 'fab fa-photo-video',
                 'img': '/assets/img/icons/vid.svg',
-                'active' : false
+                'active' : false,
+                'preview_badges': ['keywords'],
             },
             'Tool' : {
                 'hex': '#4f46e5',
@@ -96,7 +105,8 @@ export default {
                 'bg': 'bg-indigo-600',
                 'icon': 'fas fa-laptop',
                 'img': '/assets/img/icons/tool.svg',
-                'active' : false
+                'active' : false,
+                'preview_badges': ['applicationCategory', 'programmingLanguage', 'operatingSystem'],
             },
             'Repository' : {
                 'hex': '#2563eb',
@@ -104,7 +114,8 @@ export default {
                 'bg': 'bg-blue-600',
                 'icon': 'fab fa-github',
                 'img': '/assets/img/icons/repo.svg',
-                'active' : false
+                'active' : false,
+                'preview_badges': ['keywords'],
             },
             'Profile' : {
                 'hex': '#f59e0b',
@@ -112,7 +123,8 @@ export default {
                 'bg': 'bg-amber-500',
                 'icon': 'fas fa-user',
                 'img': '/assets/img/icons/person.svg',
-                'active' : false
+                'active' : false,
+                'preview_badges': ['keywords'],
             },
             'Funding Opportunity' : {
                 'hex': '#eab308',
@@ -120,15 +132,17 @@ export default {
                 'bg': 'bg-yellow-500',
                 'icon': 'fas fa-money-check-alt',
                 'img': '/assets/img/icons/funding.svg',
-                'active' : false
+                'active' : false,
+                'preview_badges': ['primary_ic'],
             },
             'Grant' : {
                 'hex': '#059669',
-                'text': 'text-emerald-700 dark:text-emerald-500',
-                'bg': 'bg-emerald-700 dark:bg-emerald-500',
+                'text': 'text-emerald-600 dark:text-emerald-500',
+                'bg': 'bg-emerald-600 dark:bg-emerald-500',
                 'icon': 'fas fa-money-check-alt',
                 'img': '/assets/img/icons/grant.svg',
-                'active' : false
+                'active' : false,
+                'preview_badges': ['funding_ic'],
             },
             'Research Instrument' : {
                 'hex': '#84cc16',
@@ -136,7 +150,8 @@ export default {
                 'bg': 'bg-lime-500',
                 'icon': 'fas fa-microscope',
                 'img': '/assets/img/icons/instrument.svg',
-                'active' : false
+                'active' : false,
+                'preview_badges': ['keywords'],
             },
             'Protocol' : {
                 'hex': '#06b6d4',
@@ -144,7 +159,8 @@ export default {
                 'bg': 'bg-cyan-500',
                 'icon': 'fas fa-list-alt',
                 'img': '/assets/img/icons/protocol.svg',
-                'active' : false
+                'active' : false,
+                'preview_badges': ['protocolCategory', 'protocolSetting'],
             },
         },
         resourceTypes:{
@@ -245,6 +261,13 @@ export default {
                 'description': `<h5 class="font-weight-normal mb-3">
                 <b>SPARCRequest</b> (<b>S</b>ervices, <b>P</b>ricing, &amp; <b>A</b>pplication for <b>R</b>esearch <b>C</b>enters) is a web-based research transaction management system that provides a central portal to researchers and their study teams to browse for research services and resources as well as submit service and pricing requests with a focus on billing compliance and proposal/budget development. SPARCRequest is OSS (Open-Source Software) for which MUSC holds the copyright license. SPARCRequest is developed in a collaborative and public manner for easy adoptability and the source code is available to anyone.
                 </h5>`,
+                'active': false
+            },
+            'cd2h-redcap':{
+                'name': 'REDCap',
+                'img': '/assets/img/redcap.png',
+                'link': 'https://www.project-redcap.org/',
+                'description': `REDCap is a secure web application for building and managing online surveys and databases. While REDCap can be used to collect virtually any type of data in any environment (including compliance with 21 CFR Part 11, FISMA, HIPAA, and GDPR), it is specifically geared to support online and offline data capture for research studies and operations. The REDCap Consortium, a vast support network of collaborators, is composed of thousands of active institutional partners in over one hundred countries who utilize and support their own individual REDCap systems. Please visit the <a href="https://projectredcap.org/partners/join/" style="text-decoration:underline;">Join</a> page to learn how your non-profit organization can join the consortium, or explore the first section on our <a href="https://projectredcap.org/about/faq/" style="text-decoration:underline;">FAQ</a> for other options to use REDCap.`,
                 'active': false
             },
         },

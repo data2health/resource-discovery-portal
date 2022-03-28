@@ -56,9 +56,11 @@ app.config.globalProperties.$filters = {
     readableName(text) {
         if (text) {
             let result = text.replace(/([A-Z])/g, " $1");
-            return result.charAt(0).toUpperCase() + result.slice(1);
+            result =  result.charAt(0).toUpperCase() + result.slice(1);
+            return result.replaceAll('_', ' ');
         }
-        return text
+        
+        return text.replaceAll('_', ' ');
     },
     formatDate(ts) {
         if (ts) {

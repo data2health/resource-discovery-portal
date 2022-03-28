@@ -37,7 +37,7 @@
         <h1 class=" md:text-2xl mb-6 text-gray-600dark:text-secondary-light text-center">{{$filters.numberWithCommas(totalDocsRDP)}} Total Resources!</h1>
         <div class="grid grid-cols-2 md:grid-cols-3 gap-1">
           <div v-for="filter in filters['resourceTypeName.keyword']" :key="filter.term">
-            <img :src="filter.img" :alt="filter.term" class="inline w-4"> <b>{{$filters.numberWithCommas(filter.count)}}</b> {{filter.term}} 
+            <img :src="filter.img" :alt="filter.term" class="inline w-4"> {{filter.term}}: <b>{{$filters.numberWithCommas(filter.count)}}</b>
           </div>
         </div>
         <div class="flex justify-center items-center w-full flex-wrap space-y-7 md:space-y-0">

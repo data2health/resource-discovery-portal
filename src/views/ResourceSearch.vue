@@ -19,7 +19,7 @@
                             <Chart :data="data" type="doughnut" name='Where is the data coming from?' :color="sourceInfo.hex"></Chart>
                         </div>
                         <div class="text-xl w-full md:w-2/3">
-                            <h1 class="text-2xl md:text-4xl mb-3" :class="sourceInfo.text"><span class="font-extrabold">RDP</span> <span class="capitalize">{{resource}}s</span></h1>
+                            <h1 class="text-2xl md:text-4xl mb-3" :class="sourceInfo.text"><span class="font-extrabold">RDP</span> <span class="capitalize">{{resource}}</span></h1>
                             <template v-if="sourceInfo?.description">
                                 <p v-html="sourceInfo.description"></p>
                             </template>

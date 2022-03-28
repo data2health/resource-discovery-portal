@@ -111,6 +111,11 @@ export default {
                 'type': 'pie',
                 'data': data,
                 'options': {
+                    elements: {
+                        arc: {
+                            borderWidth: 0
+                        }
+                    },
                     plugins: {
                         legend: {
                             position: 'top',
@@ -127,7 +132,7 @@ export default {
                             bodyFont: {
                                 size: 20
                             },
-                        }
+                        },
                     },
                     onClick: function (e, item) {
                         if (item.length && Object.prototype.hasOwnProperty.call(item[0], '_view')) {

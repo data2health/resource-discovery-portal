@@ -1,6 +1,6 @@
 <template>
     <div :key="uniqueID" class="group dark:text-gray-200">
-        <ResultTab :name="item?.['resourceTypeName']" :theme="theme" ></ResultTab>
+        <ResultTab :name="item?.['resourceTypeName']" :theme="resourceInfo" ></ResultTab>
         <div class="border border-t-gray-300 dark:border-gray-700 border-t-2 p-1 w-full bg-white dark:bg-gray-600">
             <div class="h-auto p-4 tracking-wide rounded-sm relative">
                 <h1 class="font-bold cursor-pointer text-blue-500 hover:text-blue-400 dark:text-white" @click.prevent="open = !open">
@@ -14,7 +14,7 @@
                     source <i class="fas fa-external-link-square-alt"></i>
                 </a>
                 <div class="bg-gray-200 dark:bg-gray-500 rounded-full px-3 py-1 cursor-pointer hover:bg-accent-light text-sm m-1">
-                    <PopUpPreview :content="item" name="metadata" :theme="theme"></PopUpPreview>
+                    <PopUpPreview :content="item" name="metadata" :theme="resourceInfo"></PopUpPreview>
                 </div>
                 <a :href="'mailto:?subject=Resource%20Discovery%20Portal&amp;body=Check this out: http://rdp.biothings.io/resources/' + item?.['resourceTypeName'] + '/' + item._id" 
                     target="_self" rel="noopener" aria-label="E-Mail" 
@@ -25,13 +25,16 @@
                 class="bg-green-500 !text-white rounded-full px-3 py-1 text-center
                 cursor-pointer hover:bg-green-400 text-sm m-4 md:m-1 md:ml-8 w-3/4 md:w-auto" 
                 :to="{ path: '/resources/' + item?.['resourceTypeName'] + '/' + item._id }">more info <i class="fas fa-arrow-alt-circle-right"></i></router-link>
+                <div class="p-1">
+                    <Description :text="description" :expanded="fullView ? true: false"></Description>
+                </div>
             </div>
-            <!-- always open -->
+            <!-- Preview badges -->
             <div class="flex flex-wrap justify-start">
                 <!-- badges -->
                 <template v-for="(badge, i) in badges" :key="i">
                     <template v-for="(text, field) in badge" :key="text">
-                        <div class="px-2 py-1 m-1 hover:bg-accent rounded-sm text-xs" :class="theme.bg" v-if="text">
+                        <div class="px-2 py-1 m-1 hover:bg-accent rounded-sm text-xs" :class="resourceInfo.bg" v-if="text">
                             <router-link :to='{ path: "/search", query: { "q":  field + `:"` + text + `"`}}' class="!text-white">
                                 {{text}}
                             </router-link>
@@ -39,60 +42,81 @@
                     </template>
                 </template>
             </div>
+
+            <div v-if="open && !fullView" class="flex justify-center items-center">
+                <!-- Preview fields -->
+                <table class="w-full text-sm my-3">
+                    <tbody>
+                        <template v-for="info, field in viewable_fields" :key="field">
+                            <tr class="border border-b-2 border-t-0 border-r-0 border-l-0 border-gray-100 p-1">
+                                <td>
+                                    <b>{{field}}:</b>
+                                </td>
+                                <td>
+                                    <template v-if="info.includes('http')">
+                                        <a :href="info" target="_blank">{{info}}</a>
+                                    </template>
+                                    <span v-else v-html="info"></span>
+                                </td>
+                            </tr>
+                        </template>
+                    </tbody>
+                </table>
+            </div>
             <div v-if="open || fullView || expandedView" class="p-2">
                 <div class="flex justify-around mt-1 p-3 dark:text-white">
                     <!-- created date -->
                     <span v-if="created" class="text-sm">
-                        <i class="fas fa-book" :class="theme.text"></i> created <b>{{$filters.formatDate(created)}}</b>
+                        <i class="fas fa-book" :class="resourceInfo.text"></i> created <b>{{$filters.formatDate(created)}}</b>
                     </span>
                     <!-- updated date -->
                     <span v-if="updated" class="text-sm">
-                        <i class="fas fa-clock" :class="theme.text"></i> updated <b>{{$filters.formatDate(updated)}}</b>
+                        <i class="fas fa-clock" :class="resourceInfo.text"></i> updated <b>{{$filters.formatDate(updated)}}</b>
                     </span>
-                </div>
-                <div class="p-1">
-                    <Description :text="description" :expanded="fullView ? true: false"></Description>
                 </div>
                 <template v-if="fullView">
                     <!-- render customized async result component depending on type -->
                     <template v-if="item?.['resourceTypeName'] == 'Publication'">
-                        <Publication :item="item" :theme="theme"></Publication>
+                        <Publication :item="item" :theme="resourceInfo"></Publication>
                     </template>
                     <template v-else-if="item?.['resourceTypeName'] == 'Protocol'">
-                        <Protocol :item="item" :theme="theme"></Protocol>
+                        <Protocol :item="item" :theme="resourceInfo"></Protocol>
                     </template>
                     <template v-else-if="item?.['resourceTypeName'] == 'CreativeWork'">
-                        <Creative :item="item" :theme="theme"></Creative>
+                        <Creative :item="item" :theme="resourceInfo"></Creative>
                     </template>
                     <template v-else-if="item?.['resourceTypeName'] == 'Multimedia Object'">
-                        <Multimedia :item="item" :theme="theme"></Multimedia>
+                        <Multimedia :item="item" :theme="resourceInfo"></Multimedia>
                     </template>
                     <template v-else-if="item?.['resourceTypeName'] == 'Playlist'">
-                        <PlaylistResult :item="item" :theme="theme"></PlaylistResult>
+                        <PlaylistResult :item="item" :theme="resourceInfo"></PlaylistResult>
                     </template>
                     <template v-else-if="item?.['resourceTypeName'] == 'Repository'">
-                        <RepoResult :item="item" :theme="theme"></RepoResult>
+                        <RepoResult :item="item" :theme="resourceInfo"></RepoResult>
                     </template>
                     <template v-else-if="item?.['resourceTypeName'] == 'Clinical Trial'">
-                        <ClinicalTrial :item="item" :theme="theme"></ClinicalTrial>
+                        <ClinicalTrial :item="item" :theme="resourceInfo"></ClinicalTrial>
                     </template>
                     <template v-else-if="item?.['resourceTypeName'] == 'Dataset'">
-                        <Dataset :item="item" :theme="theme"></Dataset>
+                        <Dataset :item="item" :theme="resourceInfo"></Dataset>
                     </template>
-                    <template v-else-if="item?.['resourceTypeName'] == 'Educational Resource'">
-                        <Educational :item="item" :theme="theme"></Educational>
-                    </template>
-                    <template v-else-if="item?.['resourceTypeName'] == 'Educational'">
-                        <Educational :item="item" :theme="theme"></Educational>
+                    <template v-else-if="item?.['resourceTypeName'] == 'Education Resource'">
+                        <Educational :item="item" :theme="resourceInfo"></Educational>
                     </template>
                     <template v-else-if="item?.['resourceTypeName'] == 'Tool'">
-                        <Tool :item="item" :theme="theme"></Tool>
+                        <Tool :item="item" :theme="resourceInfo"></Tool>
                     </template>
                     <template v-else-if="item?.['resourceTypeName'] == 'Person'">
-                        <Person :item="item" :theme="theme"></Person>
+                        <Person :item="item" :theme="resourceInfo"></Person>
+                    </template>
+                    <template v-else-if="item?.['resourceTypeName'] == 'Funding Opportunity'">
+                        <Funding :item="item" :theme="resourceInfo"></Funding>
+                    </template>
+                    <template v-else-if="item?.['resourceTypeName'] == 'Grant'">
+                        <Grant :item="item" :theme="resourceInfo"></Grant>
                     </template>
                     <template v-else>
-                        <DefaultResult :item="item" :theme="theme"></DefaultResult>
+                        <DefaultResult :item="item" :theme="resourceInfo"></DefaultResult>
                     </template>
                 </template>
             </div>
@@ -180,6 +204,18 @@ const Person = defineAsyncComponent({
     errorComponent: DefaultResult
 })
 
+const Funding = defineAsyncComponent({
+    loader: () => import('./result_types/Funding.vue'),
+    delay: 200,
+    errorComponent: DefaultResult
+})
+
+const Grant = defineAsyncComponent({
+    loader: () => import('./result_types/Grant.vue'),
+    delay: 200,
+    errorComponent: DefaultResult
+})
+
 
 export default {
     name: "Result",
@@ -207,7 +243,9 @@ export default {
         Description,
         PopUpPreview,
         Protocol,
-        Creative
+        Creative,
+        Funding,
+        Grant
     },
     computed:{
         ...mapGetters([
@@ -217,7 +255,7 @@ export default {
             // deeper > shallow
             return this.$route.name == 'ResultDetails' ? true : false;
         },
-        theme: function() {
+        resourceInfo: function() {
             return this.$store.getters.getTheme(this.item?.["resourceTypeName"]);
         },
         title: function () {
@@ -242,9 +280,36 @@ export default {
             }
         },
         description: function (){
-            return this.item?.description ? this.item?.description :
-            this.item?.abstract ? this.item?.abstract :
-            this.item?.purpose ? this.item?.purpose : '';
+            let checkStringPath = function(o, s) {
+                s = s.replace(/\[(\w+)\]/g, '.$1'); // convert indexes to properties
+                s = s.replace(/^\./, '');           // strip a leading dot
+                var a = s.split('.');
+                for (var i = 0, n = a.length; i < n; ++i) {
+                    var k = a[i];
+                    if (k in o) {
+                        o = o[k];
+                    } else {
+                        return;
+                    }
+                }
+                return o;
+            }
+            let match = '';
+            let possible_fields = ['project_abstract.abstract_text', 'description', 'abstract', 'purpose'];
+
+            possible_fields.forEach((field) => {
+                if (field.includes('.')) {
+                    let res = checkStringPath(this.item, field)
+                    if (res) {
+                        match = res;
+                    }
+                }else{
+                    if (Object.hasOwnProperty.call(this.item, field)) {
+                        match = this.item[field];
+                    }
+                }
+            })
+            return match;
         },
         created: function () {
             let possibleFields = ['date_created', 'dateCreated', 'datePublished'];
@@ -289,8 +354,7 @@ export default {
             }
         },
         viewable_fields: function(){
-            let allowed = ['description', 'id', 'keywords', 'tags',
-            'player', 'published', 'created', 'author', 'abstract', 'url', 'curatedBy', 'doi', 'abstract'];
+            let allowed = ['published', 'created', 'url', 'doi', 'abstract'];
             let res = {};
             allowed.forEach(field => {
                 if (Object.hasOwnProperty.call(this.item, field)) {
@@ -301,19 +365,9 @@ export default {
         },
         badges: function () {
             let matches = [];
-
-            let possibleFields = {
-                "Publication": ['topicCategory', 'keywords'],
-                "Dataset": ['keywords'],
-                "Multimedia Object": ['keywords'],
-                "Educational Resource": ['keywords'],
-                "ClinicalTrial": ['keywords', 'healthCondition'],
-                "Protocol": ['protocolCategory', 'protocolSetting'],
-                "Tool": ['applicationCategory', 'programmingLanguage', 'operatingSystem']
-            }
-
-            if (this.item?.['resourceTypeName'] in possibleFields) {
-                possibleFields[this.item['resourceTypeName']].forEach((field) => {
+            //specified in search.js mapping
+            if (this.resourceInfo?.preview_badges) {
+                this.resourceInfo?.preview_badges.forEach((field) => {
                     if (field in this.item) {
                         let match = field;
                         //match is string
@@ -323,9 +377,19 @@ export default {
                             matches.push(obj)
                         }else if (Array.isArray(this.item[match])) {
                             this.item[match].forEach(val => {
-                                let obj = {}
-                                obj[match] = val
-                                matches.push(obj)
+                                if (typeof val == 'object') {
+                                    for (const key in val) {
+                                        if (typeof val[key] == 'string') {
+                                            let obj = {}
+                                            obj[match] = val[key]
+                                            matches.push(obj)
+                                        }
+                                    }
+                                } else {
+                                    let obj = {}
+                                    obj[match] = val
+                                    matches.push(obj)
+                                }
                             });
                         }
                         // match was nested in object eg. article.title['article_title']

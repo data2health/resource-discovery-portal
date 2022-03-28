@@ -179,7 +179,6 @@ export default {
                     if (content.length == 0 ) {
                         self.type = 'IDK'
                     }else{
-                        self.expandArray = content.length < 10 ? true : false;
                         self.type = 'array'
                     }
                 }

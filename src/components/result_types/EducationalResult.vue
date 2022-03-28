@@ -32,6 +32,22 @@
                 </template>
                 <p v-else>{{item?.curatedBy?.name}} ({{$filters.formatDate(item?.curatedBy?.curationDate)}})</p>
             </div>
+            <!-- 🦄 Contact 🦄 -->
+            <div class="bg-gray-100 dark:bg-gray-700 rounded-xl p-2 m-2" v-if="item?.contact_info">
+                <h3 class="font-light text-2xl mb-2 text-center" :class="theme.text">Contact</h3>
+                <table class="table-auto">
+                    <tbody>
+                        <tr>
+                            <td>
+                                <i class="fas fa-envelope" :class="theme.text"></i>
+                            </td>
+                            <td >
+                                {{item?.contact_info}}
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
             <!-- 🦄 Authors 🦄 -->
             <div v-if="authors.length" class="bg-gray-100 dark:bg-gray-700 rounded-xl p-2 m-2">
                 <template v-if="authorsByInstitution">
@@ -172,7 +188,7 @@ export default {
         pills: function() {
             let pills = [];
             // field containing values you want to display as pills
-            let possibleFields = ['public', 'delivery_method', 'frequency', 'types', 'learning_level', 'cost_to_access'];
+            let possibleFields = ['public', 'delivery_method', 'frequency', 'types', 'learning_level', 'cost_to_access', 'learning_level',];
 
             possibleFields.forEach(f => {
                 if (f in this.item) {

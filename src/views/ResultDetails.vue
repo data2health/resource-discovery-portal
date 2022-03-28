@@ -45,7 +45,7 @@ export default {
     },
     mounted: function () {
         let self = this;
-        axios.get(this.baseURL + '?q=_id:"' + this.$route?.params?.id +'"').then(res=>{
+        axios.get(this.baseURL + '?q=_id:"' + this.$route?.params?.id +'"' + " AND resourceTypeName:" + this.$route?.params?.resource).then(res=>{
             self.item = res.data.hits[0];
             console.log(res.data.hits[0])
             // schema.org compliant docs
