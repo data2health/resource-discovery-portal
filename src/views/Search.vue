@@ -49,7 +49,7 @@
                                 <label class="text-xs cursor-pointer group-hover:text-gray-600 dark:group-hover:text-gray-200 font-bold" :class="type.active ? type.text : ''" :for="type.term">
                                     {{$filters.readableName(type.term)}}
                                 </label>
-                                <p v-if="type.result_count" data-aos="fade-in" class="text-xs text-gray-500 dark:text-gray-400"><span>{{$filters.numberWithCommas(type.result_count)}}</span></p>
+                                <p v-if="type.result_count" data-aos="fade-in" class="text-xs text-gray-500 dark:text-gray-400 block md:inline md:ml-2"><span>({{$filters.numberWithCommas(type.result_count)}})</span></p>
                             </div>
                         </div>
                     </details>
@@ -201,7 +201,7 @@ export default {
             },
             deep: true,
             immediate: true
-        }
+        },
     },
     mounted: function(){
         this.highlighter = new Mark(document.querySelector(".highlight_container"));
@@ -214,7 +214,7 @@ export default {
         ...mapGetters([
             'results',
             'recentSearches',
-            'filters'
+            'filters',
         ])
     }
 }

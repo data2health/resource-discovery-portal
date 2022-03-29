@@ -273,7 +273,7 @@ export default {
         },
         sourceDefault: {
             'name': '',
-            'img': '/assets/img/rdp_color.svg',
+            'img': '',
             'description': 'Not Available',
             'link': '#',
             'active': false
@@ -292,7 +292,7 @@ export default {
         },
         query: "",
         mostRecentResults:[],
-        mostRecentSize: 3
+        mostRecentSize: 3,
     }),
     actions: {
         activateFilter({ dispatch, commit }, payload) {
@@ -317,7 +317,8 @@ export default {
                 "params": {
                     'size': state.perPage,
                     'from': state.page == 1 ? state.page-1 : ((state.page-1) * state.perPage ),
-                    'aggs': 'resourceTypeName.keyword'
+                    'aggs': 'resourceTypeName.keyword',
+                    'facet_size': 20
                 }
             }
             // QUERY

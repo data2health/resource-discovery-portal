@@ -25,14 +25,14 @@
                 class="bg-green-500 !text-white rounded-full px-3 py-1 text-center
                 cursor-pointer hover:bg-green-400 text-sm m-4 md:m-1 md:ml-8 w-3/4 md:w-auto" 
                 :to="{ path: '/resources/' + item?.['resourceTypeName'] + '/' + item._id }">more info <i class="fas fa-arrow-alt-circle-right"></i></router-link>
-                <div class="p-1">
+                <div class="p-1 w-full">
                     <Description :text="description" :expanded="fullView ? true: false"></Description>
                 </div>
             </div>
             <!-- Preview badges -->
             <div class="flex flex-wrap justify-start">
                 <!-- badges -->
-                <template v-for="(badge, i) in badges" :key="i">
+                <template v-for="(badge, i) in preview_badges" :key="i">
                     <template v-for="(text, field) in badge" :key="text">
                         <div class="px-2 py-1 m-1 hover:bg-accent rounded-sm text-xs" :class="resourceInfo.bg" v-if="text">
                             <router-link :to='{ path: "/search", query: { "q":  field + `:"` + text + `"`}}' class="!text-white">
@@ -47,7 +47,7 @@
                 <!-- Preview fields -->
                 <table class="w-full text-sm my-3">
                     <tbody>
-                        <template v-for="info, field in viewable_fields" :key="field">
+                        <template v-for="info, field in preview_fields" :key="field">
                             <tr class="border border-b-2 border-t-0 border-r-0 border-l-0 border-gray-100 p-1">
                                 <td>
                                     <b>{{field}}:</b>
@@ -114,6 +114,9 @@
                     </template>
                     <template v-else-if="item?.['resourceTypeName'] == 'Grant'">
                         <Grant :item="item" :theme="resourceInfo"></Grant>
+                    </template>
+                    <template v-else-if="item?.['resourceTypeName'] == 'Research Instrument'">
+                        <Instrument :item="item" :theme="resourceInfo"></Instrument>
                     </template>
                     <template v-else>
                         <DefaultResult :item="item" :theme="resourceInfo"></DefaultResult>
@@ -216,6 +219,12 @@ const Grant = defineAsyncComponent({
     errorComponent: DefaultResult
 })
 
+const Instrument = defineAsyncComponent({
+    loader: () => import('./result_types/Instrument.vue'),
+    delay: 200,
+    errorComponent: DefaultResult
+})
+
 
 export default {
     name: "Result",
@@ -245,7 +254,8 @@ export default {
         Protocol,
         Creative,
         Funding,
-        Grant
+        Grant,
+        Instrument
     },
     computed:{
         ...mapGetters([
@@ -353,7 +363,7 @@ export default {
                 }
             }
         },
-        viewable_fields: function(){
+        preview_fields: function(){
             let allowed = ['published', 'created', 'url', 'doi', 'abstract'];
             let res = {};
             allowed.forEach(field => {
@@ -363,7 +373,7 @@ export default {
             });
             return res;
         },
-        badges: function () {
+        preview_badges: function () {
             let matches = [];
             //specified in search.js mapping
             if (this.resourceInfo?.preview_badges) {
