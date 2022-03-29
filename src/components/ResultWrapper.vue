@@ -82,7 +82,7 @@
                     <template v-else-if="item?.['resourceTypeName'] == 'Protocol'">
                         <Protocol :item="item" :theme="resourceInfo"></Protocol>
                     </template>
-                    <template v-else-if="item?.['resourceTypeName'] == 'CreativeWork'">
+                    <template v-else-if="item?.['resourceTypeName'] == 'Other CreativeWork'">
                         <Creative :item="item" :theme="resourceInfo"></Creative>
                     </template>
                     <template v-else-if="item?.['resourceTypeName'] == 'Multimedia Object'">

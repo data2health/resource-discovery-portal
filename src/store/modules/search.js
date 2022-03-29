@@ -37,7 +37,7 @@ export default {
                 'active' : false,
                 'preview_badges': ['keywords'],
             },
-            'Creative Work' : {
+            'Other Creative Work' : {
                 'hex': '#fb7185',
                 'text': 'text-rose-400',
                 'bg': 'bg-rose-400',

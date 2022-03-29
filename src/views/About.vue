@@ -77,7 +77,7 @@
         <h3 class=" md:text-2xl mb-6 text-gray-600dark:text-secondary-light ">Where is our data coming from?</h3>
         <div v-if="filters._index.length" class="p-2 grid grid-cols-1 md:grid-cols-2">
           <template v-for="source in filters._index" :key="source.name">
-            <div class="p-1 space-y-4 border-b border-gray-200">
+            <div class="p-3 space-y-4 border-b border-gray-200">
               <a :v-html="source.link" target="_blank" rel="nonreferrer">
                 <img class="w-32" :alt="source.name" :src="source.img">
               </a>
