@@ -99,6 +99,15 @@ export default {
                 'active' : false,
                 'preview_badges': ['keywords'],
             },
+            'Video' : {
+                'hex': '#ef4444',
+                'text': 'text-red-500',
+                'bg': 'bg-red-500',
+                'icon': 'fab fa-video',
+                'img': '/assets/img/icons/video.svg',
+                'active' : false,
+                'preview_badges': ['keywords'],
+            },
             'Tool' : {
                 'hex': '#4f46e5',
                 'text': 'text-indigo-600 dark:text-indigo-300',

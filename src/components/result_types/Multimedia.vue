@@ -217,26 +217,15 @@ export default {
             return pills;
         },
         videoThumbnail: function(){
-            if(this.item?.video_thumbnail){
-                try {
-                    return this.item.video_thumbnail.find(thumbnail => {
-                    if (thumbnail.size == 'medium') {
-                        return true;
-                    }
-                });
-                } catch (e) {
-                    return false
+            let prefs = ['standard', 'default', 'high'];
+            for (let i = 0; i < prefs.length; i++) {
+                if (this.item?.video_thumbnail.find(thumbnail => thumbnail.size == prefs[i])) {
+                    return this.item?.video_thumbnail.find(thumbnail => thumbnail.size == prefs[i]);
                 }
-            }else{
-                return false
             }
         },
         videoPlayer: function(){
-            if(this.item?.player){
-                return this.item.player
-            }else{
-                return false
-            }
+            return this.item?.player
         }
     }
 }

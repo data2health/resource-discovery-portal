@@ -3,9 +3,29 @@
         <ResultTab :name="item?.['resourceTypeName']" :theme="resourceInfo" ></ResultTab>
         <div class="border border-t-gray-300 dark:border-gray-700 border-t-2 p-1 w-full bg-white dark:bg-gray-600">
             <div class="h-auto p-4 tracking-wide rounded-sm relative">
-                <h1 class="font-bold cursor-pointer text-blue-500 hover:text-blue-400 dark:text-white" @click.prevent="open = !open">
+                <!--🦄 Profiles Only 🦄-->
+                <template v-if="item?.['resourceTypeName'] == 'Profile'">
+                    <img :src="item?.raw?.avatar_url" :alt="title" class="w-8 border-2 border-gray-200 dark:border-white rounded-full mr-3 inline">
+                    <h1 class="inline font-bold cursor-pointer text-blue-500 hover:text-blue-400 dark:text-white" @click.prevent="open = !open">
+                        {{title}}
+                    </h1>
+                    <small @click.prevent="open = !open" class="text-gray-400 dark:text-gray-400 cursor-pointer" v-if="item?.raw?.company"> | {{item?.raw?.company}}</small>
+                    <p class="text-sm mt-1">{{item?.raw?.bio}}</p>
+                </template>
+                <!--🦄 All others 🦄-->
+                <h1 v-else class="font-bold cursor-pointer text-blue-500 hover:text-blue-400 dark:text-white" @click.prevent="open = !open">
                     {{title}}
                 </h1>
+                <!--🦄 Video Only 🦄-->
+                <div v-if="item?.['resourceTypeName'] == 'Video' && !fullView" class="flex space-x-3">
+                    <div v-if="videoThumbnail && videoPlayer" class="w-32 inline">
+                        <img v-if="!videoView" @click="videoView = !videoView" :src="videoThumbnail.url" alt="video thumbnail" class="w-32 !mr-0 hover:shadow hover:cursor-pointer">
+                        <div v-else class="flex justify-center" v-html="videoPlayer"></div>
+                    </div>
+                    <span v-if="item?.duration" class="text-sm inline">
+                        <i class="fas fa-clock" :class="resourceInfo.text"></i> <b>{{item?.duration}}</b>
+                    </span>
+                </div>
             </div>
             <div v-if="open || fullView || expandedView" class="flex justify-center md:justify-start items-center p-2 flex-wrap">
                 <a v-if="item?.url" :href="item?.url" 
@@ -118,6 +138,9 @@
                     <template v-else-if="item?.['resourceTypeName'] == 'Research Instrument'">
                         <Instrument :item="item" :theme="resourceInfo"></Instrument>
                     </template>
+                    <template v-else-if="item?.['resourceTypeName'] == 'Video'">
+                        <Video :item="item" :theme="resourceInfo"></Video>
+                    </template>
                     <template v-else>
                         <DefaultResult :item="item" :theme="resourceInfo"></DefaultResult>
                     </template>
@@ -225,13 +248,20 @@ const Instrument = defineAsyncComponent({
     errorComponent: DefaultResult
 })
 
+const Video = defineAsyncComponent({
+    loader: () => import('./result_types/Video.vue'),
+    delay: 200,
+    errorComponent: DefaultResult
+})
+
 
 export default {
     name: "Result",
     data: function () {
         return {
             uniqueID: Math.floor(Math.random()*90000) + 10000,
-            open: false
+            open: false,
+            videoView: false,
         }
     },
     props:{
@@ -255,7 +285,8 @@ export default {
         Creative,
         Funding,
         Grant,
-        Instrument
+        Instrument,
+        Video
     },
     computed:{
         ...mapGetters([
@@ -418,6 +449,17 @@ export default {
 
             return matches;
         },
+        videoThumbnail: function(){
+            let prefs = ['standard', 'default', 'high'];
+            for (let i = 0; i < prefs.length; i++) {
+                if (this.item?.video_thumbnail.find(thumbnail => thumbnail.size == prefs[i])) {
+                    return this.item?.video_thumbnail.find(thumbnail => thumbnail.size == prefs[i]);
+                }
+            }
+        },
+        videoPlayer: function(){
+            return this.item?.player
+        }
     }
 }
 </script>
