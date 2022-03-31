@@ -4,9 +4,9 @@
             <template v-if="isUrl">
                 <template v-if="img">
                     <img :src="img" :alt="type" width="80">
-                    <h2 class="text-2xl font-bold">{{title}}</h2>
+                    <h2 class=" font-bold">{{title}}</h2>
                 </template>
-                <a class="font-bold text-xl" :href="url" target="_blanl" rel="nonreferrer">
+                <a class="font-bold " :href="url" target="_blanl" rel="nonreferrer">
                     View License Details <i class="fas fa-external-link-square-alt"></i>
                 </a>
             </template>

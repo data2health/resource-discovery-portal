@@ -30,13 +30,13 @@
             <Chips></Chips>
         </div>
         <!-- main container -->
-        <div class="container mx-auto px-4 max-w-6xl">
+        <div class="container mx-auto px-4 max-w-7xl">
             
             <div class="flex relative items-start flex-wrap md:flex-nowrap">
                 <!-- type facets -->
-                <div class="p-3 inline md:sticky top-40 bg-gray-200 dark:bg-gray-700 rounded-lg w-full md:w-1/4">
+                <div class="p-3 inline md:sticky top-40 bg-gray-200 dark:bg-gray-700 rounded-lg w-full md:w-1/5">
                     <details open>
-                        <summary class="cursor-pointer p-1"><p class="text-xs text-gray-400 inline">Resource Types</p></summary>
+                        <summary class="cursor-pointer p-1"><p class=" text-black dark:text-white inline">Resource Types</p></summary>
                         <div v-for="type in filters['resourceTypeName.keyword']" :key="type + 'f'" class="flex mb-1 group justify-start items-center">
                             <input 
                                 type="checkbox" 
@@ -49,12 +49,11 @@
                                 <label class="text-xs cursor-pointer group-hover:text-gray-600 dark:group-hover:text-gray-200 font-bold" :class="type.active ? type.text : ''" :for="type.term">
                                     {{$filters.readableName(type.term)}}
                                 </label>
-                                <p v-if="type.result_count" data-aos="fade-in" class="text-xs text-gray-500 dark:text-gray-400 block md:inline md:ml-2"><span>({{$filters.numberWithCommas(type.result_count)}})</span></p>
+                                <small v-if="type.result_count" data-aos="fade-in" class="text-xs text-gray-500 dark:text-gray-400 block md:inline md:ml-2"><span>({{$filters.numberWithCommas(type.result_count)}})</span></small>
                             </div>
                         </div>
                     </details>
                 </div>
-
                 <!-- Results -->
                 <div class="flex-grow mx-3 highlight_container min-h-[75vh] w-3/4">
                     <!-- details -->
@@ -63,7 +62,7 @@
                     </div>
                     <!-- hits -->
                     <template v-for="(result, i) in results" :key="i">
-                        <Result :item="result"></Result>
+                        <Result :item="result" :showTab="true"></Result>
                     </template>
                     <div v-if="results && results.length">
                         <Pagination :items="results" key="bottom-pagination"></Pagination>
@@ -76,7 +75,7 @@
                 <!-- Recent History -->
                 <div class="p-4 text-left rounded-lg bg-gray-200 dark:bg-gray-700 mb-2 w-1/3">
                     <div class="flex justify-between items-center mb-3">
-                        <p class="font-thin text-gray-500 text-sm">Recent Searches</p>
+                        <p class="font-thin text-gray-500 ">Recent Searches</p>
                         <Popper content="Clear All" class="tip" :hover="true" placement="right" arrow>
                             <button class="icon-btn icon-btn bg-gray-300 text-gray-400 
                             dark:bg-gray-600 dark:text-gray-500 hover:bg-red-400 dark:hover:bg-red-400 hover:text-white dark:hover:text-white"
@@ -87,11 +86,11 @@
                     </div>
                     <ul>
                         <template v-for="(item, i) in recentSearches" :key="i + 'recent'">
-                            <li class="text-xs mb-3" v-if="item">
+                            <li class=" mb-3" v-if="item">
                                 <Popper :content="item" class="tip" :hover="true" placement="right" arrow>
                                     <router-link :title="item" active-class="text-secondary"
                                     :to="{ path: '/search', query: { 'q': item }}">
-                                    <i class="fas fa-search text-xs text-accent-light"></i> 
+                                    <i class="fas fa-search  text-accent-light"></i> 
                                     {{item && item.length > 25 ? item.substring(0, 25) + '...' : item}}
                                     </router-link>
                                 </Popper>

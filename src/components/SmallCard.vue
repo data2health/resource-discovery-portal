@@ -2,22 +2,22 @@
     <!-- card -->
     <div class="shadow-md rounded-xl m-2 dark:bg-gray-700 w-full md:w-64 group bg-white">
         <div class="p-2 text-center space-y-1 flex flex-row md:flex-col justify-evenly items-center">
-            <h1 class="font-bold text-xs md:text-lg text-gray-700 dark:text-gray-400 order-2 md:order-1">
+            <h5 class="font-bold  md: text-gray-700 dark:text-gray-400 order-2 md:order-1">
                 <router-link :to="'/resources/' + title">{{$filters.readableName(title)}}</router-link>
-            </h1>
+            </h5>
             <img :src="sourceInfo.img" :alt="title" class="rounded w-16 md:w-1/3 md:group-hover:hidden order-1 md:order-2">
         </div>
-        <div class="text-left text-sm p-1 md:p-4">
+        <div class="text-left  p-1 md:p-4">
             <ul class="space-y-2 hidden md:group-hover:block">
                 <li v-for="item in items" :key="item + 'card'">
                     <i class="fas fa-search" :class="sourceInfo.text"></i> <router-link 
-                    class="!text-main dark:!text-accent hover:!text-accent-light dark:hover:!text-accent-light" 
+                    class="!text-main dark:!text-accent hover:!text-accent-light dark:hover:!text-accent-light text-xs" 
                     :to="{ path: '/search', query: { 'q': item + ' AND resourceTypeName:' + title}}">
-                        {{item}}
+                        <small>{{item}}</small>
                     </router-link>
                 </li>
             </ul>
-            <p v-if="docCount" class="text-sm text-center mt-3 md:group-hover:hidden">{{$filters.numberWithCommas(docCount)}} available</p>
+            <p v-if="docCount" class=" text-center mt-3 md:group-hover:hidden">{{$filters.numberWithCommas(docCount)}} available</p>
         </div>
     </div>
 </template>

@@ -8,7 +8,7 @@
             </td>
             <td class="space-x-1">
                 <template v-for="tag in content" :key="tag">
-                  <router-link class="text-sm text-accent hover:text-accent-light underline" :to='{path: "/search", query:{"q": `"` + tag + `"`}}'><i class="fas fa-hashtag" :class="theme?.text"></i> {{tag}}</router-link>
+                  <router-link class=" text-accent hover:text-accent-light underline" :to='{path: "/search", query:{"q": `"` + tag + `"`}}'><i class="fas fa-hashtag" :class="theme?.text"></i> {{tag}}</router-link>
                 </template>
             </td>
           </template>

@@ -4,7 +4,7 @@
             <div class="my-1 p-2 dark:bg-gray-800 bg-white rounded">
                 <ExpandableSection>
                     <template v-slot:title>
-                        <b class="text-sm select-none text-gray-700 dark:text-white">
+                        <b class=" select-none text-gray-700 dark:text-white">
                             <img :src="filter.img" class="w-4 inline" :alt="filter.term">
                             {{filter.term}} (<span class="text-accent">{{filter?.filters?.length || 0}}</span>)
                             <button 

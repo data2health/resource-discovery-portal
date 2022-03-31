@@ -3,7 +3,7 @@
     <div :class="theme.bg">
         <!-- 🦄 Badges 🦄 -->
         <div class="flex justify-start items-center flex-wrap bg-white dark:bg-gray-700">
-            <template v-for="pill in pills" class="text-sm" :key="pill.value">
+            <template v-for="pill in pills" class="" :key="pill.value">
                 <!-- pill -->
                 <Pill :color="theme['bg']">
                     <template v-slot:title>{{$filters.readableName(pill.field)}}</template>
@@ -14,7 +14,7 @@
         <div class="flex justify-around flex-wrap items-center p-2">
             <!-- 🦄 Curation 🦄 -->
             <div  v-if="item?.curatedBy" class="bg-gray-100 dark:bg-gray-700 rounded-xl p-2 shadow-md flex justify-center items-center flex-col space-y-1 m-2">
-                <h3 class="font-light text-2xl mb-2" :class="theme['text']">Curated by</h3>
+                <h3 class="font-light  mb-2" :class="theme['text']">Curated by</h3>
                 <template v-if="item?.curatedBy?.url">
                     <img v-if="item?.curatedBy?.name == 'ClinicalTrials.gov'" src="/assets/img/ctgov.jpeg" alt="ClinicalTrials.gov" class="w-32">
                     <img v-else-if="item?.curatedBy?.name == 'Figshare'" src="/assets/img/figshare.png" alt="Figshare" class="w-32">
@@ -35,7 +35,7 @@
         </div>
         <div v-if="item?.keywords" class="space-x-2 bg-gray-500 dark:bg-gray-900 p-4 w-full">
             <template v-for="(tag, i) in item?.keywords" :key="tag + i">
-                <router-link class="text-sm text-white hover:text-accent-light underline" :to='{path: "/search", query:{"q": `"` + tag + `"`}}'><i class="fas fa-hashtag" :class="theme?.text"></i> {{tag}}</router-link>
+                <router-link class=" text-white hover:text-accent-light underline" :to='{path: "/search", query:{"q": `"` + tag + `"`}}'><i class="fas fa-hashtag" :class="theme?.text"></i> {{tag}}</router-link>
             </template>
         </div>
     </div>

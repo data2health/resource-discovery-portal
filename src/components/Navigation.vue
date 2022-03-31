@@ -46,10 +46,10 @@
 
     <!-- mobile menu -->
     <div class="mobile-menu md:hidden bg-main-dark" :class="menuClass">
-      <router-link to="/search"  @click="toggleMenu()" class="block py-2 px-4 text-sm hover:bg-secondary">Keyword Search</router-link>
-      <router-link :to="{name:'Resources'}"  @click="toggleMenu()" class="block py-2 px-4 text-sm hover:bg-secondary">Resource Types</router-link>
-      <router-link to="/about"  @click="toggleMenu()" class="block py-2 px-4 text-sm hover:bg-secondary">About</router-link>
-      <a href="#" @click="toggleDarkMode()" class="block py-2 px-4 text-sm hover:bg-secondary">
+      <router-link to="/search"  @click="toggleMenu()" class="block py-2 px-4  hover:bg-secondary">Keyword Search</router-link>
+      <router-link :to="{name:'Resources'}"  @click="toggleMenu()" class="block py-2 px-4  hover:bg-secondary">Resource Types</router-link>
+      <router-link to="/about"  @click="toggleMenu()" class="block py-2 px-4  hover:bg-secondary">About</router-link>
+      <a href="#" @click="toggleDarkMode()" class="block py-2 px-4  hover:bg-secondary">
         <i class="fas" :class="[!darkMode ? 'fa-moon text-indigo-300' : 'fa-sun text-yellow-400']"></i> Toggle Mode
       </a>
     </div>

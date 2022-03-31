@@ -6,10 +6,10 @@
     <div class="flex justify-between items-center flex-wrap">
         <!-- total hits -->
         <div class="flex justify-between items-center">
-            <p class="font-bold text-gray-500">{{$filters.numberWithCommas(total)}} Results</p>
+            <small class="text-gray-500">{{$filters.numberWithCommas(total)}} Results</small>
         </div>
         <!-- pages -->
-        <div>
+        <div class="text-md">
             <template v-if="items && items.length > perPage">
                 <div class="flex flex-wrap justify-center p-1 mt-2 text-white">
                     <div class="cursor-pointer p-1 flex items-center justify-center h-6 bg-accent hover:bg-accent-light dark:bg-secondary-light dark:hover:bg-secondary rounded mx-2" 
@@ -23,7 +23,7 @@
                     <template v-for="n in pages">
                         <div v-if="n >= startCap && n <= endCap" 
                         :key="n + 'page'"
-                        class="rounded cursor-pointer p-1 flex items-center justify-center h-6 w-6" 
+                        class="rounded cursor-pointer p-1 flex items-center justify-center h-6 w-6 mr-1" 
                         @click.prevent="handlePageChange(n)"
                         :class="[page == n ? 'bg-main dark:bg-accent-light text-white' : 'text-secondary-light']">
                             {{n}}
@@ -41,10 +41,10 @@
             </template>
         </div>
         <!-- per page -->
-        <div class="flex justify-between items-center">
-            <label class="mr-2 text-sm text-gray-500" for="perPage">Per Page</label>
+        <div class="flex justify-between items-center text-sm">
+            <label class="mr-2  text-gray-500" for="perPage">Per Page</label>
             <select name="perPage" 
-            class="outline-none border-0 rounded dark:bg-gray-800 active:border-0 focus:border-0 focus:outline-none text-accent" 
+            class="outline-none rounded dark:bg-gray-800 focus:outline-none text-accent" 
             @change="handlePerPage($event)"
             :v-model="perPage">
                 <option value="10">10</option>

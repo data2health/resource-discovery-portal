@@ -4,40 +4,40 @@
         <ResultTab :name="result_type" :theme="theme" ></ResultTab>
         <!-- Content Preview-->
         <div class="bg-white h-auto p-4 tracking-wide mb-4 mx-1 rounded-sm relative dark:bg-gray-600 border border-t-gray-300 border-t-2">
-            <h5 class="text-lg font-semibold">
+            <h5 class=" font-semibold">
                 <router-link :to="{ name: 'ResultDetails', query: {'resource': item._id} }">{{source?.name}}</router-link>
             </h5>
             <!-- Full View Headers -->
-            <div v-if="fullView" :class="theme['text']" class="text-2xl p-3 border-b-2 border-gray-200 mb-3">
+            <div v-if="fullView" :class="theme['text']" class=" p-3 border-b-2 border-gray-200 mb-3">
                 <h1 class="font-light">ABOUT</h1>
             </div>
             <!-- description -->
             <Description :text="source?.bio"></Description>
             <div v-if="expandedView || fullView"  class="flex justify-between">
                 <!-- published date -->
-                <p v-if="source?.created_at" class="text-sm">
+                <p v-if="source?.created_at" class="">
                     <i class="fas fa-book" :class="theme.text"></i> {{$filters.formatDate(source?.created_at)}}
                 </p>
                 <!-- updated date -->
-                <p v-if="source?.updated_at" class="text-sm">
+                <p v-if="source?.updated_at" class="">
                     <i class="fas fa-clock" :class="theme.text"></i> {{$filters.formatDate(source?.updated_at)}}
                 </p>
             </div>
             <!-- Full View Headers -->
-            <div v-if="fullView" :class="theme['text']" class="text-2xl p-3 border-b-2 border-gray-200 mb-3">
+            <div v-if="fullView" :class="theme['text']" class=" p-3 border-b-2 border-gray-200 mb-3">
                 <h1 class="font-light">DETAILS</h1>
             </div>
             <!-- detail box -->
             <div class="flex justify-start items-center flex-wrap">
                 <!-- type -->
-                <template v-if="source?.type" class="text-sm">
+                <template v-if="source?.type" class="">
                     <Pill :color="theme['bg']">
                         <template v-slot:title>Type</template>
                         <template v-slot:value>{{source?.type}}</template>
                     </Pill>
                 </template>
                 <!-- location -->
-                <template v-if="source?.location" class="text-sm">
+                <template v-if="source?.location" class="">
                     <Pill :color="theme['bg']">
                         <template v-slot:title><i class="fas fa-map-marker-alt"></i></template>
                         <template v-slot:value>{{source?.location}}</template>
@@ -45,7 +45,7 @@
                 </template>
             </div>
             <template v-if="expandedView || fullView" data-aos="fade-in">
-                <div class="text-md font-regular p-6 pt-2 text-gray-500 bg-gray-100/50 dark:bg-gray-500 dark:text-white flex items-center justify-start rounded-xl shadow-xl my-4 w-3/4 m-auto">
+                <div class=" font-regular p-6 pt-2 text-gray-500 bg-gray-100/50 dark:bg-gray-500 dark:text-white flex items-center justify-start rounded-xl shadow-xl my-4 w-3/4 m-auto">
                     <div class="text-center">
                         <img v-if="source?.avatar_url" 
                         :src="source?.avatar_url" 
@@ -55,7 +55,7 @@
                             <a :href="source?.html_url" target="_blank" rel="nonreferrer">{{source?.name}} <i class="fas fa-external-link-square-alt" :class="theme.text"></i></a>
                         </p>
                     </div>
-                    <div class="ml-1 p-3 rounded border border-gray-100 text-xs">
+                    <div class="ml-1 p-3 rounded border border-gray-100 ">
                         <p v-if="source?.login" class="mb-1"><i class="fab fa-github" :class="theme.text"></i> {{source?.login}}</p>
                         <p v-if="source?.twitter_username" class="mb-1"><i class="fab fa-twitter" :class="theme.text"></i> {{source?.twitter_username}}</p>
                         <p v-if="source?.followers"><i class="fas fa-bell" :class="theme.text"></i> {{source?.followers}}</p>

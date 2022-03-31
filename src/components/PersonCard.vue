@@ -1,6 +1,6 @@
 <template>
     <div class="w-64 m-2">
-        <div class="text-lg font-normal">
+        <div class=" font-normal">
             <div class="flex justify-center items-center p-1 z-20 w-full">
                 <img data-aos="zoom-out-down" class="rounded-full dark:border-gray-700 border-8 w-24 m-auto border-gray-100"
                  :src="person.picture || '/assets/img/default.jpeg'" :alt="person.name">

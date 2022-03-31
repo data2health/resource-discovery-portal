@@ -3,7 +3,7 @@
     <div :class="theme.bg">
         <!-- 🦄 Badges 🦄 -->
         <div class="flex justify-start items-center flex-wrap bg-white dark:bg-gray-700">
-            <template v-for="pill in pills" class="text-sm" :key="pill.value">
+            <template v-for="pill in pills" class="" :key="pill.value">
                 <!-- pill -->
                 <Pill :color="theme['bg']">
                     <template v-slot:title>{{$filters.readableName(pill.field)}}</template>
@@ -18,7 +18,7 @@
         <div class="flex justify-around flex-wrap items-center p-2">
             <!-- 🦄 Curation 🦄 -->
             <div  v-if="item?.curatedBy" class="bg-gray-100 dark:bg-gray-700 rounded-xl p-2 shadow-md flex justify-center items-center flex-col space-y-1 m-2">
-                <h3 class="font-light text-2xl mb-2" :class="theme['text']">Curated by</h3>
+                <h3 class="font-light  mb-2" :class="theme['text']">Curated by</h3>
                 <template v-if="item?.curatedBy?.url">
                     <img v-if="item?.curatedBy?.name == 'ClinicalTrials.gov'" src="/assets/img/ctgov.jpeg" alt="ClinicalTrials.gov" class="w-32">
                     <img v-else-if="item?.curatedBy?.name == 'Figshare'" src="/assets/img/figshare.png" alt="Figshare" class="w-32">
@@ -34,7 +34,7 @@
             </div>
             <!-- 🦄 Contact 🦄 -->
             <div class="bg-gray-100 dark:bg-gray-700 rounded-xl p-2 m-2" v-if="item?.contact_info">
-                <h3 class="font-light text-2xl mb-2 text-center" :class="theme.text">Contact</h3>
+                <h3 class="font-light  mb-2 text-center" :class="theme.text">Contact</h3>
                 <table class="table-auto">
                     <tbody>
                         <tr>
@@ -51,7 +51,7 @@
             <!-- 🦄 Authors 🦄 -->
             <div v-if="authors.length" class="bg-gray-100 dark:bg-gray-700 rounded-xl p-2 m-2">
                 <template v-if="authorsByInstitution">
-                    <h3 class="font-light text-2xl mb-2 text-center" :class="theme.text">Authors</h3>
+                    <h3 class="font-light  mb-2 text-center" :class="theme.text">Authors</h3>
                     <details v-for="(authors, institution) in authorsByInstitution" :open="authors.length < 5 ? true : false" :key="institution" class="mb-2">
                         <summary class="font-bold cursor-pointer">
                             <i class="fas fa-building" :class="theme.text"></i> {{institution}} <span :class="theme.text">({{authors.length}})</span>
@@ -68,7 +68,7 @@
                     </details>
                 </template>
                 <template v-else-if="authors">
-                    <h3 class="font-light text-2xl mb-2 text-center" :class="theme.text">Authors</h3>
+                    <h3 class="font-light  mb-2 text-center" :class="theme.text">Authors</h3>
                     <template v-for="(author, i) in authors" :key="author">
                         <router-link :to='{path: "/search", query:{"q": `"` + author + `"`}}'>
                             <i class="fas fa-search"></i> {{author}} <span v-if="i < authors.length-1">, </span>
@@ -78,7 +78,7 @@
             </div>
             <!-- 🦄 Funding 🦄 -->
             <div  v-if="item?.funding && item?.funding.length" class="bg-gray-100 dark:bg-gray-700 rounded-xl p-2 shadow-md flex justify-center items-center flex-col space-y-1 m-2 w-full">
-                <h3 class="font-light text-2xl mb-2" :class="theme['text']">Funding</h3>
+                <h3 class="font-light  mb-2" :class="theme['text']">Funding</h3>
                 <ul>
                     <li v-for="(item, i) in item?.funding" :key="i + 'fund'">
                         <i class="fas fa-award" :class="theme.text"></i> {{item?.description}}
@@ -89,7 +89,7 @@
             <div  v-if="item?.distribution && item?.distribution.length" 
             class="bg-gray-100 dark:bg-gray-700 rounded-xl p-2 shadow-md 
             flex justify-center items-center flex-col space-y-1 m-2 w-full">
-                <h3 class="font-light text-2xl mb-2" :class="theme['text']"> Downloads</h3>
+                <h3 class="font-light  mb-2" :class="theme['text']"> Downloads</h3>
                 <div class="max-h-[50vh] overflow-scroll bg-gray-200 dark:bg-gray-800">
                     <table class="table-auto text-left rounded-lg p-1">
                         <thead class="text-gray-400">
@@ -125,7 +125,7 @@
                                     {{citation?.identifier}}
                                     <a :href="citation.url" target="_blank" rel="nonreferrer">source <i class="fas fa-external-link-square-alt" :class="theme.text"></i></a>
                                 </p>
-                                <Description class="text-xs" :text="citation.citation"></Description>
+                                <Description class="" :text="citation.citation"></Description>
                             </template>
                         </template>
                 </ExpandableSection>
@@ -133,7 +133,7 @@
         </div>
         <div v-if="item?.keywords" class="space-x-2 bg-gray-500 dark:bg-gray-900 p-4 w-full">
             <template v-for="(tag, i) in item?.keywords" :key="tag + i">
-                <router-link class="text-sm text-white hover:text-accent-light underline" :to='{path: "/search", query:{"q": `"` + tag + `"`}}'><i class="fas fa-hashtag" :class="theme?.text"></i> {{tag}}</router-link>
+                <router-link class=" text-white hover:text-accent-light underline" :to='{path: "/search", query:{"q": `"` + tag + `"`}}'><i class="fas fa-hashtag" :class="theme?.text"></i> {{tag}}</router-link>
             </template>
         </div>
     </div>

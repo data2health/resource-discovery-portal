@@ -40,7 +40,7 @@
       <p class="text-xs text-center">
         The CTSA Program National Center for Data to Health (CD2H) is supported by the National Center for Advancing Translational Sciences (NCATS) at the National Institutes of Health (Grant U24TR002306).
       </p>
-      <p class="text-center text-sm">Copyright &copy; <span id="year"></span>.
+      <p class="text-center text-xs">Copyright &copy; <span id="year"></span>.
           <a target="_blank" class="blue-grey-text" href="http://search.cd2h.org">RDP</a>.
       </p>
     </div>

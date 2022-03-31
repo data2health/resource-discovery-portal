@@ -5,7 +5,7 @@
     <!-- cookie consent -->
     <VModal v-model="preview_open" @confirm="preview_open = false">
         <template v-slot:title>
-            <h2 class="text-main text-sm md:text-xl dark:text-white">
+            <h2 class="text-main  md: dark:text-white">
                 {{content?.name || name}}
             </h2>
         </template>

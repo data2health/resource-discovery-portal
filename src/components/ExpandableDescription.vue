@@ -8,11 +8,11 @@
             <CopyButton :copy="text" copy_msg="Copy Text"></CopyButton>
         </span>
     </div>
-    <p class="text-gray-400 text-sm" v-else-if="!text">
+    <p class="text-gray-400 " v-else-if="!text">
         No Description Available
     </p>
     <template v-else>
-        <p class="text-sm dark:text-gray-300" v-html="text"></p>
+        <p class=" dark:text-gray-300" v-html="text"></p>
     </template>
 </template>
 

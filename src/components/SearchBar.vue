@@ -19,19 +19,19 @@
                     <h1>Recent Searches</h1>
                     <div class="space-x-2 flex flex-wrap">
                         <template v-for="(item, i) in recentSearches" :key="item + i">
-                            <span class="text-xs mb-3">
+                            <span class=" mb-3">
                                 <template v-if="item && item.length > 60">
                                     <Popper :content="item" class="tip" :hover="true" placement="top" arrow>
                                         <router-link :title="item" active-class="text-secondary" class="text-white hover:text-accent-light"
                                         :to="{ path: '/search', query: { 'q': item }}">
-                                            <i class="fas fa-search text-xs text-accent"></i> 
+                                            <i class="fas fa-search  text-accent"></i> 
                                             {{item.length > 60 ? item.substring(0, 60) + '...' : item}}
                                         </router-link>
                                     </Popper>
                                 </template>
                                 <router-link v-else :title="item" active-class="text-secondary" class="text-white hover:text-accent-light"
                                 :to="{ path: '/search', query: { 'q': item }}">
-                                    <i class="fas fa-search text-xs text-accent"></i> 
+                                    <i class="fas fa-search  text-accent"></i> 
                                     {{item}}
                                 </router-link>
                             </span>

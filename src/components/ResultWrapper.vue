@@ -1,49 +1,52 @@
 <template>
     <div :key="uniqueID" class="group dark:text-gray-200">
-        <ResultTab :name="item?.['resourceTypeName']" :theme="resourceInfo" ></ResultTab>
-        <div class="border border-t-gray-300 dark:border-gray-700 border-t-2 p-1 w-full bg-white dark:bg-gray-600">
-            <div class="h-auto p-4 tracking-wide rounded-sm relative">
+        <template v-if="showTab">
+            <ResultTab :name="item?.['resourceTypeName']" :theme="resourceInfo"></ResultTab>
+        </template>
+        <div class="border border-t-gray-300 dark:border-gray-700 border-t-2 p-1 w-full bg-white dark:bg-gray-600 rounded-t">
+            <div class="h-auto rounded-sm relative p-1">
                 <!--🦄 Profiles Only 🦄-->
                 <template v-if="item?.['resourceTypeName'] == 'Profile'">
                     <img :src="item?.raw?.avatar_url" :alt="title" class="w-8 border-2 border-gray-200 dark:border-white rounded-full mr-3 inline">
-                    <h1 class="inline font-bold cursor-pointer text-blue-500 hover:text-blue-400 dark:text-white" @click.prevent="open = !open">
+                    <p class="inline cursor-pointer text-blue-500 hover:text-blue-400 dark:text-white" @click.prevent="open = !open">
                         {{title}}
-                    </h1>
+                    </p>
                     <small @click.prevent="open = !open" class="text-gray-400 dark:text-gray-400 cursor-pointer" v-if="item?.raw?.company"> | {{item?.raw?.company}}</small>
-                    <p class="text-sm mt-1">{{item?.raw?.bio}}</p>
+                    <p class=" mt-1">{{item?.raw?.bio}}</p>
                 </template>
                 <!--🦄 All others 🦄-->
-                <h1 v-else class="font-bold cursor-pointer text-blue-500 hover:text-blue-400 dark:text-white" @click.prevent="open = !open">
+                <p v-else class="cursor-pointer text-blue-500 hover:text-blue-400 dark:text-white" @click.prevent="open = !open">
                     {{title}}
-                </h1>
+                </p>
                 <!--🦄 Video Only 🦄-->
-                <div v-if="item?.['resourceTypeName'] == 'Video' && !fullView" class="flex space-x-3">
+                <div v-if="item?.['resourceTypeName'] == 'Video' && !fullView" class="space-x-3">
                     <div v-if="videoThumbnail && videoPlayer" class="w-32 inline">
                         <img v-if="!videoView" @click="videoView = !videoView" :src="videoThumbnail.url" alt="video thumbnail" class="w-32 !mr-0 hover:shadow hover:cursor-pointer">
                         <div v-else class="flex justify-center" v-html="videoPlayer"></div>
+                        <span v-if="item?.duration" class=" inline">
+                            <i class="fas fa-clock" :class="resourceInfo.text"></i> <b>{{item?.duration}}</b>
+                        </span>
                     </div>
-                    <span v-if="item?.duration" class="text-sm inline">
-                        <i class="fas fa-clock" :class="resourceInfo.text"></i> <b>{{item?.duration}}</b>
-                    </span>
+                    
                 </div>
             </div>
-            <div v-if="open || fullView || expandedView" class="flex justify-center md:justify-start items-center p-2 flex-wrap">
+            <div v-if="open || fullView || expandedView" class="flex justify-center md:justify-start items-center p-2 flex-wrap text-sm">
                 <a v-if="item?.url" :href="item?.url" 
                     target="_blank" rel="noopener" 
-                    class="bg-gray-200 dark:bg-gray-500 rounded-full px-3 py-1 cursor-pointer hover:bg-accent-light text-sm m-1">
+                    class="bg-gray-200 dark:bg-gray-500 rounded-full px-3 py-1 cursor-pointer hover:bg-accent-light  m-1">
                     source <i class="fas fa-external-link-square-alt"></i>
                 </a>
-                <div class="bg-gray-200 dark:bg-gray-500 rounded-full px-3 py-1 cursor-pointer hover:bg-accent-light text-sm m-1">
+                <div class="bg-gray-200 dark:bg-gray-500 rounded-full px-3 py-1 cursor-pointer hover:bg-accent-light cursor-context-menu m-1">
                     <PopUpPreview :content="item" name="metadata" :theme="resourceInfo"></PopUpPreview>
                 </div>
                 <a :href="'mailto:?subject=Resource%20Discovery%20Portal&amp;body=Check this out: http://rdp.biothings.io/resources/' + item?.['resourceTypeName'] + '/' + item._id" 
                     target="_self" rel="noopener" aria-label="E-Mail" 
-                    class="bg-gray-200 dark:bg-gray-500  rounded-full px-3 py-1 cursor-pointer hover:bg-accent-light text-sm m-1">
+                    class="bg-gray-200 dark:bg-gray-500  rounded-full px-3 py-1 cursor-pointer hover:bg-accent-light  m-1">
                     share <i class="fas fa-envelope"></i>
                 </a>
                 <router-link v-if="!fullView" 
                 class="bg-green-500 !text-white rounded-full px-3 py-1 text-center
-                cursor-pointer hover:bg-green-400 text-sm m-4 md:m-1 md:ml-8 w-3/4 md:w-auto" 
+                cursor-pointer hover:bg-green-400  m-4 md:m-1 md:ml-8 w-3/4 md:w-auto" 
                 :to="{ path: '/resources/' + item?.['resourceTypeName'] + '/' + item._id }">more info <i class="fas fa-arrow-alt-circle-right"></i></router-link>
                 <div class="p-1 w-full">
                     <Description :text="description" :expanded="fullView ? true: false"></Description>
@@ -65,7 +68,7 @@
 
             <div v-if="open && !fullView" class="flex justify-center items-center">
                 <!-- Preview fields -->
-                <table class="w-full text-sm my-3">
+                <table class="w-full  my-3">
                     <tbody>
                         <template v-for="info, field in preview_fields" :key="field">
                             <tr class="border border-b-2 border-t-0 border-r-0 border-l-0 border-gray-100 p-1">
@@ -86,11 +89,11 @@
             <div v-if="open || fullView || expandedView" class="p-2">
                 <div class="flex justify-around mt-1 p-3 dark:text-white">
                     <!-- created date -->
-                    <span v-if="created" class="text-sm">
+                    <span v-if="created" class="">
                         <i class="fas fa-book" :class="resourceInfo.text"></i> created <b>{{$filters.formatDate(created)}}</b>
                     </span>
                     <!-- updated date -->
-                    <span v-if="updated" class="text-sm">
+                    <span v-if="updated" class="">
                         <i class="fas fa-clock" :class="resourceInfo.text"></i> updated <b>{{$filters.formatDate(updated)}}</b>
                     </span>
                 </div>
@@ -147,7 +150,7 @@
                 </template>
             </div>
         </div>
-        <div v-if="!fullView" class="w-full p-1 flex justify-center cursor-pointer bg-gray-100 rounded-b-xl dark:bg-gray-700 mb-2" @click.prevent="open = !open">
+        <div v-if="!fullView" class="w-full p-1 flex justify-center cursor-pointer bg-gray-100 rounded-b dark:bg-gray-700 mb-2" @click.prevent="open = !open">
             <i class="fas group-hover:animate-bounce" :class="[open ? 'fa-chevron-up' : 'fa-chevron-down']"></i>
         </div>
         
@@ -265,7 +268,11 @@ export default {
         }
     },
     props:{
-        item: Object
+        item: Object,
+        showTab: {
+            'type': Boolean,
+            'default': true
+        }
     },
     components:{
         Multimedia,

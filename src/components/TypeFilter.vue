@@ -6,7 +6,7 @@
             :class="!type?.active ? 'text-main dark:text-accent-light border-2 border-main dark:border-accent hover:border-accent' : 
             'bg-main border-2 border-main dark:bg-secondary dark:hover:bg-secondary-light text-white hover:bg-main-light'"
             class="shadow-sm hover:shadow-md px-4 py-1 text-center 
-            m-1 rounded-lg text-xs md:text-sm flex justify-center items-center">
+            m-1 rounded-lg  md: flex justify-center items-center">
                 <img :src="type.img" :alt="type" class="h-5 mr-2"> {{type.term}}
             </button>
         </template>

@@ -1,5 +1,5 @@
 <template>
-    <a href="javascript:void(0);" class="font-bold" @click.prevent="as_open = !as_open"><i class="fas fa-cog"></i> Advanced Search</a>
+    <a href="javascript:void(0);" class="font-bold text-sm" @click.prevent="as_open = !as_open"><i class="fas fa-cog"></i> Advanced Search</a>
     <!-- cookie consent -->
     <VModal v-model="as_open" @confirm="as_open = false">
         <template v-slot:title>

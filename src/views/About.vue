@@ -2,7 +2,7 @@
   <div class="darkMode py-10 text-gray-700 dark:text-gray-400 flex justify-items-stretch" id="scrollArea">
     <div class="relative hidden md:block">
       <div class="p-2 sticky top-10 ml-5">
-        <ul class="text-sm space-y-2">
+        <ul class=" space-y-2">
           <template v-for="a in anchors" :key="a.anchor">
             <li>
               <a :class="[{'font-bold text-main dark:text-secondary-light' : a.visible}, {'ml-4' : !a['main-section']}, {'font-bold' : a['main-section']}]" :href="a.anchor">{{a.name}}</a>
@@ -14,11 +14,11 @@
     <div class="min-h-screen max-w-screen-lg m-auto space-y-10">
 
       <section class="space-y-10 mb-4 p-3" id="intro">
-        <h1 class="md:text-5xl mb-6 text-gray-600 dark:text-secondary-light text-center font-bold">About the RDP</h1>
+        <h1 class="md: mb-6 text-gray-600 dark:text-secondary-light text-center font-bold">About the RDP</h1>
         <p class="">
           The CD2H Resource Discovery Portal is a single, intuitive tool to explore the landscape of biomedical resources. It provides some of the most comprehensive and diverse coverage of resources in the biomedical field and unlike generic search services, it is built and tailored specifically with the biomedical community in mind.
         </p>
-         <h2 class=" md:text-2xl mb-6 text-gray-600dark:text-secondary-light ">The RDP provides:</h2>
+         <h2 class=" md: mb-6 text-gray-600dark:text-secondary-light ">The RDP provides:</h2>
         <ul class="space-y-3 list-disc ml-6">
           <li>
             <p class="">A simple search interface to quickly find varied resources around a given topic</p>
@@ -30,11 +30,11 @@
       </section>
 
       <section class="space-y-5 mb-4 p-3" id="platform">
-        <h2 class="text-3xl md:text-3xl mb-6 text-main-600 font-bold">The Platform</h2>
+        <h2 class=" md: mb-6 text-main-600 font-bold">The Platform</h2>
       </section>
 
       <section class="space-y-10 mb-4 p-3 " id="dashboard">
-        <h1 class=" md:text-2xl mb-6 text-gray-600dark:text-secondary-light text-center">{{$filters.numberWithCommas(totalDocsRDP)}} Total Resources!</h1>
+        <h1 class=" md: mb-6 text-gray-600dark:text-secondary-light text-center">{{$filters.numberWithCommas(totalDocsRDP)}} Total Resources!</h1>
         <div class="grid grid-cols-2 md:grid-cols-3 gap-1">
           <div v-for="filter in filters['resourceTypeName.keyword']" :key="filter.term">
             <img :src="filter.img" :alt="filter.term" class="inline w-4"> {{filter.term}}: <b>{{$filters.numberWithCommas(filter.count)}}</b>
@@ -51,12 +51,12 @@
       </section>
 
       <section class="space-y-10 mb-4 p-3 " id="works">
-        <h2 class=" md:text-2xl mb-6 text-gray-600dark:text-secondary-light ">How does our tool work?</h2>
+        <h2 class=" md: mb-6 text-gray-600dark:text-secondary-light ">How does our tool work?</h2>
         <p class="">
           The resources on the Resource Discovery Portal are continually updated by harvesters that draw metadata from many publicly available biomedical resource repositories such as Medline, NIH Reporter, VIVO profiles. In addition to traditional sources, the RDP performs curated searches on platforms such as Github, Youtube, and CTSA member websites to hand-select resources that are relevant for biomedical research, including videos, channels, slide presentations, and Github profiles.
         </p>
         <div class="space-y-2 text-center">
-          <h3 class="mb-6 text-gray-600dark:text-secondary-light text-lg">How to use RDP</h3>
+          <h3 class="mb-6 text-gray-600dark:text-secondary-light ">How to use RDP</h3>
           <!-- <figure>
             <img src="/assets/img/video-how.png" alt="how to use rdp" class="w-1/3 m-auto">
             <figcaption class="text-gray-400">Learn how to use the Resource Discovery Portal</figcaption>
@@ -74,16 +74,16 @@
       </section>
 
       <section class="space-y-10 mb-4 p-3 " id="data">
-        <h3 class=" md:text-2xl mb-6 text-gray-600dark:text-secondary-light ">Where is our data coming from?</h3>
+        <h3 class=" md: mb-6 text-gray-600dark:text-secondary-light ">Where is our data coming from?</h3>
         <div v-if="filters._index.length" class="p-2 grid grid-cols-1 md:grid-cols-2">
           <template v-for="source in filters._index" :key="source.name">
             <div class="p-3 space-y-4 border-b border-gray-200">
               <a :v-html="source.link" target="_blank" rel="nonreferrer">
                 <img class="w-32" :alt="source.name" :src="source.img">
               </a>
-              <h2 class="text-xl font-bold">{{source.name || source.term}}</h2>
-              <h3 class=" text-main dark:text-secondary">{{$filters.numberWithCommas(source.count)}} Documents</h3>
-              <p class="text-xs" v-html="source.description"></p>
+              <h2 class="font-bold break-words">{{source.name || source.term}}</h2>
+              <p class=" text-main dark:text-secondary">{{$filters.numberWithCommas(source.count)}} Resources</p>
+              <p class="" v-html="source.description"></p>
               <p><a :href="source.link" target="_blank" rel="nonreferrer">For citation information and to learn more, click here. <i class="fas fa-external-link-square-alt"></i></a></p>
             </div>
           </template>
@@ -91,11 +91,11 @@
       </section>
 
       <section class="space-y-5 mb-4 p-3" id="project">
-        <h2 class="text-3xl md:text-2xl mb-6 text-main-600 font-bold">The Project</h2>
+        <h2 class=" md: mb-6 text-main-600 font-bold">The Project</h2>
       </section>
 
       <section class="space-y-10 mb-4 p-3 " id="history">
-        <h2 class=" md:text-2xl mb-6 text-gray-600dark:text-secondary-light ">History</h2>
+        <h2 class=" md: mb-6 text-gray-600dark:text-secondary-light ">History</h2>
         <p class="">
           Funded by the CTSA National Center for Data to Health (CD2H), the Resource Discovery Portal has grown out of three distinct initiatives sharing the common goal of increasing the discoverability of resources relevant to biomedical sciences. These initiatives were:
         </p>
@@ -116,14 +116,14 @@
       </section>
 
       <section class="space-y-10 mb-4 p-3 " id="cd2h">
-        <h2 class=" md:text-2xl mb-6 text-gray-600dark:text-secondary-light ">CD2H</h2>
+        <h2 class=" md: mb-6 text-gray-600dark:text-secondary-light ">CD2H</h2>
         <p class="">
           The <a href="https://cd2h.org/" target="_blank" rel="nonreferrer">CTSA National Center for Data to Health (CD2H)</a> accelerates advancements in informatics by utilizing findable, accessible, interoperable, and reusable (FAIR) principles to promote collaboration across the Clinical and Translational Science Awards (CTSA) Program community. CD2H was funded in fall 2017 to coordinate and integrate informatics for the CTSA Program by promoting data reuse and interoperability, tool sharing, informatics fluency, and collaboration. The ultimate goal of the CD2H is to help CTSA Hubs thrive, accelerate advancements in informatics, and improve patient care.
         </p>
       </section>
 
       <section class="mb-4 p-3 w-full " id="team">
-        <h3 class=" md:text-2xl mb-6 text-gray-600dark:text-secondary-light ">The Team</h3>
+        <h3 class=" md: mb-6 text-gray-600dark:text-secondary-light ">The Team</h3>
         <div class="text-center font-light ">
           <template v-for="(members, organization) in team" :key="organization">
             <div class="flex justify-center p-10">

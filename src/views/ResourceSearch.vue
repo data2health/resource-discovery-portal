@@ -7,7 +7,7 @@
                         <div class="flex justify-start flex-wrap items-center w-full">
                             <router-link :to="{name:'Resources'}" class="text-white hover:text-gray-300 dark:text-white dark:hover:text-gray-200 m-1 mr-6"><i class="fas fa-chevron-left"></i> Back</router-link>
                             <img :src="sourceInfo.img" :alt="resource" class="h-6 md:h-14 mr-2">
-                            <h1 class="font-bold text-md md:text-3xl mr-2">{{resource}}</h1>
+                            <h3 class="font-bold  md: mr-2">{{resource}}</h3>
                         </div>
                     </div>
                 </div>
@@ -18,8 +18,8 @@
                         <div class="w-1/2 md:w-1/4" v-if="data">
                             <Chart :data="data" type="doughnut" name='Where is the data coming from?' :color="sourceInfo.hex"></Chart>
                         </div>
-                        <div class="text-xl w-full md:w-2/3">
-                            <h1 class="text-2xl md:text-4xl mb-3" :class="sourceInfo.text"><span class="font-extrabold">RDP</span> <span class="capitalize">{{resource}}</span></h1>
+                        <div class=" w-full md:w-2/3">
+                            <h1 class=" md: mb-3" :class="sourceInfo.text"><span class="font-extrabold">RDP</span> <span class="capitalize">{{resource}}</span></h1>
                             <template v-if="sourceInfo?.description">
                                 <p v-html="sourceInfo.description"></p>
                             </template>
@@ -30,7 +30,7 @@
                 <!-- most recent -->
                 <div class="w-full m-auto p-3 flex justify-center items-center w-full">
                     <div class="max-w-4xl w-full" v-if="mostRecentResults && mostRecentResults.length">
-                        <h2 class="text-4xl my-7 font-light" :class="sourceInfo.text">Most Recent</h2>
+                        <h3 class=" my-7 font-light" :class="sourceInfo.text">Most Recent</h3>
                         <div class="max-h-64 overflow-scroll">
                             <table class="table-auto min-w-full table-main">
                                 <tbody>
@@ -42,11 +42,11 @@
                                                 <PopUpPreview :content="result" :name="result?.name" :theme="sourceInfo"></PopUpPreview> 
                                             </td>
                                             <td class="w-1/4 text-center">
-                                                <p class="text-xs">
+                                                <p class="">
                                                     <template v-if="result?.dateModified">{{$filters.formatDate(result?.dateModified)}}</template>
                                                     <template v-else-if="result?.date_modified">{{$filters.formatDate(result?.date_modified)}}</template>
                                                 </p>
-                                                <router-link class="bg-green-500 hover:bg-green-300 ml-1 !text-white p-1 rounded-full text-xs px-2" 
+                                                <router-link class="bg-green-500 hover:bg-green-300 ml-1 !text-white p-1 rounded-full  px-2" 
                                                 :to="{ path: '/resources/' + resource + '/' + result._id}">more info <i class="fas fa-arrow-alt-circle-right"></i></router-link>
                                             </td>
                                         </tr>
@@ -56,14 +56,14 @@
                             </table>
                         </div>
                         <div>
-                            <button class="w-full bg-gray-200 dark:bg-gray-600 p-1 text-xs" @click="loadMore">Load more</button>
+                            <button class="w-full bg-gray-200 dark:bg-gray-600 p-1 " @click="loadMore">Load more</button>
                         </div>
                     </div>
                 </div>
                 <!-- search -->
                 <div class="w-full m-auto p-3 highlight_container rounded-2xl bg-gray-100 dark:bg-gray-900">
                     <div class="p-3">
-                        <h2 class="text-4xl font-light text-center my-2" :class="sourceInfo.text">
+                        <h2 class=" font-light text-center my-2" :class="sourceInfo.text">
                             <i class="fas fa-search"></i> Search
                         </h2>
                         <form @submit.prevent="search()" class="w-1/2 flex items-center m-auto">
@@ -83,7 +83,7 @@
                                 <Pagination :items="results" key="top-pagination"></Pagination>
                             </div>
                             <template v-for="(result, i) in results" :key="i">
-                                <Result :item="result"></Result>
+                                <Result :item="result" :showTab="false"></Result>
                             </template>
                             <div class="mb-3 p-2 dark:text-gray-500 text-gray-400">
                                 <Pagination :items="results" key="bottom-pagination"></Pagination>

@@ -36,12 +36,12 @@
         <div class="flex justify-center flex-wrap items-center p-2">
             <!-- 🦄 Video details 🦄 -->
             <div class="bg-gray-100 dark:bg-gray-700 rounded p-2 flex justify-around items-center space-y-1 m-2">
-                <span v-if="item?.published" class="text-sm">
+                <span v-if="item?.published" class="">
                     <i class="fas fa-video" :class="theme.text"></i> Published on <b>{{$filters.formatDate(item?.published)}}</b>
                 </span>
             </div>
             <div class="bg-gray-100 dark:bg-gray-700 rounded p-2 flex justify-around items-center space-y-1 m-2">
-                <span v-if="item?.duration" class="text-sm">
+                <span v-if="item?.duration" class="">
                     <i class="fas fa-clock" :class="theme.text"></i> <b>{{item?.duration}}</b>
                 </span>
             </div>
@@ -65,7 +65,7 @@
         </div>
         <div v-if="item?.keywords" class="space-x-2 bg-gray-500 dark:bg-gray-900 p-4 w-full">
             <template v-for="(tag, i) in item?.keywords" :key="tag + i">
-                <router-link class="text-sm text-white hover:text-accent-light underline" :to='{path: "/search", query:{"q": `"` + tag + `"`}}'><i class="fas fa-hashtag" :class="theme?.text"></i> {{tag}}</router-link>
+                <router-link class=" text-white hover:text-accent-light underline" :to='{path: "/search", query:{"q": `"` + tag + `"`}}'><i class="fas fa-hashtag" :class="theme?.text"></i> {{tag}}</router-link>
             </template>
         </div>
     </div>

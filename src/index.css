@@ -4,6 +4,29 @@
 @tailwind components;
 @tailwind utilities;
 
+/* typography */
+body{
+    font-size: 18px; 
+}
+h1{
+    font-size: 3rem;
+}
+h2{
+    font-size: 2rem;
+}
+h3{
+    font-size: 1.75rem;
+}
+h4{
+    font-size: 1.5rem;
+}
+h5{
+    font-size: 1.25rem;
+}
+small{
+    font-size: 1rem;
+}
+
 /* tooltip */
 
 :root {
@@ -18,7 +41,7 @@
 }
 
 .main-input{
-    @apply m-auto py-2 pr-7 pl-2 md:px-20 md:pl-6 text-lg text-blue-500 shadow-md focus:shadow-lg border-main focus:outline-none focus:ring-2 border-2 dark:border-accent
+    @apply m-auto py-2 pr-7 pl-2 md:px-20 md:pl-6  text-blue-500 shadow-md focus:shadow-lg border-main focus:outline-none focus:ring-2 border-2 dark:border-accent
     focus:ring-secondary-light dark:focus:ring-accent-light focus:border-main focus:border-2 dark:bg-gray-900 caret-blue-400 transition-all duration-300
 }
 
@@ -27,7 +50,7 @@
 }
 
 .field-box-table tr td:first-child{
-    @apply text-sm border-0 bg-gray-100 dark:bg-gray-800
+    @apply  border-0 bg-gray-100 dark:bg-gray-800
 }
 
 .field-box-table{
@@ -117,9 +140,8 @@ h1,h2,h3,h4,h5,p{
 .icon-btn{
     width: 24px;
     height: 24px;
-    padding: 14px;
     margin: 3px;
-    @apply flex items-center justify-center rounded-full
+    @apply flex items-center justify-center rounded-full p-5
 }
 
 .btn-main{

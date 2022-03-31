@@ -1,7 +1,7 @@
 <template>
     <div class="loader-container">
         <div class="relative w-48 h-auto">
-            <h1 class="absolute font-bold text-main dark:text-white left-20 z-40 text-xl">LOADING</h1>
+            <h1 class="absolute font-bold text-main dark:text-white left-20 z-40 ">LOADING</h1>
             <div class="absolute h-4 w-8 bg-main rounded shadow-xl loader-card-1 z-10"></div>
             <div class="absolute h-4 w-8 bg-main-light rounded shadow-xl -mt-2 loader-card-1-b z-20"></div>
             <div class="absolute h-4 w-8 bg-amber-300 rounded shadow-xl mt-2 loader-card-4 z-30"></div>
