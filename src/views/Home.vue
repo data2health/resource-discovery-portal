@@ -51,16 +51,16 @@
                 A central space to search for...
               </h2>
             </div>
-            <div class="flex justify-center items-stretch flex-wrap w-full p-4 md:p-20">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-1 w-full p-4 md:p-20 max-w-7xl m-auto">
                 <SmallCard 
                 title="Dataset"
-                :items="['A Nuclease DNA complex', 'Hair follicle and skin molecular signatures', 'Altering cancer transcriptomes using epigenomic inhibitors']"></SmallCard>
+                :items="['A Nuclease DNA complex', 'Hair follicle and skin molecular signatures']"></SmallCard>
                 <SmallCard 
                 title="Tool"
-                :items="['Omics Integrator', 'Data Driven Ontology', 'ImmClassifier']"></SmallCard>
+                :items="['Omics Integrator', 'Data Driven Ontology']"></SmallCard>
                 <SmallCard 
                 title="Research Instrument"
-                :items="['Hamilton Anxiety Scale (HAM-A)','Multidimensional Fatigue Inventory ', 'Self Care Of Heart Failure Index V 6.2']"></SmallCard>
+                :items="['Hamilton Anxiety Scale (HAM-A)','Multidimensional Fatigue Inventory ']"></SmallCard>
                 <SmallCard 
                 title="Publication"
                 :items="['Human antiviral B cell responses: Emerging lessons from hepatitis B and COVID-19', 'Lung Ultrasound in Patients With Dyspnea From Infective Lung Disease']"></SmallCard>
@@ -69,10 +69,10 @@
                 :items="['Pilot Evaluation of a New Galyfilcon A Lens Prototype and Enfilcon A Lens', 'A Phase I Clinical Study of a GamLPV, a Live Intranasal Bordetella Pertussis Vaccine']"></SmallCard>
                 <SmallCard 
                 title="Grant"
-                :items="['Omics Integrator', 'Data Driven Ontology', 'ImmClassifier']"></SmallCard>
+                :items="['Omics Integrator', 'Data Driven Ontology']"></SmallCard>
                 <SmallCard 
                 title="Education Resource"
-                :items="['An Overview of Survey Design','Developing and Writing Research Questions, Aims & Hypotheses','Managing Communication and Conflict']"></SmallCard>
+                :items="['An Overview of Survey Design','Managing Communication and Conflict']"></SmallCard>
                 <!-- Others -->
                 <div class="shadow-md rounded-xl m-2 dark:bg-gray-700 w-full md:w-64 group bg-gray-200 text-center">
                     <div class="flex justify-center items-start p-2">
@@ -82,11 +82,11 @@
                     </div>
                 </div>
 
-                <div class="w-full p-10 text-center">
-                  <router-link :to="{name:'Resources'}" class="btn-main text-main font-bold hover:text-white">
-                    Search By Resource
-                  </router-link>
-                </div>
+              </div>
+              <div class="w-full p-10 text-center flex justify-center items-center">
+                <router-link :to="{name:'Resources'}" class="btn-main text-main font-bold hover:text-white">
+                  Search By Resource
+                </router-link>
               </div>
           </section>
           <!-- section -->
