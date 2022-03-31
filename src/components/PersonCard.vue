@@ -6,7 +6,7 @@
                  :src="person.picture || '/assets/img/default.jpeg'" :alt="person.name">
             </div>
             <div class="dark:bg-gray-700 bg-gray-100 p-2 space-y-4 z-12 w-full rounded-2xl shadow-lg text-gray-500 dark:text-gray-200">
-                <h1 class="text-center pt-4">{{person.name}}</h1>
+                <h5 class="text-center pt-4">{{person.name}}</h5>
                 <div class="rounded-xl p-1 flex justify-center items-center flex-wrap">
                     <a v-if="person.social?.twitter" 
                     :href="person.social?.twitter" target="_blank" rel="nonreferrer" 
