@@ -5,7 +5,7 @@
                 <button v-if="filter.active" 
                 @click="deActivateFilter(section, filter)"
                 :class="filter.bg"
-                class="text-gray-500 dark:text-gray-200 m-1 rounded-full px-2 py-1 text-xs group">
+                class="text-white m-1 rounded-full px-2 py-1 text-xs group">
                     {{filter.name || filter.term}} <i class="fas fa-times group-hover:text-red-400"></i>
                 </button>
             </template>

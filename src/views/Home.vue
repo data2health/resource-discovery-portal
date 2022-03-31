@@ -97,33 +97,8 @@
                 How is this platform being used?
               </h2>
             </div>
-            <div class="w-full md:w-4/6 leading-snug space-y-5 p-4  md: md:p-20">
-              <p class="font-serif italic text-center text-gray-200">“I want to stay up to date on PCR testing techniques” <i class="fas fa-comment"></i></p>
-              <div class="flex items-stretch justify-center p-2 w-full md:w-2/3 flex-wrap">
-                <div class="flex flex-row flex-wrap p-3 space-y-3 items-stretch">
-                  <div class="flex justify-evenly items-center space-x-7  py-3 px-10 md:rounded-full bg-black/50 rounded-md flex-wrap">
-                    <p>Discover researchers with relevant experience</p>
-                    <p class="font-bold text-accent-light">Researcher- Maneesh Pingle, Assistant Professor of Microbiology and Immunology (Courtesy), Weill Cornell Medical College</p>
-                  </div>
-                  <div class="flex justify-evenly items-center space-x-7  py-3 px-10 md:rounded-full bg-black/50 flex-wrap rounded-md">
-                    <p>Browse literature for new publications</p>
-                    <p class="font-bold text-accent-light">Article - Comparison of Digital PCR and Quantitative PCR with Various SARS-CoV-2 Primer-Probe Sets.</p>
-                  </div>
-                  <div class="flex justify-evenly items-center space-x-7  py-3 px-10 md:rounded-full bg-black/50 flex-wrap rounded-md">
-                    <p>Search for a protocol</p>
-                    <p class="font-bold text-accent-light">Protocol - Detection of Sars-Cov2 Using Droplet Digital PCR</p>
-                  </div>
-                  <div class="flex justify-evenly items-center space-x-7  py-3 px-10 md:rounded-full bg-black/50 flex-wrap rounded-md">
-                    <p>Find informative Youtube videos</p>
-                    <p class="font-bold text-accent-light">Video - PCR Essentials</p>
-                  </div>
-                </div>
-                <div class="p-10 text-center w-full md:w-1/3 flex items-center justify-center">
-                  <router-link to="/search" class="btn-main font-bold  md:border-accent-light md:text-main">
-                    Try&nbsp;This&nbsp;Search
-                  </router-link>
-                </div>
-              </div>
+            <div class="w-full md:w-4/6 leading-snug space-y-5 p-4 md:p-20">
+              <Carousel></Carousel>
             </div>
           </section>
 
@@ -152,6 +127,7 @@ import { mapGetters } from 'vuex'
 import SmallCard from '../components/SmallCard.vue'
 import RotatingCards from '../components/RotatingCards.vue'
 import SearchBar from '../components/SearchBar.vue'
+import Carousel from '../components/ExampleCarousel.vue'
 
 export default {
   name: 'Home',
@@ -164,7 +140,8 @@ export default {
   components: {
     SmallCard,
     RotatingCards,
-    SearchBar
+    SearchBar,
+    Carousel
   },
   methods:{
     search(){
