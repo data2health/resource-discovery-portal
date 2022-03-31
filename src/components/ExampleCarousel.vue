@@ -9,7 +9,7 @@
                     <h3>"<i>{{examples[selected].title}}</i>" <i class="fas fa-comment"></i></h3>
                 </div>
                 <div 
-                class="flex justify-evenly items-center w-full flex-wrap md:flex-nowrap"
+                class="flex justify-evenly items-center w-full flex-wrap md:flex-nowrap bg-black/50 rounded p-1"
                 v-for="example, i in examples[selected].examples" 
                 :key="i + 'example'">
                     <div class="w-1/3">
@@ -20,10 +20,10 @@
                     </div>
                     <div class="w-1/3">
                         <div v-for="q, j in example.queries" :key="j + 'ex'">
-                            <b><router-link :to="'/resources/' + q.type">{{q.type}}</router-link></b> :
+                            <b><router-link class="text-accent" :to="'/resources/' + q.type">{{q.type}}</router-link></b> :
                             <p v-for="item,y in q.items" :key="y + 'q'">
                                 <router-link 
-                                class="!text-main dark:!text-accent hover:!text-accent-light dark:hover:!text-accent-light text-xs" 
+                                class="!text-white dark:!text-accent hover:!text-accent-light dark:hover:!text-accent-light text-xs" 
                                 :to="{ path: '/search', query: { 'q': item + ' AND resourceTypeName:' + q.type}}">
                                     <small><i class="fas fa-search"></i> "{{item}}"</small>
                                 </router-link>
