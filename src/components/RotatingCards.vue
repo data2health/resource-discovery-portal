@@ -1,5 +1,5 @@
 <template>
-    <canvas class="zdog-canvas select-none pointer-events-none" width="640" height="540"></canvas>
+    <canvas class="zdog-canvas select-none pointer-events-none hidden md:block" width="640" height="540"></canvas>
 </template>
 
 <script>

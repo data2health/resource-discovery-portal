@@ -6,7 +6,7 @@
         <div class="w-2/3 absolute z-50 top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%]">
 
           <div class=" w-full m:w-2/3 m-auto px-5 space-y-5">
-            <h1 class=" md: text-center text-main dark:text-white">
+            <h1 class="text-center text-main dark:text-white">
               CD2H <b>R</b>esource <b>D</b>iscovery <b>P</b>ortal
             </h1>
             <p v-if="totalDocsRDP" data-aos="fade-in" class="text-center  md: font-bold text-gray-600 dark:text-accent mb-7">
@@ -74,7 +74,9 @@
                 title="Education Resource"
                 :items="['An Overview of Survey Design','Managing Communication and Conflict']"></SmallCard>
                 <!-- Others -->
-                <div class="shadow-md rounded-xl m-2 dark:bg-gray-700 w-full md:w-64 group bg-gray-200 text-center">
+                <div class="shadow-md rounded-xl m-2 dark:bg-gray-700 w-full md:w-64 group
+                 bg-gray-200 text-center bg-no-repeat bg-center flex-wrap md:flex-nowrap bg-[length:50%]" 
+                    style="background-image: url('/assets/img/more.svg')">
                     <div class="flex justify-center items-start p-2">
                       <h5 class="font-bold  md: text-gray-700 dark:text-gray-400 order-2 md:order-1">
                           <router-link :to="{name:'Resources'}">And More...</router-link>
@@ -90,8 +92,8 @@
               </div>
           </section>
           <!-- section -->
-          <section class="flex items-start min-h-[50vh] bg-main text-white bg-no-repeat bg-right-bottom flex-wrap md:flex-nowrap" 
-          style="background-image: url('/assets/img/bg_dark.svg')">
+          <section class="flex items-start min-h-[50vh] bg-main text-white bg-no-repeat bg-[length:40%] bg-left-bottom flex-wrap md:flex-nowrap" 
+          style="background-image: url('/assets/img/lines.svg')">
             <div class="w-full md:w-2/6 md:sticky top-10 py-10 px-20">
               <h2 class=" md: font-bold">
                 How is this platform being used?
@@ -105,19 +107,19 @@
         </div>
     </div>
     <!-- cookie consent -->
-    <Modal v-if="cookiesWarning">
+    <VModal v-model="cookiesWarning">
       <template v-slot:title>
-        <h2 class="text-main"><i class="fas fa-cookie-bite text-orange-300"></i> RDP Analytics &amp; Cookies</h2>
+        <h6 class="text-main dark:text-white"><i class="fas fa-cookie-bite text-orange-300"></i> RDP Analytics &amp; Cookies</h6>
       </template>
       <template v-slot:content>
-        <p class="">
+        <p class="text-sm dark:text-white">
           This website may set analytics technologies, cookies or use similar technologies on your device in order to provide an improved user experience.<br>
           Allowing this us to show you more relevant data and improves your usage experience. We also use it in order to measure results or align our website content. 
           <router-link class="font-bold" to="/privacy">Learn more</router-link> about how this website uses cookies.<br>
-          <b>By continuing to use this website you are giving consent to cookies being used.</b>
+          <strong class="dark:text-accent">By continuing to use this website you are giving consent to cookies being used.</strong>
         </p>
       </template>
-    </Modal>
+    </VModal>
   </div>
   
 </template>

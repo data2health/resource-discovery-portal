@@ -9,7 +9,8 @@
                     <h3>"<i>{{examples[selected].title}}</i>" <i class="fas fa-comment"></i></h3>
                 </div>
                 <div 
-                class="flex justify-evenly items-center w-full flex-wrap md:flex-nowrap bg-black/50 rounded p-1"
+                class="flex justify-evenly items-center w-full flex-wrap md:flex-nowrap rounded p-1"
+                data-aos="fade-in"
                 v-for="example, i in examples[selected].examples" 
                 :key="i + 'example'">
                     <div class="w-1/3">
@@ -117,7 +118,7 @@ export default {
                             ]
                         },
                         {
-                            'context': 'Discover researches with specific software expertise',
+                            'context': 'Discover researchers with specific software expertise',
                             'queries': [
                                 {
                                     'type': 'Profile',

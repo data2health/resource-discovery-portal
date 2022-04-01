@@ -1,11 +1,11 @@
 <template>
     <!-- card -->
     <div class="shadow-md rounded-xl m-2 dark:bg-gray-700 w-full md:w-64 group bg-white">
-        <div class="p-2 text-center space-y-1 flex flex-row md:flex-col justify-evenly items-center">
-            <h5 class="font-bold  md: text-gray-700 dark:text-gray-400 order-2 md:order-1">
-                <router-link :to="'/resources/' + title">{{$filters.readableName(title)}}</router-link>
+        <div class="p-2 text-center space-y-1 flex flex-row md:flex-col justify-evenly items-center flex-wrap">
+            <h5 class="font-bold text-gray-700 dark:text-gray-400 order-2 md:order-1">
+                <router-link :to="'/resources/' + title">{{title}}</router-link>
             </h5>
-            <img :src="sourceInfo.img" :alt="title" class="rounded w-16 md:w-1/3 md:group-hover:hidden order-1 md:order-2">
+            <img :src="sourceInfo.img" :alt="title" class="rounded w-8 md:w-1/3 md:group-hover:hidden order-1 md:order-2">
         </div>
         <div class="text-left  p-1 md:p-4">
             <ul class="space-y-2 hidden md:group-hover:block">
