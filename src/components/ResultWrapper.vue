@@ -7,7 +7,7 @@
             <div class="h-auto rounded-sm relative p-1">
                 <!--🦄 Profiles Only 🦄-->
                 <template v-if="item?.['resourceTypeName'] == 'Profile'">
-                    <img :src="item?.raw?.avatar_url" :alt="title" class="w-8 border-2 border-gray-200 dark:border-white rounded-full mr-3 inline">
+                    <img :src="item?.raw?.avatar_url || '/assets/img/default_user.jpeg'" :alt="title" class="w-8 border-2 border-gray-200 dark:border-white rounded-full mr-3 inline">
                     <p class="inline cursor-pointer text-blue-500 hover:text-blue-400 dark:text-white" @click.prevent="open = !open">
                         {{title}}
                     </p>

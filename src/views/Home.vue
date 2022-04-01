@@ -5,16 +5,16 @@
       <div class="relative w-full min-h-[60vh]">
         <div class="w-2/3 absolute z-50 top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%]">
 
-          <div class=" w-full m:w-2/3 m-auto px-5 space-y-5">
+          <div class=" w-full m:w-2/3 m-auto px-5">
             <h1 class="text-center text-main dark:text-white">
-              CD2H <b>R</b>esource <b>D</b>iscovery <b>P</b>ortal
+              CD2H <strong>R</strong>esource <strong>D</strong>iscovery <strong>P</strong>ortal
             </h1>
-            <p v-if="totalDocsRDP" data-aos="fade-in" class="text-center  md: font-bold text-gray-600 dark:text-accent mb-7">
+            <p v-if="totalDocsRDP" data-aos="fade-in" class="text-center  font-bold text-gray-600 dark:text-accent mb-2">
               <span>{{$filters.numberWithCommas(totalDocsRDP)}}</span> resources and counting...
             </p>
-            <p class=" md: text-center font-extrabold text-gray-600 dark:text-white">Start your search here</p>
+            <p class="text-center text-gray-600 dark:text-white">Start your search here</p>
             <SearchBar class="w-full md:w-2/3 m-auto"></SearchBar>
-            <p class=" md: text-center text-gray-600 dark:text-white font-bold">Or explore our resources by type</p>
+            <p class="text-sm text-center text-gray-600 dark:text-white my-3">Or explore our resources by type</p>
             <p class="text-center mt-5">
               <router-link class="btn-main m-auto" to="/resources">Resource&nbsp;Types</router-link>
             </p>
@@ -31,11 +31,11 @@
           <!-- section -->
           <section class="flex  items-start min-h-[50vh] bg-main text-white flex-wrap md:flex-nowrap">
             <div class="w-full md:w-2/6 md:sticky top-10 py-10 px-20">
-              <h2 class=" md: font-bold ">
+              <h2 class=" font-bold ">
                 What is the CD2H Resource Discovery Portal?
               </h2>
             </div>
-            <div class="w-full md:w-4/6 leading-snug space-y-5 p-4 md:p-20 md:  m-0">
+            <div class="w-full md:w-4/6 leading-snug space-y-5 p-4 md:p-20  m-0">
               <!-- <div class="h-1/3 w-1/3 bg-gray-400 m-auto"></div> -->
               <img src="/assets/img/rdp_dark.svg" alt="Resource Discovery Portal" class="w-1/3 m-auto">
               <p>The CD2H Resource Discovery Portal (RDP) is a single location to start your search for bioinformatics resources. <br>The platform draws from over 50 databases and covers over 20,000,000 total resources. You can accomplish a wide range of tasks with this single interface to search for many types of resources, including datasets, journal articles, Youtube videos, GitHub profiles, funding opportunities and more.</p>
@@ -47,7 +47,7 @@
           <!-- section -->
           <section class="min-h-[50vh]">
             <div class="w-full top-10 py-10 px-20">
-              <h2 class=" md: font-bold text-gray-600 dark:text-secondary-light text-center">
+              <h2 class=" font-bold text-gray-600 dark:text-secondary-light text-center">
                 A central space to search for...
               </h2>
             </div>
@@ -78,7 +78,7 @@
                  bg-gray-200 text-center bg-no-repeat bg-center flex-wrap md:flex-nowrap bg-[length:50%]" 
                     style="background-image: url('/assets/img/more.svg')">
                     <div class="flex justify-center items-start p-2">
-                      <h5 class="font-bold  md: text-gray-700 dark:text-gray-400 order-2 md:order-1">
+                      <h5 class="font-bold  text-gray-700 dark:text-gray-400 order-2 md:order-1">
                           <router-link :to="{name:'Resources'}">And More...</router-link>
                       </h5>
                     </div>
@@ -95,7 +95,7 @@
           <section class="flex items-start min-h-[50vh] bg-main text-white bg-no-repeat bg-[length:40%] bg-left-bottom flex-wrap md:flex-nowrap" 
           style="background-image: url('/assets/img/lines.svg')">
             <div class="w-full md:w-2/6 md:sticky top-10 py-10 px-20">
-              <h2 class=" md: font-bold">
+              <h2 class=" font-bold">
                 How is this platform being used?
               </h2>
             </div>

@@ -16,8 +16,8 @@
             <div v-if="suggestions" class="bg-gray-200 w-full shadow-xl
             md:absolute md:top-12 hidden md:flex flex-wrap highlight_container">
                 <div class="p-4 bg-gray-600 text-white space-y-1 w-full">
-                    <h1>Recent Searches</h1>
-                    <div class="space-x-2 flex flex-wrap">
+                    <h5>Recent Searches</h5>
+                    <div class="space-x-2 flex flex-wrap text-sm">
                         <template v-for="(item, i) in recentSearches" :key="item + i">
                             <span class=" mb-3">
                                 <template v-if="item && item.length > 60">

@@ -6,26 +6,26 @@
 
 /* typography */
 body{
-    font-size: 18px; 
-}
-h1{
-    font-size: 3rem;
-}
-h2{
-    font-size: 2rem;
-}
-h3{
-    font-size: 1.75rem;
-}
-h4{
-    font-size: 1.5rem;
-}
-h5{
-    font-size: 1.25rem;
-}
-small{
-    font-size: 1rem;
-}
+    @apply text-base
+  }
+  h1{
+    @apply text-lg md:text-3xl
+  }
+  h2{
+    @apply text-sm md:text-xl
+  }
+  h3{
+    @apply text-sm md:text-lg
+  }
+  h4{
+    @apply text-sm md:text-md
+  }
+  h5{
+    @apply text-sm md:text-md
+  }
+  small{
+    @apply text-xs md:text-sm
+  }
 
 /* tooltip */
 
