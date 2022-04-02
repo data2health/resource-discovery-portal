@@ -7,7 +7,10 @@
             <div class="h-auto rounded-sm relative p-1">
                 <!--🦄 Profiles Only 🦄-->
                 <template v-if="item?.['resourceTypeName'] == 'Profile'">
-                    <img :src="item?.raw?.avatar_url || '/assets/img/default_user.jpeg'" :alt="title" class="w-8 border-2 border-gray-200 dark:border-white rounded-full mr-3 inline">
+                    <img 
+                    :src="item?.raw?.avatar_url || '/assets/img/default_user.jpeg'" 
+                    :alt="title" 
+                    class="w-16 border-2 border-gray-200 dark:border-white rounded-full mr-3 inline">
                     <p class="inline cursor-pointer text-blue-500 hover:text-blue-400 dark:text-white" @click.prevent="open = !open">
                         {{title}}
                     </p>
@@ -57,8 +60,8 @@
                 <!-- badges -->
                 <template v-for="(badge, i) in preview_badges" :key="i">
                     <template v-for="(text, field) in badge" :key="text">
-                        <div class="px-2 py-1 m-1 hover:bg-accent rounded-sm text-xs" :class="resourceInfo.bg" v-if="text">
-                            <router-link :to='{ path: "/search", query: { "q":  field + `:"` + text + `"`}}' class="!text-white">
+                        <div class="px-2 py-1 m-1 hover:bg-accent rounded-md text-xs" :class="resourceInfo.bg2" v-if="text">
+                            <router-link :to='{ path: "/search", query: { "q":  field + `:"` + text + `"`}}' class="!text-gray-700 dark:!text-white hover:!text-white">
                                 {{text}}
                             </router-link>
                         </div>

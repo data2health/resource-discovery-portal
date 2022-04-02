@@ -1,13 +1,13 @@
 <template>
-    <span class="font-bold text-blue-500 dark:text-blue-300 hover:text-blue-400 cursor-context-menu" @click.prevent="preview_open = !preview_open">
+    <span class="font-bold text-sm text-blue-500 dark:text-blue-300 hover:text-blue-400 cursor-context-menu" @click.prevent="preview_open = !preview_open">
         {{name}}
     </span>
     <!-- cookie consent -->
     <VModal v-model="preview_open" @confirm="preview_open = false">
         <template v-slot:title>
-            <h2 class="text-main  md: dark:text-white">
+            <p class="text-main dark:text-white text-md">
                 {{content?.name || name}}
-            </h2>
+            </p>
         </template>
         <template v-slot:content>
             <div class="bg-white dark:bg-gray-700">

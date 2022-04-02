@@ -12,9 +12,9 @@
                             v-model="q"
                             type="text" 
                             placeholder="search" 
-                            class="main-input w-full rounded-full">
+                            class="main-input w-full rounded md:rounded-full">
                             
-                            <button type="submit" class="btn-main absolute right-0 inline md:hidden">
+                            <button type="submit" class="btn-main absolute -right-8 inline md:hidden -mt-1">
                                 <i class="fas fa-search"></i>
                             </button>
                             <router-link v-if="q" :to="{path: '/search'}" class="-right-5 top-3 hidden md:inline absolute !text-gray-500">

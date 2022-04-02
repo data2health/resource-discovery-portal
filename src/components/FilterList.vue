@@ -1,7 +1,7 @@
 <template>
     <div class="rounded-2xl p-2 mb-3 shadow select-none bg-gray-200/50 dark:bg-gray-200 hover:bg-gray-300/50">
         <div @click="open = !open" 
-        class="rounded cursor-pointer p-1 text-gray-600 flex justify-start  items-center font-bold">
+        class="rounded cursor-pointer p-1 text-gray-600 flex justify-start text-sm items-center font-bold">
             <span>{{ name }} <span class="text-accent-dark">({{items.length}})</span> <b class="text-main" v-if="currentlyActive">({{currentlyActive}} active)</b></span>
         </div>
         <div v-if="open">
@@ -16,7 +16,7 @@
             </div>
             <template v-for="(item) in results" :key="item.term">
                 <button @click="activateFilter(item)" 
-                class="rounded-2xl block w-full select-none text-left px-3 py-1 m-1  break-words" 
+                class="rounded-2xl block w-full select-none text-left px-3 py-1 m-1 text-sm break-words" 
                 :class="!item?.active ? 'text-main border-2 border-main hover:border-accent bg-gray-100' : 
             'bg-main border-2 border-main dark:bg-secondary dark:hover:bg-secondary-light text-white hover:bg-main-light'">
                     <i :class="[item?.active ? 'fas fa-circle text-accent' : 'far fa-circle']"></i> {{item.name || item.term}}

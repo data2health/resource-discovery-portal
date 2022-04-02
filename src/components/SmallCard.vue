@@ -12,7 +12,7 @@
                 <li v-for="item in items" :key="item + 'card'">
                     <i class="fas fa-search" :class="sourceInfo.text"></i> <router-link 
                     class="!text-main dark:!text-accent hover:!text-accent-light dark:hover:!text-accent-light text-xs" 
-                    :to="{ path: '/search', query: { 'q': item + ' AND resourceTypeName:' + title}}">
+                    :to='{ path: "/search", query: { "q": `"` + item + `"` + " AND resourceTypeName.keyword:" + title }}'>
                         <small>{{item}}</small>
                     </router-link>
                 </li>

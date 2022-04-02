@@ -36,17 +36,16 @@
                                 <tbody>
                                     <template v-for="(result, i) in mostRecentResults" :key="i">
                                         <tr>
-                                            <td class="mb-2 font-extrabold text-blue-600 hover:text-accent-light cursor-context-menu w-3/4">
-                                                <!-- <img :src="sourceInfo.img" :alt="resource" class="h-6 mr-2 inline">  -->
+                                            <td class="mb-1 font-extrabold text-blue-600 hover:text-accent-light cursor-context-menu w-3/4 p-1">
                                                 <i :class="[sourceInfo.icon, sourceInfo.text]" class="mr-2 inline"></i>
                                                 <PopUpPreview :content="result" :name="result?.name" :theme="sourceInfo"></PopUpPreview> 
                                             </td>
-                                            <td class="w-1/4 text-center">
-                                                <p class="">
+                                            <td class="w-1/4 text-center p-1">
+                                                <p class="text-xs">
                                                     <template v-if="result?.dateModified">{{$filters.formatDate(result?.dateModified)}}</template>
                                                     <template v-else-if="result?.date_modified">{{$filters.formatDate(result?.date_modified)}}</template>
                                                 </p>
-                                                <router-link class="bg-green-500 hover:bg-green-300 ml-1 !text-white p-1 rounded-full  px-2" 
+                                                <router-link class="bg-green-500 hover:bg-green-300 ml-1 !text-white p-1 rounded-full px-2 text-sm" 
                                                 :to="{ path: '/resources/' + resource + '/' + result._id}">more info <i class="fas fa-arrow-alt-circle-right"></i></router-link>
                                             </td>
                                         </tr>

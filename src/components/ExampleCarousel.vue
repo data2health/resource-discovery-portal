@@ -25,7 +25,7 @@
                             <p v-for="item,y in q.items" :key="y + 'q'">
                                 <router-link 
                                 class="!text-white dark:!text-accent hover:!text-accent-light dark:hover:!text-accent-light text-xs" 
-                                :to="{ path: '/search', query: { 'q': item + ' AND resourceTypeName:' + q.type}}">
+                                :to='{ path: "/search", query: { "q": `"` + item + `"` + " AND resourceTypeName.keyword:" + q.type }}'>
                                     <small><i class="fas fa-search"></i> "{{item}}"</small>
                                 </router-link>
                             </p>
