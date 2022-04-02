@@ -63,10 +63,10 @@
                 :items="['Hamilton Anxiety Scale (HAM-A)','Multidimensional Fatigue Inventory ']"></SmallCard>
                 <SmallCard 
                 title="Publication"
-                :items="['Human antiviral B cell responses: Emerging lessons from hepatitis B and COVID-19', 'Lung Ultrasound in Patients With Dyspnea From Infective Lung Disease']"></SmallCard>
+                :items="['Advances in optical biopsy for cancer diagnosis', 'Immunological strategies to fight skin cancer']"></SmallCard>
                 <SmallCard 
                 title="Clinical Trial"
-                :items="['Pilot Evaluation of a New Galyfilcon A Lens Prototype and Enfilcon A Lens', 'A Phase I Clinical Study of a GamLPV, a Live Intranasal Bordetella Pertussis Vaccine']"></SmallCard>
+                :items="['Enhancing COVID Rehabilitation With Technology', 'Cancer Fatigue Education Program']"></SmallCard>
                 <SmallCard 
                 title="Grant"
                 :items="['Omics Integrator', 'Data Driven Ontology']"></SmallCard>
@@ -74,13 +74,12 @@
                 title="Education Resource"
                 :items="['An Overview of Survey Design','Managing Communication and Conflict']"></SmallCard>
                 <!-- Others -->
-                <div class="shadow-md rounded-xl m-2 dark:bg-gray-700 w-full md:w-64 group
-                 bg-gray-200 text-center bg-no-repeat bg-center flex-wrap md:flex-nowrap bg-[length:50%]" 
-                    style="background-image: url('/assets/img/more.svg')">
-                    <div class="flex justify-center items-start p-2">
-                      <h5 class="font-bold  text-gray-700 dark:text-gray-400 order-2 md:order-1">
+                <div class="shadow-md rounded-xl m-2 dark:bg-gray-700 w-full md:w-64 bg-gray-200 text-center">
+                    <div class="p-2 text-center">
+                      <h5 class="font-bold text-gray-700 dark:text-gray-400 block">
                           <router-link :to="{name:'Resources'}">And More...</router-link>
                       </h5>
+                      <More></More>
                     </div>
                 </div>
 
@@ -130,6 +129,7 @@ import SmallCard from '../components/SmallCard.vue'
 import RotatingCards from '../components/RotatingCards.vue'
 import SearchBar from '../components/SearchBar.vue'
 import Carousel from '../components/ExampleCarousel.vue'
+import More from '../components/More.vue'
 
 export default {
   name: 'Home',
@@ -143,7 +143,8 @@ export default {
     SmallCard,
     RotatingCards,
     SearchBar,
-    Carousel
+    Carousel,
+    More
   },
   methods:{
     search(){
