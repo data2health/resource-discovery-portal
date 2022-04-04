@@ -15,15 +15,14 @@
             <div class="container m-auto max-w-6xl">
                 <div class="bg-gray-100 dark:bg-gray-900 rounded-2xl p-3 my-5 shadow">
                     <div class="flex justify-center items-center flex-wrap">
-                        <div class="w-1/2 md:w-1/4" v-if="data">
+                        <div class="w-1/2 md:w-1/5" v-if="data && multipleSources">
                             <Chart :data="data" type="doughnut" name='Where is the data coming from?' :color="sourceInfo.hex"></Chart>
                         </div>
                         <div class=" w-full md:w-2/3">
-                            <h1 class=" md: mb-3" :class="sourceInfo.text"><span class="font-extrabold">RDP</span> <span class="capitalize">{{resource}}</span></h1>
-                            <template v-if="sourceInfo?.description">
-                                <p v-html="sourceInfo.description"></p>
-                            </template>
-                            <p v-else>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Expedita delectus iste perferendis eos architecto rem animi dicta dignissimos quia incidunt maxime error, mollitia repellendus blanditiis, ea laborum non impedit. Aut.</p>
+                            <h1 class=" md: mb-3" :class="sourceInfo.text"><span class="capitalize">{{resource.endsWith('y') ? resource.replace('y', 'ies') : resource + 's'}}</span></h1>
+                            <p>
+                                Explore {{resource.endsWith('y') ? resource.replace('y', 'ies') : resource + 's'}} in the Resource Discovery Portal by scanning the most recently added to the collection or by searching with filters available.
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -45,8 +44,8 @@
                                                     <template v-if="result?.dateModified">{{$filters.formatDate(result?.dateModified)}}</template>
                                                     <template v-else-if="result?.date_modified">{{$filters.formatDate(result?.date_modified)}}</template>
                                                 </p>
-                                                <router-link class="bg-green-500 hover:bg-green-300 ml-1 !text-white p-1 rounded-full px-2 text-sm" 
-                                                :to="{ path: '/resources/' + resource + '/' + result._id}">more info <i class="fas fa-arrow-alt-circle-right"></i></router-link>
+                                                <router-link class="bg-green-500 hover:bg-green-300 ml-1 !text-white p-1 rounded-full px-2 text-xs" 
+                                                :to="{ path: '/resources/' + resource + '/' + result._id}">more info<i class="fas fa-arrow-alt-circle-right"></i></router-link>
                                             </td>
                                         </tr>
                                     </template>
@@ -117,6 +116,7 @@ export default {
             q:'',
             highlighter: null,
             more: 0,
+            multipleSources: true
         }
     },
     props:{
@@ -152,6 +152,9 @@ export default {
                 };
 
                 if( res.data?.facets?.['_index']?.terms){
+                    if (res.data?.facets?.['_index']?.terms.length <= 1) {
+                        self.multipleSources = false;
+                    }
                     res.data?.facets?.['_index']?.terms.forEach(termInfo => {
                         //chart data for /About
                         let name = termInfo.term

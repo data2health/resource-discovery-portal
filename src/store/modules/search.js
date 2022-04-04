@@ -18,8 +18,6 @@ export default {
                 'icon': 'fas fa-database',
                 'img': '/assets/img/icons/data.svg',
                 'active' : false,
-                'description': `The CD2H Resource Discovery Portal houses a collection of over 2,163,616 datasets from over 54 repositories. 
-                This is one of the largest collection of biomedical datasets in the world and is available for CTSA hub members, or researchers, clinicians, or otherwise interested parties.`,
                 'filters':[
                     {
                         'name': 'Dataset is Curated',
@@ -229,7 +227,7 @@ export default {
             'Grant' : {
                 'hex': '#059669',
                 'text': 'text-emerald-600 dark:text-emerald-500',
-                'bg': 'bg-emerald-600 dark:bg-emerald-500',
+                'bg': 'bg-emerald-500',
                 'bg2': 'bg-emerald-600/50 dark:bg-emerald-500/50',
                 'icon': 'fas fa-money-check-alt',
                 'img': '/assets/img/icons/grant.svg',
