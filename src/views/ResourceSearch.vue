@@ -230,7 +230,7 @@ export default {
         }
         this.drawChart();
         this.search();
-        this.$store.dispatch('getMostRecent', {'resource': this.resource});
+        // this.$store.dispatch('getMostRecent', {'resource': this.resource});
     },
     updated: function(){
         this.highlightMatches(this.q);

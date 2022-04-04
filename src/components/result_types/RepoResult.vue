@@ -1,73 +1,106 @@
 <template>
-    <div class="text-left">
-        <!-- Type -->
-        <ResultTab :name="result_type" :theme="theme" ></ResultTab>
-        <!-- Content Preview-->
-        <div class="bg-white h-auto p-4 tracking-wide mb-4 mx-1 rounded-sm relative dark:bg-gray-600 border border-t-gray-300 border-t-2">
-            <h5 class=" font-semibold">
-                <router-link :to="{ name: 'ResultDetails', query: {'resource': item._id} }">{{item._source.label}}</router-link>
-            </h5>
-            <!-- Full View Headers -->
-            <div v-if="fullView" :class="theme['text']" class=" p-3 border-b-2 border-gray-200 mb-3">
-                <h1 class="font-light">ABOUT</h1>
+    <!--🦄 Type Specific Content 🦄-->
+    <div :class="theme.bg">
+        <!-- 🦄 Badges 🦄 -->
+        <div class="flex justify-start items-center flex-wrap bg-white dark:bg-gray-700">
+            <template v-for="pill in pills" class="" :key="pill.value">
+                <!-- pill -->
+                <Pill :color="theme['bg']">
+                    <template v-slot:title>{{$filters.readableName(pill.field)}}</template>
+                    <template v-slot:value>{{pill.value}}</template>
+                </Pill>
+            </template>
+        </div>
+        <div class="flex justify-around flex-wrap items-center p-2">
+            <!-- 🦄 Curation 🦄 -->
+            <div  v-if="item?.curatedBy" class="bg-gray-100 dark:bg-gray-700 rounded-xl p-2 shadow-md flex justify-center items-center flex-col space-y-1 m-2">
+                <h3 class="font-light  mb-2" :class="theme['text']">Curated by</h3>
+                <template v-if="item?.curatedBy?.url">
+                    <img v-if="item?.curatedBy?.name == 'ClinicalTrials.gov'" src="/assets/img/ctgov.jpeg" alt="ClinicalTrials.gov" class="w-32">
+                    <img v-else-if="item?.curatedBy?.name == 'Figshare'" src="/assets/img/figshare.png" alt="Figshare" class="w-32">
+                    <a  :href="item?.curatedBy?.url" target="_blank" rel="nonreferrer">
+                            {{item?.curatedBy?.name || 'more info'}} <span class="font-bold">({{$filters.formatDate(item?.curatedBy?.curationDate)}})</span> <i class="fas fa-external-link-square-alt" :class="theme.text"></i>
+                    </a> 
+                    <Pill v-if="item?.curatedBy?.versionDate" :color="theme['bg']">
+                        <template v-slot:title>version</template>
+                        <template v-slot:value>{{$filters.formatDate(item?.curatedBy?.versionDate)}}</template>
+                    </Pill>
+                </template>
+                <p v-else>{{item?.curatedBy?.name}} ({{$filters.formatDate(item?.curatedBy?.curationDate)}})</p>
             </div>
-            <Description :text="item?._source?.raw?.owner?.description"></Description>
-            <!-- Full View Headers -->
-            <div v-if="fullView" :class="theme['text']" class=" p-3 border-b-2 border-gray-200 mb-3">
-                <h1 class="font-light">DETAILS</h1>
+            <!-- 🦄 Content 🦄 -->
+            <div  v-if="item?.content?.html" class="bg-gray-100 dark:bg-gray-700 rounded-xl p-2 shadow-md flex justify-center items-center flex-col space-y-1 m-2 w-full">
+                <Description :text="item?.content?.html"></Description>
             </div>
-            <template v-if="expandedView || fullView" data-aos="fade-in">
-                <div class=" font-regular p-6 text-gray-500 dark:text-white flex 
-                items-center justify-between rounded-xl shadow-xl my-4 w-3/4 m-auto bg-gray-100/50 dark:bg-gray-500">
-                    <div class="text-center">
-                        <img v-if="item?._source?.raw?.owner?.avatar_url" 
-                        :src="item._source.raw.owner.avatar_url" 
-                        alt="github avatar" 
-                        class="rounded-md w-1/4 shadow-lg border-8 border-white hover:border-gray-100 m-auto bg-white">
-                        <p class="text-center">
-                            <a :href="item?._source?.raw?.html_url" target="_blank" rel="nonreferrer">
-                                {{item?._source?.raw?.name}} <i class="fas fa-external-link-square-alt" :class="theme.text"></i>
-                            </a>
-                        </p>
-                    </div>
-                    <div class="ml-2 p-3 rounded border border-blue-200 ">
-                        <p v-if="item?._source?.raw?.owner?.type" class="mb-1"><i class="fab fa-github" :class="theme.text"></i> {{item?._source?.raw?.owner?.type}}</p>
-                        <p v-if="item?._source?.raw?.visibility" class="mb-1"><i class="fas fa-lock" :class="theme.text"></i> {{item?._source?.raw?.visibility}}</p>
-                    </div>
-                </div>
+        </div>
+        <div v-if="item?.keywords" class="space-x-2 bg-gray-500 dark:bg-gray-900 p-4 w-full">
+            <template v-for="(tag, i) in item?.keywords" :key="tag + i">
+                <router-link class=" text-white hover:text-accent-light underline" :to='{path: "/search", query:{"q": `"` + tag + `"`}}'><i class="fas fa-hashtag" :class="theme?.text"></i> {{tag}}</router-link>
             </template>
         </div>
     </div>
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
-
-import ResultTab from '../ResultTab.vue'
+import PopUpPreview from '../PopUpPreview.vue'
 import Description from '../ExpandableDescription.vue'
 
 export default {
     name: "RepoResult",
     props:{
         item: Object,
-        fullView: Boolean
+        fullView: Boolean,
+        theme: Object
     },
     components:{
-        ResultTab,
+        PopUpPreview,
         Description
     },
     computed:{
-        ...mapGetters([
-            'expandedView'
-        ]),
-        result_type: function () {
-            // deeper > shallow
-            return this.item?._source?.entity ? this.item?._source?.entity : 
-            this.item?._source?.['resourceTypeName'] ? this.item?._source?.['resourceTypeName'] : 'Tool';
+        authors: function(){
+            if (this.item && this.item?.author) {
+                return this.item?.author.map(item => item.name);
+            }else{
+                return false
+            }
         },
-        theme: function() {
-            return this.$store.getters.getTheme(this.result_type.charAt(0).toUpperCase() + this.result_type.slice(1));
+        authorsByInstitution: function(){
+            let res = {};
+            if (this.item && this.item?.author) {
+                this.item?.author.forEach(item => {
+                    if( Object.hasOwnProperty.call(item, 'affiliation')){
+                        item.affiliation.forEach(aff => {
+                            if (Object.hasOwnProperty.call(aff, 'name')) {
+                                if (!Object.hasOwnProperty.call(res, aff.name)) {
+                                    res[aff.name] = [item.name];
+                                }else{
+                                    res[aff.name].push(item.name);
+                                }
+                            }
+                        });
+                    }
+                });
+            return Object.keys(res).length ? res : false;
+            }else{
+                return false
+            }
         },
+        pills: function() {
+            let pills = [];
+            // field containing values you want to display as pills
+            let possibleFields = ['name'];
+
+            possibleFields.forEach(f => {
+                if (f in this.item) {
+                    if (Array.isArray(this.item[f])) {
+                        this.item[f].forEach(v => pills.push({'field': f, 'value': v}));
+                    }else{
+                        pills.push({'field': f, 'value': this.item[f]})
+                    }
+                }
+            });
+            return pills;
+        }
     }
 }
 </script>
