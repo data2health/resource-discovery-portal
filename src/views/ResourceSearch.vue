@@ -74,8 +74,9 @@
                     </div>
                     <div class="w-full flex flex-wrap justify-center">
                         <div class="w-full md:w-1/4 p-4">
-                            <FilterList name="Filter by author" section="author.name.keyword" :items="filters['author.name.keyword']"></FilterList>
-                            <FilterList name="Filter by source" section="_index" :items="filters['_index']"></FilterList>
+                            <template v-for="filter in sourceInfo?.['standaloneSearchFilters']" :key="filter.name">
+                                <FilterList :name="filter.name" :section="filter.value" :items="filters[filter.value]"></FilterList>
+                            </template>
                         </div>
                         <div class="w-full md:w-3/4 p-4">
                             <div class="mb-3 p-2 dark:text-gray-500 text-gray-400">
@@ -193,7 +194,7 @@ export default {
                 'active': false
             };
 
-            axios.get(this.baseURL + `?aggs=${field}&q=resourceTypeName:${this.resource}&size=0`).then(res=>{
+            axios.get(this.baseURL + `?aggs=${field}&q=resourceTypeName:${this.resource}&facet_size=20`).then(res=>{
 
                 res.data?.facets?.[field]?.terms.forEach(termInfo => {
                     self.$store.commit('addFilter', {
@@ -218,7 +219,12 @@ export default {
     },
     mounted: function () {
         this.highlighter = new Mark(document.querySelector(".highlight_container"));
-        this.aggregateField('author.name.keyword');
+        //side filters for this type in store mapping
+        if (this.sourceInfo?.['standaloneSearchFilters']?.length) {
+            this.sourceInfo?.['standaloneSearchFilters'].forEach(filter => {
+                this.aggregateField(filter.value);
+            });
+        }
         this.drawChart();
         this.search();
         this.$store.dispatch('getMostRecent', {'resource': this.resource});

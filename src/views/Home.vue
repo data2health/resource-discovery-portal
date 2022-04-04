@@ -16,7 +16,7 @@
             <SearchBar class="w-full md:w-2/3 m-auto"></SearchBar>
             <p class="text-sm text-center text-gray-600 dark:text-white my-3">Or explore our resources by type</p>
             <p class="text-center mt-5">
-              <router-link class="btn-main m-auto" to="/resources">Resource&nbsp;Types</router-link>
+              <router-link class="btn-main m-auto" :to="{name:'Resources'}">Resource&nbsp;Types</router-link>
             </p>
           </div>
         </div>

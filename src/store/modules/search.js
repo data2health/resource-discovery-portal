@@ -28,6 +28,10 @@ export default {
                     }
                 ],
                 'preview_badges': ['keywords'],
+                'standaloneSearchFilters': [{
+                    'name': 'Filter by author',
+                    'value': 'author.name.keyword'
+                }],
             },
             'Institution' : {
                 'hex': '#c026d3',
@@ -78,6 +82,20 @@ export default {
                 'img': '/assets/img/icons/ct.svg',
                 'active' : false,
                 'preview_badges': ['keywords', 'healthCondition'],
+                'standaloneSearchFilters': [
+                    {
+                    'name': 'Filter by author',
+                    'value': 'author.name.keyword'
+                    },
+                    {
+                        'name': 'Filter by results availability',
+                        'value': 'hasResults'
+                    },
+                    {
+                        'name': 'Filter by keywords',
+                        'value': 'keywords'
+                    },
+                ],
             },
             'Publication' : {
                 'hex': '#14b8a6',
@@ -88,6 +106,12 @@ export default {
                 'img': '/assets/img/icons/book.svg',
                 'active' : false,
                 'preview_badges': ['topicCategory', 'keywords'],
+                'standaloneSearchFilters': [
+                    {
+                    'name': 'Filter by author',
+                    'value': 'author.name.keyword'
+                    },
+                ],
             },
             'Article' : {
                 'text': 'text-teal-500',
@@ -97,6 +121,10 @@ export default {
                 'img': '/assets/img/icons/book.svg',
                 'active' : false,
                 'preview_badges': ['keywords'],
+                'standaloneSearchFilters': [{
+                    'name': 'Filter by author',
+                    'value': 'author.name.keyword'
+                }],
             },
             'Multimedia Object' : {
                 'hex': '#ef4444',
@@ -117,6 +145,36 @@ export default {
                 'img': '/assets/img/icons/video.svg',
                 'active' : false,
                 'preview_badges': ['keywords'],
+                'standaloneSearchFilters': [
+                    {
+                    'name': 'Filter by tags',
+                    'value': 'tag.tag.keyword'
+                    },
+                    {
+                    'name': 'Filter by video definition',
+                    'value': 'definition.keyword'
+                    },
+                ],
+            }, 
+            'Video Playlist' : {
+                'hex': '#dc2626',
+                'text': 'text-red-600',
+                'bg': 'bg-red-600',
+                'bg2': 'bg-red-600/50',
+                'icon': 'fab fa-play',
+                'img': '/assets/img/icons/playlist.svg',
+                'active' : false,
+                'preview_badges': ['keywords'],
+            },
+            'Video Channel' : {
+                'hex': '#f43f5e',
+                'text': 'text-rose-500',
+                'bg': 'bg-rose-500',
+                'bg2': 'bg-rose-500/50',
+                'icon': 'fab fa-play',
+                'img': '/assets/img/icons/channel.svg',
+                'active' : false,
+                'preview_badges': ['keywords'],
             },
             'Tool' : {
                 'hex': '#4f46e5',
@@ -127,6 +185,16 @@ export default {
                 'img': '/assets/img/icons/tool.svg',
                 'active' : false,
                 'preview_badges': ['applicationCategory', 'programmingLanguage', 'operatingSystem'],
+                'standaloneSearchFilters': [
+                    {
+                    'name': 'Filter by author',
+                    'value': 'author.name.keyword'
+                    },
+                    {
+                        'name': 'Filter by keywords',
+                        'value': 'keywords'
+                    },
+                ],
             },
             'Repository' : {
                 'hex': '#2563eb',
@@ -167,6 +235,10 @@ export default {
                 'img': '/assets/img/icons/grant.svg',
                 'active' : false,
                 'preview_badges': ['funding_ic'],
+                'standaloneSearchFilters': [{
+                    'name': 'Filter by funding institution',
+                    'value': 'ic_name.keyword'
+                }],
             },
             'Research Instrument' : {
                 'hex': '#84cc16',
@@ -187,6 +259,10 @@ export default {
                 'img': '/assets/img/icons/protocol.svg',
                 'active' : false,
                 'preview_badges': ['protocolCategory', 'protocolSetting'],
+                'standaloneSearchFilters': [{
+                    'name': 'Filter by author',
+                    'value': 'author.name.keyword'
+                }],
             },
         },
         resourceTypes:{
