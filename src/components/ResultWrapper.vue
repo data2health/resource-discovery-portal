@@ -69,20 +69,25 @@
                 </template>
             </div>
 
-            <div v-if="open && !fullView" class="flex justify-center items-center">
+            <div v-if="open && !fullView" class="flex justify-center items-center text-sm">
                 <!-- Preview fields -->
                 <table class="w-full  my-3">
                     <tbody>
                         <template v-for="info, field in preview_fields" :key="field">
                             <tr class="border border-b-2 border-t-0 border-r-0 border-l-0 border-gray-100 p-1">
                                 <td>
-                                    <b>{{field}}:</b>
+                                    <b>{{$filters.readableName(field)}}:</b>
                                 </td>
-                                <td>
+                                <td class="group flex justify-start items-center">
                                     <template v-if="info.includes('http')">
-                                        <a :href="info" target="_blank">{{info}}</a>
+                                        <a :href="info" target="_blank">{{info.length > 70 ? info.substring(0, 70) + '...' : info}}</a>
                                     </template>
-                                    <span v-else v-html="info"></span>
+                                    <template v-else>
+                                        <Description :text="info"></Description>
+                                    </template>
+                                    <span class="ml-3 opacity-0 group-hover:opacity-100">
+                                        <CopyButton :copy="info" copy_msg="Copy"></CopyButton>
+                                    </span>
                                 </td>
                             </tr>
                         </template>
@@ -90,7 +95,7 @@
                 </table>
             </div>
             <div v-if="open || fullView || expandedView" class="p-2">
-                <div class="flex justify-around mt-1 p-3 dark:text-white">
+                <div class="flex justify-around mt-1 p-3 dark:text-white text-sm">
                     <!-- created date -->
                     <span v-if="created" class="">
                         <i class="fas fa-book" :class="resourceInfo.text"></i> created <b>{{$filters.formatDate(created)}}</b>
@@ -405,7 +410,7 @@ export default {
             }
         },
         preview_fields: function(){
-            let allowed = ['published', 'created', 'url', 'doi', 'abstract'];
+            let allowed = ['url', 'published', 'created', 'doi', 'abstract'];
             let res = {};
             allowed.forEach(field => {
                 if (Object.hasOwnProperty.call(this.item, field)) {

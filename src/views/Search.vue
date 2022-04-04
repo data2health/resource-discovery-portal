@@ -55,7 +55,7 @@
                     </details>
                 </div>
                 <!-- Results -->
-                <div class="flex-grow mx-3 highlight_container min-h-[75vh] w-3/4">
+                <div class="flex-grow highlight_container min-h-[75vh] w-full md:w-3/5 p-2">
                     <!-- details -->
                     <div class="mb-3 p-2 dark:text-gray-500 text-gray-400">
                         <Pagination :items="results" key="top-pagination"></Pagination>
@@ -68,6 +68,9 @@
                         <Pagination :items="results" key="bottom-pagination"></Pagination>
                     </div>
                 </div>
+                <div class="hidden md:w-1/6 md:inline">
+                <!-- spacer -->
+                </div>
             </div>
 
             <!-- Bottom Column -->
@@ -75,7 +78,7 @@
                 <!-- Recent History -->
                 <div class="p-4 text-left rounded-lg bg-gray-200 dark:bg-gray-700 mb-2 w-1/3">
                     <div class="flex justify-between items-center mb-3">
-                        <p class="font-thin text-gray-500 ">Recent Searches</p>
+                        <p class="font-thin text-gray-500 text-xs">Recent Searches</p>
                         <Popper content="Clear All" class="tip" :hover="true" placement="right" arrow>
                             <button class="icon-btn icon-btn bg-gray-300 text-gray-400 
                             dark:bg-gray-600 dark:text-gray-500 hover:bg-red-400 dark:hover:bg-red-400 hover:text-white dark:hover:text-white"
@@ -86,7 +89,7 @@
                     </div>
                     <ul>
                         <template v-for="(item, i) in recentSearches" :key="i + 'recent'">
-                            <li class=" mb-3" v-if="item">
+                            <li class="text-xs mb-3" v-if="item">
                                 <Popper :content="item" class="tip" :hover="true" placement="right" arrow>
                                     <router-link :title="item" active-class="text-secondary"
                                     :to="{ path: '/search', query: { 'q': item }}">
@@ -102,23 +105,23 @@
                     </ul>
                 </div>
                 <!-- Sharing-->
-                <div class="p-4 text-left rounded-lg bg-gray-200 dark:bg-gray-700 mb-2">
-                    <p class="font-thin text-gray-500">Sharing</p>
-                    <div class="flex justify-around items-center p-2">
-                        <!-- share URL -->
-                        <CopyButton copy_msg="Copy URL" :copy="url"></CopyButton>
-                        <!-- Download -->
-                        <Popper content="Download Results" class="tip" :hover="true" placement="top">
-                            <button class="icon-btn rounded-xl bg-main hover:bg-main-light dark:bg-secondary-light dark:hover:bg-secondary" 
-                                @click.prevent="download">
-                                <i class="fas fa-download text-white"></i>
-                            </button>
-                        </Popper>
-                        <!-- Social -->
-                        <ShareButtons></ShareButtons>
+                    <div class="p-4 text-left rounded-lg bg-gray-200 dark:bg-gray-700 mb-2">
+                        <p class="font-thin text-xs text-gray-500">Sharing</p>
+                        <div class="flex justify-around items-center p-2 flex-wrap">
+                            <!-- share URL -->
+                            <CopyButton copy_msg="Copy URL" :copy="url"></CopyButton>
+                            <!-- Download -->
+                            <Popper content="Download Results" class="tip" :hover="true" placement="top">
+                                <button class="icon-btn rounded-xl bg-main hover:bg-main-light dark:bg-secondary-light dark:hover:bg-secondary" 
+                                    @click.prevent="download">
+                                    <i class="fas fa-download text-white"></i>
+                                </button>
+                            </Popper>
+                            <!-- Social -->
+                            <ShareButtons></ShareButtons>
+                        </div>
+                        
                     </div>
-                    
-                </div>
             </div>
         </div>
     </div>
