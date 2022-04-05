@@ -1,0 +1,32 @@
+<svg version="1.1" id="play_icon" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 100 100" style="enable-background:new 0 0 100 100;" xml:space="preserve">
+<style type="text/css">
+	.play_st0{fill:#F4343D;}
+	.play_st1{fill:none;stroke:#F4343D;stroke-width:9;stroke-miterlimit:10;}
+  .strip{
+    stroke-dasharray:10;
+  }
+  #play_icon:hover .strip{
+    stroke-dasharray:10;
+    animation: dash 10s linear forwards;
+    animation-iteration-count: infinite;
+  }
+ 
+  @keyframes dash {
+    to {
+      stroke-dashoffset: 1000;
+    }
+  }
+</style>
+<rect class="play_st0" width="5.3" height="100"/>
+<rect x="12.8" class="play_st0" width="5.3" height="100"/>
+<line id="left" class="play_st1 strip" x1="8.7" y1="0" x2="8.7" y2="100"/>
+<rect x="81.9" class="play_st0" width="5.3" height="100"/>
+<rect x="94.7" class="play_st0" width="5.3" height="100"/>
+<line id="right" class="play_st1 strip" x1="90.6" y1="0" x2="90.6" y2="100"/>
+<rect x="18.1" y="12.3" class="play_st0" width="63.8" height="6.3"/>
+<rect x="18.1" y="81.5" class="play_st0" width="63.8" height="6.3"/>
+<path class="play_st0" d="M30.8,36.3v27.3c0,2.7,2.8,4.5,5.2,3.4l33.1-14.7c3-1.3,2.9-5.7-0.2-6.9L35.8,32.9
+	C33.4,31.9,30.8,33.7,30.8,36.3z"/>
+</svg>
+

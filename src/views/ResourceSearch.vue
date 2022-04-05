@@ -19,7 +19,9 @@
                             <Chart :data="data" type="doughnut" name='Where is the data coming from?' :color="sourceInfo.hex"></Chart>
                         </div>
                         <div class=" w-full md:w-2/3">
-                            <h1 class=" md: mb-3" :class="sourceInfo.text"><span class="capitalize">{{resource.endsWith('y') ? resource.replace('y', 'ies') : resource + 's'}}</span></h1>
+                            <h1 class="mb-3" :class="sourceInfo.text">
+                                <object v-if="resource == 'Video'" data='/assets/img/icons/play.svg' class="inline w-16"></object> <span class="capitalize">{{resource.endsWith('y') ? resource.replace('y', 'ies') : resource + 's'}}</span>
+                            </h1>
                             <p>
                                 Explore {{resource.endsWith('y') ? resource.replace('y', 'ies') : resource + 's'}} in the Resource Discovery Portal by scanning the most recently added to the collection or by searching with filters available.
                             </p>

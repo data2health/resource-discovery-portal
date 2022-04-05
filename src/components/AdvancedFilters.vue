@@ -1,23 +1,25 @@
 <template>
     <div class="grid grid-cols-1 md:grid-cols-2 gap-2  p-2 rounded">
         <template v-for="filter, i in filters['resourceTypeName.keyword']" :key="i + 'fil'">
-            <div class="my-1 p-2 dark:bg-gray-800 bg-white rounded">
+            <div v-if="filter?.filters" class="my-1 p-2 rounded" :class="[filter.active ? filter.bg : 'dark:bg-gray-800 bg-white']">
                 <ExpandableSection>
                     <template v-slot:title>
-                        <b class=" select-none text-gray-700 dark:text-white">
+                        <b class="text-sm select-none text-gray-700 dark:text-white">
                             <img :src="filter.img" class="w-4 inline" :alt="filter.term">
                             {{filter.term}} (<span class="text-accent">{{filter?.filters?.length || 0}}</span>)
-                            <button 
-                            @click="activateFilter(filter)" 
-                            :class="[filter.active ? 'bg-green-500' : 'bg-gray-600']"
-                            class="p-1 rounded-md text-white m-1">
-                                {{filter.active ? 'ON' : 'OFF'}}
-                            </button>
+                            <input 
+                            type="checkbox"
+                            :checked='filter.active'
+                            @click="activateFilter(filter)"
+                            class="m-1 form-checkbox h-6 w-6 rounded text-green-500">
                         </b>
                     </template>
                     <template v-slot:value>
-                        <div class="ml-3 space-y-1 bg-gray-100 text-gray-600 p-2 rounded" v-if="filter?.filters">
-                            <div v-for="f,j in filter?.filters" :key="j + 'filter'">
+                        <div class="ml-3 space-y-1 bg-gray-100/60 text-gray-600 p-2 rounded" v-if="filter?.filters">
+                            <div v-if="!filter.active" class="text-xs">
+                                Check resource type checkbox to activate filters
+                            </div>
+                            <div v-for="f,j in filter?.filters" :key="j + 'filter'" class="text-sm">
                                 <input 
                                 :disabled="!filter.active" 
                                 :checked="f.active"

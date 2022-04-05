@@ -20,10 +20,15 @@ export default {
                 'active' : false,
                 'filters':[
                     {
-                        'name': 'Dataset is Curated',
+                        'name': 'Curated Only',
                         'field': '_exists_:curatedBy',
                         'active': false
-                    }
+                    },
+                    {
+                        'name': 'Not Curated Only',
+                        'field': '!_exists_:curatedBy',
+                        'active': false
+                    },
                 ],
                 'preview_badges': ['keywords'],
                 'standaloneSearchFilters': [{
@@ -80,6 +85,18 @@ export default {
                 'img': '/assets/img/icons/ct.svg',
                 'active' : false,
                 'preview_badges': ['keywords', 'healthCondition'],
+                'filters':[
+                    {
+                        'name': 'Curated Only',
+                        'field': '_exists_:curatedBy',
+                        'active': false
+                    },
+                    {
+                        'name': 'Not Curated Only',
+                        'field': '!_exists_:curatedBy',
+                        'active': false
+                    },
+                ],
                 'standaloneSearchFilters': [
                     {
                     'name': 'Filter by author',
@@ -104,25 +121,24 @@ export default {
                 'img': '/assets/img/icons/book.svg',
                 'active' : false,
                 'preview_badges': ['topicCategory', 'keywords'],
+                'filters':[
+                    {
+                        'name': 'Curated Only',
+                        'field': '_exists_:curatedBy',
+                        'active': false
+                    },
+                    {
+                        'name': 'Not Curated Only',
+                        'field': '!_exists_:curatedBy',
+                        'active': false
+                    },
+                ],
                 'standaloneSearchFilters': [
                     {
                     'name': 'Filter by author',
                     'value': 'author.name.keyword'
                     },
                 ],
-            },
-            'Article' : {
-                'text': 'text-teal-500',
-                'bg': 'bg-teal-500',
-                'bg2': 'bg-teal-500/50',
-                'icon': 'fas fa-book',
-                'img': '/assets/img/icons/book.svg',
-                'active' : false,
-                'preview_badges': ['keywords'],
-                'standaloneSearchFilters': [{
-                    'name': 'Filter by author',
-                    'value': 'author.name.keyword'
-                }],
             },
             'Multimedia Object' : {
                 'hex': '#ef4444',
@@ -183,6 +199,18 @@ export default {
                 'img': '/assets/img/icons/tool.svg',
                 'active' : false,
                 'preview_badges': ['applicationCategory', 'programmingLanguage', 'operatingSystem'],
+                'filters':[
+                    {
+                        'name': 'Curated Only',
+                        'field': '_exists_:curatedBy',
+                        'active': false
+                    },
+                    {
+                        'name': 'Not Curated Only',
+                        'field': '!_exists_:curatedBy',
+                        'active': false
+                    },
+                ],
                 'standaloneSearchFilters': [
                     {
                     'name': 'Filter by author',
@@ -257,6 +285,18 @@ export default {
                 'img': '/assets/img/icons/protocol.svg',
                 'active' : false,
                 'preview_badges': ['protocolCategory', 'protocolSetting'],
+                'filters':[
+                    {
+                        'name': 'Curated Only',
+                        'field': '_exists_:curatedBy',
+                        'active': false
+                    },
+                    {
+                        'name': 'Not Curated Only',
+                        'field': '!_exists_:curatedBy',
+                        'active': false
+                    },
+                ],
                 'standaloneSearchFilters': [{
                     'name': 'Filter by author',
                     'value': 'author.name.keyword'
