@@ -6,7 +6,7 @@
     <div class="flex justify-between items-center flex-wrap">
         <!-- total hits -->
         <div class="flex justify-between items-center">
-            <small class="text-gray-500">{{$filters.numberWithCommas(total)}} Results</small>
+            <small class="text-gray-600 dark:text-gray-300">{{$filters.numberWithCommas(total)}} Results</small>
         </div>
         <!-- pages -->
         <div class="text-md">
@@ -42,9 +42,9 @@
         </div>
         <!-- per page -->
         <div class="flex justify-between items-center text-sm">
-            <label class="mr-2  text-gray-500" for="perPage">Per Page</label>
+            <label class="mr-2 dark:text-gray-300 text-gray-600" for="perPage">Per Page</label>
             <select name="perPage" 
-            class="outline-none rounded dark:bg-gray-800 focus:outline-none text-accent" 
+            class="outline-none rounded dark:bg-gray-800 focus:outline-none text-gray-700 dark:text-accent-light" 
             @change="handlePerPage($event)"
             :v-model="perPage">
                 <option value="10">10</option>

@@ -15,9 +15,9 @@
 
           <!-- primary nav -->
           <div class="hidden md:flex items-center space-x-3 mr-5">
-            <router-link to="/search" class="py-3 px-3 text-main hover:text-main-light">Keyword Search</router-link>
-            <router-link :to="{name:'Resources'}" class="py-3 px-3 text-main hover:text-main-light">Resource Types</router-link>
-            <router-link to="/about" class="py-3 px-3 text-main hover:text-main-light">About</router-link>
+            <router-link to="/search" class="py-3 px-3 text-main hover:text-main-light dark:text-gray-200 dark:hover:text-gray-100">Keyword Search</router-link>
+            <router-link :to="{name:'Resources'}" class="py-3 px-3 text-main hover:text-main-light dark:text-gray-200 dark:hover:text-gray-100">Resource Types</router-link>
+            <router-link to="/about" class="py-3 px-3 text-main hover:text-main-light dark:text-gray-200 dark:hover:text-gray-100">About</router-link>
           </div>
         </div>
 

@@ -37,8 +37,9 @@
             </div>
             <div class="w-full md:w-4/6 leading-snug space-y-5 p-4 md:p-20  m-0">
               <!-- <div class="h-1/3 w-1/3 bg-gray-400 m-auto"></div> -->
-              <img src="/assets/img/rdp_dark.svg" alt="Resource Discovery Portal" class="w-1/3 m-auto">
-              <p>The CD2H Resource Discovery Portal (RDP) is a single location to start your search for bioinformatics resources. <br>The platform draws from over 50 databases and covers over 20,000,000 total resources. You can accomplish a wide range of tasks with this single interface to search for many types of resources, including datasets, journal articles, Youtube videos, GitHub profiles, funding opportunities and more.</p>
+              <img src="/assets/img/rdp_dark.svg" alt="Resource Discovery Portal" class="w-1/3 m-auto space-y-5">
+              <p>The CD2H Resource Discovery Portal (RDP) is a single location to start your search for bioinformatics resources.</p>
+              <p>The platform draws from over 50 databases and covers over 20,000,000 total resources. You can accomplish a wide range of tasks with this single interface to search for many types of resources, including datasets, journal articles, Youtube videos, GitHub profiles, funding opportunities and more.</p>
               <p class="text-center p-10">
                 <router-link class="btn-main m-auto  md:border-accent-light md:text-main" to="/about">Learn More</router-link>
               </p>
@@ -47,7 +48,7 @@
           <!-- section -->
           <section class="min-h-[50vh]">
             <div class="w-full top-10 py-10 px-20">
-              <h2 class=" font-bold text-gray-600 dark:text-secondary-light text-center">
+              <h2 class=" font-bold text-gray-600 dark:text-white text-center">
                 A central space to search for...
               </h2>
             </div>

@@ -1,9 +1,9 @@
 <template>
     <Popper :content="copy_msg" class="tip" :hover="true" placement="top">
         <button v-bind="$attrs" 
-        class="bg-gray-300 dark:bg-gray-600 hover:!bg-accent-light text-white mx-1 icon-btn " 
+        class="hover:!bg-accent-light text-white mx-1 icon-btn" 
         :data-clipboard-text="copy" 
-        :class="['cp'+badgeID]">
+        :class="['cp'+badgeID, color]">
             <slot></slot> <i class="far fa-copy"></i>
         </button>
     </Popper>
@@ -19,7 +19,20 @@ export default {
             badgeID: Math.floor(Math.random()*90000) + 10000
         }
     },
-    props:['copy', 'copy_msg'],
+    props:{
+        'copy':{
+            type: String,
+            default:''
+        },
+        'copy_msg':{
+            type: String,
+            default:''
+        },
+        'color':{
+            type: String,
+            default:'bg-gray-300 dark:bg-gray-600'
+        }
+    },
     mounted:function(){
         let self = this;
         var clipboard = new ClipboardJS('.cp'+this.badgeID);

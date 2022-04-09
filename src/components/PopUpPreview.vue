@@ -1,5 +1,5 @@
 <template>
-    <span class="font-bold text-sm text-blue-500 dark:text-blue-300 hover:text-blue-400 cursor-context-menu" @click.prevent="preview_open = !preview_open">
+    <span class="text-sm text-blue-500 dark:text-blue-300 hover:text-blue-400 cursor-context-menu" @click.prevent="preview_open = !preview_open">
         {{name}}
     </span>
     <!-- cookie consent -->

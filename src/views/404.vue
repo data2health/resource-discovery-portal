@@ -5,8 +5,8 @@
             <h1 class=" font-light text-center italic font-serif text-secondary-light dark:text-accent">"You are here...but you should be over here"</h1>
             <img v-if="!darkMode" src="/assets/img/404.svg" alt="logo" class="m-auto w-1/2">
             <img v-else src="/assets/img/404-dark.svg" alt="logo" class="m-auto w-1/2">
-            <p class="text-center">
-                <router-link to="/">Let's start again...</router-link>
+            <p class="text-center my-4">
+                <router-link class="btn-main" to="/">Let's start again...</router-link>
             </p>
         </div>
     </div>

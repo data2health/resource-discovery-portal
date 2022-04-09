@@ -9,7 +9,7 @@
             type="text" 
             placeholder="search" 
             :class="suggestions ? 'rounded-xl rounded-b-sm' : 'rounded-sm md:rounded-xl'"
-            class="main-input w-full">
+            class="main-input w-full dark:placeholder:text-gray-100">
             <!-- small screen action-->
             <button class="block md:hidden bg-accent text-white p-3 w-full text-center mt-3 rounded-2xl" ><i class="fas fa-search"></i> Search</button>
             <!-- options drawer -->
@@ -88,7 +88,7 @@ export default {
                     let top = res.data?.facets?.['resourceTypeName.keyword']?.terms.map(f => f.term);
                     top = top.length > 3 ? top.slice(2) : top;
                     top.forEach(term => {
-                            axios.get(this.baseURL + "?q=" + this.query + " AND resourceTypeName.keyword:" + term + "&size=5&fields=name,title,toolName,article_title").then(res => {
+                            axios.get(this.baseURL + "?q=" + this.query + " AND resourceTypeName.keyword:" + term + "&size=5").then(res => {
                                 self.suggestions[term] = res.data.hits;
                             }).catch(err =>{
                                 console.log('Error loading suggestions', err);

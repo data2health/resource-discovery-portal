@@ -3,8 +3,8 @@
     @mouseenter="cls ='opacity-100'" 
     @mouseleave="cls ='opacity-0'" 
     v-if="(text && text.length > 200) && !text.includes('</')">
-        <p class="inline" @click.prevent="expanded = !expanded">{{expanded ? text : text.substring(0, 200) + "..."}} <span v-if="!expanded" class="text-accent cursor-pointer">(see more)</span></p>
-        <span class="ml-3 inline" :class="cls">
+        <p class="inline" @click.prevent="expanded = !expanded">{{expanded ? text : text.substring(0, 200) + "..."}} <span v-if="!expanded" class="text-accent-dark dark:text-accent-light cursor-pointer">(see more)</span></p>
+        <span class="ml-3 inline" :class="cls" v-if="copy">
             <CopyButton :copy="text" copy_msg="Copy Text"></CopyButton>
         </span>
     </div>
@@ -34,6 +34,10 @@ export default {
         expanded:{
             type: Boolean,
             default: false
+        },
+        copy:{
+            type: Boolean,
+            default: true
         }
     }
 }

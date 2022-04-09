@@ -5,7 +5,7 @@
                 <button @click="previous()"><i class="fas fa-chevron-left fa-2x hover:text-accent"></i></button>
             </div>
             <div class="space-y-2">
-                <div class="bg-black/20 rounded-full px-9 py-3">
+                <div class="bg-black/20 rounded-full px-9 mb-10">
                     <h3>"<i>{{examples[selected].title}}</i>" <i class="fas fa-comment"></i></h3>
                 </div>
                 <div 
@@ -20,10 +20,10 @@
                     </div>
                     <div class="w-1/3">
                         <div v-for="q, j in example.queries" :key="j + 'ex'">
-                            <b><router-link class="text-accent" :to="'/resources/' + q.type">{{q.type}}</router-link></b> :
+                            <b><router-link class="text-accent dark:text-white" :to="'/resources/' + q.type">{{q.type}}</router-link></b> :
                             <p v-for="item,y in q.items" :key="y + 'q'">
                                 <router-link 
-                                class="!text-white dark:!text-accent hover:!text-accent-light dark:hover:!text-accent-light text-xs" 
+                                class="!text-white dark:!text-accent-light hover:!text-accent-light dark:hover:!text-accent-light text-xs" 
                                 :to='{ path: "/search", query: { "q": `"` + item + `"` + " AND resourceTypeName.keyword:" + q.type }}'>
                                     <small><i class="fas fa-search"></i> "{{item}}"</small>
                                 </router-link>

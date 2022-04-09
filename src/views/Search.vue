@@ -1,5 +1,5 @@
 <template>
-    <div class="dark:bg-gray-800 dark:text-white bg-white relative">
+    <div class="dark:bg-gray-800 dark:text-white bg-gray-100 relative">
         <div class="sticky top-0 bg-gray-200/75 dark:bg-gray-900/75 w-full z-50">
             <div class="flex justify-center items-center px-7 flex-wrap">
                 <div class="hidden md:w-1/3 md:flex">
@@ -33,27 +33,77 @@
         <div class="container mx-auto px-4 max-w-7xl">
             
             <div class="flex relative items-start flex-wrap md:flex-nowrap">
-                <!-- type facets -->
-                <div class="p-3 inline md:sticky top-40 bg-gray-200 dark:bg-gray-700 rounded-lg w-full md:w-1/5">
-                    <details open>
-                        <summary class="cursor-pointer p-1"><p class=" text-black dark:text-white inline">Resource Types</p></summary>
-                        <div v-for="type in filters['resourceTypeName.keyword']" :key="type + 'f'" class="flex mb-1 group justify-start items-center">
-                            <input 
-                                type="checkbox" 
-                                :checked="type.active"
-                                @click="activateFilter(type)"
-                                :id="type.term" 
-                                class="focus:ring-0 checked:!bg-accent-dark rounded border-gray-200 group-hover:border-accent-light mr-2">
-                            <img :src="type.img" :alt="type" class="h-5 mr-2 inline">
-                            <div>
-                                <label class="text-xs cursor-pointer group-hover:text-gray-600 dark:group-hover:text-gray-200 font-bold" :class="type.active ? type.text : ''" :for="type.term">
-                                    {{$filters.readableName(type.term)}}
-                                </label>
-                                <small v-if="type.result_count" data-aos="fade-in" class="text-xs text-gray-500 dark:text-gray-400 block md:inline md:ml-2"><span>({{$filters.numberWithCommas(type.result_count)}})</span></small>
+                <div class="w-full md:w-1/5 inline md:sticky top-40 space-y-3 mt-10">
+                    <!-- type facets -->
+                    <div class="p-3 bg-gray-200 dark:bg-gray-700 rounded-lg ">
+                        <details open>
+                            <summary class="cursor-pointer p-1"><h2 class="text-black dark:text-white inline text-sm">Resource Types</h2></summary>
+                            <div v-for="type in filters['resourceTypeName.keyword']" :key="type + 'f'" class="flex mb-1 group justify-start items-center">
+                                <input 
+                                    type="checkbox" 
+                                    :checked="type.active"
+                                    @click="activateFilter(type)"
+                                    :id="type.term" 
+                                    class="focus:ring-0 checked:!bg-accent-dark rounded border-gray-200 group-hover:border-accent-light mr-2">
+                                <img :src="type.img" :alt="type" class="h-5 mr-2 inline">
+                                <div>
+                                    <label class="text-xs cursor-pointer group-hover:text-gray-600 dark:group-hover:text-gray-200 font-bold" :class="type.active ? type.text : ''" :for="type.term">
+                                        {{$filters.readableName(type.term)}}
+                                    </label>
+                                    <small v-if="type.result_count" data-aos="fade-in" class="text-xs text-gray-900 dark:text-gray-200 block md:inline md:ml-2"><span>({{$filters.numberWithCommas(type.result_count)}})</span></small>
+                                </div>
                             </div>
+                        </details>
+                    </div>
+                    
+                    <!-- Sharing-->
+                    <div class="p-4 text-left rounded-lg bg-gray-200 dark:bg-gray-700">
+                        <h2 class="text-gray-800 text-sm dark:text-white">Sharing</h2>
+                        <div class="flex justify-around items-center p-2 flex-wrap">
+                            <!-- Download -->
+                            <Popper content="Download Results" class="tip" :hover="true" placement="top">
+                                <button class="icon-btn rounded-xl bg-main hover:bg-main-light dark:bg-secondary-light dark:hover:bg-secondary" 
+                                    @click.prevent="download">
+                                    <i class="fas fa-download text-white"></i>
+                                </button>
+                            </Popper>
+                            <!-- Social -->
+                            <ShareButtons></ShareButtons>
+                            <!-- share URL -->
+                            <CopyButton copy_msg="Copy URL" :copy="url" color="bg-main hover:bg-main-light dark:bg-secondary-light dark:hover:bg-secondary"></CopyButton>
                         </div>
-                    </details>
+                    </div>
+                    <!-- Recent History -->
+                    <div class="p-4 text-left rounded-lg bg-gray-200 dark:bg-gray-700 w-full">
+                        <div class="flex justify-between items-center mb-3">
+                            <h2 class="text-gray-800 text-sm dark:text-white">Recent Searches</h2>
+                            <Popper content="Clear All" class="tip" :hover="true" placement="right" arrow>
+                                <button class="icon-btn icon-btn bg-gray-300 text-gray-400 
+                                dark:bg-gray-600 dark:text-gray-500 hover:bg-red-400 dark:hover:bg-red-400 hover:text-white dark:hover:text-white"
+                                @click.prevent="clearRecentSearches()">
+                                    <i class="fas fa-times"></i>
+                                </button>
+                            </Popper>
+                        </div>
+                        <ul>
+                            <template v-for="(item, i) in recentSearches" :key="i + 'recent'">
+                                <li class="text-sm mb-3" v-if="item">
+                                    <Popper :content="item" class="tip" :hover="true" placement="right" arrow>
+                                        <router-link :title="item" active-class="text-secondary"
+                                        :to="{ path: '/search', query: { 'q': item }}">
+                                        <i class="fas fa-search  text-accent-light"></i> 
+                                        {{item && item.length > 25 ? item.substring(0, 25) + '...' : item}}
+                                        </router-link>
+                                    </Popper>
+                                </li>
+                            </template>
+                            <template v-if="recentSearches.length == 0">
+                                <li class="text-gray-400">No Recent Searches</li>
+                            </template>
+                        </ul>
+                    </div>
                 </div>
+                
                 <!-- Results -->
                 <div class="flex-grow highlight_container min-h-[75vh] w-full md:w-3/5 p-2">
                     <!-- details -->
@@ -75,53 +125,7 @@
 
             <!-- Bottom Column -->
             <div class="w-full flex justify-around items-center py-10">
-                <!-- Recent History -->
-                <div class="p-4 text-left rounded-lg bg-gray-200 dark:bg-gray-700 mb-2 w-1/3">
-                    <div class="flex justify-between items-center mb-3">
-                        <p class="font-thin text-gray-500 text-xs">Recent Searches</p>
-                        <Popper content="Clear All" class="tip" :hover="true" placement="right" arrow>
-                            <button class="icon-btn icon-btn bg-gray-300 text-gray-400 
-                            dark:bg-gray-600 dark:text-gray-500 hover:bg-red-400 dark:hover:bg-red-400 hover:text-white dark:hover:text-white"
-                            @click.prevent="clearRecentSearches()">
-                                <i class="fas fa-times"></i>
-                            </button>
-                        </Popper>
-                    </div>
-                    <ul>
-                        <template v-for="(item, i) in recentSearches" :key="i + 'recent'">
-                            <li class="text-xs mb-3" v-if="item">
-                                <Popper :content="item" class="tip" :hover="true" placement="right" arrow>
-                                    <router-link :title="item" active-class="text-secondary"
-                                    :to="{ path: '/search', query: { 'q': item }}">
-                                    <i class="fas fa-search  text-accent-light"></i> 
-                                    {{item && item.length > 25 ? item.substring(0, 25) + '...' : item}}
-                                    </router-link>
-                                </Popper>
-                            </li>
-                        </template>
-                        <template v-if="recentSearches.length == 0">
-                            <li class="text-gray-400">No Recent Searches</li>
-                        </template>
-                    </ul>
-                </div>
-                <!-- Sharing-->
-                    <div class="p-4 text-left rounded-lg bg-gray-200 dark:bg-gray-700 mb-2">
-                        <p class="font-thin text-xs text-gray-500">Sharing</p>
-                        <div class="flex justify-around items-center p-2 flex-wrap">
-                            <!-- share URL -->
-                            <CopyButton copy_msg="Copy URL" :copy="url"></CopyButton>
-                            <!-- Download -->
-                            <Popper content="Download Results" class="tip" :hover="true" placement="top">
-                                <button class="icon-btn rounded-xl bg-main hover:bg-main-light dark:bg-secondary-light dark:hover:bg-secondary" 
-                                    @click.prevent="download">
-                                    <i class="fas fa-download text-white"></i>
-                                </button>
-                            </Popper>
-                            <!-- Social -->
-                            <ShareButtons></ShareButtons>
-                        </div>
-                        
-                    </div>
+               
             </div>
         </div>
     </div>

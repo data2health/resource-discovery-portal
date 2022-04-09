@@ -731,6 +731,7 @@ export default {
             }
         },
         addRecent(state, payload){
+            console.log('%c recently searched: ' + JSON.stringify(payload.value, null, 2), 'color:yellow');
             if (state.recentSearches.size < state.maxRecentHistory) {
                 if (state.recentSearches.has(payload.value)) {
                     //remove old mention

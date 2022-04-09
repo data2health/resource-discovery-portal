@@ -5,19 +5,19 @@
         <div class="flex justify-center">
           <ul class="text-sm">
             <li class="mb-5">
-              <router-link to="/" >Home</router-link>
+              <router-link class="!text-white" to="/" >Home</router-link>
             </li>
             <li class="mb-5">
-              <router-link  :to="{name:'Search'}">Search</router-link>
+              <router-link class="!text-white" :to="{name:'Search'}">Search</router-link>
             </li>
             <li class="mb-5">
-              <router-link  :to="{name:'Resources'}">Resources</router-link>
+              <router-link class="!text-white" :to="{name:'Resources'}">Resources</router-link>
             </li>
             <li class="mb-5">
-              <router-link to="/about">About</router-link>
+              <router-link class="!text-white" to="/about">About</router-link>
             </li>
             <li class="mb-5">
-              <router-link to="/privacy">Privacy</router-link>
+              <router-link class="!text-white" to="/privacy">Privacy</router-link>
             </li>
           </ul>
         </div>

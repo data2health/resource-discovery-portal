@@ -1,9 +1,9 @@
 <template>
-    <div :key="uniqueID" class="group dark:text-gray-200">
+    <div :key="uniqueID" class="group dark:text-gray-200 mb-10">
         <template v-if="showTab">
             <ResultTab :name="item?.['resourceTypeName']" :theme="resourceInfo"></ResultTab>
         </template>
-        <div class="border border-t-gray-300 dark:border-gray-700 border-t-2 p-1 w-full bg-white dark:bg-gray-600 rounded-t">
+        <div class="border border-t-gray-300 dark:border-gray-700 border-t-2 p-1 w-full bg-white dark:bg-gray-600 rounded-t shadow-lg">
             <div class="h-auto rounded-sm relative p-1">
                 <!--🦄 Profiles Only 🦄-->
                 <template v-if="item?.['resourceTypeName'] == 'Profile'">
@@ -52,7 +52,7 @@
                 cursor-pointer hover:bg-green-400  m-4 md:m-1 md:ml-8 w-3/4 md:w-auto" 
                 :to="{ path: '/resources/' + item?.['resourceTypeName'] + '/' + item._id }">more info <i class="fas fa-arrow-alt-circle-right"></i></router-link>
                 <div class="p-1 w-full">
-                    <Description :text="description" :expanded="fullView ? true: false"></Description>
+                    Description: <Description :text="description" :expanded="fullView ? true: false" :copy="false"></Description>
                 </div>
             </div>
             <!-- Preview badges -->
@@ -158,7 +158,7 @@
                 </template>
             </div>
         </div>
-        <div v-if="!fullView" class="w-full p-1 flex justify-center cursor-pointer bg-gray-100 rounded-b dark:bg-gray-700 mb-2" @click.prevent="open = !open">
+        <div v-if="!fullView" class="w-full p-1 flex justify-center cursor-pointer bg-gray-200 rounded-b dark:bg-gray-700 mb-2 shadow-lg" @click.prevent="open = !open">
             <i class="fas group-hover:animate-bounce" :class="[open ? 'fa-chevron-up' : 'fa-chevron-down']"></i>
         </div>
         
