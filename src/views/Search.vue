@@ -34,6 +34,11 @@
             
             <div class="flex relative items-start flex-wrap md:flex-nowrap">
                 <div class="w-full md:w-1/5 inline md:sticky top-40 space-y-3 mt-10">
+                    <!-- <div>
+                        <div v-for="type in filters['resourceTypeName.keyword']" :key="type + 't'">
+                            <router-link :to='{ name: "Search", params:{"resourceTypeName": type.term}}'>{{type.term}}</router-link>
+                        </div>
+                    </div> -->
                     <!-- type facets -->
                     <div class="p-3 bg-gray-200 dark:bg-gray-700 rounded-lg ">
                         <details open>
@@ -198,6 +203,7 @@ export default {
         },
         activateFilter (type){
             this.$store.dispatch('activateFilter', {'section': 'resourceTypeName.keyword', 'filter': type});
+            this.$store.dispatch('search');
         }
     },
     watch:{

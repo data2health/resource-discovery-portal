@@ -26,6 +26,7 @@ export default {
     methods:{
         activateFilter (type){
             this.$store.dispatch('activateFilter', {'section': 'resourceTypeName.keyword', 'filter': type});
+            this.$store.dispatch('activateFilter'
         }
     },
     computed:{

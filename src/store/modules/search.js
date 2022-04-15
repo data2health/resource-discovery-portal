@@ -1,4 +1,5 @@
 import axios from 'axios';
+// import router from '../../router'
 
 export default {
     state: () => ({
@@ -170,7 +171,7 @@ export default {
                     },
                 ],
             }, 
-            'Video Playlist' : {
+            'Playlist' : {
                 'hex': '#dc2626',
                 'text': 'text-red-600',
                 'bg': 'bg-red-600',
@@ -435,9 +436,8 @@ export default {
         mostRecentSize: 3,
     }),
     actions: {
-        activateFilter({ dispatch, commit }, payload) {
-            commit('activateFilter', payload)
-            dispatch('search');
+        activateFilter({ commit }, payload) {
+            commit('activateFilter', payload);
         },
         activateSubFilter({ dispatch, commit }, payload) {
             commit('activateSubFilter', payload)

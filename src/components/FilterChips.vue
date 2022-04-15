@@ -21,6 +21,7 @@ export default {
     methods:{
         deActivateFilter(section, filter){
             this.$store.dispatch('activateFilter', {'section': section, 'filter': filter});
+            this.$store.dispatch('search');
         }
     },
     computed:{

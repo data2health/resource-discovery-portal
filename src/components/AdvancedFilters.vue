@@ -54,9 +54,10 @@ export default {
     methods:{
         activateFilter (type){
             this.$store.dispatch('activateFilter', {'section': 'resourceTypeName.keyword', 'filter': type});
+            this.$store.dispatch('search');
         },
         handleSubmit(type, name){
-            console.log('sub', type + name)
+            // console.log('sub', type + name)
             this.$store.dispatch('activateSubFilter', {'section': 'resourceTypeName.keyword', 'resourceType': type, 'filterName': name});
         }
     },

@@ -35,15 +35,14 @@ export const routes = [
         }
     },
     {
-        path: '/resources/:resource?/:id?',
-        name: 'ResultDetails',
-        component: () => import('../views/ResultDetails.vue'),
-        props: true,
+        path: '/resources',
+        name: 'Resources',
+        component: () => import('../views/Resources.vue'),
         meta: {
-                sitemap: {
-                    priority:    0.7,
-                }
+            sitemap: {
+                priority:    0.8,
             }
+        }
     },
     {
         path: '/resources/:resource',
@@ -57,14 +56,15 @@ export const routes = [
         }
     },
     {
-        path: '/resources',
-        name: 'Resources',
-        component: () => import('../views/Resources.vue'),
+        path: '/resources/:resource/:id',
+        name: 'ResultDetails',
+        component: () => import('../views/ResultDetails.vue'),
+        props: true,
         meta: {
-            sitemap: {
-                priority:    0.8,
+                sitemap: {
+                    priority:    0.7,
+                }
             }
-        }
     },
     {
         path: '/privacy',

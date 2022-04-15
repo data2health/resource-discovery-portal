@@ -45,7 +45,8 @@ export default {
     },
     mounted: function () {
         let self = this;
-        axios.get(this.baseURL + '?q=_id:"' + this.$route?.params?.id +'"' + " AND resourceTypeName:" + this.$route?.params?.resource).then(res=>{
+        if (this.$route?.params?.id) {
+            axios.get(this.baseURL + '?q=_id:"' + this.$route?.params?.id +'"' + " AND resourceTypeName:" + this.$route?.params?.resource).then(res=>{
             self.item = res.data.hits[0];
             console.log(res.data.hits[0])
             // schema.org compliant docs
@@ -56,6 +57,7 @@ export default {
             self.$toast.error(`Failed to load metadata`);
             console.log(err)
         });
+        }
     },
     computed:{
         ...mapGetters([
