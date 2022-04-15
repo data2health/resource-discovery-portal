@@ -9,9 +9,9 @@
                     <h4 class="w-full dark:text-white">{{group}}</h4>
                     <div class="w-full">
                         <form @submit.prevent="searchCategory(items)">
-                            <ExpandableSection color="text-accent" :expanded="false">
+                            <ExpandableSection color="dark:text-accent text-gray-500" :expanded="false">
                                     <template v-slot:title>
-                                        <span class="text-sm mb-2 font-thin">
+                                        <span class="text-sm mb-2">
                                             <i class="fas fa-search"></i> Search within this category 
                                         </span>
                                     </template>
