@@ -1,6 +1,6 @@
 <template>
-  <div class="darkMode py-10 text-gray-700 dark:text-gray-300 flex justify-items-stretch" id="scrollArea">
-    <div class="relative hidden md:block">
+  <div class="darkMode text-gray-700 dark:text-gray-300 flex justify-items-stretch" id="scrollArea">
+    <div class="relative hidden md:block bg-gray-100 dark:bg-gray-900">
       <div class="p-2 sticky top-10 ml-5">
         <ul class="space-y-2">
           <template v-for="a in anchors" :key="a.anchor">
@@ -33,8 +33,8 @@
         <h2 class="dark:text-white mb-6 text-main-600 font-bold">The Platform</h2>
       </section>
 
-      <section class="space-y-10 mb-4 p-3 " id="dashboard">
-        <h1 class=" mb-6 text-gray-600 dark:text-white text-center">{{$filters.numberWithCommas(totalDocsRDP)}} Total Resources!</h1>
+      <section class="space-y-10 mb-4 p-3 bg-gray-100 dark:bg-gray-900" id="dashboard">
+        <h1 class=" mb-6 text-gray-600 dark:text-white text-center text-main dark:text-main-light">{{$filters.numberWithCommas(totalDocsRDP)}} Total Resources!</h1>
         <div class="grid grid-cols-2 md:grid-cols-3 gap-1">
           <div v-for="filter in filters['resourceTypeName.keyword']" :key="filter.term">
             <img :src="filter.img" :alt="filter.term" class="inline w-4"> {{filter.term}}: <b>{{$filters.numberWithCommas(filter.count)}}</b>
@@ -73,7 +73,7 @@
         </p>
       </section>
 
-      <section class="space-y-10 mb-4 p-3 " id="data">
+      <section class="space-y-10 mb-4 p-3 bg-gray-100 dark:bg-gray-900" id="data">
         <h3 class=" mb-6 text-gray-600 dark:text-white ">Where is our data coming from?</h3>
         <div v-if="filters._index.length" class="p-2 grid grid-cols-1 md:grid-cols-2">
           <template v-for="source in filters._index" :key="source.name">
