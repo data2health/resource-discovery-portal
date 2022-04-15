@@ -7,7 +7,7 @@
                 class="border-0 border-b border-gray-300 dark:border-gray-700 rounded mb-5 flex justify-start 
                 items-stretch flex-wrap p-2 hover:bg-gray-300/10 dark:hover:bg-gray-600/10 transition-all duration-300">
                     <h4 class="w-full dark:text-white">{{group}}</h4>
-                    <div class="w-full">
+                    <div class="w-full" v-if="items.length > 1">
                         <form @submit.prevent="searchCategory(items)">
                             <ExpandableSection color="dark:text-accent text-gray-500" :expanded="false">
                                     <template v-slot:title>
