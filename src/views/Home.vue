@@ -36,8 +36,7 @@
               </h2>
             </div>
             <div class="w-full md:w-4/6 leading-snug space-y-5 p-4 md:p-20  m-0">
-              <!-- <div class="h-1/3 w-1/3 bg-gray-400 m-auto"></div> -->
-              <img src="/assets/img/rdp_dark.svg" alt="Resource Discovery Portal" class="w-1/3 m-auto space-y-5">
+              <img src="/assets/img/rdp3d.svg" alt="Resource Discovery Portal" class="w-1/3 m-auto space-y-5">
               <p>The CD2H Resource Discovery Portal (RDP) is a single location to start your search for bioinformatics resources.</p>
               <p>The platform draws from over 50 databases and covers over 20,000,000 total resources. You can accomplish a wide range of tasks with this single interface to search for many types of resources, including datasets, journal articles, Youtube videos, GitHub profiles, funding opportunities and more.</p>
               <p class="text-center p-10">
