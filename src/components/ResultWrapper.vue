@@ -12,7 +12,7 @@
                     :alt="title" 
                     class="w-16 border-2 border-gray-200 dark:border-white rounded-full mr-3 inline">
                     <p class="inline cursor-pointer text-blue-500 hover:text-blue-400 dark:text-white" @click.prevent="open = !open">
-                        {{title}}
+                        {{title}} <span title="Repository" class="text-accent text-sm" v-if="item?.url?.includes('github')">(<i class="fab fa-github-alt"></i>)</span>
                     </p>
                     <small @click.prevent="open = !open" class="text-gray-400 dark:text-gray-400 cursor-pointer" v-if="item?.raw?.company"> | {{item?.raw?.company}}</small>
                     <p class=" mt-1">{{item?.raw?.bio}}</p>
@@ -137,7 +137,7 @@
                     <template v-else-if="item?.['resourceTypeName'] == 'Tool'">
                         <Tool :item="item" :theme="resourceInfo"></Tool>
                     </template>
-                    <template v-else-if="item?.['resourceTypeName'] == 'Person'">
+                    <template v-else-if="item?.['resourceTypeName'] == 'Profile'">
                         <Person :item="item" :theme="resourceInfo"></Person>
                     </template>
                     <template v-else-if="item?.['resourceTypeName'] == 'Funding Opportunity'">

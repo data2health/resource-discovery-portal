@@ -1,5 +1,4 @@
 import axios from 'axios';
-// import router from '../../router'
 
 export default {
     state: () => ({
@@ -8,7 +7,7 @@ export default {
         results: [],
         results_facets: [],
         expandedView: false,
-        recentSearches: new Set(),
+        recentSearches: [],
         maxRecentHistory: 5,
         resourceTypesMapping:{
             'Dataset' : {
@@ -444,14 +443,17 @@ export default {
             dispatch('search');
         },
         search({commit, state }, payload) {
-            let url = state.baseURL; 
-            // RECENT SEARCHES
-            if (payload?.value) {
-                commit('addRecent', payload);
-                commit('saveQuery', payload);
-            }
             //LOADING
             commit('setLoading', { value: true});
+
+            //API BASE URL
+            let url = state.baseURL; 
+
+            // RECENT SEARCHES
+            if (state.query) {
+                commit('addRecent', {'value': state.query});
+            }
+            
             //PAGINATION
             var config = {
                 "params": {
@@ -463,10 +465,7 @@ export default {
             }
             // QUERY
             if(state.query){
-                // TEMP remove when all docs have resourceTypeName
-                config.params.q = state.query + " AND _exists_:resourceTypeName"
-            }else{
-                config.params.q = "_exists_:resourceTypeName"
+                config.params.q = state.query
             }
 
              // RESOURCE FILTER
@@ -491,18 +490,20 @@ export default {
                     }
                 });
             }
-            // console.log('%c Active Filters ' + JSON.stringify(active, null, 2), 'color:hotpink');
+            console.log('%c Active Filters ' + JSON.stringify(active, null, 2), 'color:hotpink');
             
             let fString = "";
             if (Object.keys(active).length) {
+                let processed =[];
                 for (const section in active) {
-                    fString += ' AND (' + active[section].map(value => section + ':"' + value + '"' ).join(' OR ') + ')'
+                    processed.push(`${active[section].map(value => section + ':' + value ).join(' OR ')}`);
                 }
+                fString = processed.join(' AND ');
             }
 
             // ADD FILTERS TO Q STRING
             if (fString) {
-                config.params.q += fString
+                config.params['post_filter'] = fString
             }
 
             // ADVANCED FILTERS (UNDER RESOURCE TYPE)
@@ -521,7 +522,7 @@ export default {
             let advancedString = "" 
             advancedString = advanced_active.length ? advanced_active.join(' AND ') : false;
 
-            // console.log('%c Active Advanced Filters ' + JSON.stringify(advanced_active, null, 2), 'color:dodgerblue');
+            console.log('%c Active Advanced Filters ' + JSON.stringify(advanced_active, null, 2), 'color:dodgerblue');
 
             // ADD ADVANCED FILTERS TO Q STRING
             if (advancedString) {
@@ -540,6 +541,103 @@ export default {
                 commit('setLoading', { value: false});
             });
         },
+        // search({commit, state }, payload) {
+        //     let url = state.baseURL; 
+        //     // RECENT SEARCHES
+        //     if (payload?.value) {
+        //         commit('addRecent', payload);
+        //         commit('saveQuery', payload);
+        //     }
+        //     //LOADING
+        //     commit('setLoading', { value: true});
+        //     //PAGINATION
+        //     var config = {
+        //         "params": {
+        //             'size': state.perPage,
+        //             'from': state.page == 1 ? state.page-1 : ((state.page-1) * state.perPage ),
+        //             'aggs': 'resourceTypeName.keyword',
+        //             'facet_size': 20
+        //         }
+        //     }
+        //     // QUERY
+        //     if(state.query){
+        //         // TEMP remove when all docs have resourceTypeName
+        //         config.params.q = state.query + " AND _exists_:resourceTypeName"
+        //     }else{
+        //         config.params.q = "_exists_:resourceTypeName"
+        //     }
+
+        //      // RESOURCE FILTER
+        //     if (payload?.resourceFilter) {
+        //         console.log('%c Resource Filter: ' + payload.resourceFilter, 'color:orange')
+        //         state.filters['resourceTypeName.keyword'].forEach(f => {
+        //             if (f.term == payload.resourceFilter) {
+        //                 f.active = true;
+        //             }else{
+        //                 f.active = false;
+        //             }
+        //         });
+        //     }
+
+        //     // FILTERS
+        //     let active = {};
+        //     for (const filter_type in state.filters) {
+        //         state.filters[filter_type].forEach(filter => {
+        //             if (filter.active) {
+        //                 Object.hasOwnProperty.call(active, filter_type) ? 
+        //                 active[filter_type].push(filter.term) : active[filter_type] = [filter.term];
+        //             }
+        //         });
+        //     }
+        //     // console.log('%c Active Filters ' + JSON.stringify(active, null, 2), 'color:hotpink');
+            
+        //     let fString = "";
+        //     if (Object.keys(active).length) {
+        //         for (const section in active) {
+        //             fString += ' AND (' + active[section].map(value => section + ':"' + value + '"' ).join(' OR ') + ')'
+        //         }
+        //     }
+
+        //     // ADD FILTERS TO Q STRING
+        //     if (fString) {
+        //         config.params.q += fString
+        //     }
+
+        //     // ADVANCED FILTERS (UNDER RESOURCE TYPE)
+        //     let advanced_active = [];
+        //     for (const filter_type in state.filters) {
+        //         state.filters[filter_type].forEach(type => {
+        //             if (type?.filters) {
+        //                 type?.filters.forEach(f => {
+        //                     if (f.active) {
+        //                         advanced_active.push(f.field)
+        //                     }
+        //                 })
+        //             }
+        //         });
+        //     }
+        //     let advancedString = "" 
+        //     advancedString = advanced_active.length ? advanced_active.join(' AND ') : false;
+
+        //     // console.log('%c Active Advanced Filters ' + JSON.stringify(advanced_active, null, 2), 'color:dodgerblue');
+
+        //     // ADD ADVANCED FILTERS TO Q STRING
+        //     if (advancedString) {
+        //         config.params.q += " AND " + advancedString
+        //     }
+
+        //     console.log('%c Search ' + JSON.stringify(config, null, 2), 'color:limegreen');
+        //     // SEARCH
+        //     axios.get(url, config).then( res =>{
+        //         console.log(res)
+        //         commit('saveResults', { value: res.data.hits});
+        //         commit('saveResultsFacets', { value: res.data.facets?.['resourceTypeName.keyword']?.terms});
+        //         commit('setLoading', { value: false});
+        //         commit('updatePages', { value: res.data.total});
+        //     }).catch( err =>{
+        //         commit('setLoading', { value: false});
+        //     });
+        // },
         getMostRecent({commit, state }, payload) {
             // RESET
             commit('saveMostRecent', { value: []});
@@ -696,7 +794,7 @@ export default {
             state.results_facets = payload.value;
             let facets = payload.value;
             //reset counts
-            // state.filters['resourceTypeName'].forEach(filter => filter.result_count = 0);
+            state.filters['resourceTypeName.keyword'].forEach(filter => filter.result_count = 0);
             // merge filter with results facet count
             facets.forEach(facet => {
                 state.filters['resourceTypeName.keyword'].forEach(filter => {
@@ -731,33 +829,28 @@ export default {
             }
         },
         addRecent(state, payload){
-            console.log('%c recently searched: ' + JSON.stringify(payload.value, null, 2), 'color:yellow');
-            if (state.recentSearches.size < state.maxRecentHistory) {
-                if (state.recentSearches.has(payload.value)) {
-                    //remove old mention
-                    state.recentSearches.delete(payload.value)
-                }
-                state.recentSearches.add(payload.value);
-                localStorage.rdp_recent = JSON.stringify([...state.recentSearches]);
-            }else{
-                if (state.recentSearches.has(payload.value)) {
-                    //remove old mention
-                    state.recentSearches.delete(payload.value);
-                }
-                state.recentSearches.add(payload.value);
-                //remove last
-                state.recentSearches = new Set([...state.recentSearches].pop());
-                localStorage.rdp_recent = JSON.stringify([...state.recentSearches]);
+            if (state.recentSearches.includes(payload.value)) {
+                //remove old mention
+                state.recentSearches.splice(state.recentSearches.indexOf(payload.value), 1);
             }
+            //add recent
+            state.recentSearches.unshift(payload.value);
+            console.log('%c recently searched: ' + JSON.stringify(payload.value, null, 2), 'color:yellow');
+
+            if (state.recentSearches.length > state.maxRecentHistory) {
+                //remove last
+                state.recentSearches = state.recentSearches.slice(0, state.maxRecentHistory);
+            }
+            localStorage.rdp_recent = JSON.stringify(state.recentSearches);
         },
         checkRecentSearches(state) {
             if (localStorage.getItem('rdp_recent')) {
-                state.recentSearches = new Set(JSON.parse(localStorage.rdp_recent));
+                state.recentSearches = JSON.parse(localStorage.rdp_recent);
             }
         },
         clearRecentSearches(state){
             localStorage.rdp_recent = [];
-            state.recentSearches.clear();
+            state.recentSearches = [];
         },
         toggleExpandedView(state){
             state.expandedView = !state.expandedView;

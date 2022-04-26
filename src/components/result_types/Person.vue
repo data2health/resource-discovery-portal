@@ -5,7 +5,9 @@
         <!-- Content Preview-->
         <div class="bg-white h-auto p-4 tracking-wide mb-4 mx-1 rounded-sm relative dark:bg-gray-600 border border-t-gray-300 border-t-2">
             <h5 class=" font-semibold">
-                <router-link :to="{ name: 'ResultDetails', query: {'resource': item._id} }">{{source?.name}}</router-link>
+                <router-link :to="{ name: 'ResultDetails', query: {'resource': item._id} }">
+                    {{source?.name}}
+                </router-link>
             </h5>
             <!-- Full View Headers -->
             <div v-if="fullView" :class="theme['text']" class=" p-3 border-b-2 border-gray-200 mb-3">

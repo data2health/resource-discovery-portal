@@ -17,9 +17,9 @@
                             <button type="submit" class="btn-main absolute -right-8 inline md:hidden -mt-1">
                                 <i class="fas fa-search"></i>
                             </button>
-                            <router-link v-if="q" :to="{path: '/search'}" class="-right-5 top-3 hidden md:inline absolute !text-gray-500">
+                            <span v-if="q" @click="clear()" class="-right-5 top-3 hidden md:inline absolute !text-gray-500 cursor-pointer">
                                 <i class="fas fa-times"></i>
-                            </router-link>
+                            </span>
                         </div>
                     </form>
                 </div>
@@ -34,30 +34,27 @@
             
             <div class="flex relative items-start flex-wrap md:flex-nowrap">
                 <div class="w-full md:w-1/5 inline md:sticky top-40 space-y-3 mt-10">
-                    <!-- <div>
-                        <div v-for="type in filters['resourceTypeName.keyword']" :key="type + 't'">
-                            <router-link :to='{ name: "Search", params:{"resourceTypeName": type.term}}'>{{type.term}}</router-link>
-                        </div>
-                    </div> -->
                     <!-- type facets -->
                     <div class="p-3 bg-gray-200 dark:bg-gray-700 rounded-lg ">
                         <details open>
                             <summary class="cursor-pointer p-1"><h2 class="text-black dark:text-white inline text-sm">Resource Types</h2></summary>
-                            <div v-for="type in filters['resourceTypeName.keyword']" :key="type + 'f'" class="flex mb-1 group justify-start items-center">
-                                <input 
-                                    type="checkbox" 
-                                    :checked="type.active"
-                                    @click="activateFilter(type)"
-                                    :id="type.term" 
-                                    class="focus:ring-0 checked:!bg-accent-dark rounded border-gray-200 group-hover:border-accent-light mr-2">
-                                <img :src="type.img" :alt="type" class="h-5 mr-2 inline">
-                                <div>
-                                    <label class="text-xs cursor-pointer group-hover:text-gray-600 dark:group-hover:text-gray-200 font-bold" :class="type.active ? type.text : ''" :for="type.term">
-                                        {{$filters.readableName(type.term)}}
-                                    </label>
-                                    <small v-if="type.result_count" data-aos="fade-in" class="text-xs text-gray-900 dark:text-gray-200 block md:inline md:ml-2"><span>({{$filters.numberWithCommas(type.result_count)}})</span></small>
+                            <template v-for="type in filters['resourceTypeName.keyword']" :key="type + 'f'">
+                                <div v-if="type.result_count" class="flex mb-1 group justify-start items-center">
+                                    <input 
+                                        type="checkbox" 
+                                        :checked="type.active"
+                                        @click="activateFilter(type)"
+                                        :id="type.term" 
+                                        class="focus:ring-0 checked:!bg-accent-dark rounded border-gray-200 group-hover:border-accent-light mr-2">
+                                    <img :src="type.img" :alt="type" class="h-5 mr-2 inline">
+                                    <div>
+                                        <label class="text-xs cursor-pointer group-hover:text-gray-600 dark:group-hover:text-gray-200 font-bold" :class="type.active ? type.text : ''" :for="type.term">
+                                            {{$filters.readableName(type.term)}}
+                                        </label>
+                                        <small v-if="type.result_count" data-aos="fade-in" class="text-xs text-gray-900 dark:text-gray-200 block md:inline md:ml-2"><span>({{$filters.numberWithCommas(type.result_count)}})</span></small>
+                                    </div>
                                 </div>
-                            </div>
+                            </template>
                         </details>
                     </div>
                     
@@ -152,7 +149,7 @@ export default {
     data: function(){
         return {
             highlighter: null,
-            q:'',
+            // q:'',
             url: window.location.href,
             download_data: {}
         }
@@ -166,21 +163,17 @@ export default {
         Result
     },
     methods:{
-        clearSearch(){
-            this.q = '';
-            this.$store.commit('saveQuery', {value: ''});
-            this.$router.replace({'query': null});
-            this.$store.dispatch('search', {value: null});
-            this.$store.commit('changePage', 1);
-            this.highlighter.unmark();
+        clear(){
+            window.history.pushState({"html":'content',"pageTitle": 'RDP'},"", window.location.origin + window.location.pathname);
+            this.$router.go({ name: 'Search', query: null})
         },
         search(){
-            if (this.q) {
-                this.$router.push({ query: { q: this.q }})
-                this.q = this.$route?.query?.q;
-                this.$store.commit('addRecent', {value: this.q});
-            }
-            this.$store.commit('saveQuery', {value: this.q});
+            // if (this.q) {
+            //     this.$router.push({ query: { q: this.q }})
+            //     this.q = this.$route?.query?.q;
+            //     this.$store.commit('addRecent', {value: this.q});
+            // }
+            // this.$store.commit('saveQuery', {value: this.q});
             this.$store.dispatch('search');
         },
         clearRecentSearches() {
@@ -209,10 +202,21 @@ export default {
     watch:{
         '$route.query.q': {
             handler: function(search) {
-                this.q = search
+                this.$store.commit('saveQuery', {value: search});
             },
             deep: true,
             immediate: true
+        },
+        'q': function(v){
+            // silently update url param without reloading
+            if (v) {
+                var finalURL = window.location.origin + window.location.pathname;
+                finalURL = finalURL + '?q=' + v;
+                window.history.pushState({"html":'content',"pageTitle": 'RDP'},"", finalURL);
+            }else{
+                var finalURL = window.location.origin + window.location.pathname;
+                window.history.pushState({"html":'content',"pageTitle": 'RDP'},"", finalURL);
+            }
         },
     },
     mounted: function(){
@@ -227,7 +231,16 @@ export default {
             'results',
             'recentSearches',
             'filters',
-        ])
-    }
+        ]),
+        q: {
+            get() {
+                return this.$store.getters.query
+            },
+            set(value) {
+                this.$store.commit('saveQuery', {value: value});
+            }
+        }
+    },
+    
 }
 </script>

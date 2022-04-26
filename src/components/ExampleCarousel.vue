@@ -71,7 +71,7 @@ export default {
                             'queries': [
                                 {
                                     'type': 'Profile',
-                                    'items': ['Chunlei Wu', 'Dave Eichmann']
+                                    'items': ['Chunlei Wu', 'David Eichmann']
                                 }
                             ]
                         },
