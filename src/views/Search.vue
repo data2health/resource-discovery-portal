@@ -164,8 +164,8 @@ export default {
     },
     methods:{
         clear(){
-            window.history.pushState({"html":'content',"pageTitle": 'RDP'},"", window.location.origin + window.location.pathname);
-            this.$router.go({ name: 'Search', query: null})
+            this.$store.commit('saveQuery', {value: ''});
+            this.search();
         },
         search(){
             // if (this.q) {
