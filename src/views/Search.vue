@@ -17,9 +17,9 @@
                             <button type="submit" class="btn-main absolute -right-8 inline md:hidden -mt-1">
                                 <i class="fas fa-search"></i>
                             </button>
-                            <span v-if="q" @click="clear()" class="-right-5 top-3 hidden md:inline absolute !text-gray-500 cursor-pointer">
+                            <router-link v-if="q" :to="{path: '/search'}" class="-right-5 top-3 hidden md:inline absolute !text-gray-500">
                                 <i class="fas fa-times"></i>
-                            </span>
+                            </router-link>
                         </div>
                     </form>
                 </div>
@@ -163,10 +163,6 @@ export default {
         Result
     },
     methods:{
-        clear(){
-            this.$store.commit('saveQuery', {value: ''});
-            this.search();
-        },
         search(){
             // if (this.q) {
             //     this.$router.push({ query: { q: this.q }})
