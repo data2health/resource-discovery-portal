@@ -603,7 +603,7 @@ export default {
             if (Object.keys(active).length) {
                 let processed =[];
                 for (const section in active) {
-                    processed.push(`${active[section].map(value => section + ':' + value ).join(' OR ')}`);
+                    processed.push(`${active[section].map(value => section + ':(' + value + ')' ).join(' OR ')}`);
                 }
                 fString = processed.join(' AND ');
             }
