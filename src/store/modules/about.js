@@ -17,7 +17,7 @@ export const about= {
                     'picture': '/assets/img/team/ginger.jpeg',
                     'social': {
                         'linkedin': 'https://www.linkedin.com/in/ginger-tsueng-36884348',
-                        'github': 'https://github.com/marcodarko',
+                        'github': 'https://github.com/gtsueng',
                     },
                     
                 },
@@ -25,7 +25,7 @@ export const about= {
                     'name': 'Marco A. Cano',
                     'picture': '/assets/img/team/marco.jpeg',
                     'social': {
-                        'linkedin': 'https://www.linkedin.com/in/',
+                        'linkedin': 'https://www.linkedin.com/in/marco-alvarado-cano/',
                         'github': 'https://github.com/marcodarko',
                     },
                     
@@ -35,7 +35,7 @@ export const about= {
                     'picture': '/assets/img/team/nicholette.jpeg',
                     'social': {
                         'linkedin': 'https://www.linkedin.com/in/nichollette-acosta/',
-                        'github': 'https://github.com/newgene',
+                        'github': 'https://github.com/nikkibytes',
                     },
                     
                 },
@@ -45,8 +45,8 @@ export const about= {
                     'name': 'James Edy, PI',
                     'picture': '/assets/img/team/james.jpeg',
                     'social': {
-                        'linkedin': 'https://www.linkedin.com/in/jamesaeddy/',
-                        'github': 'https://github.com/newgene',
+                        'twitter': 'https://twitter.com/jamesaeddy',
+                        'github': 'https://github.com/jaeddy',
                     },
                     
                 },
@@ -55,7 +55,7 @@ export const about= {
                     'picture': '/assets/img/team/thomas.jpeg',
                     'social': {
                         'linkedin': 'https://www.linkedin.com/in/tschaffter/',
-                        'github': 'https://github.com/marcodarko',
+                        'github': 'https://github.com/tschaffrer',
                     },
                     
                 },
@@ -64,7 +64,7 @@ export const about= {
                     'picture': '/assets/img/team/jiaxin.jpeg',
                     'social': {
                         'linkedin': 'https://www.linkedin.com/in/jiaxin-zheng-18922a54/',
-                        'github': 'https://github.com/newgene',
+                        // 'github': 'https://github.com/',
                     },
                     
                 },
@@ -74,7 +74,7 @@ export const about= {
                     'name': 'Dave Eichmann, PI',
                     'picture': '/assets/img/team/dave.jpeg',
                     'social': {
-                        'github': 'https://github.com/newgene',
+                        'github': 'https://github.com/eichmann',
                         'linkedin': 'https://www.linkedin.com/in/davideichmann/'
                     },
                     
@@ -83,7 +83,7 @@ export const about= {
                     'name': 'Elizabeth Zak',
                     'picture': '/assets/img/team/elizabeth.jpeg',
                     'social': {
-                        'github': 'https://github.com/marcodarko',
+                        'github': 'https://github.com/ezak101',
                         'linkedin': 'https://www.linkedin.com/in/elizabeth-zak-m-s-486a30ab/'
                     },
                     
@@ -92,7 +92,7 @@ export const about= {
                     'name': 'Arman Mikaili',
                     'picture': '/assets/img/team/arman.jpeg',
                     'social': {
-                        'github': 'https://github.com/newgene',
+                        // 'github': 'https://github.com/',
                     },
                     
                 },
@@ -100,8 +100,8 @@ export const about= {
                     'name': 'Alexis Graves',
                     'picture': '/assets/img/team/alexis.png',
                     'social': {
-                        'github': 'https://github.com/newgene',
-                        'website': 'https://myweb.uiowa.edu/grves/'
+                        'github': 'https://github.com/alexisgraves',
+                        'linkedin': 'http://www.linkedin.com/in/alexis-graves'
                     },
                     
                 },
@@ -109,7 +109,7 @@ export const about= {
                     'name': 'Will Cooper',
                     'picture': '/assets/img/team/will.jpeg',
                     'social': {
-                        'github': 'https://github.com/newgene',
+                        // 'github': 'https://github.com/',
                         'linkedin': 'https://www.linkedin.com/in/william-cooper-8b55861b9/'
                     },
                     

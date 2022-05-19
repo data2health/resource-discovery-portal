@@ -5,7 +5,7 @@
                 <button @click="previous()"><i class="fas fa-chevron-left fa-2x hover:text-accent"></i></button>
             </div>
             <div class="space-y-2">
-                <div class="bg-black/20 rounded-full px-9 mb-10">
+                <div class="bg-black/20 rounded-full px-9 py-7 mb-10">
                     <h3>"<i>{{examples[selected].title}}</i>" <i class="fas fa-comment"></i></h3>
                 </div>
                 <div 

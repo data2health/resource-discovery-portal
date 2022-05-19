@@ -1,6 +1,6 @@
 <template>
   <div class="darkMode text-gray-700 dark:text-gray-300 flex justify-items-stretch min-w-full" id="scrollArea">
-    <div class="relative hidden md:block bg-main-dark dark:bg-gray-900">
+    <div class="relative hidden md:block bg-main-dark dark:bg-gray-900 left-bar">
       <div class="p-2 sticky top-10 ml-5">
         <ul class="space-y-2 text-md">
           <template v-for="a in anchors" :key="a.anchor">
@@ -36,7 +36,7 @@
         </section>
 
         <section class="space-y-10 mb-4 p-3 bg-gray-100 dark:bg-gray-900/50" id="dashboard">
-          <h1 class=" mb-6 text-gray-600 dark:text-white text-center text-main dark:text-amber-500">{{$filters.numberWithCommas(totalDocsRDP)}} Total Resources!</h1>
+          <h1 class=" mb-6 text-center text-main dark:text-amber-500">{{$filters.numberWithCommas(totalDocsRDP)}} Total Resources!</h1>
           <div class="grid grid-cols-2 md:grid-cols-3 gap-1">
             <div v-for="filter in filters['resourceTypeName.keyword']" :key="filter.term">
               <img :src="filter.img" :alt="filter.term" class="inline w-4"> {{filter.term}}: <b>{{$filters.numberWithCommas(filter.count)}}</b>
@@ -73,14 +73,16 @@
         </section>
 
         <section class="space-y-10 mb-4 p-3 bg-gray-100 dark:bg-gray-900/50" id="data">
-          <img src="/assets/img/circle.svg" alt="Where is our data coming from?" class="w-1/2 md:w-1/3 m-auto mt-10">
+          <img src="/assets/img/circle.svg" alt="Where is our data coming from?" class="h-1/2 md:w-1/3 m-auto mt-10">
           <h3 class=" mb-6 text-gray-600 dark:text-white ">Where is our data coming from?</h3>
           <div v-if="filters._index.length" class="p-2 grid grid-cols-1 md:grid-cols-2">
             <template v-for="source in filters._index" :key="source.name">
               <div class="p-3 space-y-4 border-b border-gray-200">
-                <a :v-html="source.link" target="_blank" rel="nonreferrer">
-                  <img class="w-32" :alt="source.name" :src="source.img">
-                </a>
+                <div class="m-auto rounded-full from-gray-100 to-gray-500 p-4 flex justify-center bg-gradient-to-r">
+                  <a :v-html="source.link" target="_blank" rel="nonreferrer" class="cursor-pointer w-full flex justify-center">
+                    <img class="h-12 rounded-xl" :alt="source.name" :src="source.img">
+                  </a>
+                </div>
                 <h2 class="font-bold break-words">{{source.name || source.term}}</h2>
                 <p class=" text-main dark:text-white">{{$filters.numberWithCommas(source.count)}} Resources</p>
                 <p  v-html="source.description"></p>

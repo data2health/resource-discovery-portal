@@ -10,18 +10,70 @@
                     <template v-slot:value>{{pill.value}}</template>
                 </Pill>
             </template>
+            <Pill :color="theme['bg']">
+                <template v-slot:title>Accessible for Free</template>
+                <template v-slot:value>{{item?.isAccessibleForFree ? '🟢 Yes' : '🔴 No' || '🟠 Unknown'}}</template>
+            </Pill>
         </div>
         <!-- 🦄 Usage License 🦄 -->
         <div v-if="item?.license">
             <License :url="item?.license"></License>
         </div>
         <div class="flex justify-around flex-wrap items-center p-2">
+            <!-- IO -->
+            <div class="bg-gray-100 dark:bg-gray-700 rounded-xl p-2 shadow-md flex justify-center items-center flex-col space-y-1 m-2 w-full">
+                <h2 class="text-center">{{item?.name || 'Tool'}} {{item?.softwareVersion || 'v.?'}}</h2>
+                <img src="/assets/img/io.svg" alt="IO" class="md:w-[50%] sm:w-full">
+                <table class="table text-center">
+                    <thead class="text-gray-400">
+                        <th>Input</th>
+                        <th>Programming Language</th>
+                        <th>Output</th>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td v-if="item?.inputData" class="text-left">
+                                <small>Data:</small>
+                                <div v-for="txt in item?.inputData" :key="txt"><i class="far fa-circle" :class="theme.text"></i> {{txt}}</div>
+                                <small>Format:</small>
+                                <div v-for="txt in item?.inputFormat" :key="txt"><i class="far fa-file" :class="theme.text"></i> {{txt}}</div>
+                            </td>
+                            <td v-else>Not Available</td>
+                            <td v-if="item?.programmingLanguage">
+                                <p v-for="txt in item?.programmingLanguage" :key="txt">
+                                    <i v-if="txt == 'Python'" class="fab fa-python fa-2x"></i>
+                                    <i v-else-if="txt == 'Javascript'" class="fab fa-js fa-2x"></i>
+                                    <i v-else-if="txt == 'JavaScript'" class="fab fa-js fa-2x"></i>
+                                    <span v-else>{{txt}}</span>
+                                </p>
+                            </td>
+                            <td v-else>Not Available</td>
+                            <td v-if="item?.outputData" class="text-left">
+                                <small>Data:</small>
+                                <div v-for="txt in item?.outputData" :key="txt"><i class="fas fa-circle" :class="theme.text"></i> {{txt}}</div>
+                                <small>Format:</small>
+                                <div v-for="txt in item?.outputFormat" :key="txt"><i class="fas fa-file" :class="theme.text"></i> {{txt}}</div>
+                            </td>
+                            <td v-else>Not Available</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="flex justify-center items-center border-t-2 border-main p-2 mt-4">
+                    <p class="text-gray-400">Available for:</p>
+                    <div v-for="text in item?.operatingSystem" :key="text">
+                        <i v-if="text == 'Mac'" class="fab fa-apple fa-2x mx-4" :class="theme.text"></i>
+                        <i v-else-if="text == 'Windows'" class="fab fa-windows fa-2x mx-4" :class="theme.text"></i>
+                        <i v-else-if="text == 'Linux'" class="fab fa-linux fa-2x mx-4" :class="theme.text"></i>
+                        <i v-else-if="text == 'Python'" class="fab fa-python fa-2x mx-4" :class="theme.text"></i>
+                    </div>
+                </div>
+            </div>
             <!-- 🦄 downloadUrl 🦄 -->
             <div  v-if="item?.downloadUrl" class="bg-gray-100 dark:bg-gray-700 rounded-xl p-2 shadow-md flex justify-center items-center flex-col space-y-1 m-2">
                 <h3 class="font-light  mb-2" :class="theme['text']">Downloads</h3>
                 <div>
                     <a class="px-4 py-1 bg-accent hover:bg-accent-light !text-white rounded-xl" :href="item?.downloadUrl" target="_blank" rel="nonreferrer">
-                        <i class="fas fa-download"></i> Download <b v-if="item?.softwareVersion">{{item?.softwareVersion}}</b>
+                        <i class="fas fa-download"></i> To Download Site
                     </a>
                 </div>
             </div>
@@ -190,7 +242,9 @@ export default {
                     if (Array.isArray(this.item[f])) {
                         this.item[f].forEach(v => pills.push({'field': f, 'value': v}));
                     }else{
-                        pills.push({'field': f, 'value': this.item[f]})
+                        if (this.item[f]) {
+                            pills.push({'field': f, 'value': this.item[f]})
+                        }
                     }
                 }
             });

@@ -17,24 +17,15 @@ export default {
                 'bg2': 'bg-orange-400/50',
                 'icon': 'fas fa-database',
                 'img': '/assets/img/icons/data.svg',
+                'img_white': '/assets/img/icons/data_white.svg',
                 'active' : false,
-                'filters':[
-                    {
-                        'name': 'Curated Only',
-                        'field': '_exists_:curatedBy',
-                        'active': false
-                    },
-                    {
-                        'name': 'Not Curated Only',
-                        'field': '!_exists_:curatedBy',
-                        'active': false
-                    },
-                ],
                 'preview_badges': ['keywords'],
-                'standaloneSearchFilters': [{
-                    'name': 'Filter by author',
-                    'value': 'author.name.keyword'
-                }],
+                'standaloneSearchFilters': [
+                    {
+                        'name': 'Filter by author',
+                        'value': 'author.name.keyword'
+                    }
+                ],
             },
             'Institution' : {
                 'hex': '#c026d3',
@@ -43,6 +34,7 @@ export default {
                 'bg2': 'bg-fuchsia-600/50',
                 'icon': 'fas fa-building',
                 'img': '/assets/img/icons/institution.svg',
+                'img_white': '/assets/img/icons/institution_white.svg',
                 'active' : false,
                 'preview_badges': ['keywords'],
             },
@@ -53,6 +45,7 @@ export default {
                 'bg2': 'bg-rose-400/50',
                 'icon': 'fas fa-lightbulb',
                 'img': '/assets/img/icons/creative.svg',
+                'img_white': '/assets/img/icons/creative_white.svg',
                 'active' : false,
                 'preview_badges': ['keywords'],
             },
@@ -63,6 +56,7 @@ export default {
                 'bg2': 'bg-cyan-600/50',
                 'icon': 'fas fa-code',
                 'img': '/assets/img/icons/service.svg',
+                'img_white': '/assets/img/icons/service_white.svg',
                 'active' : false,
                 'preview_badges': ['keywords'],
             },
@@ -73,6 +67,7 @@ export default {
                 'bg2': 'bg-pink-500/50',
                 'icon': 'fas fa-apple-alt',
                 'img': '/assets/img/icons/edu.svg',
+                'img_white': '/assets/img/icons/edu_white.svg',
                 'active' : false,
                 'preview_badges': ['keywords', 'method', 'frequency', 'tag'],
             },
@@ -83,20 +78,9 @@ export default {
                 'bg2': 'bg-purple-500/50',
                 'icon': 'fas fa-flask',
                 'img': '/assets/img/icons/ct.svg',
+                'img_white': '/assets/img/icons/ct_white.svg',
                 'active' : false,
                 'preview_badges': ['keywords', 'healthCondition'],
-                'filters':[
-                    {
-                        'name': 'Curated Only',
-                        'field': '_exists_:curatedBy',
-                        'active': false
-                    },
-                    {
-                        'name': 'Not Curated Only',
-                        'field': '!_exists_:curatedBy',
-                        'active': false
-                    },
-                ],
                 'standaloneSearchFilters': [
                     {
                     'name': 'Filter by author',
@@ -119,20 +103,9 @@ export default {
                 'bg2': 'bg-teal-500/50',
                 'icon': 'fas fa-book',
                 'img': '/assets/img/icons/book.svg',
+                'img_white': '/assets/img/icons/book_white.svg',
                 'active' : false,
                 'preview_badges': ['topicCategory', 'keywords'],
-                'filters':[
-                    {
-                        'name': 'Curated Only',
-                        'field': '_exists_:curatedBy',
-                        'active': false
-                    },
-                    {
-                        'name': 'Not Curated Only',
-                        'field': '!_exists_:curatedBy',
-                        'active': false
-                    },
-                ],
                 'standaloneSearchFilters': [
                     {
                     'name': 'Filter by author',
@@ -147,6 +120,7 @@ export default {
                 'bg2': 'bg-red-500/50',
                 'icon': 'fab fa-photo-video',
                 'img': '/assets/img/icons/vid.svg',
+                'img_white': '/assets/img/icons/vid_white.svg',
                 'active' : false,
                 'preview_badges': ['keywords'],
             },
@@ -157,6 +131,7 @@ export default {
                 'bg2': 'bg-red-500/50',
                 'icon': 'fab fa-video',
                 'img': '/assets/img/icons/video.svg',
+                'img_white': '/assets/img/icons/video_white.svg',
                 'active' : false,
                 'preview_badges': ['keywords'],
                 'standaloneSearchFilters': [
@@ -177,6 +152,7 @@ export default {
                 'bg2': 'bg-red-600/50',
                 'icon': 'fab fa-play',
                 'img': '/assets/img/icons/playlist.svg',
+                'img_white': '/assets/img/icons/playlist_white.svg',
                 'active' : false,
                 'preview_badges': ['keywords'],
             },
@@ -187,6 +163,7 @@ export default {
                 'bg2': 'bg-rose-500/50',
                 'icon': 'fab fa-play',
                 'img': '/assets/img/icons/channel.svg',
+                'img_white': '/assets/img/icons/channel_white.svg',
                 'active' : false,
                 'preview_badges': ['keywords'],
             },
@@ -197,20 +174,9 @@ export default {
                 'bg2': 'bg-indigo-600/50',
                 'icon': 'fas fa-laptop',
                 'img': '/assets/img/icons/tool.svg',
+                'img_white': '/assets/img/icons/tool_white.svg',
                 'active' : false,
                 'preview_badges': ['applicationCategory', 'programmingLanguage', 'operatingSystem'],
-                'filters':[
-                    {
-                        'name': 'Curated Only',
-                        'field': '_exists_:curatedBy',
-                        'active': false
-                    },
-                    {
-                        'name': 'Not Curated Only',
-                        'field': '!_exists_:curatedBy',
-                        'active': false
-                    },
-                ],
                 'standaloneSearchFilters': [
                     {
                     'name': 'Filter by author',
@@ -219,6 +185,18 @@ export default {
                     {
                         'name': 'Filter by keywords',
                         'value': 'keywords'
+                    },
+                    {
+                        'name': 'Filter by Operating System',
+                        'value': 'operatingSystem.keyword'
+                    },
+                    {
+                        'name': 'Filter by Language',
+                        'value': 'programmingLanguage.keyword'
+                    },
+                    {
+                        'name': 'Filter by License',
+                        'value': 'license.keyword'
                     },
                 ],
             },
@@ -229,6 +207,7 @@ export default {
                 'bg2': 'bg-blue-600/50',
                 'icon': 'fab fa-github',
                 'img': '/assets/img/icons/repo.svg',
+                'img_white': '/assets/img/icons/repo_white.svg',
                 'active' : false,
                 'preview_badges': ['keywords'],
             },
@@ -239,6 +218,7 @@ export default {
                 'bg2': 'bg-amber-500/50',
                 'icon': 'fas fa-user',
                 'img': '/assets/img/icons/person.svg',
+                'img_white': '/assets/img/icons/person_white.svg',
                 'active' : false,
                 'preview_badges': ['keywords'],
             },
@@ -249,8 +229,15 @@ export default {
                 'bg2': 'bg-yellow-500/50',
                 'icon': 'fas fa-money-check-alt',
                 'img': '/assets/img/icons/funding.svg',
+                'img_white': '/assets/img/icons/funding_white.svg',
                 'active' : false,
                 'preview_badges': ['primary_ic'],
+                // 'standaloneSearchFilters': [
+                //     {
+                //     'name': 'Filter by keyword',
+                //     'value': 'keyword.keyword.keyword'
+                //     },
+                // ],
             },
             'Grant' : {
                 'hex': '#059669',
@@ -259,6 +246,7 @@ export default {
                 'bg2': 'bg-emerald-600/50 dark:bg-emerald-500/50',
                 'icon': 'fas fa-money-check-alt',
                 'img': '/assets/img/icons/grant.svg',
+                'img_white': '/assets/img/icons/grant_white.svg',
                 'active' : false,
                 'preview_badges': ['funding_ic'],
                 'standaloneSearchFilters': [{
@@ -273,8 +261,15 @@ export default {
                 'bg2': 'bg-lime-500/50',
                 'icon': 'fas fa-microscope',
                 'img': '/assets/img/icons/instrument.svg',
+                'img_white': '/assets/img/icons/instrument_white.svg',
                 'active' : false,
                 'preview_badges': ['keywords'],
+                // 'standaloneSearchFilters': [
+                //     {
+                //     'name': 'Filter by keyword',
+                //     'value': 'keyword.keyword.keyword'
+                //     },
+                // ],
             },
             'Protocol' : {
                 'hex': '#06b6d4',
@@ -283,20 +278,9 @@ export default {
                 'bg2': 'bg-cyan-500/50',
                 'icon': 'fas fa-list-alt',
                 'img': '/assets/img/icons/protocol.svg',
+                'img_white': '/assets/img/icons/protocol_white.svg',
                 'active' : false,
                 'preview_badges': ['protocolCategory', 'protocolSetting'],
-                'filters':[
-                    {
-                        'name': 'Curated Only',
-                        'field': '_exists_:curatedBy',
-                        'active': false
-                    },
-                    {
-                        'name': 'Not Curated Only',
-                        'field': '!_exists_:curatedBy',
-                        'active': false
-                    },
-                ],
                 'standaloneSearchFilters': [{
                     'name': 'Filter by author',
                     'value': 'author.name.keyword'
@@ -321,6 +305,13 @@ export default {
             // ]
         },
         sourceReadableNames:{
+            'cd2h-nih-medline': {
+                'name': 'National Library of Medicine',
+                'img': '/assets/img/medline.png',
+                'description': "MEDLINE is the National Library of Medicine's (NLM) premier bibliographic database that contains references to journal articles in life sciences, with a concentration on biomedicine.",
+                'link': 'https://www.nlm.nih.gov/medline/index.html',
+                'active': false
+            },
             'cd2h-nih-reporter': {
                 'name': 'NIH RePorter',
                 'img': '/assets/img/reporter.png',
@@ -352,6 +343,23 @@ export default {
                 'link': 'https://covid.cd2h.org/trials',
                 'active': false
             },
+            'outbreak_clinical_trials_202111180830_szlrg5pn_clone':{
+                'name': 'NIH Clinical Trials',
+                'img': '/assets/img/nih-ct.png',
+                'description': `<p>
+                ClinicalTrials.gov is a Web-based resource that provides patients, their family members, health care professionals, researchers, and the public with easy access to information on publicly and privately supported clinical studies on a wide range of diseases and conditions. The Web site is maintained by the
+                <a title="opens new window" href="https://www.nlm.nih.gov/" onclick="openNewWindow('https://www.nlm.nih.gov/'); return false">National Library of Medicine</a> (NLM)
+                at the
+                <a title="opens new window" href="https://www.nih.gov/" onclick="openNewWindow('https://www.nih.gov/'); return false">National Institutes of Health</a> (NIH). 
+                Information on ClinicalTrials.gov is provided and updated by the sponsor or principal investigator of the clinical study. 
+                Studies are generally submitted to the Web site (that is, registered) when they begin, and the information on the site is 
+                updated throughout the study. 
+                In some cases, results of the study are submitted after the study ends. This Web site and database of clinical studies is commonly 
+                referred to as a "<span style="display:inline;" class="term" data-term="study registry" title="Click to define">registry</span> and <span style="display:inline;" class="term" data-term="results database" title="Click to define" tabindex="0">results database</span>."
+                    </p>`,
+                'link': 'https://covid.cd2h.org/trials',
+                'active': false
+            },
             'cd2h-nih-litcovid':{
                 'name': 'LitCOVID',
                 'img': '/assets/img/litcovid.jpeg',
@@ -359,11 +367,39 @@ export default {
                 'description': 'LitCovid is a curated literature hub for tracking up-to-date scientific information about the 2019 novel Coronavirus. It is the most comprehensive resource on the subject, providing a central access to 217091 (and growing) relevant articles in PubMed. The articles are updated daily and are further categorized by different research topics (e.g. transmission) and geographic locations.',
                 'active': false
             },
-            'outbreak_litcovid_202110070745_vvrw8kmo':{
+            'outbreak_litcovid_202110070745_vvrw8kmo_clone':{
                 'name': 'Outbreak.info',
                 'img': '/assets/img/outbreak.svg',
                 'description': 'In response to the current outbreak of SARS-CoV-2 (the virus that causes COVID-19), researchers worldwide have been generating and openly sharing data, publications, reagents, code, protocols, and more. Broad sharing of these resources improves the speed and efficiency of science. Unfortunately, there are no uniform standards and repositories for collecting all this information in one place.',
                 'link': 'https://outbreak.info/',
+                'active': false
+            },
+            'outbreak_biorxiv_202110201005_cky5khsd_clone':{
+                'name': 'bioRxiv',
+                'img': '/assets/img/bioRxiv_logo.png',
+                'description': 'bioRxiv (pronounced "bio-archive") is a free online archive and distribution service for unpublished preprints in the life sciences. It is operated by Cold Spring Harbor Laboratory, a not-for-profit research and educational institution. By posting preprints on bioRxiv, authors are able to make their findings immediately available to the scientific community and receive feedback on draft manuscripts before they are submitted to journals.',
+                'link': 'https://www.biorxiv.org/',
+                'active': false
+            },
+            'outbreak_figshare_202111180645_vf0lje01_clone':{
+                'name': 'FigShare',
+                'img': '/assets/img/figshare.png',
+                'description': 'figshare is a repository where users can make all of their research outputs available in a citable, shareable and discoverable manner.',
+                'link': 'https://figshare.com/',
+                'active': false
+            },
+            'outbreak_pdb_20211016075616_femj0kmx_clone':{
+                'name': 'Protein Data Bank',
+                'img': '/assets/img/pbd.png',
+                'description': 'The Protein Data Bank (PDB) was established as the 1st open access digital data resource in all of biology and medicine (Historical Timeline). It is today a leading global resource for experimental data central to scientific discovery.',
+                'link': 'https://www.rcsb.org/pages/policies#References',
+                'active': false
+            },
+            'outbreak_protocolsio_202110200650_bwwlvckg_clone':{
+                'name': 'ProtocolsIO',
+                'img': '/assets/img/protocols_io.png',
+                'description': 'A research protocol is a document that describes the background, rationale, objectives, design, methodology, statistical considerations, and organization of a clinical research project.',
+                'link': 'https://www.protocols.io/',
                 'active': false
             },
             'cd2h-profile-vivo':{
@@ -374,7 +410,14 @@ export default {
                 'active': false
             },
             'cd2h-youtube-video':{
-                'name': 'YouTube',
+                'name': 'YouTube (Videos)',
+                'img': '/assets/img/youtube.png',
+                'link': 'https://www.youtube.com/',
+                'description': 'Our mission is to give everyone a voice and show them the world. We believe that everyone deserves to have a voice, and that the world is a better place when we listen, share and build community through our stories.',
+                'active': false
+            },
+            'cd2h-youtube-channel':{
+                'name': 'YouTube (Channels)',
                 'img': '/assets/img/youtube.png',
                 'link': 'https://www.youtube.com/',
                 'description': 'Our mission is to give everyone a voice and show them the world. We believe that everyone deserves to have a voice, and that the world is a better place when we listen, share and build community through our stories.',
@@ -410,6 +453,69 @@ export default {
                 'description': `REDCap is a secure web application for building and managing online surveys and databases. While REDCap can be used to collect virtually any type of data in any environment (including compliance with 21 CFR Part 11, FISMA, HIPAA, and GDPR), it is specifically geared to support online and offline data capture for research studies and operations. The REDCap Consortium, a vast support network of collaborators, is composed of thousands of active institutional partners in over one hundred countries who utilize and support their own individual REDCap systems. Please visit the <a href="https://projectredcap.org/partners/join/" style="text-decoration:underline;">Join</a> page to learn how your non-profit organization can join the consortium, or explore the first section on our <a href="https://projectredcap.org/about/faq/" style="text-decoration:underline;">FAQ</a> for other options to use REDCap.`,
                 'active': false
             },
+            'cd2h-github-repository':{
+                'name': 'GitHub (Repositories)',
+                'img': '/assets/img/github_logo.png',
+                'link': 'https://www.github.com/',
+                'description': `Millions of developers and companies build, ship, and maintain their software on GitHub—the largest and most advanced development platform in the world.`,
+                'active': false
+            },
+            'cd2h-github-user':{
+                'name': 'GitHub (Users)',
+                'img': '/assets/img/github_logo.png',
+                'link': 'https://www.github.com/',
+                'description': `Millions of developers and companies build, ship, and maintain their software on GitHub—the largest and most advanced development platform in the world.`,
+                'active': false
+            },
+            'cd2h-nih-foa':{
+                'name': 'NIH FOA',
+                'img': '/assets/img/grants-logo.png',
+                'link': 'https://grants.nih.gov/funding/searchguide/index.html#/',
+                'description': `The NIH Guide for Grants and Contracts is NIH's official publication of notices of grant policies, guidelines and funding opportunity announcements (FOAs).`,
+                'active': false
+            },
+            'cd2h-github-organization':{
+                'name': 'GitHub (Organizations)',
+                'img': '/assets/img/github_logo.png',
+                'link': 'https://www.github.com/',
+                'description': `Millions of developers and companies build, ship, and maintain their software on GitHub—the largest and most advanced development platform in the world.`,
+                'active': false
+            },
+            'cd2h-clic-education':{
+                'name': 'CLIC Education & Career Development Gateway',
+                'img': '/assets/img/clic.png',
+                'link': 'https://clic-ctsa.org/index.php/',
+                'description': `Our mission is to serve the CTSA Program through stakeholder-engaged activities. CLIC accelerates and demonstrates the impact of the CTSA Program through coordination, transparent communication, team science, actionable metrics, analytics and innovative collaboration tools.`,
+                'active': false
+            },
+            'nlpsandbox-computational-tools-20220401-2':{
+                'name': 'NLP Sandbox.io',
+                'img': '/assets/img/nlp.png',
+                'link': 'https://nlpsandbox.io',
+                'description': `NLP Sandbox is an open platform for benchmarking modular natural language processing (NLP) tools on both public and private datasets. Academics, students, and industry professionals are invited to browse the available tasks and participate by developing and submitting an NLP Sandbox tool.`,
+                'active': false
+            },
+            'cd2h-diamond-training-material':{
+                'name': 'The Development, Implementation and Assessment of Novel Training in Domain-based Competencies: Training Materials',
+                'img': '/assets/img/diamond.png',
+                'link': 'https://clic-ctsa.org/diamond',
+                'description': `The Development, Implementation and Assessment of Novel Training in Domain-based Competencies, or “DIAMOND” project, is a collaborative effort by the University of Michigan, University of Rochester, The Ohio State University and Tufts University to provide competency-based education and training to clinical research professionals.  The primary objectives of this project are to develop an online educational portal for shared competency-based educational offerings and assessments, demonstrate the utility of an e-portfolio system for individualized professional development planning, and to disseminate these educational offerings to broader audiences at research institutions across the United States.`,
+                'active': false
+            },
+            'cd2h-diamond-assessment':{
+                'name': 'The Development, Implementation and Assessment of Novel Training in Domain-based Competencies: Assessment',
+                'img': '/assets/img/diamond.png',
+                'link': 'https://clic-ctsa.org/diamond',
+                'description': `The Development, Implementation and Assessment of Novel Training in Domain-based Competencies, or “DIAMOND” project, is a collaborative effort by the University of Michigan, University of Rochester, The Ohio State University and Tufts University to provide competency-based education and training to clinical research professionals.  The primary objectives of this project are to develop an online educational portal for shared competency-based educational offerings and assessments, demonstrate the utility of an e-portfolio system for individualized professional development planning, and to disseminate these educational offerings to broader audiences at research institutions across the United States.`,
+                'active': false
+            },
+            'cckp-computational-tools-20220401-2':{
+                'name': 'Cancer Complexity Knowledge Portal',
+                'img': '/assets/img/cckp.svg',
+                'link': 'https://cancercomplexity.synapse.org/',
+                'description': `The NCI Division of Cancer Biology supports multiple research programs composed of interdisciplinary communities of scientists who aim to integrate approaches, data, and tools to address important questions in basic and translational cancer research. Discover and download datasets, publications, and other resources generated by these programs.`,
+                'active': false
+            },
         },
         sourceDefault: {
             'name': '',
@@ -433,6 +539,7 @@ export default {
         query: "",
         mostRecentResults:[],
         mostRecentSize: 3,
+        allSelected: false
     }),
     actions: {
         activateFilter({ commit }, payload) {
@@ -651,9 +758,9 @@ export default {
             //PAGINATION
             var config = {
                 "params": {
-                    'q': `resourceTypeName:${payload.resource} AND _exists_:resourceTypeName`,
+                    'q': `resourceTypeName:${payload.resource} AND _exists_:dateModified`,
                     'size': state.mostRecentSize,
-                    '-sort': 'dateModified,date_modified'
+                    '-sort': 'dateModified'
                 }
             }
             console.log('%c Most Recent ' + JSON.stringify(config, null, 2), 'color:coral');
@@ -747,6 +854,14 @@ export default {
         }
     },
     mutations: {
+        selectAllResources(state){
+            if (state.allSelected) {
+                state.filters['resourceTypeName.keyword'].forEach((f) => f.active = false);
+            } else {
+                state.filters['resourceTypeName.keyword'].forEach((f) => f.active = true);
+            }
+            state.allSelected = !state.allSelected
+        },
         saveMostRecent(state, payload){
             state.mostRecentResults = payload.value;
         },
@@ -755,6 +870,12 @@ export default {
                 state.filters[payload.section] = [payload.filter];
             }else{
                 state.filters[payload.section].push(payload.filter);
+            }
+        },
+        clearFilter(state, payload){
+            if (Object.hasOwnProperty.call(state.filters, payload.section)) {
+                console.log('clearing', payload.section)
+                state.filters[payload.section] = [];
             }
         },
         saveQuery(state, payload){
@@ -913,6 +1034,9 @@ export default {
         },
         mostRecentResults: (state) => {
             return state.mostRecentResults;
+        },
+        allSelected: (state) => {
+            return state.allSelected;
         },
     },
 }

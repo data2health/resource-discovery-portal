@@ -29,7 +29,7 @@
                     </div>
                 </div>
                 <!-- most recent -->
-                <div class="w-full m-auto p-3 flex justify-center items-center w-full">
+                <div class="w-full m-auto p-3 flex justify-center items-center">
                     <div class="max-w-4xl w-full" v-if="mostRecentResults && mostRecentResults.length">
                         <h3 class=" my-7 font-light" :class="sourceInfo.text">Most Recent</h3>
                         <div class="max-h-64 overflow-scroll">
@@ -223,16 +223,21 @@ export default {
         }
     },
     mounted: function () {
+        //reset video
+        this.$store.commit('selectVideo', {'value': null});
+
         this.highlighter = new Mark(document.querySelector(".highlight_container"));
         //side filters for this type in store mapping
         if (this.sourceInfo?.['standaloneSearchFilters']?.length) {
             this.sourceInfo?.['standaloneSearchFilters'].forEach(filter => {
+                //necessary unless it will just keep appending new items
+                this.$store.commit('clearFilter', {'section': filter.value});
                 this.aggregateField(filter.value);
             });
         }
         this.drawChart();
         this.search();
-        // this.$store.dispatch('getMostRecent', {'resource': this.resource});
+        this.$store.dispatch('getMostRecent', {'resource': this.resource});
     },
     updated: function(){
         this.highlightMatches(this.q);

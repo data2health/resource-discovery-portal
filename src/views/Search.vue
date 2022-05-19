@@ -38,8 +38,11 @@
                     <div class="p-3 bg-gray-200 dark:bg-gray-700 rounded-lg ">
                         <details open>
                             <summary class="cursor-pointer p-1"><h2 class="text-black dark:text-white inline text-sm">Resource Types</h2></summary>
+                            <button @click="selectAllResources()" class="bg-gray-300 hover:bg-gray-200 text-gray-600 p-1 rounded text-xs my-2">
+                                {{allSelected ? "Unselect All" : "Select All"}}
+                            </button>
                             <template v-for="type in filters['resourceTypeName.keyword']" :key="type + 'f'">
-                                <div v-if="type.result_count" class="flex mb-1 group justify-start items-center">
+                                <div v-if="type.result_count" class="flex mb-3 group justify-start items-center">
                                     <input 
                                         type="checkbox" 
                                         :checked="type.active"
@@ -47,11 +50,11 @@
                                         :id="type.term" 
                                         class="focus:ring-0 checked:!bg-accent-dark rounded border-gray-200 group-hover:border-accent-light mr-2">
                                     <img :src="type.img" :alt="type" class="h-5 mr-2 inline">
-                                    <div>
-                                        <label class="text-xs cursor-pointer group-hover:text-gray-600 dark:group-hover:text-gray-200 font-bold" :class="type.active ? type.text : ''" :for="type.term">
+                                    <div class="flex justify-start items-center">
+                                        <label class="text-xs cursor-pointer group-hover:text-gray-600 dark:group-hover:text-gray-200 font-bold leading-tight" :class="type.active ? type.text : ''" :for="type.term">
                                             {{$filters.readableName(type.term)}}
                                         </label>
-                                        <small v-if="type.result_count" data-aos="fade-in" class="text-xs text-gray-900 dark:text-gray-200 block md:inline md:ml-2"><span>({{$filters.numberWithCommas(type.result_count)}})</span></small>
+                                        <small v-if="type.result_count" class="text-xs text-gray-900 dark:text-gray-200 block md:inline md:ml-2"><span>({{$filters.numberWithCommas(type.result_count)}})</span></small>
                                     </div>
                                 </div>
                             </template>
@@ -163,6 +166,10 @@ export default {
         Result
     },
     methods:{
+        selectAllResources(){
+            this.$store.commit('selectAllResources');
+            this.$store.dispatch('search');
+        },
         search(){
             // if (this.q) {
             //     this.$router.push({ query: { q: this.q }})
@@ -227,6 +234,7 @@ export default {
             'results',
             'recentSearches',
             'filters',
+            'allSelected'
         ]),
         q: {
             get() {

@@ -6,20 +6,23 @@
                 <div v-for="(items, group) in grouped" :key="group" 
                 class="border-0 border-b border-gray-300 dark:border-gray-700 rounded mb-5 flex justify-start 
                 items-stretch flex-wrap p-2 hover:bg-gray-300/10 dark:hover:bg-gray-600/10 transition-all duration-300">
-                    <h4 class="w-full dark:text-white">{{group}}</h4>
                     <div class="w-full" v-if="items.length > 1">
                         <form @submit.prevent="searchCategory(items)">
                             <ExpandableSection color="dark:text-accent text-gray-500" :expanded="false">
                                     <template v-slot:title>
                                         <span class="text-sm mb-2">
-                                            <i class="fas fa-search"></i> Search within this category 
+                                            <h4 class="w-full dark:text-white inline">{{group}}</h4>
                                         </span>
                                     </template>
                                     <template v-slot:value>
-                                        <input class="shadow appearance-none border rounded w-1/3 py-2 px-3 text-gray-700 bg-gray-100 dark:bg-gray-200" 
-                                        :id="group" 
-                                        v-model="q"
-                                        type="text">
+                                        <label :for="group" class="text-accent text-xs block"><i class="fas fa-search"></i> Search within this category</label>
+                                        <input 
+                                            class="shadow appearance-none border rounded-3xl w-1/3 py-1 px-2 text-gray-700 bg-gray-100 dark:bg-gray-400" 
+                                            :id="group" 
+                                            :name="group"
+                                            v-model="q"
+                                            placeholder="Search this category"
+                                            type="text">
                                     </template>
                             </ExpandableSection>
                         </form>

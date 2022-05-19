@@ -69,6 +69,28 @@
                     </li>
                 </ul>
             </div>
+            <!-- 🦄 MedLine 🦄 -->
+            <div  v-if="item?.medline_journal_info" class="bg-gray-100 dark:bg-gray-700 rounded-xl p-2 shadow-md flex justify-center items-center flex-col space-y-1 m-2 w-full">
+                <h3 class="font-light  mb-2" :class="theme['text']">MedLine Journal Information</h3>
+                <table class="table">
+                    <tr>
+                        <td class="text-gray-500 px-3">Country</td>
+                        <td class="px-3">{{item?.medline_journal_info?.country}}</td>
+                    </tr>
+                    <tr>
+                        <td class="text-gray-500 px-3">TA</td>
+                        <td class="px-3">{{item?.medline_journal_info?.medline_ta}}</td>
+                    </tr>
+                    <tr>
+                        <td class="text-gray-500 px-3">ISSN</td>
+                        <td class="px-3">{{item?.medline_journal_info?.issn_linking}}</td>
+                    </tr>
+                    <tr>
+                        <td class="text-gray-500 px-3">NLM ID</td>
+                        <td class="px-3">{{item?.medline_journal_info?.nlm_unique_id}}</td>
+                    </tr>
+                </table>
+            </div>
             <!-- 🦄 Distribution 🦄 -->
             <div  v-if="item?.distribution && item?.distribution.length" class="bg-gray-100 dark:bg-gray-700 rounded-xl p-2 shadow-md flex justify-center items-center flex-col space-y-1 m-2 w-full">
                 <h3 class="font-light  mb-2" :class="theme['text']"> Downloads</h3>
@@ -116,6 +138,11 @@
                 <router-link class=" text-white hover:text-accent-light underline" :to='{path: "/search", query:{"q": `"` + tag + `"`}}'><i class="fas fa-hashtag" :class="theme?.text"></i> {{tag}}</router-link>
             </template>
         </div>
+        <div v-if="item?.keyword" class="space-x-2 bg-gray-500 dark:bg-gray-900 p-4 w-full">
+            <template v-for="(tag, i) in item?.keyword" :key="tag + i">
+                <router-link v-if="tag?.keyword" class=" text-white hover:text-accent-light underline" :to='{path: "/search", query:{"q": `"` + tag.keyword + `"`}}'><i class="fas fa-hashtag" :class="theme?.text"></i> {{tag.keyword}}</router-link>
+            </template>
+        </div>
     </div>
 </template>
 
@@ -139,7 +166,26 @@ export default {
     computed:{
         authors: function(){
             if (this.item && this.item?.author) {
-                return this.item?.author.map(item => item.name);
+                return this.item?.author.map(item => {
+                    let possible_fields = ['name', 'fore_name'];
+                    for (let i = 0; i < possible_fields.length; i++) {
+                        const field = possible_fields[i];
+                        if (field == 'fore_name') {
+                            if(Object.hasOwnProperty.call(item, field)){
+                                if (Object.hasOwnProperty.call(item, 'last_name')) {
+                                    return item[field] + " " + item['last_name'];
+                                } else{
+                                    return item[field];
+                                }
+                            }
+                        } else {
+                            if(Object.hasOwnProperty.call(item, field)){
+                                return item[field];
+                            }
+                        }
+                        
+                    }
+                });
             }else{
                 return false
             }
@@ -168,7 +214,7 @@ export default {
         pills: function() {
             let pills = [];
             // field containing values you want to display as pills
-            let possibleFields = ['publicationType', 'journalName'];
+            let possibleFields = ['publicationType', 'journalName', 'issn','pub_date_day', 'pub_date_month', 'pub_date_year'];
 
             possibleFields.forEach(f => {
                 if (f in this.item) {

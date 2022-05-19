@@ -1,34 +1,70 @@
 <template>
-    <div class="text-left">
-        <!-- Type -->
-        <ResultTab :name="result_type" :theme="theme" ></ResultTab>
-        <!-- Content Preview-->
-        <div class="bg-white h-auto p-4 tracking-wide mb-4 mx-1 rounded-sm relative dark:bg-gray-600 border border-t-gray-300 border-t-2">
-            <h5 class=" font-semibold">
-                <router-link :to="{ name: 'ResultDetails', query: {'resource': item._id} }">{{item._source.label}}</router-link>
-            </h5>
-            <!-- Full View Headers -->
-            <div v-if="fullView" :class="theme['text']" class=" p-3 border-b-2 border-gray-200 mb-3">
-                <h1 class="font-light">ABOUT</h1>
+    <!--🦄 Type Specific Content 🦄-->
+    <div :class="theme.bg">
+        <!-- 🦄 Badges 🦄 -->
+        <div class="flex justify-start items-center flex-wrap bg-white dark:bg-gray-700">
+            <template v-for="pill in pills" class="" :key="pill.value">
+                <!-- pill -->
+                <Pill :color="theme['bg']">
+                    <template v-slot:title>{{$filters.readableName(pill.field)}}</template>
+                    <template v-slot:value>{{pill.value}}</template>
+                </Pill>
+            </template>
+            <Pill :color="theme['bg']">
+                <template v-slot:title>Channel</template>
+                <template v-slot:value>{{item?.channel?.channel_title}}</template>
+            </Pill>
+        </div>
+        <div class="flex justify-around flex-wrap items-center p-2">
+            <!-- 🦄 Video details 🦄 -->
+            <div class="bg-gray-100 dark:bg-gray-700 rounded p-2 flex justify-around items-center space-y-1 m-2">
+                <span v-if="item?.published" class="">
+                    <i class="fas fa-video" :class="theme.text"></i> Published on <b>{{$filters.formatDate(item?.published)}}</b>
+                </span>
             </div>
-            <Description :text="item?._source?.description"></Description>
-            <!-- Full View Headers -->
-            <div v-if="fullView" :class="theme['text']" class=" p-3 border-b-2 border-gray-200 mb-3">
-                <h1 class="font-light">DETAILS</h1>
-            </div>
-            <template v-if="expandedView || fullView" data-aos="fade-in">
-                <div class=" font-regular p-6 pt-2 text-gray-500 dark:text-white flex items-center justify-between">
-                    <div class="text-center">
-                        <template v-if="item && item._source.url">
-                            <a :href="item._source.url" target="_blank" rel="nonreferrer" class="px-3 py-1 rounded-xl bg-gray-200 dark:bg-gray-500">
-                                <i class="fab fa-youtube-square" :class="theme.text"></i> View Video Playlist <i class="fas fa-external-link-square-alt" :class="theme.text"></i>
-                            </a>
-                        </template>
+            <!-- 🦄 Video details 🦄 -->
+            <div v-if="item?.video?.length" class="flex justify-start items-start w-full">
+                <div class="w-3/4 p-1">
+                    <div class="w-full">
+                        <h4>({{item?.video?.length}}) Videos</h4>
                     </div>
-                    <div class="ml-2 p-3 rounded border border-gray-200 ">
-                        <p class="mb-1"><i class="fas fa-info-circle" :class="theme.text"></i> {{item && item?._source?.channel?.channel_title}}</p>
-                    </div>
+                    <template v-if="videoSelected">
+                        <VideoPreview :theme="theme" :video="videoSelected" :fullView="true"></VideoPreview>
+                    </template>
+                    <template v-else>
+                        <img src='/assets/img/videoPreview.svg' alt="Select a video" class="w-full opacity-25">
+                    </template>
                 </div>
+                <div class="1/4 bg-black/60 max-h-[60vh] overflow-y-scroll">
+                    <template v-for="vid in item?.video" :key="vid.video_id">
+                        <VideoPreview :theme="theme" :video="vid" :fullView="false"></VideoPreview>
+                    </template>
+                </div>
+            </div>
+            <div v-else class="w-full text-center">
+                <h3><i class="fas fa-sad-tear"></i> This playlist doesn't have any videos yet.</h3>
+            </div>
+            <!-- 🦄 Curation 🦄 -->
+            <div  v-if="item?.curatedBy" class="bg-gray-100 dark:bg-gray-700 rounded-xl p-2 shadow-md flex justify-center items-center flex-col space-y-1 m-2">
+                <h3 class="font-light  mb-2" :class="theme['text']">Curated by</h3>
+                <template v-if="item?.curatedBy?.url">
+                    <img v-if="item?.curatedBy?.name == 'ClinicalTrials.gov'" src="/assets/img/ctgov.jpeg" alt="ClinicalTrials.gov" class="w-32">
+                    <img v-else-if="item?.curatedBy?.name == 'Figshare'" src="/assets/img/figshare.png" alt="Figshare" class="w-32">
+                    <img v-else-if="item?.curatedBy?.name == 'Protocols.io'" src="/assets/img/protocols_io.png" alt="Protocols.io" class="w-32">
+                    <a  :href="item?.curatedBy?.url" target="_blank" rel="nonreferrer">
+                            {{item?.curatedBy?.name || 'more info'}} <span class="font-bold">({{$filters.formatDate(item?.curatedBy?.curationDate)}})</span> <i class="fas fa-external-link-square-alt" :class="theme.text"></i>
+                    </a> 
+                    <Pill v-if="item?.curatedBy?.versionDate" :color="theme['bg']">
+                        <template v-slot:title>version</template>
+                        <template v-slot:value>{{$filters.formatDate(item?.curatedBy?.versionDate)}}</template>
+                    </Pill>
+                </template>
+                <p v-else>{{item?.curatedBy?.name}} ({{$filters.formatDate(item?.curatedBy?.curationDate)}})</p>
+            </div>
+        </div>
+        <div v-if="item?.keywords" class="space-x-2 bg-gray-500 dark:bg-gray-900 p-4 w-full">
+            <template v-for="(tag, i) in item?.keywords" :key="tag + i">
+                <router-link class=" text-white hover:text-accent-light underline" :to='{path: "/search", query:{"q": `"` + tag + `"`}}'><i class="fas fa-hashtag" :class="theme?.text"></i> {{tag}}</router-link>
             </template>
         </div>
     </div>
@@ -37,31 +73,39 @@
 <script>
 import { mapGetters } from 'vuex'
 
-import Description from '../ExpandableDescription.vue'
-import ResultTab from '../ResultTab.vue'
+import PopUpPreview from '../PopUpPreview.vue'
+import VideoPreview from '../VideoPreview.vue'
 
 export default {
     name: "PlaylistResult",
     props:{
         item: Object,
-        fullView: Boolean
+        theme: Object
     },
     components:{
-        Description,
-        ResultTab
+        PopUpPreview,
+        VideoPreview
     },
     computed:{
         ...mapGetters([
-            'expandedView'
+            'videoSelected'
         ]),
-        result_type: function () {
-            // deeper > shallow
-            return this.item?._source?.entity ? this.item?._source?.entity : 
-            this.item?._source?.['resourceTypeName'] ? this.item?._source?.['resourceTypeName'] : 'Tool';
-        },
-        theme: function() {
-            return this.$store.getters.getTheme(this.result_type.charAt(0).toUpperCase() + this.result_type.slice(1));
-        },
+        pills: function() {
+            let pills = [];
+            // field containing values you want to display as pills
+            let possibleFields = ['identifier'];
+
+            possibleFields.forEach(f => {
+                if (f in this.item) {
+                    if (Array.isArray(this.item[f])) {
+                        this.item[f].forEach(v => pills.push({'field': f, 'value': v}));
+                    }else{
+                        pills.push({'field': f, 'value': this.item[f]})
+                    }
+                }
+            });
+            return pills;
+        }
     }
 }
 </script>

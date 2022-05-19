@@ -17,6 +17,12 @@
                     <small @click.prevent="open = !open" class="text-gray-400 dark:text-gray-400 cursor-pointer" v-if="item?.raw?.company"> | {{item?.raw?.company}}</small>
                     <p class=" mt-1">{{item?.raw?.bio}}</p>
                 </template>
+                <!--🦄 Profiles Only 🦄-->
+                <template v-else-if="item?.['resourceTypeName'] == 'Playlist'">
+                    <p class="cursor-pointer text-blue-500 hover:text-blue-400 dark:text-white" @click.prevent="open = !open">
+                        {{title}} <b class="text-xs" :class="item?.video?.length ? 'text-red-500 dark:text-red-300': 'text-gray-400'">({{item?.video?.length || 0 }}) videos</b>
+                    </p>
+                </template>
                 <!--🦄 All others 🦄-->
                 <p v-else class="cursor-pointer text-blue-500 hover:text-blue-400 dark:text-white" @click.prevent="open = !open">
                     {{title}}
@@ -34,25 +40,29 @@
                 </div>
             </div>
             <div v-if="open || fullView || expandedView" class="flex justify-center md:justify-start items-center p-2 flex-wrap text-sm">
-                <a v-if="item?.url" :href="item?.url" 
-                    target="_blank" rel="noopener" 
-                    class="bg-gray-200 dark:bg-gray-500 rounded-full px-3 py-1 cursor-pointer hover:bg-accent-light  m-1">
-                    source <i class="fas fa-external-link-square-alt"></i>
-                </a>
-                <div class="bg-gray-200 dark:bg-gray-500 rounded-full px-3 py-1 cursor-pointer hover:bg-accent-light cursor-context-menu m-1">
+                <Popper content="Source" class="tip" :hover="true" placement="top">
+                    <a v-if="item?.url" :href="item?.url" 
+                        target="_blank" rel="noopener" 
+                        class="bg-gray-200 dark:bg-gray-500 rounded-full px-2 py-1 cursor-pointer hover:bg-accent-light  m-1">
+                        <i class="fas fa-external-link-alt"></i>
+                    </a>
+                </Popper>
+                <Popper content="Share" class="tip" :hover="true" placement="top">
+                    <a :href="'mailto:?subject=Resource%20Discovery%20Portal&amp;body=Check this out: http://rdp.biothings.io/resources/' + item?.['resourceTypeName'] + '/' + item._id" 
+                        target="_self" rel="noopener" aria-label="E-Mail" 
+                        class="bg-gray-200 dark:bg-gray-500  rounded-full px-2 py-1 cursor-pointer hover:bg-accent-light  m-1">
+                        <i class="fas fa-envelope"></i>
+                    </a>
+                </Popper>
+                <div class="bg-gray-200 dark:bg-gray-500 rounded-full px-3 py-1 hover:bg-accent-light cursor-context-menu m-1">
                     <PopUpPreview :content="item" name="metadata" :theme="resourceInfo"></PopUpPreview>
                 </div>
-                <a :href="'mailto:?subject=Resource%20Discovery%20Portal&amp;body=Check this out: http://rdp.biothings.io/resources/' + item?.['resourceTypeName'] + '/' + item._id" 
-                    target="_self" rel="noopener" aria-label="E-Mail" 
-                    class="bg-gray-200 dark:bg-gray-500  rounded-full px-3 py-1 cursor-pointer hover:bg-accent-light  m-1">
-                    share <i class="fas fa-envelope"></i>
-                </a>
                 <router-link v-if="!fullView" 
                 class="bg-green-500 !text-white rounded-full px-3 py-1 text-center
                 cursor-pointer hover:bg-green-400  m-4 md:m-1 md:ml-8 w-3/4 md:w-auto" 
                 :to="{ path: '/resources/' + item?.['resourceTypeName'] + '/' + item._id }">more info <i class="fas fa-arrow-alt-circle-right"></i></router-link>
                 <div class="p-1 w-full">
-                    Description: <Description :text="description" :expanded="fullView ? true: false" :copy="false"></Description>
+                    Description: <Description v-for="description, i in descriptions" :key="i + 'desc'" :text="description" :expanded="fullView ? true: false" :copy="false"></Description>
                 </div>
             </div>
             <!-- Preview badges -->
@@ -62,15 +72,18 @@
                     <template v-for="(text, field) in badge" :key="text">
                         <div class="px-2 py-1 m-1 hover:bg-accent rounded-md text-xs" :class="resourceInfo.bg2" v-if="text">
                             <router-link :to='{ path: "/search", query: { "q":  field + `:"` + text + `"`}}' class="!text-gray-700 dark:!text-white hover:!text-white">
+                                <i v-if="text == 'Mac'" class="fab fa-apple mr-1"></i>
+                                <i v-else-if="text == 'Windows'" class="fab fa-windows mr-1"></i>
+                                <i v-else-if="text == 'Linux'" class="fab fa-linux mr-1"></i>
+                                <i v-else-if="text == 'Python'" class="fab fa-python mr-1"></i>
                                 {{text}}
                             </router-link>
                         </div>
                     </template>
                 </template>
             </div>
-
-            <div v-if="open && !fullView" class="flex justify-center items-center text-sm">
-                <!-- Preview fields -->
+            <!-- Preview fields -->
+            <!-- <div v-if="open && !fullView" class="flex justify-center items-center text-sm">
                 <table class="w-full  my-3">
                     <tbody>
                         <template v-for="info, field in preview_fields" :key="field">
@@ -79,8 +92,8 @@
                                     <b>{{$filters.readableName(field)}}:</b>
                                 </td>
                                 <td class="group flex justify-start items-center">
-                                    <template v-if="info.includes('http')">
-                                        <a :href="info" target="_blank">{{info.length > 70 ? info.substring(0, 70) + '...' : info}}</a>
+                                    <template v-if="info?.includes('http')">
+                                        <a :href="info" target="_blank">{{info.length > 70 ? info?.substring(0, 70) + '...' : info}}</a>
                                     </template>
                                     <template v-else>
                                         <Description :text="info"></Description>
@@ -93,7 +106,7 @@
                         </template>
                     </tbody>
                 </table>
-            </div>
+            </div> -->
             <div v-if="open || fullView || expandedView" class="p-2">
                 <div class="flex justify-around mt-1 p-3 dark:text-white text-sm">
                     <!-- created date -->
@@ -315,13 +328,16 @@ export default {
             return this.$store.getters.getTheme(this.item?.["resourceTypeName"]);
         },
         title: function () {
-            let possibleFields = ['title', 'name', 'label', 'toolName', 'article_title'];
+            let possibleFields = ['name','title', 'label', 'toolName', 'article_title'];
 
             let match =  possibleFields.find( field => {
-                if (field in this.item && this.item[field] !== null) {
+                if (field in this.item) {
                     return true
                 }
             });
+            if (this.item[match] == null || this.item[match] == '') {
+                return this.item?.['resourceTypeName'] + ' title unavailable.'
+            }
             //match is string
             if (typeof this.item[match] == 'string') {
                 return this.item[match];
@@ -335,7 +351,7 @@ export default {
                 }
             }
         },
-        description: function (){
+        descriptions: function (){
             let checkStringPath = function(o, s) {
                 s = s.replace(/\[(\w+)\]/g, '.$1'); // convert indexes to properties
                 s = s.replace(/^\./, '');           // strip a leading dot
@@ -350,22 +366,45 @@ export default {
                 }
                 return o;
             }
-            let match = '';
+            let match = null;
             let possible_fields = ['project_abstract.abstract_text', 'description', 'abstract', 'purpose'];
 
-            possible_fields.forEach((field) => {
-                if (field.includes('.')) {
-                    let res = checkStringPath(this.item, field)
-                    if (res) {
-                        match = res;
-                    }
-                }else{
-                    if (Object.hasOwnProperty.call(this.item, field)) {
-                        match = this.item[field];
-                    }
+            for (let i = 0; i < possible_fields.length; i++) {
+                const field = possible_fields[i];
+                if (field.includes('.') && checkStringPath(this.item, field)) {
+                    match = checkStringPath(this.item, field);
+                    break; 
+                }if (Object.hasOwnProperty.call(this.item, field)) {
+                    match = this.item[field];
+                    break; 
                 }
-            })
-            return match;
+            }
+
+            if (match) {
+                if (
+                    typeof match === 'object' &&
+                    !Array.isArray(match) &&
+                    match !== null
+                ){
+                    return Object.entries(match);
+                }
+                else if (Array.isArray(match)) {
+                    //check if not empty
+                    if(match?.length){
+                        
+                        return match.map((value) => {
+                            if (Object.keys(value)?.length) {
+                                return Object.values(value).join(' 📗 ')
+                            }else{
+                                return value
+                            }
+                        });
+                    }
+                    return match;
+                }else{
+                    return [match]
+                }
+            }
         },
         created: function () {
             let possibleFields = ['date_created', 'dateCreated', 'datePublished'];
@@ -409,16 +448,16 @@ export default {
                 }
             }
         },
-        preview_fields: function(){
-            let allowed = ['url', 'published', 'created', 'doi', 'abstract'];
-            let res = {};
-            allowed.forEach(field => {
-                if (Object.hasOwnProperty.call(this.item, field)) {
-                    res[field] = this.item[field]
-                }
-            });
-            return res;
-        },
+        // preview_fields: function(){
+        //     let allowed = ['url', 'published', 'created', 'doi'];
+        //     let res = {};
+        //     allowed.forEach(field => {
+        //         if (Object.hasOwnProperty.call(this.item, field)) {
+        //             res[field] = this.item[field]
+        //         }
+        //     });
+        //     return res;
+        // },
         preview_badges: function () {
             let matches = [];
             //specified in search.js mapping
