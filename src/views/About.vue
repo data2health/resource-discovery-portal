@@ -83,7 +83,7 @@
                     <img class="h-12 rounded-xl" :alt="source.name" :src="source.img">
                   </a>
                 </div>
-                <h2 class="font-bold break-words">{{source.name || source.term}}</h2>
+                <h4 class="font-bold break-words">{{source.name || source.term}}</h4>
                 <p class=" text-main dark:text-white">{{$filters.numberWithCommas(source.count)}} Resources</p>
                 <p  v-html="source.description"></p>
                 <p><a :href="source.link" target="_blank" rel="nonreferrer">For citation information and to learn more, click here. <i class="fas fa-external-link-square-alt"></i></a></p>

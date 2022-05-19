@@ -92,7 +92,7 @@ export const about= {
                     'name': 'Arman Mikaili',
                     'picture': '/assets/img/team/arman.jpeg',
                     'social': {
-                        // 'github': 'https://github.com/',
+                        'linkedin': 'https://www.linkedin.com/in/arman-mikaili-44888213/',
                     },
                     
                 },
