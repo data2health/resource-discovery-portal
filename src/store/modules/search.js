@@ -854,13 +854,23 @@ export default {
         }
     },
     mutations: {
-        selectAllResources(state){
-            if (state.allSelected) {
-                state.filters['resourceTypeName.keyword'].forEach((f) => f.active = false);
-            } else {
-                state.filters['resourceTypeName.keyword'].forEach((f) => f.active = true);
+        selectAllResources(state, payload){
+            if (payload?.resources) {
+                if (payload?.resources) {
+                    payload?.resources.forEach(filter => {
+                        let found = state.filters['resourceTypeName.keyword'].find(f => f.term == filter.term);
+                        console.log(found.active)
+                        found.active = !found.active
+                    });
+                }
+            }else{
+                if (state.allSelected) {
+                    state.filters['resourceTypeName.keyword'].forEach((f) => f.active = false);
+                } else {
+                    state.filters['resourceTypeName.keyword'].forEach((f) => f.active = true);
+                }
+                state.allSelected = !state.allSelected
             }
-            state.allSelected = !state.allSelected
         },
         saveMostRecent(state, payload){
             state.mostRecentResults = payload.value;

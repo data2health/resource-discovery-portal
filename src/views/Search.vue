@@ -33,31 +33,42 @@
         <div class="container mx-auto px-4 max-w-7xl">
             
             <div class="flex relative items-start flex-wrap md:flex-nowrap">
-                <div class="w-full md:w-1/5 inline md:sticky top-40 space-y-3 mt-10">
+                <div class="w-full md:w-1/4 inline md:sticky top-40 space-y-3 mt-10">
                     <!-- type facets -->
-                    <div class="p-3 bg-gray-200 dark:bg-gray-700 rounded-lg ">
+                    <div class="p-3 bg-gray-200 dark:bg-gray-700 rounded-lg">
                         <details open>
                             <summary class="cursor-pointer p-1"><h2 class="text-black dark:text-white inline text-sm">Resource Types</h2></summary>
-                            <button @click="selectAllResources()" class="bg-gray-300 hover:bg-gray-200 text-gray-600 p-1 rounded text-xs my-2">
-                                {{allSelected ? "Unselect All" : "Select All"}}
+                            <button @click="selectAllResources(false)" class="bg-gray-300 hover:bg-gray-200 text-gray-600 p-1 rounded text-xs my-2">
+                                {{allSelected ? "Unselect All Categories" : "Select All Types"}}
                             </button>
-                            <template v-for="type in filters['resourceTypeName.keyword']" :key="type + 'f'">
-                                <div v-if="type.result_count" class="flex mb-3 group justify-start items-center">
-                                    <input 
-                                        type="checkbox" 
-                                        :checked="type.active"
-                                        @click="activateFilter(type)"
-                                        :id="type.term" 
-                                        class="focus:ring-0 checked:!bg-accent-dark rounded border-gray-200 group-hover:border-accent-light mr-2">
-                                    <img :src="type.img" :alt="type" class="h-5 mr-2 inline">
-                                    <div class="flex justify-start items-center">
-                                        <label class="text-xs cursor-pointer group-hover:text-gray-600 dark:group-hover:text-gray-200 font-bold leading-tight" :class="type.active ? type.text : ''" :for="type.term">
-                                            {{$filters.readableName(type.term)}}
-                                        </label>
-                                        <small v-if="type.result_count" class="text-xs text-gray-900 dark:text-gray-200 block md:inline md:ml-2"><span>({{$filters.numberWithCommas(type.result_count)}})</span></small>
-                                    </div>
+                            <details v-for="(items, group) in grouped" :key="group" open>
+                                <summary class="text-xs text-gray-500 dark:text-gray-300 py-2 cursor-pointer select-none" :aria-label="'Expand ' + group + ' filters'">
+                                    {{group}}
+                                </summary>
+                                <div class="ml-2">
+                                    <button v-if="canSelectAll(items)" @click="selectAllResources(items)" class="bg-gray-300 hover:bg-gray-200 text-gray-600 px-2 py-1 rounded-2xl text-xs my-2">
+                                        Select All
+                                    </button>
+                                    <template v-for="type in items" :key="type + 'f'">
+                                        <div v-if="type.result_count" class="flex mb-3 group justify-start items-center">
+                                            <input 
+                                                type="checkbox" 
+                                                :checked="type.active"
+                                                @click="activateFilter(type)"
+                                                :id="type.term" 
+                                                :aria-label="'Click to toggle ' + type + ' filter'"
+                                                class="focus:ring-0 checked:!bg-accent-dark rounded border-gray-200 group-hover:border-accent-light mr-2">
+                                            <img :src="type.img" :alt="type" class="h-5 mr-2 inline">
+                                            <div class="flex justify-start items-center">
+                                                <label class="text-xs cursor-pointer group-hover:text-gray-600 dark:group-hover:text-gray-200 font-bold leading-tight" :class="type.active ? type.text : ''" :for="type.term">
+                                                    {{$filters.readableName(type.term)}}
+                                                </label>
+                                                <small v-if="type.result_count" class="text-xs text-gray-900 dark:text-gray-200 block md:inline md:ml-2"><span>({{$filters.numberWithCommas(type.result_count)}})</span></small>
+                                            </div>
+                                        </div>
+                                    </template>
                                 </div>
-                            </template>
+                            </details>
                         </details>
                     </div>
                     
@@ -154,7 +165,15 @@ export default {
             highlighter: null,
             // q:'',
             url: window.location.href,
-            download_data: {}
+            download_data: {},
+            'groups':{
+                'Multimedia':['Video', 'Playlist', 'Video Channel', 'Multimedia Object'],
+                'People & Institutions':['Profile', 'Institution'],
+                'Funding':['Funding Opportunity', 'Grant'],
+                'Education': ['Education Resource'],
+                'Research': ['Dataset', 'Clinical Trial', 'Protocol', 'Repository', 'Tool', 'Publication', 'Service', 'Research Instrument'],
+                "Creative Works": ['Other Creative Work']
+            },
         }
     },
     components: {
@@ -166,8 +185,8 @@ export default {
         Result
     },
     methods:{
-        selectAllResources(){
-            this.$store.commit('selectAllResources');
+        selectAllResources(items){
+            this.$store.commit('selectAllResources', {'resources': items});
             this.$store.dispatch('search');
         },
         search(){
@@ -200,6 +219,16 @@ export default {
         activateFilter (type){
             this.$store.dispatch('activateFilter', {'section': 'resourceTypeName.keyword', 'filter': type});
             this.$store.dispatch('search');
+        },
+        canSelectAll(items){
+            if (items.length < 2) {
+                return false
+            }
+            if (items.find((f) => f.result_count)) {
+                return true
+            }else{
+                return false
+            }
         }
     },
     watch:{
@@ -243,6 +272,31 @@ export default {
             set(value) {
                 this.$store.commit('saveQuery', {value: value});
             }
+        },
+        grouped: function(){
+            let groups = {}
+            function addToGroups(name, value) {
+                if (Object.hasOwnProperty.call(groups, name)) {
+                    groups[name].push(value)
+                }else{
+                    groups[name] = [value]
+                }
+            }
+            this.filters['resourceTypeName.keyword'].forEach(resource => {
+                //Video
+                let found = false;
+                for (const option in this.groups) {
+                    let group_members = this.groups[option];
+                    if (group_members.includes(resource.term)) {
+                        addToGroups(option, resource);
+                        found = true;
+                    }
+                }
+                if (!found) {
+                    addToGroups('More', resource);
+                }
+            });
+            return groups;
         }
     },
     

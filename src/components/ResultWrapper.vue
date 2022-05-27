@@ -17,7 +17,13 @@
                     <small @click.prevent="open = !open" class="text-gray-400 dark:text-gray-400 cursor-pointer" v-if="item?.raw?.company"> | {{item?.raw?.company}}</small>
                     <p class=" mt-1">{{item?.raw?.bio}}</p>
                 </template>
-                <!--🦄 Profiles Only 🦄-->
+                <!--🦄 Institution Only 🦄-->
+                <template v-if="item?.['resourceTypeName'] == 'Institution'">
+                    <p class="inline cursor-pointer text-blue-500 hover:text-blue-400 dark:text-white" @click.prevent="open = !open">
+                        {{title}} <span title="Repository" class="text-accent text-sm" v-if="item?.url?.includes('github')">(<i class="fab fa-github-alt"></i>)</span>
+                    </p>
+                </template>
+                <!--🦄 Playlist Only 🦄-->
                 <template v-else-if="item?.['resourceTypeName'] == 'Playlist'">
                     <p class="cursor-pointer text-blue-500 hover:text-blue-400 dark:text-white" @click.prevent="open = !open">
                         {{title}} <b class="text-xs" :class="item?.video?.length ? 'text-red-500 dark:text-red-300': 'text-gray-400'">({{item?.video?.length || 0 }}) videos</b>
@@ -82,31 +88,6 @@
                     </template>
                 </template>
             </div>
-            <!-- Preview fields -->
-            <!-- <div v-if="open && !fullView" class="flex justify-center items-center text-sm">
-                <table class="w-full  my-3">
-                    <tbody>
-                        <template v-for="info, field in preview_fields" :key="field">
-                            <tr class="border border-b-2 border-t-0 border-r-0 border-l-0 border-gray-100 p-1">
-                                <td>
-                                    <b>{{$filters.readableName(field)}}:</b>
-                                </td>
-                                <td class="group flex justify-start items-center">
-                                    <template v-if="info?.includes('http')">
-                                        <a :href="info" target="_blank">{{info.length > 70 ? info?.substring(0, 70) + '...' : info}}</a>
-                                    </template>
-                                    <template v-else>
-                                        <Description :text="info"></Description>
-                                    </template>
-                                    <span class="ml-3 opacity-0 group-hover:opacity-100">
-                                        <CopyButton :copy="info" copy_msg="Copy"></CopyButton>
-                                    </span>
-                                </td>
-                            </tr>
-                        </template>
-                    </tbody>
-                </table>
-            </div> -->
             <div v-if="open || fullView || expandedView" class="p-2">
                 <div class="flex justify-around mt-1 p-3 dark:text-white text-sm">
                     <!-- created date -->
@@ -152,6 +133,9 @@
                     </template>
                     <template v-else-if="item?.['resourceTypeName'] == 'Profile'">
                         <Person :item="item" :theme="resourceInfo"></Person>
+                    </template>
+                    <template v-else-if="item?.['resourceTypeName'] == 'Institution'">
+                        <Institution :item="item" :theme="resourceInfo"></Institution>
                     </template>
                     <template v-else-if="item?.['resourceTypeName'] == 'Funding Opportunity'">
                         <Funding :item="item" :theme="resourceInfo"></Funding>
@@ -254,6 +238,12 @@ const Person = defineAsyncComponent({
     errorComponent: DefaultResult
 })
 
+const Institution = defineAsyncComponent({
+    loader: () => import('./result_types/Institution.vue'),
+    delay: 200,
+    errorComponent: DefaultResult
+})
+
 const Funding = defineAsyncComponent({
     loader: () => import('./result_types/Funding.vue'),
     delay: 200,
@@ -314,7 +304,8 @@ export default {
         Funding,
         Grant,
         Instrument,
-        Video
+        Video,
+        Institution
     },
     computed:{
         ...mapGetters([
@@ -448,16 +439,6 @@ export default {
                 }
             }
         },
-        // preview_fields: function(){
-        //     let allowed = ['url', 'published', 'created', 'doi'];
-        //     let res = {};
-        //     allowed.forEach(field => {
-        //         if (Object.hasOwnProperty.call(this.item, field)) {
-        //             res[field] = this.item[field]
-        //         }
-        //     });
-        //     return res;
-        // },
         preview_badges: function () {
             let matches = [];
             //specified in search.js mapping
@@ -504,10 +485,12 @@ export default {
             return matches;
         },
         videoThumbnail: function(){
-            let prefs = ['standard', 'default', 'high'];
-            for (let i = 0; i < prefs.length; i++) {
-                if (this.item?.video_thumbnail.find(thumbnail => thumbnail.size == prefs[i])) {
-                    return this.item?.video_thumbnail.find(thumbnail => thumbnail.size == prefs[i]);
+            if (this.item?.video_thumbnail) {
+                let prefs = ['standard', 'default', 'high'];
+                for (let i = 0; i < prefs.length; i++) {
+                    if (this.item?.video_thumbnail.find(thumbnail => thumbnail.size == prefs[i])) {
+                        return this.item?.video_thumbnail.find(thumbnail => thumbnail.size == prefs[i]);
+                    }
                 }
             }
         },
